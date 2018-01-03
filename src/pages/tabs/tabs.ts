@@ -8,12 +8,21 @@ import { HomePage } from '../home/home';
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-
-  tab1Root = HomePage;
-  tab2Root = AboutPage;
-  tab3Root = ContactPage;
+  tabRoots: Object[];
 
   constructor() {
-
+    this.tabRoots = [{
+      root: HomePage,
+      title: 'Home',
+      icon: 'home'
+    },{
+      root: ContactPage,
+      title: 'Contact',
+      icon: 'notifications'
+    },{
+      root: AboutPage,
+      title: 'About',
+      icon: 'document'
+    }]
   }
 }
