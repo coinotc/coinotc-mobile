@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 
 import { AboutPage } from '../about/about';
 import { ContactPage } from '../contact/contact';
-import { HomePage } from '../home/home';
 import { OrderWindowPage } from '../order-window/order-window';
 import { ChatPage } from '../chat/chat';
+import { TradePage } from '../trade/trade';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -14,9 +14,9 @@ export class TabsPage {
 
   constructor() {
     this.tabRoots = [{
-      root: HomePage,
-      title: 'Home',
-      icon: 'home'
+      root:TradePage,
+      title: 'Trade',
+      icon: 'logo-bitcoin'
     }, {
       root: OrderWindowPage,
       title: 'OrderWindow',
