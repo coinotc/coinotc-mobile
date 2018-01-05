@@ -21,12 +21,12 @@
 <ion-content padding>
   <div [ngSwitch]="buynsell">
     <ion-list *ngSwitchCase="'buy'" >
-      <super-tabs id="mainTabs" selectedTabIndex="1" toolbarColor="light" toolbarBackground="dark" indicatorColor="light" badgeColor="light">
+      <super-tabs id="buyTabs" selectedTabIndex="1" toolbarColor="light" toolbarBackground="dark" indicatorColor="light" badgeColor="light">
         <super-tab *ngFor="let crypto of buycryptos" [root]="crypto.root" title="{{crypto.title}}" icon="{{crypto.icon}}" ></super-tab>
       </super-tabs>
     </ion-list>
     <ion-list *ngSwitchCase="'sell'" >
-      <super-tabs id="mainTabs" selectedTabIndex="1" toolbarColor="light" toolbarBackground="dark" indicatorColor="light" badgeColor="light">
+      <super-tabs id="sellTabs" selectedTabIndex="1" toolbarColor="light" toolbarBackground="dark" indicatorColor="light" badgeColor="light">
         <super-tab *ngFor="let crypto of sellcryptos" [root]="crypto.root" title="{{crypto.title}}" icon="{{crypto.icon}}" ></super-tab>
       </super-tabs>
     </ion-list>
