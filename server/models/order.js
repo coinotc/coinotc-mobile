@@ -1,15 +1,16 @@
 var mongoose = require('mongoose');
 
-module.exports = mongoose.model('orderInformation', {
-    buyer: mongoose.Schema.Types.ObjectId,
-    seller: mongoose.Schema.Types.ObjectId,
+module.exports = mongoose.model('order', {
+    buyer: String,
+    seller: String,
     crypto: String,
     country: String,
-    quantity: Number,
+    fiat: String,
     price: Number,
     amount: Number,
-    fiat: String,
+    quantity: Number,
     payment: String,
+    advertisement: String,
     limit: Number,
     finished: Boolean
 });

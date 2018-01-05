@@ -20,6 +20,7 @@ module.exports = function (app) {
         send.buyer = mongoose.Types.ObjectId()
         send.seller = mongoose.Types.ObjectId();
         send.crypto = get.crypto;
+        send.country = get.country;
         send.quantity = get.quantity;
         send.price = get.price;
         send.amount = get.amount;

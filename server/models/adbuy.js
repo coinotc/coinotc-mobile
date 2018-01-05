@@ -9,6 +9,6 @@ module.exports = mongoose.model('adbuy', {
     fiat: String,
     payment: String,
     limit: Number,
-    message: String,
+    advertisement: String,
 
 });

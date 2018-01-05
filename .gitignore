@@ -33,4 +33,5 @@ $RECYCLE.BIN/
 .env
 .DS_Store
 Thumbs.db
+.env
 UserInterfaceState.xcuserstate
