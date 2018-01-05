@@ -1,6 +1,6 @@
-var Order = require('../../models/order');
+var Order = require('../models/order');
 
-const ORDERS_API_URL = '/api/v1/orders';
+const ORDERS_API_URL = '/api/orders';
 
 module.exports = function (app) {
 

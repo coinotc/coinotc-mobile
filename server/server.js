@@ -5,7 +5,6 @@ var cors = require('cors');
 var path = require('path');
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URL, { 
-    useMongoClient: true,
     autoIndex: false, // Don't build indexes
     autoReconnect: true,
     reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
@@ -29,7 +28,10 @@ app.use(bodyParser.json({ limit: '50mb'}));
 app.use(express.static(`${__dirname}/../dist/`, {maxAge: 31557600000}));
 app.use('/static', express.static(path.join(__dirname, '/../upload_tmp/')));
 
-require('./routes/api/order-routes')(app);
+require('./routes/order-routes')(app);
+require('./routes/codemana')(app);
+require('./routes/orgchart')(app);
+require('./routes/make-order')(app);
 
 app.listen(NODE_PORT, ()=>{
     console.log(`Server side started at ${NODE_PORT}`);
