@@ -5,6 +5,8 @@ import { ContactPage } from '../contact/contact';
 import { OrderListPage } from '../order-list/order-list';
 import { OrderWindowPage } from '../order-window/order-window';
 import { ChatPage } from '../chat/chat';
+import { MePage } from '../me/me';
+import { WalletPage } from '../wallet/wallet';
 import { TradePage } from '../trade/trade';
 
 @Component({
@@ -30,6 +32,14 @@ export class TabsPage {
       root: AboutPage,
       title: 'About',
       icon: 'document'
+    }, {
+      root: WalletPage,
+      title: 'Wallet',
+      icon: 'document'
+    }, {
+      root: MePage,
+      title: 'Me',
+      icon: 'person'
     }]
   }
 }

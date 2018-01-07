@@ -68,4 +68,5 @@
       "ios"
     ]
   }
+  // "config": {"ionic_manual_treeshaking":false}
 }
