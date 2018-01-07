@@ -16,7 +16,7 @@ import { JwtServiceProvider } from '../jwt-service/jwt-service';
 */
 @Injectable()
 export class ApiServiceProvider {
-  private API_URL = 'https://localhost:3000/api';
+  private API_URL = 'http://localhost:3000/api';
 
 
   constructor(

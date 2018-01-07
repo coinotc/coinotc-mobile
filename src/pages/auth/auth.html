@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  
+
     <ion-navbar no-border-bottom>
       <ion-title >{{ authType === 'register' ? 'Sign Up' : 'Sign In' }}
         <!-- <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
@@ -27,9 +27,9 @@
         </ion-segment-button>
       </ion-segment>
     </ion-toolbar>
-  
+
   </ion-header>
-  
+
   <ion-content>
     <form [formGroup]="authForm" (ngSubmit)="submitForm()">
       <fieldset [disabled]="isSubmitting">
@@ -46,10 +46,10 @@
         </ion-list>
         <div padding>
           <button ion-button [disabled]="!authForm.valid" type="submit">
-            <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
-            <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a>
             {{ authType === 'register' ? 'Sign Up' : 'Sign In' }}
           </button>
+          <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
+          <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a>
         </div>
       </fieldset>
     </form>
