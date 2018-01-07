@@ -52,7 +52,11 @@ export class ChatPage {
 
   ionViewDidLoad() {
     // Presenting popup
-    this.alert.create({
+
+
+
+    this.alert.create(
+      {
       title: 'Username',
       inputs: [{
         name: 'username',
@@ -62,7 +66,7 @@ export class ChatPage {
         text: 'Continue',
         handler: username => {
           this.name = username;
-          // need to check list of logout users remove them as well. 
+          // need to check list of logout users remove them as well.
           this.typingStatus.on('value', data => {
             data.forEach(data => {
               console.log(data.val().id !== this.typeStatusId);
