@@ -1,10 +1,13 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler, ModuleWithProviders } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { SuperTabsModule } from 'ionic2-super-tabs';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
+import { IonicStorageModule } from '@ionic/storage';
+
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -32,6 +35,9 @@ import { OrderServiceProvider } from '../providers/order-service/order-service';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { ApiServiceProvider } from '../providers/api-service/api-service';
 import { JwtServiceProvider } from '../providers/jwt-service/jwt-service';
+
+const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
+
 
 @NgModule({
   declarations: [
@@ -61,7 +67,9 @@ import { JwtServiceProvider } from '../providers/jwt-service/jwt-service';
     MePageModule,
     AuthPageModule,
     HttpClientModule,
-    HttpModule
+    HttpModule,
+    rootRouting,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -91,7 +99,11 @@ import { JwtServiceProvider } from '../providers/jwt-service/jwt-service';
     OrderServiceProvider,
     UserServiceProvider,
     ApiServiceProvider,
-    JwtServiceProvider
+    JwtServiceProvider,
+    HttpModule,
+    HttpClientModule,
+    IonicStorageModule
+    
   ]
 })
 export class AppModule { }
