@@ -15,22 +15,22 @@
 
 <ion-content padding>
 
-  <ion-card [ngSwitch]="switched">
+  <ion-card [ngSwitch]="switched" *ngFor="let order of orders | async">
 
     <button ion-item (click)="onSwitch()">
-      ETH Trade ID:
-      <span style="float:right">status</span>
+        {{order.crypto}} Trade ID:{{order._id}}
+      <span style="float:right">{{order.finished? 'Completed':'Active'}}</span>
     </button>
 
     <ion-card-content *ngSwitchCase="true">
       Amount
-      <span style="float:right">TBD</span>
+      <span style="float:right">{{order.amount}}</span>
       <br> Quantity
-      <span style="float:right">TBD</span>
+      <span style="float:right">{{order.quantity}}</span>
       <br> Price
-      <span style="float:right">TBD</span>
-      <br> Buyer:TBD
-      <span style="float:right">Seller:TBD</span>
+      <span style="float:right">{{order.price}}</span>
+      <br> Buyer:{{order.buyer}}
+      <span style="float:right">Seller:{{order.seller}}</span>
       <br> AD Message:TBD
     </ion-card-content>
 

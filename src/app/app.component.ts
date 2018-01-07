@@ -3,6 +3,8 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { UserServiceProvider } from '../providers/user-service/user-service';
+
 import { TabsPage } from '../pages/tabs/tabs';
 import * as firebase from 'firebase';
 
@@ -12,7 +14,8 @@ import * as firebase from 'firebase';
 export class MyApp {
   rootPage: any = TabsPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(private userService: UserServiceProvider,
+    platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     let config = {
       apiKey: "AIzaSyDnDHVLJ2H3mI-eXBF9oldYhr9olRkalKs",
       authDomain: "chat-cb8c1.firebaseapp.com",
@@ -28,5 +31,8 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+  }
+  ngOnInit() {
+    this.userService.populate();
   }
 }

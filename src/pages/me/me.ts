@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams,ModalController } from 'ionic-angular';
+import { AuthPage } from '../auth/auth';
 /**
  * Generated class for the MePage page.
  *
@@ -26,7 +26,8 @@ export class MePage {
   };
 
   constructor(public navCtrl: NavController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    private modalCtrl:ModalController
     ) {
   }
  
@@ -48,5 +49,10 @@ export class MePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MePage');
   }
-
+  login(){
+    let modal = this.modalCtrl.create(AuthPage, {
+      isModal:true
+    });
+    modal.present();
+  }
 }
