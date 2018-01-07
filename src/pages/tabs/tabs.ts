@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { AboutPage } from '../about/about';
 import { ContactPage } from '../contact/contact';
+import { OrderListPage } from '../order-list/order-list';
 import { OrderWindowPage } from '../order-window/order-window';
 import { ChatPage } from '../chat/chat';
 import { MePage } from '../me/me';
@@ -20,13 +21,9 @@ export class TabsPage {
       title: 'Trade',
       icon: 'logo-bitcoin'
     }, {
-      root: OrderWindowPage,
-      title: 'OrderWindow',
-      icon: 'paper'
-    }, {
-      root: ChatPage,
-      title: 'Chat',
-      icon: 'chatboxes'
+      root: OrderListPage,
+      title: 'OrderList',
+      icon :'list'
     }, {
       root: ContactPage,
       title: 'Contact',

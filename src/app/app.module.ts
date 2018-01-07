@@ -23,6 +23,7 @@ import { TradeBuyEthereumPage } from '../pages/trade-buy-ethereum/trade-buy-ethe
 import { TradeBuyMoneroPage } from '../pages/trade-buy-monero/trade-buy-monero';
 import { TradeBuyRipplePage } from '../pages/trade-buy-ripple/trade-buy-ripple';
 import { TradeBuyStellarPage } from '../pages/trade-buy-stellar/trade-buy-stellar';
+import { OrderListPage } from '../pages/order-list/order-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -50,6 +51,7 @@ import { JwtServiceProvider } from '../providers/jwt-service/jwt-service';
     TradeBuyEthereumPage,
     TradeBuyMoneroPage,
     TradeBuyRipplePage
+    OrderListPage
   ],
   imports: [
     BrowserModule,
@@ -77,7 +79,8 @@ import { JwtServiceProvider } from '../providers/jwt-service/jwt-service';
     TradeBuyEthereumPage,
     TradeBuyMoneroPage,
     TradeBuyRipplePage,
-    TradeBuyStellarPage
+    TradeBuyStellarPage,
+    OrderListPage
   ],
   providers: [
     StatusBar,
