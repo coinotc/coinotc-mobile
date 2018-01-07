@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
+import { OrderServiceProvider } from '../../providers/order-service/order-service';
+import { OrderInformation } from './orderInformation';
 
 /**
  * Generated class for the OrderWindowPage page.
@@ -15,10 +18,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class OrderWindowPage {
 
+  private orders: Observable<OrderInformation[]>;
   approved = 0;
   switched = false;
+  orderInfo;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private orderServiceProvider: OrderServiceProvider) {
+    this.orders = this.orderServiceProvider.getOrders(null);
+    this.orderInfo = navParams.data;
   }
 
   onSwitch() {
