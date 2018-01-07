@@ -36,6 +36,8 @@
     "cors": "^2.8.4",
     "debug": "~2.6.9",
     "dotenv": "^4.0.0",
+    "encodeurl": "^1.0.1",
+    "escape-html": "^1.0.3",
     "express": "~4.15.5",
     "firebase": "4.8.0",
     "ionic-angular": "3.9.2",
@@ -43,8 +45,10 @@
     "ionic2-super-tabs": "^4.1.5",
     "ionicons": "3.0.0",
     "jade": "~1.11.0",
+    "merge-descriptors": "^1.0.1",
     "mongoose": "^5.0.0-rc2",
     "morgan": "~1.9.0",
+    "parseurl": "^1.3.2",
     "rxjs": "5.5.2",
     "serve-favicon": "~2.4.5",
     "sw-toolbox": "3.6.0",
@@ -68,5 +72,4 @@
       "ios"
     ]
   }
-  // "config": {"ionic_manual_treeshaking":false}
 }

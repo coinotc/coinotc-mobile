@@ -13,6 +13,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { OrderWindowPage } from '../pages/order-window/order-window';
 import { ChatPage } from '../pages/chat/chat';
 import { MePageModule } from '../pages/me/me.module';
+import { AuthPageModule } from '../pages/auth/auth.module';
 import { WalletPage } from '../pages/wallet/wallet';
 import { TradePage } from '../pages/trade/trade';
 import { TradeSellEthereumPage } from '../pages/trade-sell-ethereum/trade-sell-ethereum';
@@ -50,7 +51,7 @@ import { JwtServiceProvider } from '../providers/jwt-service/jwt-service';
     TradeBuyStellarPage,
     TradeBuyEthereumPage,
     TradeBuyMoneroPage,
-    TradeBuyRipplePage
+    TradeBuyRipplePage,
     OrderListPage
   ],
   imports: [
@@ -58,6 +59,7 @@ import { JwtServiceProvider } from '../providers/jwt-service/jwt-service';
     IonicModule.forRoot(MyApp),
     SuperTabsModule.forRoot(),
     MePageModule,
+    AuthPageModule,
     HttpClientModule,
     HttpModule
   ],
