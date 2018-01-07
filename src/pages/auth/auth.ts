@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,ViewController, ToastController,  } from 'ionic-angular';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { Errors } from '../../models/errors.model';
+
 
 
 /**
@@ -15,12 +20,53 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'auth.html',
 })
 export class AuthPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  authType: 'register' | 'login' = 'login';
+  isSubmitting = false;
+  authForm: FormGroup;
+  isModal: boolean; // show close button only in a modal
+  public pet;
+  constructor(
+    public navCtrl: NavController,
+    private viewCtrl: ViewController,
+    private toastCtrl:ToastController,
+    private userService: UserServiceProvider,
+    private params: NavParams,
+    private fb: FormBuilder
+  ) {
+    // use FormBuilder to create a form group
+    this.authForm = this.fb.group({
+      'email': ['', Validators.required],
+      'password': ['', Validators.required]
+    });
+    this.isModal = !!params.get('isModal');
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AuthPage');
+  authTypeChange() {
+    if (this.authType === 'register') {
+      this.authForm.addControl('username', new FormControl());
+    }else{
+      this.authForm.removeControl('username');
+    }
   }
-
+  submitForm() {
+    this.isSubmitting = true;
+    const credentials = this.authForm.value;
+    this.userService.attemptAuth(this.authType, credentials).subscribe(
+      user => {
+        if(this.isModal) this.viewCtrl.dismiss();
+      },
+      (errors:Errors) => {
+        for(let field in errors.errors){
+          this.toastCtrl.create({
+            message:`${field} ${errors.errors[field]}`,
+            duration:3000
+          }).present();
+        }
+        this.isSubmitting = false;
+      }
+    );
+  }
+  close() {
+    this.viewCtrl.dismiss();
+  }
 }
+ 

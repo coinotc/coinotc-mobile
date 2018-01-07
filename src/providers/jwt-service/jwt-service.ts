@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the JwtServiceProvider provider.
@@ -11,21 +10,27 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class JwtServiceProvider {
 
-  constructor(public httpClent: HttpClient,
-    private http: Http) {
+  constructor(private storage: Storage) {
     console.log('Hello JwtServiceProvider Provider');
   }
 
-  getToken(): String {
-    return window.localStorage['jwtToken'];
+  public latestToken:string;
+
+  getToken(): Promise<String> {
+    return this.storage.ready().then(() => this.storage.get('jwtToken') as Promise<string>).then(token => {
+      this.latestToken = token;
+      return token;
+    });
   }
 
-  saveToken(token: String) {
-    window.localStorage['jwtToken'] = token;
+  saveToken(token: string): Promise<void> {
+    this.latestToken = token;
+    return this.storage.ready().then(() => this.storage.set('jwtToken', token) as Promise<void>);
   }
 
-  destroyToken() {
-    window.localStorage.removeItem('jwtToken');
+  destroyToken():Promise<void>{
+    this.latestToken = null;
+    return this.storage.remove('jwtToken');
   }
 
 }
