@@ -15,37 +15,54 @@
 
 
 <ion-content padding>
+  <div ion-item ion-fixed>
+    <ion-card [ngSwitch]="switched">
 
-  <ion-card [ngSwitch]="switched">
-
-    <button ion-item (click)="onSwitch()">
+      <button ion-item (click)="onSwitch()">
         {{orderInfo.crypto}} Trade ID:{{orderInfo._id}}
-      <span style="float:right">{{orderInfo.finished? 'Completed':'Active'}}</span>
-    </button>
+        <span style="float:right">{{orderInfo.finished? 'Completed':'Active'}}</span>
+      </button>
 
-    <ion-card-content *ngSwitchCase="true">
-      Amount
-      <span style="float:right">{{orderInfo.amount}}</span>
-      <br> Quantity
-      <span style="float:right">{{orderInfo.quantity}}</span>
-      <br> Price
-      <span style="float:right">{{orderInfo.price}}</span>
-      <br> Buyer:{{orderInfo.buyer}}
-      <span style="float:right">Seller:{{orderInfo.seller}}</span>
-      <br> AD Message:TBD
-    </ion-card-content>
+      <ion-card-content *ngSwitchCase="true">
+        Amount
+        <span style="float:right">{{orderInfo.amount}}</span>
+        <br> Quantity
+        <span style="float:right">{{orderInfo.quantity}}</span>
+        <br> Price
+        <span style="float:right">{{orderInfo.price}}</span>
+        <br> Buyer:{{orderInfo.buyer}}
+        <span style="float:right">Seller:{{orderInfo.seller}}</span>
+        <br> AD Message:TBD
+      </ion-card-content>
 
-  </ion-card>
+    </ion-card>
 
-  <div align=center [ngSwitch]="approved">
-    <button ion-button round *ngSwitchCase="0" (click)="onApprove()">Approved</button>
-    <button ion-button round *ngSwitchCase="1" (click)="onRating()">Trust</button>
-    <button ion-button round *ngSwitchCase="1" (click)="onRating()">Distrust</button>
-    <span *ngSwitchCase="2">You are good to exit!</span>
+    <div align=center [ngSwitch]="approved">
+      <button ion-button round *ngSwitchCase="0" (click)="onApprove()">Approved</button>
+      <button ion-button round *ngSwitchCase="1" (click)="onRating()">Trust</button>
+      <button ion-button round *ngSwitchCase="1" (click)="onRating()">Distrust</button>
+      <span *ngSwitchCase="2">You are good to exit!</span>
+    </div>
+    <div align=center>
+      <button ion-button round>Wallet</button>
+    </div>
   </div>
-  <div align=center>
-    <button ion-button round>Wallet</button>
-  </div>
 
-  
-</ion-content>  
+  <ion-list no-lines>
+    <ion-item *ngFor="let message of messagesList">
+      <h3>{{message.name}}</h3>
+      <p>{{message.message}}</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-item>
+    <ion-label>{{typing}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-input type="text" placeholder="type here..." [(ngModel)]="newmessage" (keypress)="onChange($event)" (keyup.enter)="send()"></ion-input>
+    <button ion-button clear item-right (click)="send()">Send</button>
+  </ion-item>
+</ion-footer>
