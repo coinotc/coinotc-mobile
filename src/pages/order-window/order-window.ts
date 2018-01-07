@@ -21,9 +21,11 @@ export class OrderWindowPage {
   private orders: Observable<OrderInformation[]>;
   approved = 0;
   switched = false;
+  orderInfo;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private orderServiceProvider: OrderServiceProvider) {
     this.orders = this.orderServiceProvider.getOrders(null);
+    this.orderInfo = navParams.data;
   }
 
   onSwitch() {

@@ -19,6 +19,7 @@ import { TradeBuyEthereumPage } from '../pages/trade-buy-ethereum/trade-buy-ethe
 import { TradeBuyMoneroPage } from '../pages/trade-buy-monero/trade-buy-monero';
 import { TradeBuyRipplePage } from '../pages/trade-buy-ripple/trade-buy-ripple';
 import { TradeBuyStellarPage } from '../pages/trade-buy-stellar/trade-buy-stellar';
+import { OrderListPage } from '../pages/order-list/order-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -42,7 +43,8 @@ import { OrderServiceProvider } from '../providers/order-service/order-service';
     TradeBuyEthereumPage,
     TradeBuyMoneroPage,
     TradeBuyRipplePage,
-    TradeBuyStellarPage
+    TradeBuyStellarPage,
+    OrderListPage
   ],
   imports: [
     BrowserModule,
@@ -67,7 +69,8 @@ import { OrderServiceProvider } from '../providers/order-service/order-service';
     TradeBuyEthereumPage,
     TradeBuyMoneroPage,
     TradeBuyRipplePage,
-    TradeBuyStellarPage
+    TradeBuyStellarPage,
+    OrderListPage
   ],
   providers: [
     StatusBar,
