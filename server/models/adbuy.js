@@ -2,13 +2,15 @@ var mongoose = require('mongoose');
 
 module.exports = mongoose.model('adbuy', {
     visible: Boolean,
+    owner: String,
     crypto: String,
-    target_price: Number,
+    country: String,
+    fiat: String,
+    price: Number,
     min_price: Number,
     max_price: Number,
     fiat: String,
     payment: String,
     limit: Number,
-    advertisement: String,
-
+    massage: String,
 });

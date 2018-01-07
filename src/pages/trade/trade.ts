@@ -1,13 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-// import { TradeSellEthereumPage } from '../trade-sell-ethereum/trade-sell-ethereum';
-// import { TradeSellMoneroPage } from '../trade-sell-monero/trade-sell-monero';
-// import { TradeSellRipplePage } from '../trade-sell-ripple/trade-sell-ripple';
-// import { TradeSellStellarPage } from '../trade-sell-stellar/trade-sell-stellar';
-// import { TradeBuyEthereumPage } from '../trade-buy-ethereum/trade-buy-ethereum';
-// import { TradeBuyMoneroPage } from '../trade-buy-monero/trade-buy-monero';
-// import { TradeBuyRipplePage } from '../trade-buy-ripple/trade-buy-ripple';
-// import { TradeBuyStellarPage } from '../trade-buy-stellar/trade-buy-stellar';
+import { AddadvertisementPage } from '../addadvertisement/addadvertisement'
 
 /**
  * Generated class for the TradePage page.
@@ -57,11 +50,16 @@ export class TradePage {
     title: 'Stellar',
     icon: 'stellar'
   }]
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TradePage');
   }
-
+  addbuyad() {
+    this.navCtrl.push(AddadvertisementPage, {type:'buy',title:'发布购买广告'})
+  }
+  addsellad() {
+    this.navCtrl.push(AddadvertisementPage, {type:'sell',title:'发布出售广告'})
+  }
 }

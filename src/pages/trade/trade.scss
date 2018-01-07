@@ -15,306 +15,318 @@ page-trade {
   .ion-md-stellar {
       content: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0%0D%0APSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8cGF0aCBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9%0D%0AImV2ZW5vZGQiIGQ9Ik0xMi43Nzg2MDU1LDEzLjUyNzIzNzUgQzExLjA5MDAxMzQsMTMuMTcwODc2%0D%0ANCA4LjYxMTk0OTQ1LDEzLjQ3MDI4MDQgNi4xMzk2MzU4LDE2LjY5Mzg3NjIgQzYuMDIwMTU3NDQs%0D%0AMTYuODUwMTQzMyA1Ljk2MTI2ODYxLDE3LjA4NTY0MTcgNi4yODU4OTI1MywxNi45ODI4MzM5IEM3%0D%0ALjA2NzkwNTkyLDE2LjczNTUxMzggOC42ODY0NTY0OSwxNi40NTMyNzA0IDEwLjYzODQyNjgsMTcu%0D%0ANDA2NDg4NyBDMTAuNjE4MjI4MiwxNy40NDI4OTk0IDEwLjYwMDM5OTYsMTcuNDc0ODE5IDEwLjU4%0D%0ANTAyMjgsMTcuNTAyMDYyMSBDMTAuMjEwNzYyNywxOC4xNjU2MjkgMTAuNDE4NzA3NiwxOC41Mjc4%0D%0AOTUyIDExLjA4NTg2MzYsMTkuMDA4MTY4MSBDMTEuMDg2MjU2LDE5LjAwODQ1MDQgMTEuMDg2NjQ5%0D%0ANCwxOS4wMDg3MzMyIDExLjA4NzA0MzcsMTkuMDA5MDE2OCBDMTAuODUyMjgxLDE5LjE3NzY0NDgg%0D%0AMTAuNjQxNjAzOCwxOS4zODk5NTA0IDEwLjQ2NzEzMjQsMTkuNjQzNzk4IEMxMC40NDcxMjc0LDE5%0D%0ALjY3Mjg0MDQgMTAuNDMwNzgwMSwxOS43MDMwMzU4IDEwLjQxMjE1ODcsMTkuNzMyNTYwMyBDOC45%0D%0AOTQ0Njk3NSwyMS44NjE0NzIzIDguNzU2MDg4MjYsMjQuMjE4NTYwMyA5Ljg5NDE0OTQ3LDI1LjAz%0D%0AOTI2MzggQzExLjAzMjQyMjEsMjUuODYwNzYyMiAxMy4xMTk0OTk2LDI0LjgzNjQzIDE0LjU5OTAw%0D%0AMzYsMjIuNzUyODczIEMxNC42MTk4MTU3LDIyLjcyNTMyMjUgMTQuNjQyMzMxNywyMi42OTk0NTI4%0D%0AIDE0LjY2MTk0NTksMjIuNjcwNTE0NyBDMTQuODM3OTMzMiwyMi40MTQ3NjQ2IDE0Ljk2Mjc1Mzcs%0D%0AMjIuMTM3ODU0MiAxNS4wMzg1OTM2LDIxLjg1MjQzODcgQzE1LjA1Nzg3NzcsMjEuODY2MzA5MSAx%0D%0ANS4wNzU2NzI2LDIxLjg3OTEwNjkgMTUuMDkxODkyMSwyMS44OTA3NzAyIEMxNS43NTk0NjU1LDIy%0D%0ALjM3MTI5MzYgMTYuMTYzMTA2MSwyMi40NDk2OTE5IDE2LjY0ODY5MDksMjEuODY2MDEzMiBDMTYu%0D%0ANjc1NjIzMiwyMS44MzM2MjM0IDE2LjcwODkxNjYsMjEuNzk0MDU0MSAxNi43NDgyMTc4LDIxLjc0%0D%0ANzY1MjkgQzE4LjMyNzgzMzYsMjMuMjg3NTM4MiAxOC42MTY1MzMsMjQuOTM2MTc0MSAxOC42NTEx%0D%0AMTc0LDI1Ljc2NDk2NDIgQzE4LjY2NTA2OSwyNi4xMDUwMjI4IDE4Ljg2MjM5LDI1Ljk3MTM3NDYg%0D%0AMTguOTY1ODM1NiwyNS44MDcwNzQ5IEMyMS4xNTUxNjY5LDIyLjMyNzQ1OCAyMC41MjEwNzE4LDE5%0D%0ALjg1NzYyNzUgMTkuNTkwOTMyLDE4LjM5NjI0MzggQzIwLjQwODU0NDYsMTcuNDE2MTAxNCAyMS4z%0D%0AMjA1NzgxLDE2LjMwNDU5MTEgMjIuMjMyMzIwOCwxNS4xNTQ3ODc0IEMyNC43ODA1NDkxLDExLjk0%0D%0AMjEwMTMgMjMuMjI1NzM0Miw2LjQxMjg1NDM3IDIyLjkxOTc3ODQsNi4xOTI1NjY0OCBMMjIuOTE1%0D%0ANzI4NCw2LjE5NzI3MjMgTDIyLjkxODQzNzEsNi4xOTE0OTExMiBDMjIuNjEyODEwMyw1Ljk3MTEx%0D%0AMzcxIDE2Ljk5MjQ5OTgsNi4zMzc3NDY0NCAxNC44ODk3NjE5LDkuODcwNjYwNDYgQzE0LjEzMTg4%0D%0AMjMsMTEuMTQ0MDE4NiAxMy40MDk3OTI0LDEyLjQwNDU4MjUgMTIuNzc4NjA1NSwxMy41MjcyMzc1%0D%0AIFogTTExLjczMzA2ODQsMTkuNDczODA4NiBDMTIuMTE4MzYwOCwxOS43NTEwNTAzIDEyLjYwNTgy%0D%0ANzcsMjAuMTAxODE4MiAxMy4wODkyNTA1LDIwLjQ0OTU0OTcgQzEzLjYyNzcwMjMsMjAuODM3MTAz%0D%0ANyAxNC4xNzE0ODQzLDIxLjIyODQ5NzMgMTQuNTczMjM0OSwyMS41MTc2MDk2IEMxNC41MjYyOTYz%0D%0ALDIxLjYyMjE2MjkgMTQuNDY4NzEyNiwyMS43MjM4MDY2IDE0LjQwMDIzNDksMjEuODIxMDc0OSBD%0D%0AMTQuMzg2MDU5MSwyMS44NDA5OTY3IDE0LjM3MDQ3NCwyMS44NTg3Njg3IDE0LjM1NTE5NjQsMjEu%0D%0AODc3NzE5OSBDMTMuMzEzMTk1LDIzLjMxMTUwNDkgMTEuODUwNzY4NywyNC4wMjE0NjU4IDExLjA1%0D%0AODUyNTMsMjMuNDYzNjE1NiBDMTAuMjY1Nzg4NiwyMi45MDU0ODUzIDEwLjQ0MTY1MDUsMjEuMjg4%0D%0AOTUxMSAxMS40NDA1NjA5LDE5LjgyNDY1MTUgQzExLjQ1Mzg0NjMsMTkuODA0NTUzNyAxMS40NjQ4%0D%0ANTEyLDE5Ljc4MzgwNDYgMTEuNDc5NDE3OCwxOS43NjM3Nzg1IEMxMS41NTUwOTk3LDE5LjY1NjI3%0D%0ANzEgMTEuNjQwMzA5MiwxOS41NTk1MDI2IDExLjczMzA2ODQsMTkuNDczODA4NiBaIE0xNiwzMiBD%0D%0ANy4xNjM0NDQsMzIgMCwyNC44MzY1NTYgMCwxNiBDMCw3LjE2MzQ0NCA3LjE2MzQ0NCwwIDE2LDAg%0D%0AQzI0LjgzNjU1NiwwIDMyLDcuMTYzNDQ0IDMyLDE2IEMzMiwyNC44MzY1NTYgMjQuODM2NTU2LDMy%0D%0AIDE2LDMyIFogTTE2LjY2NTE2MDEsMTAuNzAzNTcgQzE3LjM4NjgsOS42NjAxNjI4NyAxOC44MDMx%0D%0AODg2LDkuNDEwNzQyNjcgMTkuODI4NTYwOSwxMC4xNDU4MzA2IEMyMC44NTM5MzMxLDEwLjg4MDkx%0D%0AODYgMjEuMDk5OTI0NiwxMi4zMjI1MTQ3IDIwLjM3NzY1NjksMTMuMzY0OTUxMSBDMTkuNjU2Mjcz%0D%0AMywxNC40MDc5MDg4IDE4LjIzOTI3NjIsMTQuNjU3ODY5NyAxNy4yMTM5MDM5LDEzLjkyMjc4MTgg%0D%0AQzE2LjE4ODg4NCwxMy4xODc2MDI2IDE1Ljk0MzQyNDIsMTEuNzQ2NjE4OSAxNi42NjUxNjAxLDEw%0D%0ALjcwMzU3IFoiLz4KPC9zdmc+Cg==');
   };
+  .ion-ios-buy,
+  .ion-md-buy {
+    height: 30px;
+    width: 30px;
+      content: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyBjbGFzcz0iaWNvbiIgd2lkdGg9IjIwMHB4IiBoZWlnaHQ9IjIwMC4wMHB4IiB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbD0iIzMzMzMzMyIgZD0iTTgxMy40MTkzNTUgNDU4LjgzODcxIDc5MC4xOTM1NDggNTEwLjQ1MTYxMyA5MTkuMjI1ODA2IDU2OC43NzQxOTQgNTEyIDczNS40ODM4NzEgMTA1LjI5MDMyMyA1NjguNzc0MTk0IDIzNC4zMjI1ODEgNTEwLjQ1MTYxMyAyMTEuMDk2Nzc0IDQ1OC44Mzg3MSA1LjE2MTI5IDU1MS4yMjU4MDYgNS4xNjEyOSA4MTYgNTEyIDEwMjQgMTAxOS4zNTQ4MzkgODE2IDEwMTkuMzU0ODM5IDU1MS4yMjU4MDZaTTUxMiA1NjkuODA2NDUyIDczOS42MTI5MDMgMjc4LjE5MzU0OCA1OTcuMTYxMjkgMjc4LjE5MzU0OCA1OTcuMTYxMjkgMCA0MjcuMzU0ODM5IDAgNDI3LjM1NDgzOSAyNzguMTkzNTQ4IDI4NC45MDMyMjYgMjc4LjE5MzU0OFoiIC8+PC9zdmc+');
+  };
+  .ion-ios-sell,
+  .ion-md-sell {
+      height: 30px;
+      width: 30px;
+      content: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyBjbGFzcz0iaWNvbiIgd2lkdGg9IjIwMHB4IiBoZWlnaHQ9IjIwMC4wMHB4IiB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbD0iIzMzMzMzMyIgZD0iTTgxMy40MTkzNTUgNDU4LjgzODcxIDc5MC4xOTM1NDggNTEwLjQ1MTYxMyA5MTkuMjI1ODA2IDU2OC43NzQxOTQgNTEyIDczNS40ODM4NzEgMTA1LjI5MDMyMyA1NjguNzc0MTk0IDIzNC4zMjI1ODEgNTEwLjQ1MTYxMyAyMTEuMDk2Nzc0IDQ1OC44Mzg3MSA1LjE2MTI5IDU1MS4yMjU4MDYgNS4xNjEyOSA4MTYgNTEyIDEwMjQgMTAxOS4zNTQ4MzkgODE2IDEwMTkuMzU0ODM5IDU1MS4yMjU4MDZaTTQyNy4zNTQ4MzkgNTY5LjgwNjQ1MiA1OTcuMTYxMjkgNTY5LjgwNjQ1MiA1OTcuMTYxMjkgMjkxLjYxMjkwMyA3MzkuNjEyOTAzIDI5MS42MTI5MDMgNTEyIDAgMjg0LjkwMzIyNiAyOTEuNjEyOTAzIDQyNy4zNTQ4MzkgMjkxLjYxMjkwM1oiIC8+PC9zdmc+');
+  };
 }
 
-super-tabs {
+// super-tabs {
 
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    z-index: 1;
+//     height: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     overflow: hidden;
+//     z-index: 1;
   
-    > div.container {
+//     > div.container {
   
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-      display: flex;
-      z-index: 1;
+//       height: 100%;
+//       width: 100%;
+//       overflow: hidden;
+//       position: relative;
+//       display: flex;
+//       z-index: 1;
   
   
-      > div.inner-container {
+//       > div.inner-container {
   
-        position: relative;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        display: flex;
-        box-sizing: content-box;
+//         position: relative;
+//         width: 100%;
+//         height: 100%;
+//         z-index: 1;
+//         display: flex;
+//         box-sizing: content-box;
   
-      }
+//       }
   
   
-    }
+//     }
   
-    &:not([no-shadow]) {
+//     &:not([no-shadow]) {
   
-      &.tabs-placement-bottom {
-        > super-tabs-toolbar > ion-toolbar.toolbar::before {
-          top: -2px;
-          bottom: auto;
-          height: 2px;
-          background-position: 0 0;
-          content: '';
-        }
-      }
+//       &.tabs-placement-bottom {
+//         > super-tabs-toolbar > ion-toolbar.toolbar::before {
+//           top: -2px;
+//           bottom: auto;
+//           height: 2px;
+//           background-position: 0 0;
+//           content: '';
+//         }
+//       }
   
-      > super-tabs-toolbar > ion-toolbar.toolbar {
-        &::after, &::before {
-          position: absolute;
-          background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAHBAMAAADzDtBxAAAAD1BMVEUAAAAAAAAAAAAAAAAAAABPDueNAAAABXRSTlMUCS0gBIh/TXEAAAAaSURBVAjXYxCEAgY4UIICBmMogMsgFLtAAQCNSwXZKOdPxgAAAABJRU5ErkJggg==);
-          background-repeat: repeat-x;
-          width: 100%;
-          left: 0;
-        }
-        &::after {
-          content: '';
-          height: 5px;
-          background-position: 0 -2px;
-          bottom: -5px;
-        }
-        contain: inherit;
-        display: block;
-        overflow: visible;
-      }
+//       > super-tabs-toolbar > ion-toolbar.toolbar {
+//         &::after, &::before {
+//           position: absolute;
+//           background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAHBAMAAADzDtBxAAAAD1BMVEUAAAAAAAAAAAAAAAAAAABPDueNAAAABXRSTlMUCS0gBIh/TXEAAAAaSURBVAjXYxCEAgY4UIICBmMogMsgFLtAAQCNSwXZKOdPxgAAAABJRU5ErkJggg==);
+//           background-repeat: repeat-x;
+//           width: 100%;
+//           left: 0;
+//         }
+//         &::after {
+//           content: '';
+//           height: 5px;
+//           background-position: 0 -2px;
+//           bottom: -5px;
+//         }
+//         contain: inherit;
+//         display: block;
+//         overflow: visible;
+//       }
   
-    }
+//     }
   
-  }
+//   }
   
-  super-tabs.tabs-placement-bottom {
+//   super-tabs.tabs-placement-bottom {
   
-    flex-direction: column-reverse;
+//     flex-direction: column-reverse;
   
-    > super-tabs-toolbar > ion-toolbar.toolbar {
+//     > super-tabs-toolbar > ion-toolbar.toolbar {
   
-      padding: 0;
+//       padding: 0;
   
-      .tab-buttons-container {
-        .indicator {
-          top: 0;
-          bottom: auto;
-        }
+//       .tab-buttons-container {
+//         .indicator {
+//           top: 0;
+//           bottom: auto;
+//         }
   
-        ion-segment.segment.segment-md {
-          padding-top: 4px;
-        }
-      }
+//         ion-segment.segment.segment-md {
+//           padding-top: 4px;
+//         }
+//       }
   
-      &.scroll-tabs .tab-buttons-container .indicator {
-        margin-top: 0;
-        margin-bottom: -2px;
-      }
+//       &.scroll-tabs .tab-buttons-container .indicator {
+//         margin-top: 0;
+//         margin-bottom: -2px;
+//       }
   
-    }
+//     }
   
-  }
+//   }
   
-  ion-tabs super-tabs ion-content {
-    .scroll-content, .fixed-content {
-      margin-top: 0 !important;
-      margin-bottom: 0 !important;
-    }
-  }
+//   ion-tabs super-tabs ion-content {
+//     .scroll-content, .fixed-content {
+//       margin-top: 0 !important;
+//       margin-bottom: 0 !important;
+//     }
+//   }
   
   
   
   
   
-  //
-  // SuperTab styles
-  //
+//   //
+//   // SuperTab styles
+//   //
   
-  super-tab {
+//   super-tab {
   
-    height: 100%;
+//     height: 100%;
   
-    box-sizing: border-box;
-    display: block;
+//     box-sizing: border-box;
+//     display: block;
   
-    overflow: hidden;
-    z-index: 1;
+//     overflow: hidden;
+//     z-index: 1;
   
-    flex-shrink: 0;
-    position: relative;
+//     flex-shrink: 0;
+//     position: relative;
   
-  }
+//   }
   
   
   
   
   
-  //
-  // SuperTabsContainer styles
-  //
+//   //
+//   // SuperTabsContainer styles
+//   //
   
-  super-tabs-container {
+//   super-tabs-container {
   
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    z-index: 1;
+//     width: 100%;
+//     overflow: hidden;
+//     position: relative;
+//     display: flex;
+//     z-index: 1;
   
-    > div {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      display: flex;
-      box-sizing: content-box;
-      touch-action: pan-y;
-      user-select: none;
-      -webkit-user-drag: none;
-      -webkit-tap-highlight-color: rgba(0,0,0,0);
-    }
+//     > div {
+//       position: relative;
+//       width: 100%;
+//       height: 100%;
+//       z-index: 1;
+//       display: flex;
+//       box-sizing: content-box;
+//       touch-action: pan-y;
+//       user-select: none;
+//       -webkit-user-drag: none;
+//       -webkit-tap-highlight-color: rgba(0,0,0,0);
+//     }
   
-  }
+//   }
   
   
   
   
   
-  //
-  // SuperTabsToolbar styles
-  //
+//   //
+//   // SuperTabsToolbar styles
+//   //
   
-  super-tabs-toolbar {
+//   super-tabs-toolbar {
   
-    z-index: 2;
-    width: 100%;
-    display: block;
+//     z-index: 2;
+//     width: 100%;
+//     display: block;
   
-    > ion-toolbar.toolbar {
+//     > ion-toolbar.toolbar {
   
-      padding: 0;
-      min-height: 0;
+//       padding: 0;
+//       min-height: 0;
   
-      .tab-buttons-container {
-        touch-action: pan-y;
-        user-select: none;
-        -webkit-user-drag: none;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
-        overflow: hidden;
+//       .tab-buttons-container {
+//         touch-action: pan-y;
+//         user-select: none;
+//         -webkit-user-drag: none;
+//         -webkit-tap-highlight-color: rgba(0,0,0,0);
+//         overflow: hidden;
   
-        .tab-buttons {
-          display: flex;
-          flex: 1;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
+//         .tab-buttons {
+//           display: flex;
+//           flex: 1;
+//           align-items: center;
+//           justify-content: center;
+//           width: 100%;
   
-          super-tab-button {
+//           super-tab-button {
   
-            &:not(.selected) {
-              ion-icon, span:not(.badge) {
-                opacity: 0.7;
-              }
-            }
+//             &:not(.selected) {
+//               ion-icon, span:not(.badge) {
+//                 opacity: 0.7;
+//               }
+//             }
   
-            text-align: center;
+//             text-align: center;
   
-            flex: 1;
-            width: 0;
-            height: 48px;
-            font-weight: 500;
-            font-size: 14px;
-            text-transform: uppercase;
+//             flex: 1;
+//             width: 0;
+//             height: 48px;
+//             font-weight: 500;
+//             font-size: 14px;
+//             text-transform: uppercase;
   
-            margin-left: 0;
-            margin-right: 0;
+//             margin-left: 0;
+//             margin-right: 0;
   
-            position: relative;
-            display: block;
-            overflow: hidden;
+//             position: relative;
+//             display: block;
+//             overflow: hidden;
   
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            cursor: pointer;
+//             text-overflow: ellipsis;
+//             white-space: nowrap;
+//             cursor: pointer;
   
-            align-items: flex-end;
-            align-content: flex-end;
+//             align-items: flex-end;
+//             align-content: flex-end;
   
-            padding: 0 12px;
+//             padding: 0 12px;
   
-            &.title-only {
-              .title {
-                line-height: 48px;
-              }
-            }
+//             &.title-only {
+//               .title {
+//                 line-height: 48px;
+//               }
+//             }
   
-            &.icon-only {
-              ion-icon {
-                line-height: 48px;
-              }
-            }
+//             &.icon-only {
+//               ion-icon {
+//                 line-height: 48px;
+//               }
+//             }
   
-            &.title-and-icon {
-              height: 72px;
-              padding-top: 8px;
-              ion-icon {
-                margin-bottom: 10px;
-              }
-            }
+//             &.title-and-icon {
+//               height: 72px;
+//               padding-top: 8px;
+//               ion-icon {
+//                 margin-bottom: 10px;
+//               }
+//             }
   
-            ion-icon {
-              font-size: 24px;
-            }
+//             ion-icon {
+//               font-size: 24px;
+//             }
   
-            .title {
-              vertical-align: middle;
-              display: block;
-            }
+//             .title {
+//               vertical-align: middle;
+//               display: block;
+//             }
   
-            .badge {
-              position: absolute;
-              top: 0;
-              right: 4px;
-            }
+//             .badge {
+//               position: absolute;
+//               top: 0;
+//               right: 4px;
+//             }
   
-          }
+//           }
   
-        }
+//         }
   
-        .indicator {
-          bottom: 0;
-          position: absolute;
-          z-index: 2;
-          height: 2px;
-          width: 100px;
-          transform: scaleX(0);
-          transform-origin: 0;
-        }
+//         .indicator {
+//           bottom: 0;
+//           position: absolute;
+//           z-index: 2;
+//           height: 2px;
+//           width: 100px;
+//           transform: scaleX(0);
+//           transform-origin: 0;
+//         }
   
-      }
+//       }
   
-      &.scroll-tabs {
-        .tab-buttons-container {
-          //padding-left: 60px;
+//       &.scroll-tabs {
+//         .tab-buttons-container {
+//           //padding-left: 60px;
   
-          .tab-buttons {
-            position: relative;
-            justify-content: flex-start;
-            super-tab-button {
-              min-width: 50px;
-              max-width: 100%;
-              width: auto;
-              display: inline-table;
-              overflow: visible;
+//           .tab-buttons {
+//             position: relative;
+//             justify-content: flex-start;
+//             super-tab-button {
+//               min-width: 50px;
+//               max-width: 100%;
+//               width: auto;
+//               display: inline-table;
+//               overflow: visible;
   
-            }
-          }
+//             }
+//           }
   
-          .indicator {
-            position: relative;
-            margin-top: -2px;
-          }
+//           .indicator {
+//             position: relative;
+//             margin-top: -2px;
+//           }
   
-        }
-      }
+//         }
+//       }
   
-    }
+//     }
   
-  }
+//   }

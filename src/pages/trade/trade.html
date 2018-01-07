@@ -8,7 +8,7 @@
 
   <ion-navbar>
     <ion-title text-center>
-      <ion-segment [(ngModel)]="buynsell" >
+      <ion-segment [(ngModel)]="buynsell">
         <ion-segment-button value="buy">Wanna Buy</ion-segment-button>
         <ion-segment-button value="sell">Wanna Sell</ion-segment-button>
       </ion-segment>
@@ -18,17 +18,27 @@
 </ion-header>
 
 
-<ion-content padding>
-  <div [ngSwitch]="buynsell">
-    <ion-list *ngSwitchCase="'buy'" >
-      <super-tabs id="buyTabs" selectedTabIndex="1" toolbarColor="light" toolbarBackground="dark" indicatorColor="light" badgeColor="light">
-        <super-tab *ngFor="let crypto of buycryptos" [root]="crypto.root" title="{{crypto.title}}" icon="{{crypto.icon}}" ></super-tab>
-      </super-tabs>
-    </ion-list>
-    <ion-list *ngSwitchCase="'sell'" >
-      <super-tabs id="sellTabs" selectedTabIndex="1" toolbarColor="light" toolbarBackground="dark" indicatorColor="light" badgeColor="light">
-        <super-tab *ngFor="let crypto of sellcryptos" [root]="crypto.root" title="{{crypto.title}}" icon="{{crypto.icon}}" ></super-tab>
-      </super-tabs>
-    </ion-list>
-  </div>
+<ion-content padding [ngSwitch]="buynsell">
+  <super-tabs *ngSwitchCase="'buy'" id="buyTabs" selectedTabIndex="0" toolbarColor="light" toolbarBackground="dark" indicatorColor="light"
+    badgeColor="light">
+    <super-tab *ngFor="let crypto of buycryptos; let i = index" [root]="crypto.root" title="{{crypto.title}}" icon="{{crypto.icon}}"
+      [id]="i"></super-tab>
+  </super-tabs>
+    <super-tabs *ngSwitchCase="'sell'" id="sellTabs" selectedTabIndex="0" toolbarColor="light" toolbarBackground="dark" indicatorColor="light" badgeColor="light">
+      <super-tab *ngFor="let crypto of sellcryptos; let i = index" [root]="crypto.root" title="{{crypto.title}}" icon="{{crypto.icon}}"
+        [id]="i"></super-tab>
+    </super-tabs>
+  <ion-fab bottom right>
+    <button ion-fab color="dark">
+      <ion-icon name="add"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <button ion-fab (click)="addbuyad()" >
+        <ion-icon name="buy"></ion-icon>
+      </button>
+      <button ion-fab (click)="addsellad()">
+        <ion-icon name="sell"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>
