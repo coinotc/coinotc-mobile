@@ -23,10 +23,6 @@ export class TabsPage {
       title: 'OrderList',
       icon :'list'
     }, {
-      root: ChatPage,
-      title: 'Chat',
-      icon: 'chatboxes'
-    }, {
       root: ContactPage,
       title: 'Contact',
       icon: 'notifications'
