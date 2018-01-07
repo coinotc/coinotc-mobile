@@ -10,7 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { OrderWindowPage } from '../pages/order-window/order-window';
 import { ChatPage } from '../pages/chat/chat';
-import { MePage } from '../pages/me/me';
+import { MePageModule } from '../pages/me/me.module';
 import { WalletPage } from '../pages/wallet/wallet';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -25,13 +25,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TabsPage,
     OrderWindowPage,
     ChatPage,
-    MePage,
     WalletPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    SuperTabsModule.forRoot()
+    SuperTabsModule.forRoot(),
+    MePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -42,7 +42,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TabsPage,
     OrderWindowPage,
     ChatPage,
-    MePage,
     WalletPage
   ],
   providers: [

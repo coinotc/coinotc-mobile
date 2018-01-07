@@ -20,19 +20,19 @@ export class SettingsPage {
   language: any;
   languages = ['English', 'Portuguese', 'French'];
   realNameTapped(){
-    this.navCtrl.push("AdvertisementsPage");
+    this.navCtrl.push("RealNameVerifiedPage");
   }
   paymentPrdTapped(){
-    this.navCtrl.push("AdvertisementsPage");
+    this.navCtrl.push("PaymentPrdPage");
   }
   bindPhoneTapped(){
-    this.navCtrl.push("AdvertisementsPage");
+    this.navCtrl.push("BindPhonePage");
   }
   bindEmailTapped(){
-    this.navCtrl.push("AdvertisementsPage");
+    this.navCtrl.push("BindEmailPage");
   }
   passwordTapped(){
-    this.navCtrl.push("AdvertisementsPage");
+    this.navCtrl.push("ModifyPrdPage");
   }
 
   ionViewDidLoad() {
