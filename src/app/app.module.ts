@@ -19,19 +19,13 @@ import { MePageModule } from '../pages/me/me.module';
 import { AuthPageModule } from '../pages/auth/auth.module';
 import { WalletPage } from '../pages/wallet/wallet';
 import { TradePage } from '../pages/trade/trade';
-import { TradeSellEthereumPage } from '../pages/trade-sell-ethereum/trade-sell-ethereum';
-import { TradeSellMoneroPage } from '../pages/trade-sell-monero/trade-sell-monero';
-import { TradeSellRipplePage } from '../pages/trade-sell-ripple/trade-sell-ripple';
-import { TradeSellStellarPage } from '../pages/trade-sell-stellar/trade-sell-stellar';
-import { TradeBuyEthereumPage } from '../pages/trade-buy-ethereum/trade-buy-ethereum';
-import { TradeBuyMoneroPage } from '../pages/trade-buy-monero/trade-buy-monero';
-import { TradeBuyRipplePage } from '../pages/trade-buy-ripple/trade-buy-ripple';
-import { TradeBuyStellarPage } from '../pages/trade-buy-stellar/trade-buy-stellar';
+import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement'
 import { OrderListPage } from '../pages/order-list/order-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { OrderServiceProvider } from '../providers/order-service/order-service';
+import { AdvertisementServiceProvider } from '../providers/advertisement-service/advertisement-service';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { ApiServiceProvider } from '../providers/api-service/api-service';
 import { JwtServiceProvider } from '../providers/jwt-service/jwt-service';
@@ -50,14 +44,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     ChatPage,
     WalletPage,
     TradePage,
-    TradeSellEthereumPage,
-    TradeSellMoneroPage,
-    TradeSellRipplePage,
-    TradeSellStellarPage,
-    TradeBuyStellarPage,
-    TradeBuyEthereumPage,
-    TradeBuyMoneroPage,
-    TradeBuyRipplePage,
+    AddadvertisementPage,
     OrderListPage
   ],
   imports: [
@@ -82,14 +69,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     ChatPage,
     WalletPage,
     TradePage,
-    TradeSellEthereumPage,
-    TradeSellMoneroPage,
-    TradeSellRipplePage,
-    TradeSellStellarPage,
-    TradeBuyEthereumPage,
-    TradeBuyMoneroPage,
-    TradeBuyRipplePage,
-    TradeBuyStellarPage,
+    AddadvertisementPage,
     OrderListPage
   ],
   providers: [
@@ -97,6 +77,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     OrderServiceProvider,
+    AdvertisementServiceProvider,
     UserServiceProvider,
     ApiServiceProvider,
     JwtServiceProvider,

@@ -4,13 +4,14 @@
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "private": true,
+  "nodemonConfig": {"ignore": ["src/*"]},
   "scripts": {
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
-    "dev": "nodemon --inspect=9228 server/server.js"
+    "dev": "nodemon --inspect=9228 ./server/server.js"
   },
   "dependencies": {
     "@angular/common": "5.0.3",
@@ -43,7 +44,7 @@
     "firebase": "4.8.0",
     "ionic-angular": "3.9.2",
     "ionic-plugin-keyboard": "^2.2.1",
-    "ionic2-super-tabs": "^4.1.5",
+    "ionic2-super-tabs": "^4.1.4",
     "ionicons": "3.0.0",
     "jade": "~1.11.0",
     "merge-descriptors": "^1.0.1",
