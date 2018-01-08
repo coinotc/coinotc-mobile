@@ -8,8 +8,6 @@
 
     <ion-navbar no-border-bottom>
       <ion-title >{{ authType === 'register' ? 'Sign Up' : 'Sign In' }}
-        <!-- <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
-        <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a> -->
       </ion-title>
       <ion-buttons start *ngIf="isModal">
         <button ion-button (click)="close()">
