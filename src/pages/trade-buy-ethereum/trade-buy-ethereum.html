@@ -4,15 +4,18 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>tradeBuyEthereumPage</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
-
+  <ion-card *ngFor="let item of list | async">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="img/{{item.owner}}.Avatar.png">
+      </ion-avatar>
+      <h2>{{item.owner}}</h2>
+      <p>{{item.payment}}</p>
+      <div item-right text-right>
+        <h5 style="color:#02cb66">{{item.price | number}}{{item.fiat}}</h5>
+        <button ion-button round>购买{{item.crypto}}</button>
+      </div>
+    </ion-item>
+  </ion-card>
 </ion-content>
