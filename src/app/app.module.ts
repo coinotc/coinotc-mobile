@@ -9,9 +9,7 @@ import { RouterModule } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage';
 
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
+
 import { TabsPage } from '../pages/tabs/tabs';
 import { OrderWindowPage } from '../pages/order-window/order-window';
 import { ChatPage } from '../pages/chat/chat';
@@ -36,9 +34,6 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
     TabsPage,
     OrderWindowPage,
     ChatPage,
@@ -61,9 +56,6 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
     TabsPage,
     OrderWindowPage,
     ChatPage,
