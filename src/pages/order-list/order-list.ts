@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { SuperTabsModule } from 'ionic2-super-tabs';
 import { Observable } from 'rxjs/Observable';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
 import { OrderWindowPage } from '../order-window/order-window';
 import { ChatPage } from '../chat/chat';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 /**
  * Generated class for the OrderListPage page.
@@ -20,15 +20,19 @@ import { ChatPage } from '../chat/chat';
 })
 export class OrderListPage {
 
-  private orders: Observable<any>;
+  private activeOrders: Observable<any>;
+  private finishedOrders: Observable<any>;
+  private user;
   segments = "Active";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private orderServiceProvider:OrderServiceProvider) {
-    this.orders = this.orderServiceProvider.getOrders(null);
+  constructor(public navCtrl: NavController, public navParams: NavParams, private orderServiceProvider: OrderServiceProvider, private userServiceProvider: UserServiceProvider) {
+    this.user = this.userServiceProvider.getCurrentUser();
+    this.activeOrders = this.orderServiceProvider.getOrders(false);
+    this.finishedOrders = this.orderServiceProvider.getOrders(true);
   }
 
-  onDetail(order){
-    this.navCtrl.push(OrderWindowPage,order)
+  onDetail(order) {
+    this.navCtrl.push(OrderWindowPage, order)
   }
 
   ionViewDidLoad() {
