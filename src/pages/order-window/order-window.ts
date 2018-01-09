@@ -5,6 +5,7 @@ import { OrderServiceProvider } from '../../providers/order-service/order-servic
 import { OrderInformation } from './orderInformation';
 import * as firebase from 'firebase';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { WalletPage } from '../wallet/wallet';
 
 /**
  * Generated class for the OrderWindowPage page.
@@ -22,7 +23,7 @@ export class OrderWindowPage {
 
   private orders: Observable<OrderInformation[]>;
   private user;
-  approved = 0;
+  status = 0;
   switched = false;
   orderInfo;
   client: any;
@@ -41,7 +42,7 @@ export class OrderWindowPage {
     this.ref = firebase.database().ref('messages');
     this.typingStatus = firebase.database().ref('typeStatus');
     this.name = this.user.username;
-
+    console.log(this.orderInfo)
   }
 
   onChange(e) {
@@ -67,17 +68,27 @@ export class OrderWindowPage {
     this.switched = !this.switched;
   }
 
-  onApprove() {
-    this.approved = 1;
+  onFinished() {
+    this.status = 1;
+    this.orderInfo.finished = true;
     this.user.orderCount = this.user.orderCount + 1;
     this.userServiceProvider.update(this.user).subscribe();
-    console.log(this.user)
+    this.orderServiceProvider.updateOrder(this.orderInfo).subscribe();
   }
 
   onComment() {
-    this.approved = 2;
+    this.status = 2;
     this.user.goodCount = this.user.goodCount + 1;
     this.userServiceProvider.update(this.user).subscribe();
+    this.navCtrl.pop();
+  }
+
+  onExit() {
+    this.navCtrl.pop();
+  }
+
+  onWallet() {
+    this.navCtrl.push(WalletPage);
   }
 
   ionViewDidLoad() {

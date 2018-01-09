@@ -5,19 +5,19 @@
   Ionic pages and navigation.
 -->
 
-<!-- <ion-header>
-
+<ion-header>
   <ion-navbar>
-    <ion-title>OrderWindow</ion-title>
+    
   </ion-navbar>
-
-</ion-header> -->
+  <ion-title>Information</ion-title>
+</ion-header>
 
 
 <ion-content padding>
-  <div ion-item ion-fixed>
-    <ion-card [ngSwitch]="switched">
 
+  <div ion-item ion-fixed>
+
+    <ion-card [ngSwitch]="switched">
       <button ion-item (click)="onSwitch()">
         {{orderInfo.crypto}} Trade ID:{{orderInfo._id}}
         <span style="float:right">{{orderInfo.finished? 'Completed':'Active'}}</span>
@@ -37,15 +37,16 @@
 
     </ion-card>
 
-    <div align=center [ngSwitch]="approved">
-      <button ion-button round *ngSwitchCase="0" (click)="onApprove()">Approved</button>
-      <button ion-button round *ngSwitchCase="1" (click)="onComment()">Trust</button>
-      <button ion-button round *ngSwitchCase="1">Distrust</button>
-      <span *ngSwitchCase="2">You are good to exit!</span>
+    <div align=center [ngSwitch]="status" *ngIf="orderInfo.finished == false">
+      <button ion-button round *ngSwitchCase="0" (click)="onFinished()">{{orderInfo.trader? 'Inform':'Approve'}}</button>
+      <button ion-button round *ngSwitchCase="1" (click)="onComment()">Good</button>
+      <button ion-button round *ngSwitchCase="1" (click)="onExit()">Bad</button>
     </div>
+
     <div align=center>
-      <button ion-button round>Wallet</button>
+      <button ion-button round (click)="onWallet()">Wallet</button>
     </div>
+
   </div>
 
   <ion-list no-lines>
