@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { catchError } from 'rxjs/operators';
 import { OrderInformation } from '../../pages/order-window/orderInformation';
+import { environment } from '../../../environments/environment';
 
 
 /*
@@ -19,7 +20,7 @@ const httpOptions = {
 @Injectable()
 export class OrderServiceProvider {
 
-  private orderURL = 'http://192.168.2.106:3000/api/order';
+  private orderURL = environment.api_url+'/order';
 
   constructor(public httpClient: HttpClient) {
     console.log('Hello OrderServiceProvider Provider');

@@ -8,10 +8,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage';
 
-
-
 import { TabsPage } from '../pages/tabs/tabs';
-import { OrderWindowPage } from '../pages/order-window/order-window';
 import { ChatPage } from '../pages/chat/chat';
 import { MePageModule } from '../pages/me/me.module';
 import { AuthPageModule } from '../pages/auth/auth.module';
@@ -19,6 +16,7 @@ import { WalletPage } from '../pages/wallet/wallet';
 import { TradePage } from '../pages/trade/trade';
 import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement'
 import { OrderListPage } from '../pages/order-list/order-list';
+import { OrderWindowPageModule } from '../pages/order-window/order-window.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -35,7 +33,6 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
   declarations: [
     MyApp,
     TabsPage,
-    OrderWindowPage,
     ChatPage,
     WalletPage,
     TradePage,
@@ -51,13 +48,13 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     HttpClientModule,
     HttpModule,
     rootRouting,
+    OrderWindowPageModule,
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     TabsPage,
-    OrderWindowPage,
     ChatPage,
     WalletPage,
     TradePage,

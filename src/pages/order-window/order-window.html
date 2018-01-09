@@ -39,8 +39,8 @@
 
     <div align=center [ngSwitch]="approved">
       <button ion-button round *ngSwitchCase="0" (click)="onApprove()">Approved</button>
-      <button ion-button round *ngSwitchCase="1" (click)="onRating()">Trust</button>
-      <button ion-button round *ngSwitchCase="1" (click)="onRating()">Distrust</button>
+      <button ion-button round *ngSwitchCase="1" (click)="onComment()">Trust</button>
+      <button ion-button round *ngSwitchCase="1">Distrust</button>
       <span *ngSwitchCase="2">You are good to exit!</span>
     </div>
     <div align=center>

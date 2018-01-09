@@ -69,10 +69,15 @@ export class OrderWindowPage {
 
   onApprove() {
     this.approved = 1;
+    this.user.orderCount = this.user.orderCount + 1;
+    this.userServiceProvider.update(this.user).subscribe();
+    console.log(this.user)
   }
 
-  onRating() {
+  onComment() {
     this.approved = 2;
+    this.user.goodCount = this.user.goodCount + 1;
+    this.userServiceProvider.update(this.user).subscribe();
   }
 
   ionViewDidLoad() {

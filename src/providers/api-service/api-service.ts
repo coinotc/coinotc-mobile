@@ -47,8 +47,7 @@ export class ApiServiceProvider {
   }
 
   put(path: string, body: Object = {}): Observable<any> {
-    return this.http.put(
-      `${this.API_URL}${path}`,
+    return this.http.put(`${this.API_URL}${path}`,
       JSON.stringify(body),
       { headers: this.setHeaders() }
     )
