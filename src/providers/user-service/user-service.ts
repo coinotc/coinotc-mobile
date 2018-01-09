@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -23,11 +21,10 @@ export class UserServiceProvider {
   private currentUserSubject = new BehaviorSubject<User>(new User());
   public currentUser = this.currentUserSubject.asObservable().distinctUntilChanged();
 
-  private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
   constructor(
-    private http: Http,
     private apiService: ApiServiceProvider,
     private jwtService: JwtServiceProvider) {
     console.log('Hello UserServiceProvider Provider');
@@ -79,8 +76,21 @@ export class UserServiceProvider {
         });
   }
 
+  public logout(): Observable<User> {
+    return this.apiService.get('/users/logout')
+      .map(data => {
+          this.purgeAuth();
+          return data;
+        });
+  }
+
   getCurrentUser(): User {
     return this.currentUserSubject.value;
+  }
+
+  isLoggedIn(): boolean {
+    // Check if the user is authenticated
+    return this.isAuthenticatedSubject.getValue();
   }
 
   // Update the user on the server (email, pass, etc)

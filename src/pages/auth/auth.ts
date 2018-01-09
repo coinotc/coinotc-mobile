@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Errors } from '../../models/errors.model';
 
-
+import { TabsPage } from '../../pages/tabs/tabs';
 
 /**
  * Generated class for the AuthPage page.
@@ -24,7 +24,7 @@ export class AuthPage {
   isSubmitting = false;
   authForm: FormGroup;
   isModal: boolean; // show close button only in a modal
-  public pet;
+  //public pet;
   constructor(
     public navCtrl: NavController,
     private viewCtrl: ViewController,
@@ -36,7 +36,8 @@ export class AuthPage {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
       'email': ['', Validators.required],
-      'password': ['', Validators.required]
+      'password': ['', Validators.required],
+      'confirmPassword': [''],
     });
     this.isModal = !!params.get('isModal');
   }
@@ -53,6 +54,7 @@ export class AuthPage {
     this.userService.attemptAuth(this.authType, credentials).subscribe(
       user => {
         if(this.isModal) this.viewCtrl.dismiss();
+        this.navCtrl.push(TabsPage);
       },
       (errors:Errors) => {
         for(let field in errors.errors){

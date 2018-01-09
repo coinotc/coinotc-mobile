@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-
-import { AboutPage } from '../about/about';
-import { ContactPage } from '../contact/contact';
+import { NavController, ToastController } from 'ionic-angular';
 import { OrderListPage } from '../order-list/order-list';
-import { OrderWindowPage } from '../order-window/order-window';
-import { ChatPage } from '../chat/chat';
 import { MePage } from '../me/me';
 import { WalletPage } from '../wallet/wallet';
 import { TradePage } from '../trade/trade';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { AuthPage } from '../../pages/auth/auth';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -15,7 +13,9 @@ import { TradePage } from '../trade/trade';
 export class TabsPage {
   tabRoots: Object[];
 
-  constructor() {
+  constructor(public userService: UserServiceProvider, 
+    public navCtrl: NavController,
+    private toastCtrl:ToastController,) {
     this.tabRoots = [{
       root:TradePage,
       title: 'Trade',
@@ -24,14 +24,6 @@ export class TabsPage {
       root: OrderListPage,
       title: 'OrderList',
       icon :'list'
-    }, {
-      root: ContactPage,
-      title: 'Contact',
-      icon: 'notifications'
-    }, {
-      root: AboutPage,
-      title: 'About',
-      icon: 'document'
     }, {
       root: WalletPage,
       title: 'Wallet',
@@ -42,4 +34,5 @@ export class TabsPage {
       icon: 'person'
     }]
   }
+  
 }
