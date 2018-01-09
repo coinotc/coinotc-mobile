@@ -4,7 +4,11 @@
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "private": true,
-  "nodemonConfig": {"ignore": ["src/*"]},
+  "nodemonConfig": {
+    "ignore": [
+      "src/*"
+    ]
+  },
   "scripts": {
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",

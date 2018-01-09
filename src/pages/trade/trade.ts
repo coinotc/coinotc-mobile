@@ -57,9 +57,9 @@ export class TradePage {
     console.log('ionViewDidLoad TradePage');
   }
   addbuyad() {
-    this.navCtrl.push(AddadvertisementPage, {type:'buy',title:'发布购买广告'})
+    this.navCtrl.push(AddadvertisementPage, {type:'buy',title:'Publish an AD of Buying'})
   }
   addsellad() {
-    this.navCtrl.push(AddadvertisementPage, {type:'sell',title:'发布出售广告'})
+    this.navCtrl.push(AddadvertisementPage, {type:'sell',title:'Publish an AD of Selling'})
   }
 }

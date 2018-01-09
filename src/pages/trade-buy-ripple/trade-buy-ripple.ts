@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
 import { IonicPage, NavController } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { adinformation } from '../../models/adinformation';
@@ -17,12 +16,21 @@ import { adinformation } from '../../models/adinformation';
   templateUrl: 'trade-buy-ripple.html',
 })
 export class TradeBuyRipplePage {
-  private list: Observable<adinformation[]>;
-  constructor(public navCtrl: NavController, public adservice:AdvertisementServiceProvider) {
-    this.list = adservice.getadbuy("RIPPLE");
+  private list: adinformation[];
+  constructor(public navCtrl: NavController, public adservice: AdvertisementServiceProvider) {
+    this.doRefresh();
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TradeBuyRipplePage');
+  }
+  doRefresh(refresher?) {
+    // this.list = this.adservice.getadbuy("ETH");
+    this.adservice.getadbuy("RIPPLE").subscribe(result => {
+      this.list = result;
+      if (refresher) {
+        refresher.complete();
+      }
+    })
   }
 
 }
