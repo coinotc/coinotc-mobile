@@ -4,48 +4,6 @@
   </ion-navbar>
 </ion-header>
 
-
-<!-- <ion-content padding>
-  <ion-card>
-      <ion-card-header>
-        Card Header
-      </ion-card-header>
-    
-      <ion-list>
-        <button ion-item>
-          <ion-icon name="md-list-box" item-start></ion-icon>
-          Advertisements
-        </button>
-    
-        <button ion-item>
-          <ion-icon name="medical" item-start></ion-icon>
-          Trusted
-        </button>
-    
-        <button ion-item>
-          <ion-icon name="cafe" item-start></ion-icon>
-          Reward center
-        </button>
-    
-        <button ion-item>
-          <ion-icon name="paw" item-start></ion-icon>
-          Referral program
-        </button>
-    
-        <button ion-item>
-          <ion-icon name="beer" item-start></ion-icon>
-          Settings
-        </button>
-
-        <button ion-item>
-          <ion-icon name="beer" item-start></ion-icon>
-          Log out
-        </button>
-
-      </ion-list>
-    </ion-card>
-</ion-content> -->
-
 <ion-content>
   <ion-list>
     <ion-list-header>
@@ -53,7 +11,7 @@
         <img [src]="placeholderPicture">
       </ion-avatar>
       <p class="username">{{user.name}}</p>
-      <p>Owner</p>
+      <p>{{user.email}}</p>
     </ion-list-header>
   </ion-list>
 
@@ -70,19 +28,16 @@
 
   <ion-list>
     <button ion-item (click)="settingsTapped()">
-      <ion-icon name="md-list-box"   item-start></ion-icon>
+      <ion-icon name="md-list-box" item-start></ion-icon>
       Settings
     </button>
   </ion-list>
 
   <ion-list>
-    <ion-item>
-      <ion-icon name='power' item-start></ion-icon>
-      <button ion-button (click)="logOut()" item-end>
+    <button ion-item (click)="logout()">
+      <ion-icon name="power" item-start></ion-icon>
       Logout
-      </button>
-    </ion-item>
+    </button>
   </ion-list>
-  <p><button ion-button (click)="login()">Login</button></p>
-  
+
 </ion-content>

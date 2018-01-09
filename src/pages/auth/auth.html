@@ -41,13 +41,15 @@
           <ion-item>
             <ion-input formControlName="password" placeholder="Password" type="password"></ion-input>
           </ion-item>
+
+          <ion-item *ngIf=" authType === 'register' ">
+            <ion-input formControlName="confirmPassword" placeholder="Confirm Password" type="password"></ion-input>
+          </ion-item>
         </ion-list>
         <div padding>
           <button ion-button [disabled]="!authForm.valid" type="submit">
             {{ authType === 'register' ? 'Sign Up' : 'Sign In' }}
           </button>
-          <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
-          <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a>
         </div>
       </fieldset>
     </form>

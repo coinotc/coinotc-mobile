@@ -5,14 +5,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { UserServiceProvider } from '../providers/user-service/user-service';
 
-import { TabsPage } from '../pages/tabs/tabs';
+import { AuthPage } from '../pages/auth/auth';
 import * as firebase from 'firebase';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = TabsPage;
+  rootPage: any = AuthPage;
 
   constructor(private userService: UserServiceProvider,
     platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {

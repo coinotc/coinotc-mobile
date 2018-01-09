@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+//import { Observable } from 'rxjs/Rx';
 import { adinformation } from '../../models/adinformation'
-
+import { environment } from '../../../environments/environment';
 /*
   Generated class for the AdvertisementServiceProvider provider.
 
@@ -14,8 +14,8 @@ const httpOptions = {
 };
 @Injectable()
 export class AdvertisementServiceProvider {
-  private adbuy = 'http://192.168.2.114:4201/api/adbuy';
-  private adsell = 'http://192.168.2.114:4201/api/adsell';
+  private adbuy = environment.api_url + '/adbuy';
+  private adsell = environment.api_url + '/adsell';
   constructor(public http: HttpClient) {
     console.log('Hello AdvertisementServiceProvider Provider');
   }
