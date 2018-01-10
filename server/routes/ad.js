@@ -1,5 +1,6 @@
 var adbuy = require('../models/adbuy');
 var adsell = require('../models/adsell');
+var mongoose = require('mongoose');
 
 const adbuyapi = '/api/adbuy';
 const adsellapi = '/api/adsell';
@@ -21,6 +22,7 @@ module.exports = function (app) {
         let send = new adbuy();
         send.visible = get.visible
         send.owner = get.owner
+        send.ownerid = mongoose.Types.ObjectId()
         send.crypto = get.crypto
         send.country = get.country
         send.fiat = get.fiat
@@ -58,6 +60,7 @@ module.exports = function (app) {
         let send = new adsell();
         send.visible = get.visible
         send.owner = get.owner
+        send.ownerid = mongoose.Types.ObjectId()
         send.crypto = get.crypto
         send.country = get.country
         send.fiat = get.fiat

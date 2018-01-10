@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { adinformation } from'../../models/adinformation';
-import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service'
+import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 /**
  * Generated class for the AddadvertisementPage page.
  *
@@ -17,7 +18,7 @@ import { AdvertisementServiceProvider } from '../../providers/advertisement-serv
 export class AddadvertisementPage {
   rangepercent = 0; type: String; title: String; information = new adinformation('',true,'ETH','singapore','SGD',null,null,null,'',null,'');
   cryptoprice = 105483.45;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private adservice:AdvertisementServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private adservice:AdvertisementServiceProvider, private userservice:UserServiceProvider) {
     this.type = navParams.data.type;
     this.title = navParams.data.title;
     this.changerange();
@@ -29,14 +30,14 @@ export class AddadvertisementPage {
     console.log('ionViewDidLoad AddadvertisementPage');
   }
   addbuyad(){
-    this.information.owner = "kaze ai tomo";
+    this.information.owner = this.userservice.getCurrentUser().username;
     this.adservice.addadbuy(this.information).subscribe(result=>{
       console.log(result);
       this.navCtrl.pop();
     });
   }
   addsellad(){
-    this.information.owner = "kaze ai tomo";
+    this.information.owner = this.userservice.getCurrentUser().username;
     this.adservice.addadsell(this.information).subscribe(result=>{
       console.log(result);
       this.navCtrl.pop();
