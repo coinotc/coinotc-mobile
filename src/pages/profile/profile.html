@@ -1,0 +1,65 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title><p>{{user.name}}</p></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="list-avatar-page">
+  <ion-list no-lines>
+    <ion-item>
+      <ion-avatar item-start>
+        <img [src]="placeholderPicture">
+      </ion-avatar>
+      <h2>{{user.name}}</h2>
+      <p>Trade with him 0 times</p>
+      <ion-note item-end><button ion-button (click)="block()">Block</button>
+        <button ion-button (click)="trust()">Follow</button></ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col> 
+            <h2>0</h2>
+            <p>Trades</p>
+          </ion-col>
+          <ion-col>
+            <h2>0</h2>
+            <p>Trusted</p>
+          </ion-col>
+          <ion-col>
+            <h2>0</h2>
+            <p>Rating</p>
+          </ion-col>
+          <ion-col>
+            <h2>0</h2>
+            <p>Volume</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="profile">
+      <ion-segment-button value="ad">
+        His Ad
+      </ion-segment-button>
+      <ion-segment-button value="trade">
+        My trades with him
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <ion-list>
+    <button ion-item *ngFor="let item of items">
+      {{ item }}
+    </button>  
+  </ion-list>
+</ion-content>
