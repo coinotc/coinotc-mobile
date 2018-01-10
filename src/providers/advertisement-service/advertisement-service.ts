@@ -14,8 +14,8 @@ const httpOptions = {
 };
 @Injectable()
 export class AdvertisementServiceProvider {
-  private adbuy = environment.api_url + '/adbuy';
-  private adsell = environment.api_url + '/adsell';
+  private adbuy = environment.api_url + '/guanggao/buy';
+  private adsell = environment.api_url + '/guanggao/sell';
   constructor(public http: HttpClient) {
     console.log('Hello AdvertisementServiceProvider Provider');
   }

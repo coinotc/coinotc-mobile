@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-
+import { environment } from '../../../environments/environment';
 
 import { JwtServiceProvider } from '../jwt-service/jwt-service';
 
@@ -16,7 +16,7 @@ import { JwtServiceProvider } from '../jwt-service/jwt-service';
 */
 @Injectable()
 export class ApiServiceProvider {
-  private API_URL = 'http://localhost:3000/api';
+  private API_URL = environment.api_url;
 
 
   constructor(
