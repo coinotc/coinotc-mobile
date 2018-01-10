@@ -4,4 +4,6 @@ export class User {
   username: string;
   bio: string;
   image: string;
+  goodCount: Number;
+  orderCount: Number;
 }

@@ -10,7 +10,8 @@ export class OrderInformation{
         public fiat: String,
         public payment: String,
         public limit: Number,
-        public finished: Boolean
+        public finished: Boolean,
+        public trader: Boolean
     ){
 
     }
