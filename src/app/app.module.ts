@@ -26,6 +26,7 @@ import { AdvertisementServiceProvider } from '../providers/advertisement-service
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { ApiServiceProvider } from '../providers/api-service/api-service';
 import { JwtServiceProvider } from '../providers/jwt-service/jwt-service';
+import { ProfileServiceProvider } from '../providers/profile-service/profile-service';
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
 
@@ -75,7 +76,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     JwtServiceProvider,
     HttpModule,
     HttpClientModule,
-    IonicStorageModule
+    IonicStorageModule,
+    ProfileServiceProvider
     
   ]
 })

@@ -9,36 +9,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  */
 
 @IonicPage(
-//   {
-//   segment: 'partial-home/:type'
-// }
 )
 @Component({
   selector: 'page-advertisements',
   templateUrl: 'advertisements.html',
 })
 export class AdvertisementsPage {
-
-  // page1: any = 'AdActivePage';
-  // page2: any = 'AdDisabledPage';
-
-  // showIcons: boolean = false;
-  // showTitles: boolean = true;
-  // pageTitle: string = 'Partial Home';
-
+  value = "Active";
   constructor(public navCtrl: NavController, private navParams: NavParams) {
-    // const type = navParams.get('type');
-    // switch (type) {
-    //   case 'icons-only':
-    //     this.showTitles = false;
-    //     this.pageTitle += ' - Icons only';
-    //     break;
-
-    //   case 'titles-only':
-    //     this.showIcons = false;
-    //     this.pageTitle += ' - Titles only';
-    //     break;
-    // }
+    
   }
 
   ionViewDidLoad() {

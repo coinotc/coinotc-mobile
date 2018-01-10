@@ -41,6 +41,7 @@ export class MePage {
       console.log(user);
       this.user.name = user.username;
       this.user.email = user.email;
+      this.user.imageUrl = this.placeholderPicture;
   }
 
   advertisementsTapped() {
@@ -53,6 +54,7 @@ export class MePage {
     this.navCtrl.push("SettingsPage");
   }
   updateProfileImage() {
+    this.navCtrl.push("ProfilePage");
   }
 
   logout(){
@@ -66,7 +68,6 @@ export class MePage {
         let tabs = document.querySelectorAll('.tabbar');
         if ( tabs !== null ) {
           Object.keys(tabs).map((key) => {
-            tabs[ key ].style.transform = 'translateY(56px)';
           });
         } // end if
     

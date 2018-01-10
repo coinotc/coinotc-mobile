@@ -72,7 +72,8 @@ export class UserServiceProvider {
       .map(data => {
         this.setAuth(data.user);
         return data;
-      });
+      })
+      
   }
 
   public logout(): Observable<User> {

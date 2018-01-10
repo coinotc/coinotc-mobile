@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { AdActivePage } from './ad-active';
+import { ProfilePage } from './profile';
 
 @NgModule({
   declarations: [
-    AdActivePage,
+    ProfilePage,
   ],
   imports: [
-    IonicPageModule.forChild(AdActivePage),
+    IonicPageModule.forChild(ProfilePage),
   ],
 })
-export class AdActivePageModule {}
+export class ProfilePageModule {}
