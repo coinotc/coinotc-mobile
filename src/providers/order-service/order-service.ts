@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { catchError } from 'rxjs/operators';
 import { OrderInformation } from '../../pages/order-window/orderInformation';
+import { environment } from '../../../environments/environment';
 
 
 /*

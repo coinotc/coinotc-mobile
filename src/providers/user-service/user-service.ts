@@ -46,10 +46,9 @@ export class UserServiceProvider {
     });
   }
 
-
   setAuth(user: User) {
     // Save JWT sent from server in localstorage
-    this.jwtService.saveToken(user.token).then(()=>{
+    this.jwtService.saveToken(user.token).then(() => {
       // Set current user data into observable
       this.currentUserSubject.next(user);
       // Set isAuthenticated to true
@@ -59,7 +58,7 @@ export class UserServiceProvider {
 
   purgeAuth() {
     // Remove JWT from localstorage
-    this.jwtService.destroyToken().then(()=>{
+    this.jwtService.destroyToken().then(() => {
       // Set current user to an empty object
       this.currentUserSubject.next(new User());
       // Set auth status to false
@@ -71,17 +70,17 @@ export class UserServiceProvider {
     let route = (type === 'login') ? '/login' : '';
     return this.apiService.post('/users' + route, { user: credentials })
       .map(data => {
-          this.setAuth(data.user);
-          return data;
-        });
+        this.setAuth(data.user);
+        return data;
+      });
   }
 
   public logout(): Observable<User> {
     return this.apiService.get('/users/logout')
       .map(data => {
-          this.purgeAuth();
-          return data;
-        });
+        this.purgeAuth();
+        return data;
+      });
   }
 
   getCurrentUser(): User {
@@ -95,13 +94,13 @@ export class UserServiceProvider {
 
   // Update the user on the server (email, pass, etc)
   update(user): Observable<User> {
-    return this.apiService
-      .put('/user', { user })
-      .map(data => {
-        // Update the currentUser observable
-        this.currentUserSubject.next(data.user);
-        return data.user;
-      });
+    console.log(user.token);
+    return this.apiService.put('/user', { user }).map(data => {
+      console.log('return running');
+      // Update the currentUser observable
+      this.currentUserSubject.next(data.user);
+      return data.user;
+    });
   }
 
 }

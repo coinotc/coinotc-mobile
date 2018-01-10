@@ -16,7 +16,7 @@ import { JwtServiceProvider } from '../jwt-service/jwt-service';
 */
 @Injectable()
 export class ApiServiceProvider {
-  private API_URL = 'http://localhost:3000/api';
+  private API_URL = 'http://192.168.2.114:3000/api';
 
 
   constructor(
@@ -47,8 +47,7 @@ export class ApiServiceProvider {
   }
 
   put(path: string, body: Object = {}): Observable<any> {
-    return this.http.put(
-      `${this.API_URL}${path}`,
+    return this.http.put(`${this.API_URL}${path}`,
       JSON.stringify(body),
       { headers: this.setHeaders() }
     )
