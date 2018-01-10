@@ -4,9 +4,9 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Errors } from '../../models/errors.model';
-
+import { Profile } from '../../models/profile.model';
 import { TabsPage } from '../../pages/tabs/tabs';
-
+import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 /**
  * Generated class for the AuthPage page.
  *
@@ -25,13 +25,15 @@ export class AuthPage {
   authForm: FormGroup;
   isModal: boolean; // show close button only in a modal
   //public pet;
+  model = new Profile();
   constructor(
     public navCtrl: NavController,
     private viewCtrl: ViewController,
     private toastCtrl:ToastController,
     private userService: UserServiceProvider,
     private params: NavParams,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private profileService:ProfileServiceProvider
   ) {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
@@ -49,6 +51,11 @@ export class AuthPage {
     }
   }
   submitForm() {
+    if(this.authType === 'register'){
+    console.log(this.authForm.value.username)
+    this.model.username = this.authForm.value.username;
+    this.profileService.createProile(this.model as Profile).subscribe()
+      }
     this.isSubmitting = true;
     const credentials = this.authForm.value;
     this.userService.attemptAuth(this.authType, credentials).subscribe(

@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
 import { OrderWindowPage } from '../order-window/order-window';
-import { ChatPage } from '../chat/chat';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 /**

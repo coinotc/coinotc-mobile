@@ -3,11 +3,11 @@
     <ion-title>Advertisements</ion-title>
   </ion-navbar>
   <ion-toolbar>
-    <ion-segment>
-      <ion-segment-button value="new">
+    <ion-segment [(ngModel)]="value">
+      <ion-segment-button value="Active">
         Active
       </ion-segment-button>
-      <ion-segment-button value="hot">
+      <ion-segment-button value="Disabled">
         Disabled
       </ion-segment-button>
     </ion-segment>
@@ -16,5 +16,11 @@
 
 
 <ion-content>
-
+  <div [ngSwitch]="value">
+    <ion-list *ngSwitchCase="'Active'">
+        <!-- <ion-item *ngFor="let  of  | async">
+    
+        </ion-item> -->
+    </ion-list>
+  </div>
 </ion-content>
