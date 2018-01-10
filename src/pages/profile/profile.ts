@@ -49,7 +49,7 @@ export class ProfilePage {
     let user = this.userService.getCurrentUser();
     console.log(user)
     this.user.name = user.username;
-    this.user.email = user.email;
+    
   }
 
   block(){}
