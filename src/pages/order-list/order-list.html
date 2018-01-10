@@ -6,19 +6,23 @@
 -->
 <ion-header>
 
+
+  <ion-navbar>
+    <ion-title>Order List</ion-title>
+  </ion-navbar>
   <ion-toolbar>
     <ion-segment [(ngModel)]="segments">
       <ion-segment-button value="ActiveBuy">
-        ActiveBuy
+        Active Buy
       </ion-segment-button>
       <ion-segment-button value="ActiveSell">
-        ActiveSell
+        Active Sell
       </ion-segment-button>
       <ion-segment-button value="FinishedBuy">
-        FinishedBuy
+        Finished Buy
       </ion-segment-button>
       <ion-segment-button value="FinishedSell">
-        FinishedSell
+        Finished Sell
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
