@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -21,7 +22,7 @@ export class ProfilePage {
     email: '',
     imageUrl: ''
   };
-  profile = "ad";
+  profile;
   items = [
     'Pokémon Yellow',
     'Super Metroid',
@@ -44,12 +45,12 @@ export class ProfilePage {
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private jwtService:JwtServiceProvider,
-    private userService:UserServiceProvider
+    private userService:UserServiceProvider,
+    private profileService:ProfileServiceProvider
   ) {
+    this.profileService
     let user = this.userService.getCurrentUser();
-    console.log(user)
-    this.user.name = user.username;
-    
+
   }
 
   block(){}

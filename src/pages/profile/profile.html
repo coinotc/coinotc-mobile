@@ -20,8 +20,10 @@
       </ion-avatar>
       <h2>{{user.name}}</h2>
       <p>Trade with him 0 times</p>
-      <ion-note item-end><button ion-button (click)="block()">Block</button>
-        <button ion-button (click)="trust()">Follow</button></ion-note>
+      <ion-note item-end>
+        <button ion-button (click)="block()" *ngIf=" authType === 'register' " >Block</button>
+        <button ion-button (click)="trust()" *ngIf=" authType === 'register' " >Follow</button>
+      </ion-note>
     </ion-item>
     <ion-item>
       <ion-grid>
