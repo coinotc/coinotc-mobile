@@ -53,7 +53,7 @@ export class MePage {
   settingsTapped() {
     this.navCtrl.push("SettingsPage");
   }
-  updateProfileImage() {
+  updateProfileImage(){
     this.navCtrl.push("ProfilePage",this.userService.getCurrentUser().username);
   }
 
