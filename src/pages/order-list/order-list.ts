@@ -19,15 +19,20 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 })
 export class OrderListPage {
 
-  private activeOrders: Observable<any>;
-  private finishedOrders: Observable<any>;
+  private buyerActiveOrders: Observable<any>;
+  private sellerActiveOrders: Observable<any>;
+  private buyerFinishedOrders: Observable<any>;
+  private sellerFinishedOrders: Observable<any>;
   private user;
-  segments = "Active";
+  segments = "ActiveBuy";
+  status = "Active";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private orderServiceProvider: OrderServiceProvider, private userServiceProvider: UserServiceProvider) {
     this.user = this.userServiceProvider.getCurrentUser();
-    this.activeOrders = this.orderServiceProvider.getOrders(false);
-    this.finishedOrders = this.orderServiceProvider.getOrders(true);
+    this.buyerActiveOrders = this.orderServiceProvider.getBuyerOrders(this.user.username, false);
+    this.sellerActiveOrders = this.orderServiceProvider.getSellerOrders(this.user.username, false);
+    this.buyerFinishedOrders = this.orderServiceProvider.getBuyerOrders(this.user.username, true);
+    this.sellerFinishedOrders = this.orderServiceProvider.getSellerOrders(this.user.username, true);
   }
 
   onDetail(order) {
@@ -35,7 +40,7 @@ export class OrderListPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad OrderListPage');
+    console.log();
   }
 
 }
