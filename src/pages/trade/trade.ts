@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { AddadvertisementPage } from '../addadvertisement/addadvertisement'
 
 /**
@@ -50,16 +50,16 @@ export class TradePage {
     title: 'Stellar',
     icon: 'stellar'
   }]
-  constructor(public navCtrl: NavController, public navParams: NavParams ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TradePage');
   }
   addbuyad() {
-    this.navCtrl.push(AddadvertisementPage, {type:'buy',title:'Publish an AD of Buying'})
+    this.appCtrl.getRootNav().push(AddadvertisementPage, {type:'buy',title:'Publish an AD of Buying'})
   }
   addsellad() {
-    this.navCtrl.push(AddadvertisementPage, {type:'sell',title:'Publish an AD of Selling'})
+    this.appCtrl.getRootNav().push(AddadvertisementPage, {type:'sell',title:'Publish an AD of Selling'})
   }
 }

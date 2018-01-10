@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, App } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { adinformation } from '../../models/adinformation';
+import { AdinformationPage } from '../adinformation/adinformation'
 
 /**
  * Generated class for the TradeSellMoneroPage page.
@@ -17,7 +18,7 @@ import { adinformation } from '../../models/adinformation';
 })
 export class TradeSellMoneroPage {
   private list: adinformation[];
-  constructor(public navCtrl: NavController, public adservice: AdvertisementServiceProvider) {
+  constructor(public navCtrl: NavController, public adservice: AdvertisementServiceProvider, public appCtrl:App) {
     this.doRefresh();
   }
   
@@ -32,6 +33,9 @@ export class TradeSellMoneroPage {
         refresher.complete();
       }
     })
+  }
+  adinformation(information) {
+    this.appCtrl.getRootNav().push(AdinformationPage, {information: information,tradetype:{type:'Sell',crypto:'MONERO'}})
   }
 
 

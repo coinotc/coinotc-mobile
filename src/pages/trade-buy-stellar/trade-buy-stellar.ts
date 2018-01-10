@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, App } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { adinformation } from '../../models/adinformation';
+import { AdinformationPage } from '../adinformation/adinformation'
 
 /**
  * Generated class for the TradeBuyStellarPage page.
@@ -17,7 +18,7 @@ import { adinformation } from '../../models/adinformation';
 })
 export class TradeBuyStellarPage {
   private list: adinformation[];
-  constructor(public navCtrl: NavController, public adservice: AdvertisementServiceProvider) {
+  constructor(public navCtrl: NavController, public adservice: AdvertisementServiceProvider, public appCtrl:App) {
     this.doRefresh();
   }
   ionViewDidLoad() {
@@ -31,6 +32,9 @@ export class TradeBuyStellarPage {
         refresher.complete();
       }
     })
+  }
+  adinformation(information) {
+    this.appCtrl.getRootNav().push(AdinformationPage, {information: information,tradetype:{type:'Buy',crypto:'STELLAR'}})
   }
 
 }
