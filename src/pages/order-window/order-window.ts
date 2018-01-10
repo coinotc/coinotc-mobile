@@ -23,9 +23,9 @@ export class OrderWindowPage {
 
   private orders: Observable<OrderInformation[]>;
   private user;
-  status = 0;
+  private orderInfo;
+  status;
   switched = false;
-  orderInfo;
   client: any;
   ref;
   typingStatus;
@@ -64,11 +64,16 @@ export class OrderWindowPage {
   }
 
   onSwitch() {
+    if (this.user.username == this.orderInfo.seller) {
+      this.status = 0;
+    } else if (this.user.username == this.orderInfo.buyer) {
+      this.status = 1;
+    }
     this.switched = !this.switched;
   }
 
   onFinished() {
-    this.status = 1;
+    this.status = 2;
     this.orderInfo.finished = true;
     this.user.orderCount = this.user.orderCount + 1;
     this.userServiceProvider.update(this.user).subscribe();
@@ -76,7 +81,7 @@ export class OrderWindowPage {
   }
 
   onComment() {
-    this.status = 2;
+    this.status = 3;
     this.user.goodCount = this.user.goodCount + 1;
     this.userServiceProvider.update(this.user).subscribe();
     this.navCtrl.pop();

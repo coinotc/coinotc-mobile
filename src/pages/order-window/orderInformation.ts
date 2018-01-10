@@ -11,7 +11,7 @@ export class OrderInformation{
         public payment: String,
         public limit: Number,
         public finished: Boolean,
-        public trader: Boolean
+        public date: Date
     ){
 
     }

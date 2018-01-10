@@ -47,9 +47,9 @@ export class ProfilePage {
     private userService:UserServiceProvider
   ) {
     let user = this.userService.getCurrentUser();
-    console.log(user)
-    this.user.name = user.username;
-    
+    // this.user.name = user.username;
+    this.user.name = navParams.data;
+    console.log(this.user.name)
   }
 
   block(){}
