@@ -36,7 +36,6 @@ export class OrderWindowPage {
   typeStatusId;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private orderServiceProvider: OrderServiceProvider, public alert: AlertController, private userServiceProvider: UserServiceProvider) {
-    this.orders = this.orderServiceProvider.getOrders(null);
     this.user = this.userServiceProvider.getCurrentUser();
     this.orderInfo = navParams.data;
     this.ref = firebase.database().ref('messages');

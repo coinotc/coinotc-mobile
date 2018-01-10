@@ -20,17 +20,24 @@ const httpOptions = {
 @Injectable()
 export class OrderServiceProvider {
 
-  private orderURL = environment.api_url+'/order';
+  private orderURL = 'http://192.168.2.114:3000/api/order';
 
   constructor(public httpClient: HttpClient) {
     console.log('Hello OrderServiceProvider Provider');
   }
 
-  public getOrders(finished){
-    let getURL = `${this.orderURL}?finished=${finished}`
+  public getBuyerOrders(username,finished){
+    let getURL = `${this.orderURL}/buyer?username=${username}&finished=${finished}`
     return this.httpClient.get<OrderInformation[]>(getURL,httpOptions)
-    .pipe(catchError(this.handleError<OrderInformation[]>('getOrders')))
+    .pipe(catchError(this.handleError<OrderInformation[]>('getBuyerOrders')))
   }
+
+  public getSellerOrders(username,finished){
+    let getURL = `${this.orderURL}/seller?username=${username}&finished=${finished}`
+    return this.httpClient.get<OrderInformation[]>(getURL,httpOptions)
+    .pipe(catchError(this.handleError<OrderInformation[]>('getSellerOrders')))
+  }
+
 
   public updateOrder(order){
     return this.httpClient.put(this.orderURL, order, httpOptions)

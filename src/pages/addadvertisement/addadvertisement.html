@@ -16,7 +16,7 @@
 <ion-content padding [ngSwitch]="type">
   <ion-list *ngIf="type">
     <ion-item>
-      <ion-label>选择币种</ion-label>
+      <ion-label>Select Currency</ion-label>
       <ion-select item-right [(ngModel)]="information.crypto">
         <ion-option value="ETH">ETH</ion-option>
         <ion-option value="MONERO">Monero</ion-option>
@@ -25,25 +25,25 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>所在地</ion-label>
+      <ion-label>Country</ion-label>
       <ion-select item-right [(ngModel)]="information.country">
-        <ion-option value="singapore">新加坡</ion-option>
-        <ion-option value="china">中国</ion-option>
-        <ion-option value="usa">美国</ion-option>
-        <ion-option value="korea">南朝</ion-option>
+        <ion-option value="singapore">Singapore</ion-option>
+        <ion-option value="china">China</ion-option>
+        <ion-option value="usa">USA</ion-option>
+        <ion-option value="korea">Korea</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>货币</ion-label>
+      <ion-label>Currency</ion-label>
       <ion-select item-right [(ngModel)]="information.fiat">
-        <ion-option value="SGD">新币</ion-option>
-        <ion-option value="CNY">人民币</ion-option>
-        <ion-option value="USD">美元</ion-option>
-        <ion-option value="KRW">韩元</ion-option>
+        <ion-option value="SGD">SGD</ion-option>
+        <ion-option value="CNY">CNY</ion-option>
+        <ion-option value="USD">USD</ion-option>
+        <ion-option value="KRW">KRW</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>溢价设置 (百分比)</ion-label>
+      <ion-label>Premium Settings</ion-label>
       <ion-input text-right max="99" min="-99" type="number" [(ngModel)]="rangepercent" (ngModelChange)="changerange()"></ion-input>
     </ion-item>
     <ion-item>
@@ -53,33 +53,33 @@
       </ion-range>
     </ion-item>
     <ion-item>
-      <ion-label>交易价格</ion-label>
+      <ion-label>Price</ion-label>
       <ion-input text-right readonly [(ngModel)]="information.price"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>最小量</ion-label>
-      <ion-input type="number" placeholder="每笔交易最小限额" text-right [(ngModel)]="information.min_price"></ion-input>
+      <ion-label>Min Limit</ion-label>
+      <ion-input type="number" placeholder="Min Limit" text-right [(ngModel)]="information.min_price"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>最大量</ion-label>
-      <ion-input type="number" placeholder="每笔交易最大限额" text-right [(ngModel)]="information.max_price"></ion-input>
+      <ion-label>Max Limit</ion-label>
+      <ion-input type="number" placeholder="Max Limit" text-right [(ngModel)]="information.max_price"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>交易方式</ion-label>
+      <ion-label>Payment</ion-label>
       <ion-select item-right [(ngModel)]="information.payment">
         <ion-option value="paypal">PayPal</ion-option>
-        <ion-option value="bank">银行汇款</ion-option>
-        <ion-option value="alipay">支付宝</ion-option>
+        <ion-option value="bank">Bank Transfer</ion-option>
+        <ion-option value="alipay">Alipay</ion-option>
         <ion-option value="wechatPay">WeChat Pay</ion-option>
       </ion-select>
     </ion-item>
     <ion-item *ngIf="type === 'buy'">
-      <ion-label>交易限期</ion-label>
-      <ion-input type="number" placeholder="请输入收/付款期限(分钟)" text-right [(ngModel)]="information.limit"></ion-input>
+      <ion-label>Payment Window</ion-label>
+      <ion-input type="number" placeholder="minutes" text-right [(ngModel)]="information.limit"></ion-input>
     </ion-item>
-    <ion-textarea [(ngModel)]="information.massage" placeholder="广告留言，请说明交易相关信息"></ion-textarea>
-    <ion-item text-center *ngSwitchCase="'buy'"><button ion-button round (click)="addbuyad()" large >发布购买信息</button></ion-item>
-    <ion-item text-center *ngSwitchCase="'sell'"><button ion-button round (click)="addsellad()" large >发布出售信息</button></ion-item>
+    <ion-textarea [(ngModel)]="information.massage" placeholder="Advertisement Message"></ion-textarea>
+    <ion-item text-center *ngSwitchCase="'buy'"><button ion-button round (click)="addbuyad()" large >Publish</button></ion-item>
+    <ion-item text-center *ngSwitchCase="'sell'"><button ion-button round (click)="addsellad()" large >Publish</button></ion-item>
   </ion-list>
   <div *ngSwitchDefault>
     error

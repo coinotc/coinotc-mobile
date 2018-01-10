@@ -30,6 +30,7 @@ plugins/ios.json
 www/
 server/
 $RECYCLE.BIN/
+server/
 
 .env
 .DS_Store

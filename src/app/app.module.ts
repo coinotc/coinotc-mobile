@@ -16,6 +16,7 @@ import { WalletPage } from '../pages/wallet/wallet';
 import { TradePage } from '../pages/trade/trade';
 import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement'
 import { OrderListPage } from '../pages/order-list/order-list';
+import { AdinformationPage } from '../pages/adinformation/adinformation'
 import { OrderWindowPageModule } from '../pages/order-window/order-window.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -38,7 +39,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     WalletPage,
     TradePage,
     AddadvertisementPage,
-    OrderListPage
+    OrderListPage,
+    AdinformationPage
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     WalletPage,
     TradePage,
     AddadvertisementPage,
-    OrderListPage
+    OrderListPage,
+    AdinformationPage
   ],
   providers: [
     StatusBar,
