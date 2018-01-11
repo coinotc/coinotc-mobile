@@ -1,17 +1,16 @@
 export class OrderInformation{
     constructor(
-        public buyer:String,
-        public seller: String,
-        public crypto: String,
-        public country: String,
-        public quantity: Number,
-        public price: Number,
-        public amount: Number,
-        public fiat: String,
-        public payment: String,
-        public limit: Number,
+        public buyer:string,
+        public seller: string,
+        public crypto: string,
+        public country: string,
+        public quantity: number,
+        public price: number,
+        public amount: number,
+        public fiat: string,
+        public payment: string,
+        public limit: number,
         public finished: Boolean,
-        public trader: Boolean
     ){
 
     }

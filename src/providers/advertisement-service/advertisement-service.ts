@@ -35,4 +35,8 @@ export class AdvertisementServiceProvider {
   public addadsell(information){
     return this.http.post(this.adsell, information, httpOptions);
   }
+  public getprice(type,fiat){
+    let url = `https://api.coinmarketcap.com/v1/ticker/${type}/?convert=${fiat}`;
+    return this.http.get(url);
+  }
 }

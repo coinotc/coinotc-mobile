@@ -1,16 +1,16 @@
 export class adinformation{
     constructor(
-        public owner: String,
+        public owner: string,
         public visible: Boolean,
-        public crypto: String,
-        public country: String,
-        public fiat: String,
-        public price: Number,
-        public min_price: Number,
-        public max_price: Number,
-        public payment: String,
-        public limit: Number,
-        public massage: String
+        public crypto: string,
+        public country: string,
+        public fiat: string,
+        public price: number,
+        public min_price: number,
+        public max_price: number,
+        public payment: string,
+        public limit: number,
+        public massage: string
     ){
 
     }
