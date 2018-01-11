@@ -38,12 +38,12 @@ export class OrderListPage {
     this.doRefresh();
   }
 
-  onProfile(name) {
-    this.navCtrl.push("ProfilePage", name)
+  onDetail(order, trader) {
+    this.navCtrl.push(OrderWindowPage, {order, trader})
   }
 
-  onDetail(order) {
-    this.navCtrl.push(OrderWindowPage, order)
+  onSegment() {
+    this.doRefresh();
   }
 
   doRefresh(refresher?) {
