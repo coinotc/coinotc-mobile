@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
 import { OrderWindowPage } from '../order-window/order-window';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { OrderInformation } from '../order-window/orderInformation';
 
 /**
  * Generated class for the OrderListPage page.
@@ -19,10 +20,10 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 })
 export class OrderListPage {
 
-  private buyerActiveOrders: Observable<any>;
-  private sellerActiveOrders: Observable<any>;
-  private buyerFinishedOrders: Observable<any>;
-  private sellerFinishedOrders: Observable<any>;
+  private buyerActiveOrders: OrderInformation[];
+  private sellerActiveOrders: OrderInformation[];
+  private buyerFinishedOrders: OrderInformation[];
+  private sellerFinishedOrders: OrderInformation[];
   private user;
   segments = "ActiveBuy";
   status = "Active";
@@ -30,18 +31,52 @@ export class OrderListPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private orderServiceProvider: OrderServiceProvider, private userServiceProvider: UserServiceProvider) {
     this.user = this.userServiceProvider.getCurrentUser();
-    this.buyerActiveOrders = this.orderServiceProvider.getBuyerOrders(this.user.username, false);
-    this.sellerActiveOrders = this.orderServiceProvider.getSellerOrders(this.user.username, false);
-    this.buyerFinishedOrders = this.orderServiceProvider.getBuyerOrders(this.user.username, true);
-    this.sellerFinishedOrders = this.orderServiceProvider.getSellerOrders(this.user.username, true);
+    // this.buyerActiveOrders = this.orderServiceProvider.getBuyerOrders(this.user.username, false);
+    // this.sellerActiveOrders = this.orderServiceProvider.getSellerOrders(this.user.username, false);
+    // this.buyerFinishedOrders = this.orderServiceProvider.getBuyerOrders(this.user.username, true);
+    // this.sellerFinishedOrders = this.orderServiceProvider.getSellerOrders(this.user.username, true);
+    this.doRefresh();
   }
 
-  onProfile(name){
-    this.navCtrl.push("ProfilePage",name)
+  onDetail(order, trader) {
+    this.navCtrl.push(OrderWindowPage, {order, trader})
   }
 
-  onDetail(order) {
-    this.navCtrl.push(OrderWindowPage, order)
+  onSegment() {
+    this.doRefresh();
+  }
+
+  doRefresh(refresher?) {
+    switch (this.segments) {
+      case 'ActiveBuy':
+        this.orderServiceProvider.getBuyerOrders(this.user.username, false).subscribe((result) => {
+          this.buyerActiveOrders = result;
+          if (refresher) {
+            refresher.complete();
+          }
+        }); break;
+      case 'FinishedBuy':
+        this.orderServiceProvider.getBuyerOrders(this.user.username, true).subscribe(result => {
+          this.buyerFinishedOrders = result;
+          if (refresher) {
+            refresher.complete();
+          }
+        }); break;
+      case 'ActiveSell':
+        this.orderServiceProvider.getSellerOrders(this.user.username, false).subscribe(result => {
+          this.sellerActiveOrders = result;
+          if (refresher) {
+            refresher.complete();
+          }
+        }); break;
+      case 'FinishedSell':
+        this.orderServiceProvider.getSellerOrders(this.user.username, true).subscribe(result => {
+          this.sellerFinishedOrders = result;
+          if (refresher) {
+            refresher.complete();
+          }
+        }); break;
+    }
   }
 
   ionViewDidLoad() {

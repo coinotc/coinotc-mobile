@@ -6,6 +6,7 @@ import { OrderInformation } from './orderInformation';
 import * as firebase from 'firebase';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { WalletPage } from '../wallet/wallet';
+import { OrderListPage } from '../order-list/order-list';
 
 /**
  * Generated class for the OrderWindowPage page.
@@ -24,6 +25,7 @@ export class OrderWindowPage {
   private orders: Observable<OrderInformation[]>;
   private user;
   private orderInfo;
+  trader;
   status;
   switched = false;
   client: any;
@@ -37,11 +39,12 @@ export class OrderWindowPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private orderServiceProvider: OrderServiceProvider, public alert: AlertController, private userServiceProvider: UserServiceProvider) {
     this.user = this.userServiceProvider.getCurrentUser();
-    this.orderInfo = navParams.data;
+    this.orderInfo = navParams.data.order;
+    this.trader = navParams.data.trader;
     this.ref = firebase.database().ref('messages');
     this.typingStatus = firebase.database().ref('typeStatus');
     this.name = this.user.username;
-    console.log(this.orderInfo)
+    console.log(navParams.data)
   }
 
   onChange(e) {
@@ -89,6 +92,10 @@ export class OrderWindowPage {
 
   onExit() {
     this.navCtrl.pop();
+  }
+
+  onProfile(trader) {
+    this.navCtrl.push("ProfilePage", trader)
   }
 
   onWallet() {
