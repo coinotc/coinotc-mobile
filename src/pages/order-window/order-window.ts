@@ -6,6 +6,7 @@ import { OrderInformation } from './orderInformation';
 import * as firebase from 'firebase';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { WalletPage } from '../wallet/wallet';
+import { OrderListPage } from '../order-list/order-list';
 
 /**
  * Generated class for the OrderWindowPage page.
@@ -23,9 +24,10 @@ export class OrderWindowPage {
 
   private orders: Observable<OrderInformation[]>;
   private user;
-  status = 0;
+  private orderInfo;
+  trader;
+  status;
   switched = false;
-  orderInfo;
   client: any;
   ref;
   typingStatus;
@@ -36,13 +38,13 @@ export class OrderWindowPage {
   typeStatusId;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private orderServiceProvider: OrderServiceProvider, public alert: AlertController, private userServiceProvider: UserServiceProvider) {
-    this.orders = this.orderServiceProvider.getOrders(null);
     this.user = this.userServiceProvider.getCurrentUser();
-    this.orderInfo = navParams.data;
+    this.orderInfo = navParams.data.order;
+    this.trader = navParams.data.trader;
     this.ref = firebase.database().ref('messages');
     this.typingStatus = firebase.database().ref('typeStatus');
     this.name = this.user.username;
-    console.log(this.orderInfo)
+    console.log(navParams.data)
   }
 
   onChange(e) {
@@ -65,11 +67,16 @@ export class OrderWindowPage {
   }
 
   onSwitch() {
+    if (this.user.username == this.orderInfo.seller) {
+      this.status = 0;
+    } else if (this.user.username == this.orderInfo.buyer) {
+      this.status = 1;
+    }
     this.switched = !this.switched;
   }
 
   onFinished() {
-    this.status = 1;
+    this.status = 2;
     this.orderInfo.finished = true;
     this.user.orderCount = this.user.orderCount + 1;
     this.userServiceProvider.update(this.user).subscribe();
@@ -77,7 +84,7 @@ export class OrderWindowPage {
   }
 
   onComment() {
-    this.status = 2;
+    this.status = 3;
     this.user.goodCount = this.user.goodCount + 1;
     this.userServiceProvider.update(this.user).subscribe();
     this.navCtrl.pop();
@@ -85,6 +92,10 @@ export class OrderWindowPage {
 
   onExit() {
     this.navCtrl.pop();
+  }
+
+  onProfile(trader) {
+    this.navCtrl.push("ProfilePage", trader)
   }
 
   onWallet() {

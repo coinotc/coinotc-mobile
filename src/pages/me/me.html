@@ -7,8 +7,8 @@
 <ion-content>
   <ion-list>
     <ion-list-header>
-      <ion-avatar item-start (click)="updateProfileImage()">
-        <img [src]="placeholderPicture">
+      <ion-avatar item-start>
+        <img [src]="placeholderPicture" (click)="updateProfileImage()" >
       </ion-avatar>
       <p class="username">{{user.name}}</p>
       <p>{{user.email}}</p>

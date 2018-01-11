@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { adinformation } from '../../models/adinformation';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { OrderInformation } from '../order-window/orderInformation';
+import { OrderServiceProvider } from '../../providers/order-service/order-service';
+import { OrderWindowPage } from '../order-window/order-window';
 
 /**
  * Generated class for the AdinformationPage page.
@@ -18,7 +20,7 @@ import { OrderInformation } from '../order-window/orderInformation';
 })
 export class AdinformationPage {
   information: adinformation; title: string; tradetype: { type: String, crypto: String }; user: { order: 200, goodorder: 148, }; range; loading; orderinformation = new OrderInformation(null, null, null, null, null, null, null, null, null, null, false);
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userservice: UserServiceProvider, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userservice: UserServiceProvider, public loadingCtrl: LoadingController, public orderservice: OrderServiceProvider) {
     this.tradetype = navParams.data.tradetype;
     this.information = navParams.data.information;
     this.title = `${this.tradetype.type} ${this.tradetype.crypto}`
@@ -52,6 +54,13 @@ export class AdinformationPage {
       this.orderinformation.seller = this.userservice.getCurrentUser().username;
       this.orderinformation.buyer = this.information.owner;
     }
+    // console.log(this.orderinformation);
+    this.orderservice.postorder(this.orderinformation).subscribe(result=>{
+      console.log(result);
+      let owner = this.information.owner
+      this.loading.dismiss();
+      this.navCtrl.push(OrderWindowPage,{ order:result, trader:owner});
+    })
   }
   amountchange() {
     this.orderinformation.quantity = this.orderinformation.amount / this.orderinformation.price;

@@ -21,7 +21,7 @@ import { Errors } from '../../models/errors.model';
 export class MePage {
 
 
-  placeholderPicture = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515005723652&di=a1ebb7c0a1b6bfede1ff5ebc057ed073&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D822b27e7b8fb43160e12723948cd2c56%2F6c224f4a20a44623b6b1e24e9222720e0cf3d7a7.jpg';
+  placeholderPicture = 'http://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515005723652&di=a1ebb7c0a1b6bfede1ff5ebc057ed073&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D822b27e7b8fb43160e12723948cd2c56%2F6c224f4a20a44623b6b1e24e9222720e0cf3d7a7.jpg';
   isSubmitting = false;
   enableNotifications = true;
 
@@ -41,6 +41,7 @@ export class MePage {
       console.log(user);
       this.user.name = user.username;
       this.user.email = user.email;
+      this.user.imageUrl = this.placeholderPicture;
   }
 
   advertisementsTapped() {
@@ -52,7 +53,8 @@ export class MePage {
   settingsTapped() {
     this.navCtrl.push("SettingsPage");
   }
-  updateProfileImage() {
+  updateProfileImage(){
+    this.navCtrl.push("ProfilePage",this.userService.getCurrentUser().username);
   }
 
   logout(){
@@ -66,7 +68,6 @@ export class MePage {
         let tabs = document.querySelectorAll('.tabbar');
         if ( tabs !== null ) {
           Object.keys(tabs).map((key) => {
-            tabs[ key ].style.transform = 'translateY(56px)';
           });
         } // end if
     

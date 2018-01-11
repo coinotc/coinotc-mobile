@@ -5,14 +5,24 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  
+
+
+  <ion-navbar>
+    <ion-title>Order List</ion-title>
+  </ion-navbar>
   <ion-toolbar>
     <ion-segment [(ngModel)]="segments">
-      <ion-segment-button value="Active">
-        Active
+      <ion-segment-button value="ActiveBuy" (click)="onSegment()">
+        Active Buy
       </ion-segment-button>
-      <ion-segment-button value="Finished">
-        Finished
+      <ion-segment-button value="ActiveSell" (click)="onSegment()">
+        Active Sell
+      </ion-segment-button>
+      <ion-segment-button value="FinishedBuy" (click)="onSegment()">
+        Finished Buy
+      </ion-segment-button>
+      <ion-segment-button value="FinishedSell" (click)="onSegment()">
+        Finished Sell
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -21,87 +31,124 @@
 
 
 <ion-content padding>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="Pulldown to Refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <div [ngSwitch]="segments">
-    <div *ngSwitchCase="'Active'">
-      <ion-card *ngFor="let order of activeOrders | async">
+
+    <div *ngSwitchCase="'ActiveBuy'">
+
+      <ion-card *ngFor="let order of buyerActiveOrders" (click)="onDetail(order,order.seller)">
 
         <ion-item>
           <ion-avatar item-start>
-            <img src="img/marty-avatar.png">
+            <img [src]="placeholderPicture">
           </ion-avatar>
-          <h2>Marty McFly</h2>
-          <p>November 5, 1955</p>
+          <h2>{{order.seller}}
+            <span style="float:right">{{order.crypto}}</span>
+          </h2>
         </ion-item>
 
         <ion-card-content>
-          Seller:{{order.seller}}
-          <br>Amount:{{order.amount}}
-          <span style="float:right">Crypto:{{order.crypto}}</span>
-          <br>Order ID:{{order._id}}
+          Order ID:{{order._id}}
+          <br>Amount:
+          <span style="float:right">{{order.amount}}</span>
+          <br>Seller:
+          <span style="float:right">{{order.seller}}</span>
         </ion-card-content>
-
-        <ion-row>
-          <ion-col>
-            <button ion-button icon-left clear small>
-              <ion-icon name="thumbs-up"></ion-icon>
-              <div>12 Trust</div>
-            </button>
-          </ion-col>
-          <ion-col>
-            <button ion-button icon-left clear small>
-              <ion-icon name="thumbs-downt"></ion-icon>
-              <div>4 Distrust</div>
-            </button>
-          </ion-col>
-          <ion-col>
-            <button ion-button icon-right clear small (click)="onDetail(order)">
-              <div>Information</div>
-              <ion-icon name="arrow-round-forward"></ion-icon>
-            </button>
-          </ion-col>
-        </ion-row>
 
       </ion-card>
     </div>
 
-    <div *ngSwitchCase="'Finished'">
-      <ion-card *ngFor="let order of finishedOrders | async">
+    <div *ngSwitchCase="'ActiveSell'">
+      <ion-card *ngFor="let order of sellerActiveOrders" (click)="onDetail(order,order.buyer)">
 
         <ion-item>
           <ion-avatar item-start>
-            <img src="img/marty-avatar.png">
+            <img [src]="placeholderPicture">
           </ion-avatar>
-          <h2>Marty McFly</h2>
-          <p>November 5, 1955</p>
+          <h2>{{order.buyer}}
+            <span style="float:right">{{order.crypto}}</span>
+          </h2>
         </ion-item>
 
         <ion-card-content>
-          Seller:{{order.seller}}
-          <br>Amount:{{order.amount}}
-          <span style="float:right">Crypto:{{order.crypto}}</span>
-          <br>Order ID:{{order._id}}
+          Order ID:{{order._id}}
+          <br>Amount:
+          <span style="float:right">{{order.amount}}</span>
+          <br>Buyer:
+          <span style="float:right">{{order.buyer}}</span>
         </ion-card-content>
 
-        <ion-row>
-          <ion-col>
-            <button ion-button icon-left clear small>
-              <ion-icon name="thumbs-up"></ion-icon>
-              <div>12 Trust</div>
-            </button>
-          </ion-col>
-          <ion-col>
-            <button ion-button icon-left clear small>
-              <ion-icon name="thumbs-downt"></ion-icon>
-              <div>4 Distrust</div>
-            </button>
-          </ion-col>
-          <ion-col>
-            <button ion-button icon-right clear small (click)="onDetail(order)">
-              <div>Information</div>
-              <ion-icon name="arrow-round-forward"></ion-icon>
-            </button>
-          </ion-col>
-        </ion-row>
+      </ion-card>
+    </div>
+
+    <div *ngSwitchCase="'FinishedBuy'">
+      <ion-card *ngFor="let order of buyerFinishedOrders" (click)="onDetail(order,order.seller)">
+
+        <ion-item>
+          <ion-avatar item-start>
+            <img ion-item [src]="placeholderPicture">
+          </ion-avatar>
+          <h2>{{order.seller}}
+            <span style="float:right">{{order.crypto}}</span>
+          </h2>
+        </ion-item>
+
+        <ion-card-content>
+          Order ID:{{order._id}}
+          <br>Amount:
+          <span style="float:right">{{order.amount}}</span>
+          <br>Seller:
+          <span style="float:right">{{order.seller}}</span>
+        </ion-card-content>
+
+      </ion-card>
+    </div>
+
+    <div *ngSwitchCase="'FinishedSell'">
+      <ion-card *ngFor="let order of sellerFinishedOrders" (click)="onDetail(order,order.buyer)">
+
+        <ion-item>
+          <ion-avatar item-start>
+            <img [src]="placeholderPicture" (click)="onProfile(order.buyer)">
+          </ion-avatar>
+          <h2>{{order.buyer}}
+            <span style="float:right">{{order.crypto}}</span>
+          </h2>
+        </ion-item>
+
+        <ion-card-content>
+          Order ID:{{order._id}}
+          <br>Amount:
+          <span style="float:right">{{order.amount}}</span>
+          <br>Buyer:
+          <span style="float:right">{{order.buyer}}</span>
+        </ion-card-content>
+
+        <!-- <ion-row>
+            <ion-col>
+              <button ion-button icon-left clear small>
+                <ion-icon name="thumbs-up"></ion-icon>
+                <div>12 Trust</div>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button icon-left clear small>
+                <ion-icon name="thumbs-downt"></ion-icon>
+                <div>4 Distrust</div>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button icon-right clear small (click)="onDetail(order)">
+                <div>Information</div>
+                <ion-icon name="arrow-round-forward"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row> -->
 
       </ion-card>
     </div>
