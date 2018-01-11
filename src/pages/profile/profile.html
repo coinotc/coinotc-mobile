@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title><p>{{user.name}}</p></ion-title>
+    <ion-title><p>{{currentUserName}}</p></ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,18 +18,18 @@
       <ion-avatar item-start>
         <img [src]="placeholderPicture">
       </ion-avatar>
-      <h2>{{user.name}}</h2>
+      <h2>{{currentUserName}}</h2>
       <p>Trade with him 0 times</p>
       <ion-note item-end>
-        <button ion-button (click)="block()" *ngIf=" authType === 'register' " >Block</button>
-        <button ion-button (click)="trust()" *ngIf=" authType === 'register' " >Follow</button>
+        <button ion-button (click)="block()" *ngIf=" currentUserName == profileUser " >Block</button>
+        <button ion-button (click)="trust()" *ngIf=" currentUserName == profileUser " >Follow</button>
       </ion-note>
     </ion-item>
     <ion-item>
       <ion-grid>
         <ion-row>
           <ion-col> 
-            <h2>0</h2>
+            <h2>{{model.orderCount}}</h2>
             <p>Trades</p>
           </ion-col>
           <ion-col>

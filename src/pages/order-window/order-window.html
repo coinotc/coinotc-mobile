@@ -7,7 +7,7 @@
 
 <ion-header>
   <ion-navbar>
-    
+
   </ion-navbar>
   <ion-title>Information</ion-title>
 </ion-header>
@@ -19,29 +19,35 @@
 
     <ion-card [ngSwitch]="switched">
       <button ion-item (click)="onSwitch()">
-        {{orderInfo.crypto}} Trade ID:{{orderInfo._id}}
+        Crypto:{{orderInfo.crypto}}
         <span style="float:right">{{orderInfo.finished? 'Completed':'Active'}}</span>
       </button>
 
       <ion-card-content *ngSwitchCase="true">
-        Amount
+        Trade ID:
+        <span style="float:right">{{orderInfo._id}}</span>
+        <br>Amount
         <span style="float:right">{{orderInfo.amount}}</span>
         <br> Quantity
         <span style="float:right">{{orderInfo.quantity}}</span>
         <br> Price
         <span style="float:right">{{orderInfo.price}}</span>
         <br> Buyer:{{orderInfo.buyer}}
-        <br>Seller:{{orderInfo.seller}}
+        <span style="float:right">Seller:{{orderInfo.seller}}</span>
         <br> AD Message:TBD
+
+        <div align=center [ngSwitch]="status">
+          <div *ngIf="orderInfo.finished == false">
+            <button ion-button round *ngSwitchCase="0" (click)="onFinished()">Approve</button>
+            <button ion-button round *ngSwitchCase="1" (click)="onFinished()">Inform</button>
+          </div>
+          <button ion-button round *ngSwitchCase="2" (click)="onComment()">Good</button>
+          <button ion-button round *ngSwitchCase="2" (click)="onExit()">Bad</button>
+        </div>
+
       </ion-card-content>
 
     </ion-card>
-
-    <div align=center [ngSwitch]="status" *ngIf="orderInfo.finished == false">
-      <button ion-button round *ngSwitchCase="0" (click)="onFinished()">{{orderInfo.trader? 'Inform':'Approve'}}</button>
-      <button ion-button round *ngSwitchCase="1" (click)="onComment()">Good</button>
-      <button ion-button round *ngSwitchCase="1" (click)="onExit()">Bad</button>
-    </div>
 
     <div align=center>
       <button ion-button round (click)="onWallet()">Wallet</button>

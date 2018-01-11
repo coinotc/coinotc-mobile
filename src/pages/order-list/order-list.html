@@ -39,17 +39,19 @@
 
         <ion-item>
           <ion-avatar item-start>
-            <img src="img/marty-avatar.png">
+            <img [src]="placeholderPicture" (click)="onProfile(order.seller)">
           </ion-avatar>
-          <h2>Marty McFly</h2>
-          <p>November 5, 1955</p>
+          <h2>{{order.seller}}
+            <span style="float:right">{{order.crypto}}</span>
+          </h2>
         </ion-item>
 
         <ion-card-content>
-          Seller:{{order.seller}}
-          <br>Amount:{{order.amount}}
-          <span style="float:right">Crypto:{{order.crypto}}</span>
-          <br>Order ID:{{order._id}}
+          Order ID:{{order._id}}
+          <br>Amount:
+          <span style="float:right">{{order.amount}}</span>
+          <br>Seller:
+          <span style="float:right">{{order.seller}}</span>
         </ion-card-content>
 
         <ion-row>
@@ -81,17 +83,19 @@
 
         <ion-item>
           <ion-avatar item-start>
-            <img src="img/marty-avatar.png">
+            <img [src]="placeholderPicture" (click)="onProfile(order.buyer)">
           </ion-avatar>
-          <h2>Marty McFly</h2>
-          <p>November 5, 1955</p>
+          <h2>{{order.buyer}}
+            <span style="float:right">{{order.crypto}}</span>
+          </h2>
         </ion-item>
 
         <ion-card-content>
-          Seller:{{order.seller}}
-          <br>Amount:{{order.amount}}
-          <span style="float:right">Crypto:{{order.crypto}}</span>
-          <br>Order ID:{{order._id}}
+          Order ID:{{order._id}}
+          <br>Amount:
+          <span style="float:right">{{order.amount}}</span>
+          <br>Buyer:
+          <span style="float:right">{{order.buyer}}</span>
         </ion-card-content>
 
         <ion-row>
@@ -123,17 +127,19 @@
 
         <ion-item>
           <ion-avatar item-start>
-            <img src="img/marty-avatar.png">
+            <img [src]="placeholderPicture" (click)="onProfile(order.seller)">
           </ion-avatar>
-          <h2>Marty McFly</h2>
-          <p>November 5, 1955</p>
+          <h2>{{order.seller}}
+            <span style="float:right">{{order.crypto}}</span>
+          </h2>
         </ion-item>
 
         <ion-card-content>
-          Seller:{{order.seller}}
-          <br>Amount:{{order.amount}}
-          <span style="float:right">Crypto:{{order.crypto}}</span>
-          <br>Order ID:{{order._id}}
+          Order ID:{{order._id}}
+          <br>Amount:
+          <span style="float:right">{{order.amount}}</span>
+          <br>Seller:
+          <span style="float:right">{{order.seller}}</span>
         </ion-card-content>
 
         <ion-row>
@@ -165,17 +171,19 @@
 
         <ion-item>
           <ion-avatar item-start>
-            <img src="img/marty-avatar.png">
+            <img [src]="placeholderPicture" (click)="onProfile(order.buyer)">
           </ion-avatar>
-          <h2>Marty McFly</h2>
-          <p>November 5, 1955</p>
+          <h2>{{order.buyer}}
+            <span style="float:right">{{order.crypto}}</span>
+          </h2>
         </ion-item>
 
         <ion-card-content>
-          Seller:{{order.seller}}
-          <br>Amount:{{order.amount}}
-          <span style="float:right">Crypto:{{order.crypto}}</span>
-          <br>Order ID:{{order._id}}
+          Order ID:{{order._id}}
+          <br>Amount:
+          <span style="float:right">{{order.amount}}</span>
+          <br>Buyer:
+          <span style="float:right">{{order.buyer}}</span>
         </ion-card-content>
 
         <ion-row>
