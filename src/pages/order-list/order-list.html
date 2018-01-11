@@ -32,10 +32,16 @@
 
 <ion-content padding>
 
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="Pulldown to Refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <div [ngSwitch]="segments">
 
     <div *ngSwitchCase="'ActiveBuy'">
-      <ion-card *ngFor="let order of buyerActiveOrders | async">
+
+      <ion-card *ngFor="let order of buyerActiveOrders">
 
         <ion-item>
           <ion-avatar item-start>
@@ -79,7 +85,7 @@
     </div>
 
     <div *ngSwitchCase="'ActiveSell'">
-      <ion-card *ngFor="let order of sellerActiveOrders | async">
+      <ion-card *ngFor="let order of sellerActiveOrders">
 
         <ion-item>
           <ion-avatar item-start>
@@ -123,7 +129,7 @@
     </div>
 
     <div *ngSwitchCase="'FinishedBuy'">
-      <ion-card *ngFor="let order of buyerFinishedOrders | async">
+      <ion-card *ngFor="let order of buyerFinishedOrders">
 
         <ion-item>
           <ion-avatar item-start>
@@ -167,7 +173,7 @@
     </div>
 
     <div *ngSwitchCase="'FinishedSell'">
-      <ion-card *ngFor="let order of sellerFinishedOrders | async">
+      <ion-card *ngFor="let order of sellerFinishedOrders">
 
         <ion-item>
           <ion-avatar item-start>
