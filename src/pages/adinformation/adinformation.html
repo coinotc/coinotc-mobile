@@ -72,6 +72,6 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar>
-    <button ion-button full (click)="makeorder()">{{tradetype.type | translate}}</button>
+    <button ion-button [disabled]="disabled" full (click)="makeorder()">{{tradetype.type | translate}}</button>
   </ion-toolbar>
 </ion-footer>
