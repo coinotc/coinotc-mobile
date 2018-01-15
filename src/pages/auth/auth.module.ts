@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { AuthPage } from './auth';
 import { RouterModule } from '@angular/router';
-
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -10,7 +10,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     IonicPageModule.forChild(AuthPage),
-    RouterModule
+    RouterModule,
+    TranslateModule.forChild()
   ],
 })
 export class AuthPageModule {}

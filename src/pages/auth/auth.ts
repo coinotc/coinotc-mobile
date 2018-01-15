@@ -7,6 +7,8 @@ import { Errors } from '../../models/errors.model';
 import { Profile } from '../../models/profile.model';
 import { TabsPage } from '../../pages/tabs/tabs';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
+import { TranslateService } from '@ngx-translate/core';
+
 /**
  * Generated class for the AuthPage page.
  *
@@ -33,7 +35,8 @@ export class AuthPage {
     private userService: UserServiceProvider,
     private params: NavParams,
     private fb: FormBuilder,
-    private profileService:ProfileServiceProvider
+    private profileService:ProfileServiceProvider,
+    private translate: TranslateService
   ) {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
@@ -42,6 +45,8 @@ export class AuthPage {
       'confirmPassword': [''],
     });
     this.isModal = !!params.get('isModal');
+    translate.setDefaultLang('cn');
+    translate.use('cn');
   }
   authTypeChange() {
     if (this.authType === 'register') {

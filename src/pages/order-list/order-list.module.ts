@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { OrderListPage } from './order-list';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { OrderListPage } from './order-list';
   ],
   imports: [
     IonicPageModule.forChild(OrderListPage),
+    TranslateModule.forChild()
   ],
 })
 export class OrderListPageModule {}

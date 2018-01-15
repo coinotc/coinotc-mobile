@@ -17,7 +17,7 @@
   <ion-list *ngIf="type">
     <ion-item>
       <ion-label>Select Currency</ion-label>
-      <ion-select item-right [(ngModel)]="information.crypto">
+      <ion-select item-right [(ngModel)]="information.crypto" (ngModelChange)="getcryptoprice()" >
         <ion-option value="ETH">ETH</ion-option>
         <ion-option value="MONERO">Monero</ion-option>
         <ion-option value="RIPPLE">Ripple</ion-option>
@@ -35,7 +35,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Currency</ion-label>
-      <ion-select item-right [(ngModel)]="information.fiat">
+      <ion-select item-right [(ngModel)]="information.fiat" (ngModelChange)="getcryptoprice()" >
         <ion-option value="SGD">SGD</ion-option>
         <ion-option value="CNY">CNY</ion-option>
         <ion-option value="USD">USD</ion-option>
@@ -44,7 +44,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Premium Settings</ion-label>
-      <ion-input text-right max="99" min="-99" type="number" [(ngModel)]="rangepercent" (ngModelChange)="changerange()"></ion-input>
+      <ion-input text-right max="99" min="-99" readonly [(ngModel)]="rangepercent" (ngModelChange)="changerange()"></ion-input>
     </ion-item>
     <ion-item>
       <ion-range min="-99" max="99" step="1" [(ngModel)]="rangepercent" (ngModelChange)="changerange()">
