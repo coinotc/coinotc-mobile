@@ -13,6 +13,10 @@
         "wannaBuy": "我想购买",
         "wannaSell": "我想出售"
     },
+    "trade":{
+        "buy":"发布购买广告",
+        "sell":"发布出售广告"
+    },
     "Information": "订单详情",
     "Crypto": "虚拟币种",
     "Amount": "交易金额",

@@ -42,6 +42,9 @@ export class AddadvertisementPage {
       case 'STELLAR':
         this.getfiatprice('STELLAR');
         break;
+      case 'CARDANO':
+        this.getfiatprice('CARDANO');
+        break;
     }
   }
   getfiatprice(crypto) {
