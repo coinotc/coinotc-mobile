@@ -6,20 +6,20 @@
 -->
 <ion-content padding *ngIf="list">
   <ion-refresher (ionRefresh)="doRefresh($event)">
-     <ion-refresher-content pullingText="pulldown to refresh" refreshingSpinner="circles" refreshingText="refreshing...">
+    <ion-refresher-content pullingText="pulldown to refresh" refreshingSpinner="circles" refreshingText="refreshing...">
     </ion-refresher-content>
   </ion-refresher>
-    <ion-card *ngFor="let item of list ">
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="img/{{item.owner}}.Avatar.png">
-        </ion-avatar>
-        <h2>{{item.owner}}</h2>
-        <p>{{item.payment}}</p>
-        <div item-right text-right>
-          <h5 style="color:#02cb66">{{item.price | number}}{{item.fiat}}</h5>
-        <button ion-button round (click)="adinformation(item)" >BUY {{item.crypto}}</button>
-        </div>
-      </ion-item>
-    </ion-card>
-  </ion-content>
+  <ion-card *ngFor="let item of list ">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="img/{{item.owner}}.Avatar.png">
+      </ion-avatar>
+      <h2>{{item.owner}}</h2>
+      <p>{{'payment.'+item.payment | translate}}</p>
+      <div item-right text-right>
+        <h5 style="color:#02cb66">{{item.price | number}} {{'fiat.'+item.fiat | translate}}</h5>
+        <button ion-button round (click)="adinformation(item)">{{'Buy' | translate}} {{item.crypto}}</button>
+      </div>
+    </ion-item>
+  </ion-card>
+</ion-content>

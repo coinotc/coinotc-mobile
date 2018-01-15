@@ -20,15 +20,15 @@ export class TradePage {
     root: 'TradeBuyEthereumPage',
     title: 'Ethereum',
     icon: 'eth'
-  },{
+  }, {
     root: 'TradeBuyMoneroPage',
     title: 'Monero',
     icon: 'monero'
-  },{
+  }, {
     root: 'TradeBuyRipplePage',
     title: 'Ripple',
     icon: 'ripple'
-  },{
+  }, {
     root: 'TradeBuyStellarPage',
     title: 'Stellar',
     icon: 'stellar'
@@ -37,29 +37,29 @@ export class TradePage {
     root: 'TradeSellEthereumPage',
     title: 'Ethereum',
     icon: 'eth'
-  },{
+  }, {
     root: 'TradeSellMoneroPage',
     title: 'Monero',
     icon: 'monero'
-  },{
+  }, {
     root: 'TradeSellRipplePage',
     title: 'Ripple',
     icon: 'ripple'
-  },{
+  }, {
     root: 'TradeSellStellarPage',
     title: 'Stellar',
     icon: 'stellar'
   }]
-  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TradePage');
   }
   addbuyad() {
-    this.appCtrl.getRootNav().push(AddadvertisementPage, {type:'buy',title:'Publish an AD of Buying'})
+    this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Buy', title: 'publishBuy' })
   }
   addsellad() {
-    this.appCtrl.getRootNav().push(AddadvertisementPage, {type:'sell',title:'Publish an AD of Selling'})
+    this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Sell', title: 'publishSell' })
   }
 }

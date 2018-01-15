@@ -8,21 +8,21 @@
 
 
   <ion-navbar>
-    <ion-title>Order List</ion-title>
+    <ion-title>{{'OrderList' | translate}}</ion-title>
   </ion-navbar>
   <ion-toolbar>
     <ion-segment [(ngModel)]="segments">
       <ion-segment-button value="ActiveBuy" (click)="onSegment()">
-        Active Buy
+        {{'ActiveBuy' | translate}}
       </ion-segment-button>
       <ion-segment-button value="ActiveSell" (click)="onSegment()">
-        Active Sell
+        {{'ActiveSell' | translate}}
       </ion-segment-button>
       <ion-segment-button value="FinishedBuy" (click)="onSegment()">
-        Finished Buy
+        {{'FinishedBuy' | translate}}
       </ion-segment-button>
       <ion-segment-button value="FinishedSell" (click)="onSegment()">
-        Finished Sell
+        {{'FinishedSell' | translate}}
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -53,10 +53,10 @@
         </ion-item>
 
         <ion-card-content>
-          Order ID:{{order._id}}
-          <br>Amount:
+          {{'OrderID' | translate}}:{{order._id}}
+          <br>{{'Amount' | translate}}:
           <span style="float:right">{{order.amount}}</span>
-          <br>Seller:
+          <br>{{'Seller' | translate}}:
           <span style="float:right">{{order.seller}}</span>
         </ion-card-content>
 
@@ -76,10 +76,10 @@
         </ion-item>
 
         <ion-card-content>
-          Order ID:{{order._id}}
-          <br>Amount:
+          {{'OrderID' | translate}}:{{order._id}}
+          <br>{{'Amount' | translate}}:
           <span style="float:right">{{order.amount}}</span>
-          <br>Buyer:
+          <br>{{'Buyer' | translate}}:
           <span style="float:right">{{order.buyer}}</span>
         </ion-card-content>
 
@@ -91,7 +91,7 @@
 
         <ion-item>
           <ion-avatar item-start>
-            <img ion-item [src]="placeholderPicture">
+            <img [src]="placeholderPicture">
           </ion-avatar>
           <h2>{{order.seller}}
             <span style="float:right">{{order.crypto}}</span>
@@ -99,10 +99,10 @@
         </ion-item>
 
         <ion-card-content>
-          Order ID:{{order._id}}
-          <br>Amount:
+          {{'OrderID' | translate}}:{{order._id}}
+          <br>{{'Amount' | translate}}:
           <span style="float:right">{{order.amount}}</span>
-          <br>Seller:
+          <br>{{'Seller' | translate}}:
           <span style="float:right">{{order.seller}}</span>
         </ion-card-content>
 
@@ -114,7 +114,7 @@
 
         <ion-item>
           <ion-avatar item-start>
-            <img [src]="placeholderPicture" (click)="onProfile(order.buyer)">
+            <img [src]="placeholderPicture">
           </ion-avatar>
           <h2>{{order.buyer}}
             <span style="float:right">{{order.crypto}}</span>
@@ -122,10 +122,10 @@
         </ion-item>
 
         <ion-card-content>
-          Order ID:{{order._id}}
-          <br>Amount:
+          {{'OrderID' | translate}}:{{order._id}}
+          <br>{{'Amount' | translate}}:
           <span style="float:right">{{order.amount}}</span>
-          <br>Buyer:
+          <br>{{'Buyer' | translate}}:
           <span style="float:right">{{order.buyer}}</span>
         </ion-card-content>
 

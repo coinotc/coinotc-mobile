@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { adinformation } from '../../models/adinformation';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
+
 /**
  * Generated class for the AddadvertisementPage page.
  *
@@ -25,7 +26,7 @@ export class AddadvertisementPage {
     this.adservice.getprice('Ethereum', 'SGD').subscribe(result => {
       this.cryptoprice = Number(result[0].price_sgd);
       this.information.price = this.cryptoprice;
-    })
+    });
   }
   getcryptoprice() {
     switch (this.information.crypto) {

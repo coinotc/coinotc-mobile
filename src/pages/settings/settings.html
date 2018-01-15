@@ -58,8 +58,8 @@
     <ion-item>
       <ion-icon name='settings' item-start></ion-icon>
       <ion-label>App Language</ion-label>
-      <ion-select [(ngModel)]="language">
-        <ion-option *ngFor="let language of languages" [value]="language">{{language}}</ion-option>
+      <ion-select [(ngModel)]="language" (ngModelChange)="switchLanguage()">
+        <ion-option *ngFor="let language of languages" [value]="language.value">{{language.label}}</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>

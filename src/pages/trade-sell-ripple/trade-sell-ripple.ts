@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, App } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { adinformation } from '../../models/adinformation';
-import { AdinformationPage } from '../adinformation/adinformation'
+import { AdinformationPage } from '../adinformation/adinformation';
 
 /**
  * Generated class for the TradeSellRipplePage page.
@@ -18,7 +18,7 @@ import { AdinformationPage } from '../adinformation/adinformation'
 })
 export class TradeSellRipplePage {
   private list: adinformation[];
-  constructor(public navCtrl: NavController, public adservice: AdvertisementServiceProvider, public appCtrl:App) {
+  constructor(public navCtrl: NavController, public adservice: AdvertisementServiceProvider, public appCtrl: App) {
     this.doRefresh();
   }
 
@@ -35,7 +35,7 @@ export class TradeSellRipplePage {
     })
   }
   adinformation(information) {
-    this.appCtrl.getRootNav().push(AdinformationPage, {information: information,tradetype:{type:'Sell',crypto:'RIPPLE'}})
+    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: 'RIPPLE' } })
   }
 
 }
