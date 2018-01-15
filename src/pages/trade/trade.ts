@@ -18,37 +18,45 @@ export class TradePage {
   buynsell: string = "buy";
   buycryptos: Object[] = [{
     root: 'TradeBuyEthereumPage',
-    title: 'Ethereum',
+    title: 'ETH',
     icon: 'eth'
-  }, {
-    root: 'TradeBuyMoneroPage',
-    title: 'Monero',
-    icon: 'monero'
   }, {
     root: 'TradeBuyRipplePage',
     title: 'Ripple',
     icon: 'ripple'
   }, {
+    root: 'TradeBuyMoneroPage',
+    title: 'Monero',
+    icon: 'monero'
+  }, {
     root: 'TradeBuyStellarPage',
     title: 'Stellar',
     icon: 'stellar'
+  },{
+    root: 'TradeBuyCardanoPage',
+    title: 'Cardano',
+    icon: 'cardano'
   }]
   sellcryptos: Object[] = [{
     root: 'TradeSellEthereumPage',
     title: 'Ethereum',
     icon: 'eth'
   }, {
-    root: 'TradeSellMoneroPage',
-    title: 'Monero',
-    icon: 'monero'
-  }, {
     root: 'TradeSellRipplePage',
     title: 'Ripple',
     icon: 'ripple'
   }, {
+    root: 'TradeSellMoneroPage',
+    title: 'Monero',
+    icon: 'monero'
+  }, {
     root: 'TradeSellStellarPage',
     title: 'Stellar',
     icon: 'stellar'
+  },{
+    root: 'TradeSellCardanoPage',
+    title: 'Cardano',
+    icon: 'cardano'
   }]
   constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App) {
   }

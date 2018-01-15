@@ -34,7 +34,7 @@ export class TradeSellEthereumPage {
     })
   }
   adinformation(information) {
-    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: 'BTC' } })
+    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: 'ETH' } })
   }
 
 }

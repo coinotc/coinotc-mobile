@@ -19,25 +19,27 @@
 
 
 <ion-content padding [ngSwitch]="buynsell">
-  <super-tabs *ngSwitchCase="'buy'" id="buyTabs" selectedTabIndex="0" toolbarColor="light" toolbarBackground="dark" indicatorColor="light"
+  <super-tabs *ngSwitchCase="'buy'" id="buyTabs" selectedTabIndex="0" toolbarColor="dark" toolbarBackground="light" indicatorColor="light"
     badgeColor="light">
     <super-tab *ngFor="let crypto of buycryptos; let i = index" [root]="crypto.root" title="{{crypto.title}}" icon="{{crypto.icon}}"
       [id]="i"></super-tab>
   </super-tabs>
-    <super-tabs *ngSwitchCase="'sell'" id="sellTabs" selectedTabIndex="0" toolbarColor="light" toolbarBackground="dark" indicatorColor="light" badgeColor="light">
+    <super-tabs *ngSwitchCase="'sell'" id="sellTabs" selectedTabIndex="0" toolbarColor="dark" toolbarBackground="light" indicatorColor="light" badgeColor="light">
       <super-tab *ngFor="let crypto of sellcryptos; let i = index" [root]="crypto.root" title="{{crypto.title}}" icon="{{crypto.icon}}"
         [id]="i"></super-tab>
     </super-tabs>
   <ion-fab bottom right>
-    <button ion-fab color="dark">
+    <button ion-fab color="primary">
       <ion-icon name="add"></ion-icon>
     </button>
     <ion-fab-list side="top">
-      <button ion-fab (click)="addbuyad()" color="dark">
+      <button ion-fab (click)="addbuyad()" color="secondary">
         <ion-icon name="buy"></ion-icon>
+        <ion-label>{{'trade.buy' | translate}}</ion-label>
       </button>
-      <button ion-fab (click)="addsellad()" color="dark">
+      <button ion-fab (click)="addsellad()" color="danger">
         <ion-icon name="sell"></ion-icon>
+        <ion-label>{{'trade.sell' | translate}}</ion-label>
       </button>
     </ion-fab-list>
   </ion-fab>
