@@ -16,7 +16,7 @@
 <ion-content padding [ngSwitch]="type">
   <ion-list *ngIf="type">
     <ion-item>
-      <ion-label>Select Currency</ion-label>
+      <ion-label>{{'SelectCurrency' | translate}}</ion-label>
       <ion-select item-right [(ngModel)]="information.crypto" (ngModelChange)="getcryptoprice()" >
         <ion-option value="ETH">ETH</ion-option>
         <ion-option value="MONERO">Monero</ion-option>
@@ -25,25 +25,25 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Country</ion-label>
+      <ion-label>{{'Country' | translate}}</ion-label>
       <ion-select item-right [(ngModel)]="information.country">
-        <ion-option value="singapore">Singapore</ion-option>
-        <ion-option value="china">China</ion-option>
-        <ion-option value="usa">USA</ion-option>
-        <ion-option value="korea">Korea</ion-option>
+        <ion-option value="singapore">{{'Singapore' | translate}}</ion-option>
+        <ion-option value="china">{{'China' | translate}}</ion-option>
+        <ion-option value="usa">{{'USA' | translate}}</ion-option>
+        <ion-option value="korea">{{'Korea' | translate}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Currency</ion-label>
+      <ion-label>{{'Currency' | translate}}</ion-label>
       <ion-select item-right [(ngModel)]="information.fiat" (ngModelChange)="getcryptoprice()" >
-        <ion-option value="SGD">SGD</ion-option>
-        <ion-option value="CNY">CNY</ion-option>
-        <ion-option value="USD">USD</ion-option>
-        <ion-option value="KRW">KRW</ion-option>
+        <ion-option value="SGD">{{'fiat.SGD' | translate}}</ion-option>
+        <ion-option value="CNY">{{"fiat.CNY" | translate}}</ion-option>
+        <ion-option value="USD">{{'fiat.USD' | translate}}</ion-option>
+        <ion-option value="KRW">{{'fiat.KRW' | translate}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Premium Settings</ion-label>
+      <ion-label>{{'PremiumSettings' | translate}}</ion-label>
       <ion-input text-right max="99" min="-99" readonly [(ngModel)]="rangepercent" (ngModelChange)="changerange()"></ion-input>
     </ion-item>
     <ion-item>
@@ -53,33 +53,33 @@
       </ion-range>
     </ion-item>
     <ion-item>
-      <ion-label>Price</ion-label>
+      <ion-label>{{'Price' | translate}}</ion-label>
       <ion-input text-right readonly [(ngModel)]="information.price"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Min Limit</ion-label>
-      <ion-input type="number" placeholder="Min Limit" text-right [(ngModel)]="information.min_price"></ion-input>
+      <ion-label>{{'MinLimit' | translate}}</ion-label>
+      <ion-input type="number" text-right [(ngModel)]="information.min_price"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Max Limit</ion-label>
-      <ion-input type="number" placeholder="Max Limit" text-right [(ngModel)]="information.max_price"></ion-input>
+      <ion-label>{{'MaxLimit' | translate}}</ion-label>
+      <ion-input type="number" text-right [(ngModel)]="information.max_price"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Payment</ion-label>
+      <ion-label>{{'Payment' | translate}}</ion-label>
       <ion-select item-right [(ngModel)]="information.payment">
-        <ion-option value="paypal">PayPal</ion-option>
-        <ion-option value="bank">Bank Transfer</ion-option>
-        <ion-option value="alipay">Alipay</ion-option>
-        <ion-option value="wechatPay">WeChat Pay</ion-option>
+        <ion-option value="paypal">{{'payment.paypal' | translate}}</ion-option>
+        <ion-option value="bank">{{'payment.bank' | translate}}</ion-option>
+        <ion-option value="alipay">{{'payment.alipay' | translate}}</ion-option>
+        <ion-option value="wechatPay">{{'payment.wechatPay' | translate}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item *ngIf="type === 'buy'">
-      <ion-label>Payment Window</ion-label>
-      <ion-input type="number" placeholder="minutes" text-right [(ngModel)]="information.limit"></ion-input>
+      <ion-label>{{'PaymentWindow' | translate}}</ion-label>
+      <ion-input type="number" placeholder="{{'minutes' | translate}}" text-right [(ngModel)]="information.limit"></ion-input>
     </ion-item>
-    <ion-textarea [(ngModel)]="information.massage" placeholder="Advertisement Message"></ion-textarea>
-    <ion-item text-center *ngSwitchCase="'buy'"><button ion-button round (click)="addbuyad()" large >Publish</button></ion-item>
-    <ion-item text-center *ngSwitchCase="'sell'"><button ion-button round (click)="addsellad()" large >Publish</button></ion-item>
+    <ion-textarea [(ngModel)]="information.massage" placeholder="{{'AdvertisementMessage' | translate}}"></ion-textarea>
+    <ion-item text-center *ngSwitchCase="'buy'"><button ion-button round (click)="addbuyad()" large >{{'Publish' | translate}}</button></ion-item>
+    <ion-item text-center *ngSwitchCase="'sell'"><button ion-button round (click)="addsellad()" large >{{'Publish' | translate}}</button></ion-item>
   </ion-list>
   <div *ngSwitchDefault>
     error

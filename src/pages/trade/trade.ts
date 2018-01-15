@@ -57,9 +57,9 @@ export class TradePage {
     console.log('ionViewDidLoad TradePage');
   }
   addbuyad() {
-    this.appCtrl.getRootNav().push(AddadvertisementPage, {type:'buy',title:'Publish an AD of Buying'})
+    this.appCtrl.getRootNav().push(AddadvertisementPage, {type:'buy',title:'publishBuy'})
   }
   addsellad() {
-    this.appCtrl.getRootNav().push(AddadvertisementPage, {type:'sell',title:'Publish an AD of Selling'})
+    this.appCtrl.getRootNav().push(AddadvertisementPage, {type:'sell',title:'publishSell'})
   }
 }

@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{title}}</ion-title>
+    <ion-title>{{'adInfo.'+tradetype.type | translate}} {{tradetype.crypto}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -20,10 +20,10 @@
         <img src="img/{{information.owner}}.Avatar.png">
       </ion-avatar>
       <h2>{{information.owner}}</h2>
-      <p>limit:{{information.min_price}}-{{information.max_price}} {{information.fiat}}</p>
+      <p>{{'limit' | translate}}:{{information.min_price}}-{{information.max_price}} {{'fiat.'+information.fiat | translate}}</p>
       <div item-right text-right>
-        <h4>{{information.price}} {{information.fiat}}</h4>
-        <span>{{information.payment}}</span>
+        <h4>{{information.price}} {{'fiat.'+information.fiat | translate}}</h4>
+        <span>{{'payment.'+information.payment | translate}}</span>
       </div>
     </ion-item>
   </ion-card>
@@ -31,21 +31,21 @@
     <div ion-row text-center>
       <div ion-col>
         <h4>{{user.order}}</h4>
-        <span>trades</span>
+        <span>{{'Trades' | translate}}</span>
       </div>
       <div ion-col>
         <h4>{{user.goodorder}}</h4>
-        <span>good</span>
+        <span>{{'Good' | translate}}</span>
       </div>
       <div ion-col>
         <h4>{{range}}%</h4>
-        <span>Rating</span>
+        <span>{{'Rating' | translate}}</span>
       </div>
     </div>
   </ion-card>
   <ion-card>
     <ion-card-header>
-      Ad Massage:
+      {{'AdvertisementMessage' | translate}}:
     </ion-card-header>
     <ion-card-content>
       {{information.massage}}
@@ -53,11 +53,11 @@
   </ion-card>
   <ion-card>
     <ion-card-header>
-      How many do you want to buy?
+      {{'wannaBuy' | translate}}
     </ion-card-header>
     <ion-card-content ion-row no-padding>
       <ion-item ion-col>
-        <ion-label item-right>{{information.fiat}}</ion-label>
+        <ion-label item-right>{{'fiat.'+information.fiat | translate}}</ion-label>
         <ion-input type="number" [(ngModel)]="orderinformation.amount" (ngModelChange)="amountchange()" ></ion-input>
       </ion-item>
       <div text-center ion-col col-1 padding-top>
@@ -72,6 +72,6 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar>
-    <button ion-button full (click)="makeorder()">{{tradetype.type}}</button>
+    <button ion-button full (click)="makeorder()">{{'adInfo.'+tradetype.type | translate}}</button>
   </ion-toolbar>
 </ion-footer>

@@ -7,7 +7,7 @@
 <ion-header>
 
     <ion-navbar no-border-bottom>
-      <ion-title >{{ authType === 'register' ? 'Sign Up' : 'Sign In' }}
+      <ion-title >{{ authType === 'register' ? 'Sign Up' : 'Sign In' }}<!-- Line 10 Without Translation -->
       </ion-title>
       <ion-buttons start *ngIf="isModal">
         <button ion-button (click)="close()">
@@ -18,10 +18,10 @@
     <ion-toolbar no-border-top>
       <ion-segment [(ngModel)]="authType" (ngModelChange)="authTypeChange()">
         <ion-segment-button value="login">
-          SignIn
+          {{'SignIn' | translate}}
         </ion-segment-button>
         <ion-segment-button value="register">
-          SignUp
+          {{'SignUp' | translate}}
         </ion-segment-button>
       </ion-segment>
     </ion-toolbar>

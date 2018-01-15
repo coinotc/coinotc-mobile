@@ -1,8 +1,8 @@
 export class Profile {
-    username: string;
-    trades: number;
-    trusted: number;
-    volume: number;
-    goodCount:number;
+  constructor(
+    public orderCount:number,
+    public goodCount:number,
+    public volume: string
+  ){}
   }
   
