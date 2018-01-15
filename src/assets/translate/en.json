@@ -53,6 +53,8 @@
     },
     "PaymentWindow": "Time Limit",
     "Publish": "Publish",
+    "publishBuy":"Publish a Buy AD",
+    "publishSell":"Publish a Sell AD",
     "PremiumSettings": "Premium Settings",
     "Currency": "Fiat",
     "AdvertisementMessage": "Message",

@@ -53,6 +53,8 @@
     },
     "PaymentWindow": "交易时限",
     "Publish": "发布",
+    "publishBuy":"发布收购广告",
+    "publishSell":"发布出售广告",
     "PremiumSettings": "溢价百分比",
     "Currency": "交易使用货币",
     "AdvertisementMessage": "广告信息",

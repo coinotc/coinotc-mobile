@@ -3,7 +3,6 @@ import { IonicPage, NavController, App } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { adinformation } from '../../models/adinformation';
 import { AdinformationPage } from '../adinformation/adinformation';
-import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the TradeBuyStellarPage page.

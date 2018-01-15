@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{title}}</ion-title>
+    <ion-title>{{title | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -73,13 +73,13 @@
         <ion-option value="wechatPay">{{'payment.wechatPay' | translate}}</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item *ngIf="type === 'buy'">
+    <ion-item *ngIf="type === 'Buy'">
       <ion-label>{{'PaymentWindow' | translate}}</ion-label>
       <ion-input type="number" placeholder="{{'minutes' | translate}}" text-right [(ngModel)]="information.limit"></ion-input>
     </ion-item>
     <ion-textarea [(ngModel)]="information.massage" placeholder="{{'AdvertisementMessage' | translate}}"></ion-textarea>
-    <ion-item text-center *ngSwitchCase="'buy'"><button ion-button round (click)="addbuyad()" large >{{'Publish' | translate}}</button></ion-item>
-    <ion-item text-center *ngSwitchCase="'sell'"><button ion-button round (click)="addsellad()" large >{{'Publish' | translate}}</button></ion-item>
+    <ion-item text-center *ngSwitchCase="'Buy'"><button ion-button round (click)="addbuyad()" large >{{'Publish' | translate}}</button></ion-item>
+    <ion-item text-center *ngSwitchCase="'Sell'"><button ion-button round (click)="addsellad()" large >{{'Publish' | translate}}</button></ion-item>
   </ion-list>
   <div *ngSwitchDefault>
     error
