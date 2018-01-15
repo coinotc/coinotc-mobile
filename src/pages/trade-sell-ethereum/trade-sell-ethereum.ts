@@ -26,7 +26,7 @@ export class TradeSellEthereumPage {
   }
   doRefresh(refresher?) {
     // this.list = this.adservice.getadbuy("ETH");
-    this.adservice.getadsell("ETH").subscribe(result => {
+    this.adservice.getadsell("ETHEREUM").subscribe(result => {
       this.list = result;
       if (refresher) {
         refresher.complete();
@@ -34,7 +34,7 @@ export class TradeSellEthereumPage {
     })
   }
   adinformation(information) {
-    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: 'ETH' } })
+    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: 'ETHEREUM' } })
   }
 
 }

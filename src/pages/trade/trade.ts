@@ -22,40 +22,40 @@ export class TradePage {
     icon: 'eth'
   }, {
     root: 'TradeBuyRipplePage',
-    title: 'Ripple',
+    title: 'XRP',
     icon: 'ripple'
   }, {
     root: 'TradeBuyMoneroPage',
-    title: 'Monero',
+    title: 'XMR',
     icon: 'monero'
   }, {
     root: 'TradeBuyStellarPage',
-    title: 'Stellar',
+    title: 'XLM',
     icon: 'stellar'
   },{
     root: 'TradeBuyCardanoPage',
-    title: 'Cardano',
+    title: 'ADA',
     icon: 'cardano'
   }]
   sellcryptos: Object[] = [{
     root: 'TradeSellEthereumPage',
-    title: 'Ethereum',
+    title: 'ETH',
     icon: 'eth'
   }, {
     root: 'TradeSellRipplePage',
-    title: 'Ripple',
+    title: 'XRP',
     icon: 'ripple'
   }, {
     root: 'TradeSellMoneroPage',
-    title: 'Monero',
+    title: 'XMR',
     icon: 'monero'
   }, {
     root: 'TradeSellStellarPage',
-    title: 'Stellar',
+    title: 'XLM',
     icon: 'stellar'
   },{
     root: 'TradeSellCardanoPage',
-    title: 'Cardano',
+    title: 'ADA',
     icon: 'cardano'
   }]
   constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App) {
