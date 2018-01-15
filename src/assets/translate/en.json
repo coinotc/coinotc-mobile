@@ -1,5 +1,8 @@
 {
+    "Trade":"Trade",
     "OrderList": "Order List",
+    "Wallet":"Wallet",
+    "Me":"Me",
     "ActiveBuy": "Active Buy",
     "ActiveSell": "Active Sell",
     "FinishedBuy": "Finished Buy",
