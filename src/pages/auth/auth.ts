@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../../pages/tabs/tabs';
-import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the AuthPage page.
@@ -31,8 +30,7 @@ export class AuthPage {
     private toastCtrl:ToastController,
     private userService: UserServiceProvider,
     private params: NavParams,
-    private fb: FormBuilder,
-    private translate: TranslateService
+    private fb: FormBuilder
   ) {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
@@ -41,8 +39,6 @@ export class AuthPage {
       'confirmPassword': [''],
     });
     this.isModal = !!params.get('isModal');
-    translate.setDefaultLang('cn');
-    translate.use('cn');
   }
   authTypeChange() {
     if (this.authType === 'register') {

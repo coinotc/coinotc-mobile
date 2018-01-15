@@ -19,8 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class TradeBuyStellarPage {
   private list: adinformation[];
-  constructor(public navCtrl: NavController, public adservice: AdvertisementServiceProvider, public appCtrl: App, private translate: TranslateService) {
-    translate.setDefaultLang('cn');
+  constructor(public navCtrl: NavController, public adservice: AdvertisementServiceProvider, public appCtrl: App) {
     this.doRefresh();
   }
   ionViewDidLoad() {

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { AddadvertisementPage } from '../addadvertisement/addadvertisement'
-import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the TradePage page.
@@ -51,8 +50,7 @@ export class TradePage {
     title: 'Stellar',
     icon: 'stellar'
   }]
-  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App, private translate: TranslateService) {
-    translate.setDefaultLang('cn');
+  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App) {
   }
 
   ionViewDidLoad() {

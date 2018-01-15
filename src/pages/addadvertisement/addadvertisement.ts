@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { adinformation } from '../../models/adinformation';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the AddadvertisementPage page.
@@ -20,7 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class AddadvertisementPage {
   rangepercent = 0; type: String; title: String; information = new adinformation('', true, 'ETH', 'singapore', 'SGD', null, null, null, '', null, '');
   cryptoprice: number;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private adservice: AdvertisementServiceProvider, private userservice: UserServiceProvider, private translate: TranslateService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private adservice: AdvertisementServiceProvider, private userservice: UserServiceProvider) {
     this.type = navParams.data.type;
     this.title = navParams.data.title;
     this.changerange();
@@ -28,7 +27,6 @@ export class AddadvertisementPage {
       this.cryptoprice = Number(result[0].price_sgd);
       this.information.price = this.cryptoprice;
     });
-    translate.setDefaultLang('cn');
   }
   getcryptoprice() {
     switch (this.information.crypto) {

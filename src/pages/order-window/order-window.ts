@@ -6,7 +6,6 @@ import { OrderInformation } from './orderInformation';
 import * as firebase from 'firebase';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { WalletPage } from '../wallet/wallet';
-import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the OrderWindowPage page.
@@ -36,15 +35,13 @@ export class OrderWindowPage {
   typing = '';
   typeStatusId;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private orderServiceProvider: OrderServiceProvider, public alert: AlertController, private userServiceProvider: UserServiceProvider, private translate: TranslateService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private orderServiceProvider: OrderServiceProvider, public alert: AlertController, private userServiceProvider: UserServiceProvider) {
     this.user = this.userServiceProvider.getCurrentUser();
     this.orderInfo = navParams.data.order;
     this.trader = navParams.data.trader;
     this.ref = firebase.database().ref('messages');
     this.typingStatus = firebase.database().ref('typeStatus');
     this.name = this.user.username;
-    translate.setDefaultLang('cn');
-    translate.use('cn');
     console.log(navParams.data)
   }
 
