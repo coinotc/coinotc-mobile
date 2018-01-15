@@ -7,27 +7,29 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title><p>{{user.name}}</p></ion-title>
+    <ion-title><p>{{currentUserName}}</p></ion-title>
   </ion-navbar>
 
 </ion-header>
 
-<ion-content class="list-avatar-page">
+<ion-content class="list-avatar-page" *ngIf="model">
   <ion-list no-lines>
     <ion-item>
       <ion-avatar item-start>
         <img [src]="placeholderPicture">
       </ion-avatar>
-      <h2>{{user.name}}</h2>
+      <h2>{{currentUserName}}</h2>
       <p>Trade with him 0 times</p>
-      <ion-note item-end><button ion-button (click)="block()">Block</button>
-        <button ion-button (click)="trust()">Follow</button></ion-note>
+      <ion-note item-end>
+        <button ion-button (click)="block()" *ngIf=" currentUserName == profileUser " >Block</button>
+        <button ion-button (click)="trust()" *ngIf=" currentUserName == profileUser " >Follow</button>
+      </ion-note>
     </ion-item>
     <ion-item>
       <ion-grid>
         <ion-row>
           <ion-col> 
-            <h2>0</h2>
+            <h2 >{{model.orderCount}}</h2>
             <p>Trades</p>
           </ion-col>
           <ion-col>
@@ -35,11 +37,11 @@
             <p>Trusted</p>
           </ion-col>
           <ion-col>
-            <h2>0</h2>
+            <h2>{{rate}}</h2>
             <p>Rating</p>
           </ion-col>
           <ion-col>
-            <h2>0</h2>
+            <h2>{{model.volume}}</h2>
             <p>Volume</p>
           </ion-col>
         </ion-row>

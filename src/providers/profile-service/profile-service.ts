@@ -19,17 +19,16 @@ const httpOptions = {
 @Injectable()
 export class ProfileServiceProvider {
 
-  private profileURL =  environment.api_url + '/profile';
+  private profileURL =  environment.api_url + '/users/public';
 
   constructor(public http: HttpClient) {
     console.log('Hello ProfileServiceProvider Provider');
   }
   
-  public createProile(profile){
-    console.log(profile)
-    return this.http.post(this.profileURL, profile, httpOptions)
+  public getProfile(username){
+    let URL = `${this.profileURL}?username=${username}`
+    return this.http.get<Profile>(URL,httpOptions)
   }
-
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       return Observable.throw(error || 'backend server error');
