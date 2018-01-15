@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { catchError } from 'rxjs/operators';
 import { OrderInformation } from '../../pages/order-window/orderInformation';
 import { environment } from '../../../environments/environment';
 
@@ -29,25 +28,15 @@ export class OrderServiceProvider {
   public getBuyerOrders(username,finished){
     let getURL = `${this.orderURL}/buyer?username=${username}&finished=${finished}`
     return this.httpClient.get<OrderInformation[]>(getURL,httpOptions)
-    .pipe(catchError(this.handleError<OrderInformation[]>('getBuyerOrders')))
   }
 
   public getSellerOrders(username,finished){
     let getURL = `${this.orderURL}/seller?username=${username}&finished=${finished}`
     return this.httpClient.get<OrderInformation[]>(getURL,httpOptions)
-    .pipe(catchError(this.handleError<OrderInformation[]>('getSellerOrders')))
   }
-
 
   public updateOrder(order){
     return this.httpClient.put(this.orderURL, order, httpOptions)
-      .pipe(catchError(this.handleError<OrderInformation>('updateOrder')))
   };
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      return Observable.throw(error || 'backend server error');
-    };
-  }
 
 }

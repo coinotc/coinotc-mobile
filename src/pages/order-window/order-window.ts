@@ -6,7 +6,6 @@ import { OrderInformation } from './orderInformation';
 import * as firebase from 'firebase';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { WalletPage } from '../wallet/wallet';
-import { OrderListPage } from '../order-list/order-list';
 
 /**
  * Generated class for the OrderWindowPage page.
@@ -22,7 +21,6 @@ import { OrderListPage } from '../order-list/order-list';
 })
 export class OrderWindowPage {
 
-  private orders: Observable<OrderInformation[]>;
   private user;
   private orderInfo;
   trader;

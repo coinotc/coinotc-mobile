@@ -91,7 +91,7 @@
 
         <ion-item>
           <ion-avatar item-start>
-            <img ion-item [src]="placeholderPicture">
+            <img [src]="placeholderPicture">
           </ion-avatar>
           <h2>{{order.seller}}
             <span style="float:right">{{order.crypto}}</span>
@@ -114,7 +114,7 @@
 
         <ion-item>
           <ion-avatar item-start>
-            <img [src]="placeholderPicture" (click)="onProfile(order.buyer)">
+            <img [src]="placeholderPicture">
           </ion-avatar>
           <h2>{{order.buyer}}
             <span style="float:right">{{order.crypto}}</span>
