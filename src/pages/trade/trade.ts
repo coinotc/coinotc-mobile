@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { AddadvertisementPage } from '../addadvertisement/addadvertisement'
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the TradePage page.
@@ -20,15 +21,15 @@ export class TradePage {
     root: 'TradeBuyEthereumPage',
     title: 'Ethereum',
     icon: 'eth'
-  },{
+  }, {
     root: 'TradeBuyMoneroPage',
     title: 'Monero',
     icon: 'monero'
-  },{
+  }, {
     root: 'TradeBuyRipplePage',
     title: 'Ripple',
     icon: 'ripple'
-  },{
+  }, {
     root: 'TradeBuyStellarPage',
     title: 'Stellar',
     icon: 'stellar'
@@ -37,29 +38,30 @@ export class TradePage {
     root: 'TradeSellEthereumPage',
     title: 'Ethereum',
     icon: 'eth'
-  },{
+  }, {
     root: 'TradeSellMoneroPage',
     title: 'Monero',
     icon: 'monero'
-  },{
+  }, {
     root: 'TradeSellRipplePage',
     title: 'Ripple',
     icon: 'ripple'
-  },{
+  }, {
     root: 'TradeSellStellarPage',
     title: 'Stellar',
     icon: 'stellar'
   }]
-  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App, private translate: TranslateService) {
+    translate.setDefaultLang('cn');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TradePage');
   }
   addbuyad() {
-    this.appCtrl.getRootNav().push(AddadvertisementPage, {type:'buy',title:'publishBuy'})
+    this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Buy', title: 'publishBuy' })
   }
   addsellad() {
-    this.appCtrl.getRootNav().push(AddadvertisementPage, {type:'sell',title:'publishSell'})
+    this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Sell', title: 'publishSell' })
   }
 }

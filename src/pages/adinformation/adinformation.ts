@@ -23,7 +23,6 @@ export class AdinformationPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public userservice: UserServiceProvider, public loadingCtrl: LoadingController, public orderservice: OrderServiceProvider) {
     this.tradetype = navParams.data.tradetype;
     this.information = navParams.data.information;
-    this.title = `${this.tradetype.type}`;
     console.log(this.information); console.log(this.tradetype);
     this.user = {
       order: 200,

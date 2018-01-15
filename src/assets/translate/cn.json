@@ -8,6 +8,12 @@
     "Amount": "交易金额",
     "Seller": "卖家",
     "Buyer": "买家",
+    "Buy": "购买",
+    "willing":{
+        "wannaBuy":"我想购买",
+        "wannaSell":"我想出售"
+    },
+    "Sell": "出售",
     "Information": "订单详情",
     "Crypto": "虚拟币种",
     "Quantity": "货币数量",
@@ -35,7 +41,7 @@
         "USD": "美元",
         "KRW": "韩元"
     },
-    "limit":"金额区间",
+    "limit": "金额区间",
     "MinLimit": "最低交易额",
     "MaxLimit": "最大交易额",
     "Payment": "支付方式",
@@ -53,9 +59,5 @@
     "minutes": "分钟",
     "Trades": "交易总量",
     "Rating": "好评率",
-    "wannaBuy": "您想要购买的数量",
-    "adInfo": {
-        "Buy":"购买",
-        "Sell":"出售"
-    }
+    "howMuchToBuy": "您想要购买的数量"
 }

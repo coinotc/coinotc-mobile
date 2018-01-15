@@ -15,10 +15,10 @@
         <img src="img/{{item.owner}}.Avatar.png">
       </ion-avatar>
       <h2>{{item.owner}}</h2>
-      <p>{{item.payment}}</p>
+      <p>{{'payment.'+item.payment | translate}}</p>
       <div item-right text-right>
-        <h5 style="color:#02cb66">{{item.price | number}}{{item.fiat}}</h5>
-        <button ion-button round (click)="adinformation(item)" >BUY {{item.crypto}}</button>
+        <h5 style="color:#02cb66">{{item.price | number}} {{'fiat.'+item.fiat | translate}}</h5>
+        <button ion-button round (click)="adinformation(item)" >{{'Buy' | translate}} {{item.crypto}}</button>
       </div>
     </ion-item>
   </ion-card>

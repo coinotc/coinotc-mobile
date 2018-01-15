@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{'adInfo.'+tradetype.type | translate}} {{tradetype.crypto}}</ion-title>
+    <ion-title>{{tradetype.type | translate}} {{tradetype.crypto}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -53,7 +53,7 @@
   </ion-card>
   <ion-card>
     <ion-card-header>
-      {{'wannaBuy' | translate}}
+      {{'howMuchToBuy' | translate}}
     </ion-card-header>
     <ion-card-content ion-row no-padding>
       <ion-item ion-col>
@@ -72,6 +72,6 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar>
-    <button ion-button full (click)="makeorder()">{{'adInfo.'+tradetype.type | translate}}</button>
+    <button ion-button full (click)="makeorder()">{{tradetype.type | translate}}</button>
   </ion-toolbar>
 </ion-footer>
