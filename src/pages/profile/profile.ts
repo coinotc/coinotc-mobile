@@ -20,12 +20,9 @@ import { Profile } from "../../models/profile.model";
 export class ProfilePage {
   placeholderPicture = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515005723652&di=a1ebb7c0a1b6bfede1ff5ebc057ed073&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D822b27e7b8fb43160e12723948cd2c56%2F6c224f4a20a44623b6b1e24e9222720e0cf3d7a7.jpg';
   private profile: Observable<Profile>;
-  model = {
-    orderCount : 22,
-    goodCount : 11,
-    volume : ""
-  };
-  profileUser=0;
+  model =  new Profile(null,null,"");
+  rate;
+  profileUser;
   items = [
     'Pokémon Yellow',
     'Super Metroid',
@@ -54,10 +51,13 @@ export class ProfilePage {
     let currentUserName = this.userService.getCurrentUser().username;
     this.profileUser = navParams.data;
     this.profile = this.profileService.getProfile(this.profileUser);
-    
     this.profile.subscribe(result=>{
-      console.log(result);
-      //this.model.orderCount = result.orderCount;
+      this.model = result[0];
+      if(this.model.orderCount == 0){
+        this.rate = 0;
+      }else{
+        this.rate = this.model.goodCount / this.model.orderCount;
+      }
     })
     
   }

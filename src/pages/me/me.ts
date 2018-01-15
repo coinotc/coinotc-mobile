@@ -55,7 +55,6 @@ export class MePage {
   }
   updateProfileImage(){
     this.navCtrl.push("ProfilePage",this.userService.getCurrentUser().username);
-
   }
 
   logout(){
