@@ -20,11 +20,11 @@
       </ion-avatar>
       <h2>{{currentUserName}}</h2>
       <p>Trade with him 0 times</p>
-      <ion-note item-end>
-        <button ion-button (click)="block()" *ngIf=" currentUserName == profileUser " >Block</button>
-        <button ion-button (click)="trust()" *ngIf=" currentUserName == profileUser " >Follow</button>
+
+    </ion-item>      <ion-note item-end>
+        <button ion-button (click)="block()" *ngIf=" currentUserName == profileUser ">{{Block}}</button>
+        <button ion-button (click)="follow()" *ngIf=" currentUserName == profileUser ">{{Follow}}</button>
       </ion-note>
-    </ion-item>
     <ion-item>
       <ion-grid>
         <ion-row>
@@ -34,7 +34,7 @@
           </ion-col>
           <ion-col>
             <h2>0</h2>
-            <p>Trusted</p>
+            <p>Following</p>
           </ion-col>
           <ion-col>
             <h2>{{rate}}</h2>

@@ -23,6 +23,8 @@ export class ProfilePage {
   model =  new Profile(null,null,"");
   rate;
   profileUser;
+  Block = "Block";
+  Follow = "Follow";
   items = [
     'Pokémon Yellow',
     'Super Metroid',
@@ -59,11 +61,16 @@ export class ProfilePage {
         this.rate = this.model.goodCount / this.model.orderCount;
       }
     })
-    
+    this.profileService
   }
 
-  block(){}
-  trust(){}
+  block(){
+    this.profileService
+  }
+  follow()
+  {
+
+  }
   
 
 
