@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../../pages/tabs/tabs';
+
 /**
  * Generated class for the AuthPage page.
  *

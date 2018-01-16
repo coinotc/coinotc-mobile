@@ -18,48 +18,56 @@ export class TradePage {
   buynsell: string = "buy";
   buycryptos: Object[] = [{
     root: 'TradeBuyEthereumPage',
-    title: 'Ethereum',
+    title: 'ETH',
     icon: 'eth'
-  },{
-    root: 'TradeBuyMoneroPage',
-    title: 'Monero',
-    icon: 'monero'
-  },{
+  }, {
     root: 'TradeBuyRipplePage',
-    title: 'Ripple',
+    title: 'XRP',
     icon: 'ripple'
-  },{
+  }, {
+    root: 'TradeBuyMoneroPage',
+    title: 'XMR',
+    icon: 'monero'
+  }, {
     root: 'TradeBuyStellarPage',
-    title: 'Stellar',
+    title: 'XLM',
     icon: 'stellar'
+  },{
+    root: 'TradeBuyCardanoPage',
+    title: 'ADA',
+    icon: 'cardano'
   }]
   sellcryptos: Object[] = [{
     root: 'TradeSellEthereumPage',
-    title: 'Ethereum',
+    title: 'ETH',
     icon: 'eth'
-  },{
-    root: 'TradeSellMoneroPage',
-    title: 'Monero',
-    icon: 'monero'
-  },{
+  }, {
     root: 'TradeSellRipplePage',
-    title: 'Ripple',
+    title: 'XRP',
     icon: 'ripple'
-  },{
+  }, {
+    root: 'TradeSellMoneroPage',
+    title: 'XMR',
+    icon: 'monero'
+  }, {
     root: 'TradeSellStellarPage',
-    title: 'Stellar',
+    title: 'XLM',
     icon: 'stellar'
+  },{
+    root: 'TradeSellCardanoPage',
+    title: 'ADA',
+    icon: 'cardano'
   }]
-  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl:App ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TradePage');
   }
   addbuyad() {
-    this.appCtrl.getRootNav().push(AddadvertisementPage, {type:'buy',title:'Publish an AD of Buying'})
+    this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Buy', title: 'publishBuy' })
   }
   addsellad() {
-    this.appCtrl.getRootNav().push(AddadvertisementPage, {type:'sell',title:'Publish an AD of Selling'})
+    this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Sell', title: 'publishSell' })
   }
 }

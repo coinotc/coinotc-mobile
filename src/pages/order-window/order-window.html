@@ -7,7 +7,7 @@
 
 <ion-header>
   <ion-navbar>
-    <ion-title>Information</ion-title>
+    <ion-title>{{'Information' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -18,30 +18,31 @@
 
     <ion-card [ngSwitch]="switched">
       <button ion-item (click)="onSwitch()">
-        Crypto:{{orderInfo.crypto}}
-        <span style="float:right">{{orderInfo.finished? 'Completed':'Active'}}</span>
+        {{'Crypto' | translate}}:{{orderInfo.crypto}}
+        <span style="float:right" *ngIf="orderInfo.finished == true">{{'Completed' | translate}}</span>
+        <span style="float:right" *ngIf="orderInfo.finished == false">{{'Active' | translate}}</span>
       </button>
 
       <ion-card-content *ngSwitchCase="true">
-        Trade ID:
+        {{'OrderID' | translate}}:
         <span style="float:right">{{orderInfo._id}}</span>
-        <br>Amount
+        <br> {{'Amount' | translate}}
         <span style="float:right">{{orderInfo.amount}}</span>
-        <br> Quantity
+        <br> {{'Quantity' | translate}}
         <span style="float:right">{{orderInfo.quantity}}</span>
-        <br> Price
+        <br> {{'Price' | translate}}
         <span style="float:right">{{orderInfo.price}}</span>
-        <br> Buyer:{{orderInfo.buyer}}
-        <span style="float:right">Seller:{{orderInfo.seller}}</span>
-        <br> AD Message:TBD
+        <br> {{'Buyer' | translate}}:{{orderInfo.buyer}}
+        <span style="float:right">{{'Seller' | translate}}:{{orderInfo.seller}}</span>
+        <br> {{'Message' | translate}}:TBD
 
         <div align=center [ngSwitch]="status">
           <div *ngIf="orderInfo.finished == false">
-            <button ion-button round *ngSwitchCase="0" (click)="onFinished()">Approve</button>
-            <button ion-button round *ngSwitchCase="1" (click)="onFinished()">Inform</button>
+            <button ion-button round *ngSwitchCase="0" (click)="onFinished()">{{'Approve' | translate}}</button>
+            <button ion-button round *ngSwitchCase="1" (click)="onFinished()">{{'Inform' | translate}}</button>
           </div>
-          <button ion-button round *ngSwitchCase="2" (click)="onComment()">Good</button>
-          <button ion-button round *ngSwitchCase="2" (click)="onExit()">Bad</button>
+          <button ion-button round *ngSwitchCase="2" (click)="onComment()">{{'Good' | translate}}</button>
+          <button ion-button round *ngSwitchCase="2" (click)="onExit()">{{'Bad' | translate}}</button>
         </div>
 
       </ion-card-content>
@@ -49,8 +50,8 @@
     </ion-card>
 
     <div align=center>
-      <button ion-button round (click)="onProfile(trader)">Trader</button>
-      <button ion-button round (click)="onWallet()">Wallet</button>
+      <button ion-button round (click)="onProfile(trader)">{{'Trader' | translate}}</button>
+      <button ion-button round (click)="onWallet()">{{'Wallet' | translate}}</button>
     </div>
 
   </div>

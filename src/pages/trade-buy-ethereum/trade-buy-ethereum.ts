@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, App } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { adinformation } from '../../models/adinformation';
-import { AdinformationPage } from '../adinformation/adinformation'
+import { AdinformationPage } from '../adinformation/adinformation';
+
 
 /**
  * Generated class for the TradeBuyEthereumPage page.
@@ -18,7 +19,7 @@ import { AdinformationPage } from '../adinformation/adinformation'
 })
 export class TradeBuyEthereumPage {
   private list: adinformation[];
-  constructor(public navCtrl: NavController, public adservice: AdvertisementServiceProvider, public appCtrl:App) {
+  constructor(public navCtrl: NavController, public adservice: AdvertisementServiceProvider, public appCtrl: App) {
     this.doRefresh();
   }
 
@@ -27,7 +28,7 @@ export class TradeBuyEthereumPage {
   }
   doRefresh(refresher?) {
     // this.list = this.adservice.getadbuy("ETH");
-    this.adservice.getadbuy("ETH").subscribe(result => {
+    this.adservice.getadbuy("ETHEREUM").subscribe(result => {
       this.list = result;
       if (refresher) {
         refresher.complete();
@@ -35,6 +36,6 @@ export class TradeBuyEthereumPage {
     })
   }
   adinformation(information) {
-    this.appCtrl.getRootNav().push(AdinformationPage, {information: information,tradetype:{type:'Buy',crypto:'BTC'}})
+    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Buy', crypto: 'ETHEREUM' } })
   }
 }

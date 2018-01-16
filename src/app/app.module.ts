@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { SuperTabsModule } from 'ionic2-super-tabs';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpModule, Http } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { ChatPage } from '../pages/chat/chat';
@@ -30,6 +32,9 @@ import { ProfileServiceProvider } from '../providers/profile-service/profile-ser
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
 
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/translate/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -52,7 +57,14 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     HttpModule,
     rootRouting,
     OrderWindowPageModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -78,7 +90,9 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     HttpClientModule,
     IonicStorageModule,
     ProfileServiceProvider
-    
+
   ]
 })
+
+
 export class AppModule { }

@@ -1,17 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { AuthPage } from './auth';
-import { RouterModule } from '@angular/router';
+import { TradeSellCardanoPage } from './trade-sell-cardano';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
-    AuthPage,
+    TradeSellCardanoPage,
   ],
   imports: [
-    IonicPageModule.forChild(AuthPage),
-    RouterModule,
+    IonicPageModule.forChild(TradeSellCardanoPage),
     TranslateModule.forChild()
   ],
 })
-export class AuthPageModule {}
+export class TradeSellCardanoPageModule {}

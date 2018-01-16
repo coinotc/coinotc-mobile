@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
+import { last } from '@angular/router/src/utils/collection';
 
 /**
  * Generated class for the SettingsPage page.
@@ -15,23 +17,26 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public translate: TranslateService) {
   }
   language: any;
-  languages = ['English', 'Portuguese', 'French'];
-  realNameTapped(){
+  languages = [{ label: 'English', value: 'en' }, { label: '中文', value: 'cn' }];
+  switchLanguage() {
+    this.translate.use(this.language);
+  }
+  realNameTapped() {
     this.navCtrl.push("RealNameVerifiedPage");
   }
-  paymentPrdTapped(){
+  paymentPrdTapped() {
     this.navCtrl.push("PaymentPrdPage");
   }
-  bindPhoneTapped(){
+  bindPhoneTapped() {
     this.navCtrl.push("BindPhonePage");
   }
-  bindEmailTapped(){
+  bindEmailTapped() {
     this.navCtrl.push("BindEmailPage");
   }
-  passwordTapped(){
+  passwordTapped() {
     this.navCtrl.push("ModifyPrdPage");
   }
 
