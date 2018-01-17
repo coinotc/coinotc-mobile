@@ -3,9 +3,8 @@ import { IonicPage, NavController, App } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { adinformation } from '../../models/adinformation';
 import { AdinformationPage } from '../adinformation/adinformation';
-
 /**
- * Generated class for the TradeSellEthereumPage page.
+ * Generated class for the TradeSellCardanoPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -13,10 +12,10 @@ import { AdinformationPage } from '../adinformation/adinformation';
 
 @IonicPage()
 @Component({
-  selector: 'page-trade-sell-ethereum',
-  templateUrl: 'trade-sell-ethereum.html',
+  selector: 'page-trade-sell-cardano',
+  templateUrl: 'trade-sell-cardano.html',
 })
-export class TradeSellEthereumPage {
+export class TradeSellCardanoPage {
   private list: adinformation[];
   constructor(public navCtrl: NavController, public adservice: AdvertisementServiceProvider, public appCtrl: App) {
     this.doRefresh();
@@ -26,7 +25,7 @@ export class TradeSellEthereumPage {
   }
   doRefresh(refresher?) {
     // this.list = this.adservice.getadbuy("ETH");
-    this.adservice.getadsell("ETHEREUM").subscribe(result => {
+    this.adservice.getadsell("CARDANO").subscribe(result => {
       this.list = result;
       if (refresher) {
         refresher.complete();
@@ -34,7 +33,7 @@ export class TradeSellEthereumPage {
     })
   }
   adinformation(information) {
-    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: 'ETHEREUM' } })
+    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: 'Cardano' } })
   }
 
 }

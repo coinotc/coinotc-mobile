@@ -28,7 +28,7 @@ export class TradeBuyEthereumPage {
   }
   doRefresh(refresher?) {
     // this.list = this.adservice.getadbuy("ETH");
-    this.adservice.getadbuy("ETH").subscribe(result => {
+    this.adservice.getadbuy("ETHEREUM").subscribe(result => {
       this.list = result;
       if (refresher) {
         refresher.complete();
@@ -36,6 +36,6 @@ export class TradeBuyEthereumPage {
     })
   }
   adinformation(information) {
-    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Buy', crypto: 'BTC' } })
+    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Buy', crypto: 'ETHEREUM' } })
   }
 }

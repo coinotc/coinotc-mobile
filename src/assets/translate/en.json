@@ -16,6 +16,10 @@
         "wannaBuy": "Wanna Buy",
         "wannaSell": "Wanna Sell"
     },
+    "trade":{
+        "buy":"BUY",
+        "sell":"SELL"
+    },
     "Information": "Information",
     "Crypto": "Crypto",
     "Amount": "Amount",

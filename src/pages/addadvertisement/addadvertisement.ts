@@ -17,7 +17,7 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
   templateUrl: 'addadvertisement.html',
 })
 export class AddadvertisementPage {
-  rangepercent = 0; type: String; title: String; information = new adinformation('', true, 'ETH', 'singapore', 'SGD', null, null, null, '', null, '');
+  rangepercent = 0; type: String; title: String; information = new adinformation('', true, 'ETHEREUM', 'singapore', 'SGD', null, null, null, '', null, '');
   cryptoprice: number;
   constructor(public navCtrl: NavController, public navParams: NavParams, private adservice: AdvertisementServiceProvider, private userservice: UserServiceProvider) {
     this.type = navParams.data.type;
@@ -41,6 +41,9 @@ export class AddadvertisementPage {
         break;
       case 'STELLAR':
         this.getfiatprice('STELLAR');
+        break;
+      case 'CARDANO':
+        this.getfiatprice('CARDANO');
         break;
     }
   }
