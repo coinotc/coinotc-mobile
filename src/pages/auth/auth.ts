@@ -66,6 +66,20 @@ export class AuthPage {
       }
     );
   }
+
+  ionViewWillEnter(){
+    this.displayTab(true);
+  }
+
+  private displayTab(display:boolean) {
+    let elements = document.querySelectorAll(".tabbar");
+
+    if (elements != null) {
+        Object.keys(elements).map((key) => {
+            elements[key].style.transform = display ? 'translateY(0)' : 'translateY(56px)';
+        });
+    }
+  }
   close() {
     this.viewCtrl.dismiss();
   }

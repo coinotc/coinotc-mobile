@@ -73,8 +73,10 @@ export class MePage {
         this.jwtService.destroyToken();
         this.navCtrl.setRoot(AuthPage);
         let tabs = document.querySelectorAll('.tabbar');
+        console.log(tabs);
         if ( tabs !== null ) {
           Object.keys(tabs).map((key) => {
+            //tabs[key].style.display = 'none';
           });
         } // end if
     
