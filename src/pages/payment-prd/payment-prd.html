@@ -17,11 +17,14 @@
   <ion-list>
       <ion-item>
           <ion-label>Payment Password</ion-label>
-        <ion-input placeholder=""></ion-input>
+        <ion-input placeholder=""  [(ngModel)]="model.tradePrd"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Comfirm</ion-label>
-        <ion-input placeholder=""></ion-input>
+        <ion-input placeholder=""  ></ion-input>
       </ion-item>
+      <button ion-button (click)="submit()" color="danger">
+        <ion-label>ok</ion-label>
+      </button>
     </ion-list>
 </ion-content>

@@ -31,20 +31,24 @@ export class ProfileServiceProvider {
     let URL = `${this.profileURL}?username=${username}`;
     return this.http.get<Profile>(URL,httpOptions)
   }
-  public getBlock(username){
-    //let currentUserName = this.userService.getCurrentUser().username;
-    let URL = `${this.profileURL}/block?username=${username}&currentUserName=${this.currentUserName}`;
-    return this.http.get(URL,httpOptions)
+  // public getBlock(username){
+  //   //let currentUserName = this.userService.getCurrentUser().username;
+  //   let URL = `${this.profileURL}/block?username=${username}&currentUserName=${this.currentUserName}`;
+  //   return this.http.get(URL,httpOptions)
+  // }
+  // public getFollow(username){
+  //   //let currentUserName = this.userService.getCurrentUser().username;
+  //   console.log(this.currentUserName);
+  //   let URL = `${this.profileURL}/follow?username=${username}&currentUserName=${this.currentUserName}`;
+  //   return this.http.get(URL,httpOptions)
+  // }
+  public sendBlock(username,block){
+    let URL = `${this.profileURL}/block?username=${username}`;
+    return this.http.patch(URL,block,httpOptions)
   }
-  public getFollow(username){
-    //let currentUserName = this.userService.getCurrentUser().username;
-    console.log(this.currentUserName);
-    let URL = `${this.profileURL}/follow?username=${username}&currentUserName=${this.currentUserName}`;
-    return this.http.get(URL,httpOptions)
-  }
-  public sendBlock(username,status){
-    let URL = `${this.profileURL}/block?status=${status}`;
-    return this.http.put(URL,username,httpOptions)
+  public sendFollowing(username,following){
+    let URL = `${this.profileURL}/follow?username=${username}`;
+    return this.http.patch(URL,following,httpOptions)
   }
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title><p>{{currentUserName}}</p></ion-title>
+    <ion-title><p>{{profileUser}}</p></ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,16 +15,16 @@
 <ion-content class="list-avatar-page" *ngIf="model">
   <ion-list no-lines>
     <ion-item>
-      <ion-avatar item-start>
-        <img [src]="placeholderPicture">
+      <ion-avatar item-start >
+        <img  id="avatar-image" src="">
       </ion-avatar>
-      <h2>{{currentUserName}}</h2>
+      <h2>{{profileUser}}</h2>
       <p>Trade with him 0 times</p>
-
-    </ion-item>      <ion-note item-end>
-        <button ion-button (click)="block()" *ngIf=" currentUserName == profileUser ">{{Block}}</button>
-        <button ion-button (click)="follow()" *ngIf=" currentUserName == profileUser ">{{Follow}}</button>
-      </ion-note>
+    </ion-item>      
+    <ion-note item-end>
+        <button ion-button (click)="block()" *ngIf="currentUserName !== profileUser">{{blockStatus}}</button>
+        <button ion-button (click)="follow()" *ngIf="currentUserName !== profileUser">{{followStatus}}</button>
+     </ion-note>
     <ion-item>
       <ion-grid>
         <ion-row>
@@ -60,8 +60,9 @@
   </ion-toolbar>
 
   <ion-list>
-    <button ion-item *ngFor="let item of items">
+    <!-- <button ion-item *ngFor="let item of items">
       {{ item }}
-    </button>  
+    </button>   -->
+    
   </ion-list>
 </ion-content>

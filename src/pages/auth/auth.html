@@ -28,9 +28,9 @@
 
   </ion-header>
 
-  <ion-content>
-    <form [formGroup]="authForm" (ngSubmit)="submitForm()">
-      <fieldset [disabled]="isSubmitting">
+  <ion-content >
+    <form [formGroup]="authForm" (ngSubmit)="submitForm()" >
+      <!-- <fieldset [disabled]="isSubmitting" > -->
         <ion-list>
           <ion-item *ngIf="authType == 'register'">
             <ion-input formControlName="username" placeholder="Username" type="text"></ion-input>
@@ -51,6 +51,6 @@
             {{ authType === 'register' ? 'Sign Up' : 'Sign In' }}
           </button>
         </div>
-      </fieldset>
+      <!-- </fieldset> -->
     </form>
   </ion-content>

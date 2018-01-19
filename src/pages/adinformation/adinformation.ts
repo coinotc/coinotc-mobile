@@ -93,5 +93,7 @@ export class AdinformationPage {
       this.disabled = true;
     }
   }
-
+  profile(){
+    this.navCtrl.push("ProfilePage",this.information.owner);
+  }
 }

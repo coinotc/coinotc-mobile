@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { AuthPage } from '../auth/auth';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
-
+import { AvatarService } from 'ng-avatar'
 import { Errors } from '../../models/errors.model';
 
 /**
@@ -36,12 +36,17 @@ export class MePage {
     private userService: UserServiceProvider,
     private jwtService: JwtServiceProvider,
     private toastCtrl:ToastController,
+    private avatar:AvatarService
     ) {
       let user = this.userService.getCurrentUser();
       console.log(user);
       this.user.name = user.username;
       this.user.email = user.email;
       this.user.imageUrl = this.placeholderPicture;
+      // let initials:string = this.avatar.Avatar('initials', user.username),
+      // gravatar:string = this.avatar.Avatar('gravatar', user.username, 'john@johndoe.com');
+  
+      //     document.getElementById('avatar-image').setAttribute('src', initials);
   }
 
   advertisementsTapped() {
@@ -56,7 +61,9 @@ export class MePage {
   updateProfileImage(){
     this.navCtrl.push("ProfilePage",this.userService.getCurrentUser().username);
   }
-
+  complain(){
+    this.navCtrl.push("ComplainPage");
+  }
   logout(){
     this.isSubmitting = true;
     console.log(this.userService.logout());
