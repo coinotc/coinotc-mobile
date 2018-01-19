@@ -72,11 +72,11 @@ export class MePage {
         console.log("log out !!!!!");
         this.jwtService.destroyToken();
         this.navCtrl.setRoot(AuthPage);
-        let tabs = document.querySelectorAll('.tabbar');
+        let tabs = document.querySelectorAll('.tabbar.show-tabbar');
         console.log(tabs);
         if ( tabs !== null ) {
           Object.keys(tabs).map((key) => {
-            //tabs[key].style.display = 'none';
+            tabs[ key ].style.display = 'none';
           });
         } // end if
     
