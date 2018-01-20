@@ -13,15 +13,18 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding *ngIf="model">
   <ion-list>
     <ion-item>
         <ion-label>Real Name</ion-label>
-      <ion-input placeholder=""></ion-input>
+      <ion-input placeholder="" [(ngModel)]="model.verifyName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Id Card</ion-label>
-      <ion-input placeholder=""></ion-input>
+      <ion-input placeholder="" [(ngModel)]="model.idCard"></ion-input>
     </ion-item>
+    <button ion-button (click)="submit()" color="danger">
+      <ion-label>ok</ion-label>
+    </button>
   </ion-list>
 </ion-content>
