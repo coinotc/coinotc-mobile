@@ -19,8 +19,7 @@
     <ion-card [ngSwitch]="switched">
       <button ion-item (click)="onSwitch()">
         {{'Crypto' | translate}}:{{orderInfo.crypto}}
-        <span style="float:right" *ngIf="orderInfo.finished == true">{{'Completed' | translate}}</span>
-        <span style="float:right" *ngIf="orderInfo.finished == false">{{'Active' | translate}}</span>
+        <span style="float:right">{{(orderInfo.finished ? 'Completed':'Active') | translate}}</span>
       </button>
 
       <ion-card-content *ngSwitchCase="true">

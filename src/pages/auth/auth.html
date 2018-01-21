@@ -48,7 +48,7 @@
         </ion-list>
         <div padding>
           <button ion-button [disabled]="!authForm.valid" type="submit">
-            {{ authType === 'register' ? 'Sign Up' : 'Sign In' }}
+            {{ (authType === 'register' ? 'SignUp' : 'SignIn') | translate }}
           </button>
         </div>
       <!-- </fieldset> -->
