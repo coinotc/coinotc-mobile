@@ -8,7 +8,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { ApiServiceProvider } from '../api-service/api-service';
 import { JwtServiceProvider } from '../jwt-service/jwt-service';
 import { User } from '../../models/user.model';
-
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the UserServiceProvider provider.
@@ -26,8 +26,9 @@ export class UserServiceProvider {
 
   constructor(
     private apiService: ApiServiceProvider,
-    private jwtService: JwtServiceProvider) {
-    console.log('Hello UserServiceProvider Provider');
+    private jwtService: JwtServiceProvider,
+    private storage: Storage) {
+    console.log('UserServiceProvider Provider');
   }
 
   populate() {
@@ -101,6 +102,14 @@ export class UserServiceProvider {
       // Update the currentUser observable
       this.currentUserSubject.next(data.user);
       return data.user;
+    });
+  }
+
+  // Update the user on the server (email, pass, etc)
+  updateBaseCurrency(currency): Observable<User> {
+    return this.apiService.put('/users/base-currency', currency).map(data => {
+      this.storage.ready().then(() => this.storage.set('nativeCurrency', currency) as Promise<void>)
+      return data;
     });
   }
 

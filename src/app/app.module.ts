@@ -30,6 +30,8 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
 import { JwtServiceProvider } from '../providers/jwt-service/jwt-service';
 import { ProfileServiceProvider } from '../providers/profile-service/profile-service';
 import { AvatarService } from 'ng-avatar'
+import { CryptowalletProvider } from '../providers/cryptowallet/cryptowallet';
+import { CurrenciesServiceProvider } from '../providers/currencies/currencies-service';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
 
 export function createTranslateLoader(http: HttpClient) {
@@ -89,7 +91,9 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     IonicStorageModule,
     ProfileServiceProvider,
-    AvatarService
+    AvatarService,
+    CryptowalletProvider,
+    CurrenciesServiceProvider
 
   ]
 })
