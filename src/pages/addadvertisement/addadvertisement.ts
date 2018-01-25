@@ -29,46 +29,27 @@ export class AddadvertisementPage {
     });
   }
   getcryptoprice() {
-    switch (this.information.crypto) {
-      case 'ETH':
-        this.getfiatprice('Ethereum');
-        break;
-      case 'MONERO':
-        this.getfiatprice('MONERO');
-        break;
-      case 'RIPPLE':
-        this.getfiatprice('RIPPLE');
-        break;
-      case 'STELLAR':
-        this.getfiatprice('STELLAR');
-        break;
-      case 'CARDANO':
-        this.getfiatprice('CARDANO');
-        break;
-    }
-  }
-  getfiatprice(crypto) {
     switch (this.information.fiat) {
       case 'SGD':
-        this.adservice.getprice(crypto, 'SGD').subscribe(result => {
+        this.adservice.getprice(this.information.crypto, 'SGD').subscribe(result => {
           this.cryptoprice = Number(result[0].price_sgd);
           this.changerange()
         })
         break;
       case 'CNY':
-        this.adservice.getprice(crypto, 'CNY').subscribe(result => {
+        this.adservice.getprice(this.information.crypto, 'CNY').subscribe(result => {
           this.cryptoprice = Number(result[0].price_cny);
           this.changerange()
         })
         break;
       case 'USD':
-        this.adservice.getprice(crypto, 'USD').subscribe(result => {
+        this.adservice.getprice(this.information.crypto, 'USD').subscribe(result => {
           this.cryptoprice = Number(result[0].price_usd);
           this.changerange()
         })
         break;
       case 'KRW':
-        this.adservice.getprice(crypto, 'KRW').subscribe(result => {
+        this.adservice.getprice(this.information.crypto, 'KRW').subscribe(result => {
           this.cryptoprice = Number(result[0].price_krw);
           this.changerange()
         })
