@@ -52,6 +52,13 @@ export class UserServiceProvider {
     this.jwtService.saveToken(user.token).then(() => {
       // Set current user data into observable
       this.currentUserSubject.next(user);
+      console.log(user);
+      console.log(">>> " + user.nativeCurrency);
+      let nativeCurry = {
+        currency: user.nativeCurrency
+      }
+      this.storage.ready().then(() => this.storage.set('nativeCurrency', nativeCurry) as Promise<void>)
+      
       // Set isAuthenticated to true
       this.isAuthenticatedSubject.next(true);
     });

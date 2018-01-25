@@ -18,11 +18,11 @@
 
 <ion-content>
   <ion-list no-lines>
-    <button ion-item *ngFor="let wallet of wallets" (click)="itemSelected(wallet)">
+    <button ion-item *ngFor="let wallet of wallets" (click)="cryptoWalletSelected(wallet)">
       <ion-thumbnail item-start>
           <img src="{{wallet.logo}}"/>
       </ion-thumbnail>
-      <h2>{{ wallet.currency }} -  ≈{{ wallet.fiatCurryEquiv }}</h2>
+      <h2>{{ wallet.currency }} -  ≈ {{ wallet.fiatCurry }}{{ wallet.fiatCurryEquiv }}</h2>
       <p>{{ wallet.desc }}</p>
       <p>Balance : 0</p>
     </button> 

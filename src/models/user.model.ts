@@ -12,7 +12,8 @@ export class User {
     public phone:number,
     public tradePrd:number,
     public following:Array<string>,
-    public block:Array<string>
+    public block:Array<string>,
+    public nativeCurrency :string
   ){}
   }
   
