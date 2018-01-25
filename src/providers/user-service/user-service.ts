@@ -18,7 +18,7 @@ import { Storage } from '@ionic/storage';
 */
 @Injectable()
 export class UserServiceProvider {
-  private currentUserSubject = new BehaviorSubject<User>(new User('','','','','',null,null,'','',null,null,null,null));
+  private currentUserSubject = new BehaviorSubject<User>(new User('','','','','',null,null,'','',null,null,null,null, null));
   public currentUser = this.currentUserSubject.asObservable().distinctUntilChanged();
 
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
