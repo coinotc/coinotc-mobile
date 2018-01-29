@@ -18,7 +18,7 @@ import { Storage } from '@ionic/storage';
 */
 @Injectable()
 export class UserServiceProvider {
-  private currentUserSubject = new BehaviorSubject<User>(new User('','','','','',null,null,'','',null,null,null,null));
+  private currentUserSubject = new BehaviorSubject<User>(new User('','','','','',null,null,'','',null,null,null,null, null));
   public currentUser = this.currentUserSubject.asObservable().distinctUntilChanged();
 
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
@@ -52,6 +52,13 @@ export class UserServiceProvider {
     this.jwtService.saveToken(user.token).then(() => {
       // Set current user data into observable
       this.currentUserSubject.next(user);
+      console.log(user);
+      console.log(">>> " + user.nativeCurrency);
+      let nativeCurry = {
+        currency: user.nativeCurrency
+      }
+      this.storage.ready().then(() => this.storage.set('nativeCurrency', nativeCurry) as Promise<void>)
+      
       // Set isAuthenticated to true
       this.isAuthenticatedSubject.next(true);
     });
@@ -61,7 +68,7 @@ export class UserServiceProvider {
     // Remove JWT from localstorage
     this.jwtService.destroyToken().then(() => {
       // Set current user to an empty object
-      this.currentUserSubject.next(new User('','','','','',null,null,'','',null,null,null,null));
+      this.currentUserSubject.next(new User('','','','','',null,null,'','',null,null,null,null,null));
       // Set auth status to false
       this.isAuthenticatedSubject.next(false);
     });

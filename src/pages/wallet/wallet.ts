@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import * as _ from 'lodash';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the WalletPage page.
@@ -20,6 +21,8 @@ import * as _ from 'lodash';
 export class WalletPage {
   
   wallets: any[];
+  baseCurrency: any;
+
   // eth, monero, ripple, stellar, cardano 
   walletLogo: string[] = [
     'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ethereum_logo_2014.svg/471px-Ethereum_logo_2014.svg.png',
@@ -32,17 +35,24 @@ export class WalletPage {
   supportedCryptoCurry = ['ETH', 'ADA', 'XLM', 'XMR', 'XRP'];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private _http: HttpClient) {
+    private _http: HttpClient, private storage: Storage) {
       
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WalletPage');
-    this.getWallets();
+  }
+
+  ionViewDidEnter(){
+    this.storage.ready().then(() => this.storage.get('nativeCurrency') as Promise<string>).then(currency => {
+      console.log("native currency: " + currency['currency']);
+      this.baseCurrency = currency['currency'];
+      this.getWallets();
+    });
   }
 
   getWallets() {
-    return this._http.get('https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH,ADA,XLM,XMR,XRP,&tsyms=USD')
+    return this._http.get('https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH,ADA,XLM,XMR,XRP,&tsyms=' + this.baseCurrency)
     .subscribe(result => {
       console.log(result);
       var transformWallet = [];
@@ -52,6 +62,7 @@ export class WalletPage {
         let cryptoNight = {
           currency: null,
           fiatCurryEquiv: 0,
+          fiatCurry: this.baseCurrency,
           logo: null,
           desc: 'Default Wallet'
         }
@@ -59,8 +70,8 @@ export class WalletPage {
         cryptoNight.currency = this.supportedCryptoCurry[cryptoIndex];
         console.log(result[this.supportedCryptoCurry[cryptoIndex]]);
         let value = result[this.supportedCryptoCurry[cryptoIndex]];
-        console.log(+value['USD']);
-        cryptoNight.fiatCurryEquiv = +value['USD'];
+        console.log(+value[this.baseCurrency]);
+        cryptoNight.fiatCurryEquiv = +value[this.baseCurrency];
         cryptoNight.logo = this.walletLogo[cryptoIndex];
         transformWallet.push(cryptoNight);
       }
@@ -68,11 +79,11 @@ export class WalletPage {
     });
   }
 
-  itemSelected(wallet){
-  
+  cryptoWalletSelected(wallet){
+    this.navCtrl.push("WalletDetailsPage");
   }
 
   addNewWallet(){
-    
+    this.navCtrl.push("AddnewwalletPage");
   }
 }
