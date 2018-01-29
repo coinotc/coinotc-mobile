@@ -5,10 +5,6 @@
 
 export const environment = {
   production: false,
-<<<<<<< HEAD
   // api_url: 'https://8e940aeb.ngrok.io/api'
   api_url: "http://192.168.2.106:3000/api"
-=======
-  api_url: 'http://localhost:3000/api'
->>>>>>> 7b2686cf3e88ebb6adbd21bf937c473c54d2aeb6
 };
