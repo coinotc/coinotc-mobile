@@ -27,10 +27,10 @@ export class TradeBuyCardanoPage {
   }
   doRefresh(refresher?) {
     // this.list = this.adservice.getadbuy("ETH");
-    this.adservice.getadbuy("CARDANO").subscribe(result => {
+    this.adservice.getadvertisement("CARDANO",1).subscribe(result => {
       this.list = result;
       if (refresher) {
-        refresher.complete();
+        refresher.complete();                                       
       }
     })
   }
