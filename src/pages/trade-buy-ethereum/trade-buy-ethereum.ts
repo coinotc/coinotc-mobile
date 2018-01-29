@@ -28,7 +28,7 @@ export class TradeBuyEthereumPage {
   }
   doRefresh(refresher?) {
     // this.list = this.adservice.getadbuy("ETH");
-    this.adservice.getadbuy("ETHEREUM").subscribe(result => {
+    this.adservice.getadvertisement("ETHEREUM",1).subscribe(result => {
       this.list = result;
       if (refresher) {
         refresher.complete();

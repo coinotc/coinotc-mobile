@@ -8,6 +8,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>{{'Information' | translate}}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="complain()"  *ngIf="orderInfo.finished == false" icon-only >
+        <ion-icon name="notifications" color="danger"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 

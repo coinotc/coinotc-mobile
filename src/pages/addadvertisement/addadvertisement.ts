@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { adinformation } from '../../models/adinformation';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-
+import { advertisement } from '../../models/advertisement';
 /**
  * Generated class for the AddadvertisementPage page.
  *
@@ -17,19 +17,26 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
   templateUrl: 'addadvertisement.html',
 })
 export class AddadvertisementPage {
-  rangepercent = 0; type: String; title: String; information = new adinformation('', true, 'ETHEREUM', 'singapore', 'SGD', null, null, null, '', null, '');
+  rangepercent = 0;
+  type: String; 
+  title: String; 
+  model = new advertisement('', true, 'ETHEREUM', 'singapore', 'SGD', null, null, null, '', null, '',null)
+  //information = new adinformation('', true, 'ETHEREUM', 'singapore', 'SGD', null, null, null, '', null, '');
   cryptoprice: number;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private adservice: AdvertisementServiceProvider, private userservice: UserServiceProvider) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private adservice: AdvertisementServiceProvider, 
+    private userservice: UserServiceProvider) {
     this.type = navParams.data.type;
     this.title = navParams.data.title;
     this.changerange();
     this.adservice.getprice('Ethereum', 'SGD').subscribe(result => {
       this.cryptoprice = Number(result[0].price_sgd);
-      this.information.price = this.cryptoprice;
+      this.model.price = this.cryptoprice;
     });
   }
   getcryptoprice() {
-    switch (this.information.crypto) {
+    switch (this.model.crypto) {
       case 'ETH':
         this.getfiatprice('Ethereum');
         break;
@@ -48,7 +55,7 @@ export class AddadvertisementPage {
     }
   }
   getfiatprice(crypto) {
-    switch (this.information.fiat) {
+    switch (this.model.fiat) {
       case 'SGD':
         this.adservice.getprice(crypto, 'SGD').subscribe(result => {
           this.cryptoprice = Number(result[0].price_sgd);
@@ -76,21 +83,23 @@ export class AddadvertisementPage {
     }
   }
   changerange() {
-    this.information.price = Number((this.cryptoprice * (100 + this.rangepercent) / 100).toFixed(4));
+    this.model.price = Number((this.cryptoprice * (100 + this.rangepercent) / 100).toFixed(4));
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddadvertisementPage');
   }
   addbuyad() {
-    this.information.owner = this.userservice.getCurrentUser().username;
-    this.adservice.addadbuy(this.information).subscribe(result => {
+    this.model.type = 1;
+    this.model.owner = this.userservice.getCurrentUser().username;
+    this.adservice.addadvertisement(this.model).subscribe(result => {
       console.log(result);
       this.navCtrl.pop();
     });
   }
   addsellad() {
-    this.information.owner = this.userservice.getCurrentUser().username;
-    this.adservice.addadsell(this.information).subscribe(result => {
+    this.model.type = 0 ;
+    this.model.owner = this.userservice.getCurrentUser().username;
+    this.adservice.addadvertisement(this.model).subscribe(result => {
       console.log(result);
       this.navCtrl.pop();
     });

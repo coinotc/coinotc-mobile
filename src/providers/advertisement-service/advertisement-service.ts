@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { adinformation } from '../../models/adinformation'
 import { environment } from '../../../environments/environment';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { advertisement } from '../../models/advertisement';
 /*
   Generated class for the AdvertisementServiceProvider provider.
 
@@ -17,26 +18,35 @@ const httpOptions = {
 export class AdvertisementServiceProvider {
   private adbuy = environment.api_url + '/guanggao/buy';
   private adsell = environment.api_url + '/guanggao/sell';
+  private advertisement = environment.api_url + '/advertisement';
   constructor(public http: HttpClient,
   private userService:UserServiceProvider) {
     console.log('Hello AdvertisementServiceProvider Provider');
   }
-  public getadbuy(crypto){
-    let url = `${this.adbuy}?crypto=${crypto}`
-    console.log(url);
-    return this.http.get<adinformation[]>(url, httpOptions);
+  // public getadbuy(crypto){
+  //   let url = `${this.adbuy}?crypto=${crypto}`
+  //   console.log(url);
+  //   return this.http.get<adinformation[]>(url, httpOptions);
+  // }
+  public getadvertisement(crypto,type){
+    let url = `${this.advertisement}?crypto=${crypto}&type=${type}`;
+    return this.http.get<advertisement[]>(url,httpOptions);
+
   }
-  public addadbuy(information){
-    return this.http.post(this.adbuy, information, httpOptions);
+  // public addadbuy(information){
+  //   return this.http.post(this.adbuy, information, httpOptions);
+  // }
+  public addadvertisement(information){
+    return this.http.post(this.advertisement, information, httpOptions);
   }
-  public getadsell(crypto){
-    let url = `${this.adsell}?crypto=${crypto}`
-    console.log(url);
-    return this.http.get<adinformation[]>(url, httpOptions);
-  }
-  public addadsell(information){
-    return this.http.post(this.adsell, information, httpOptions);
-  }
+  // public getadsell(crypto){
+  //   let url = `${this.adsell}?crypto=${crypto}`
+  //   console.log(url);
+  //   return this.http.get<adinformation[]>(url, httpOptions);
+  // }
+  // public addadsell(information){
+  //   return this.http.post(this.adsell, information, httpOptions);
+  // }
   public getMyadvertisement(){
     let currentUserName = this.userService.getCurrentUser().username;
     let URL = environment.api_url + `/guanggao/myadvertisement?currentUserName=${currentUserName}`;

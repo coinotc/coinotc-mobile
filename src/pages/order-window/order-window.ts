@@ -37,7 +37,7 @@ export class OrderWindowPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private orderServiceProvider: OrderServiceProvider, public alert: AlertController, private userServiceProvider: UserServiceProvider) {
     this.user = this.userServiceProvider.getCurrentUser();
-    this.orderInfo = navParams.data.order;
+    this.orderInfo = navParams.data.order;//information
     this.trader = navParams.data.trader;
     this.ref = firebase.database().ref('messages');
     this.typingStatus = firebase.database().ref('typeStatus');
@@ -99,7 +99,9 @@ export class OrderWindowPage {
   onWallet() {
     this.navCtrl.push(WalletPage);
   }
-
+  complain(){
+    this.navCtrl.push("ComplainInformationPage",this.orderInfo);
+  }
   ionViewDidLoad() {
     // Presenting popup
     // this.alert.create({
