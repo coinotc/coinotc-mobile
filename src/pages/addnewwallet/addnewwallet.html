@@ -1,0 +1,44 @@
+<!--
+  Generated template for the AddnewwalletPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add New Wallet</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="walletForm" (ngSubmit)="submitForm()" >
+  <ion-list>
+    <ion-item>
+      <ion-label>Crypto Currency</ion-label>
+      <ion-select formControlName="cryptoCurrency">
+        <ion-option value="XMR">Monero</ion-option>
+        <ion-option value="ETH">Ethereum</ion-option>
+        <ion-option value="XLM">Stellar</ion-option>
+        <ion-option value="XRP">Ripple</ion-option>
+        <ion-option value="ADA">Cardano ADA</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed>Wallet Name</ion-label>
+      <ion-input type="text" formControlName="walletName" placeholder="Name"></ion-input>
+    </ion-item>
+  
+    <div padding>
+      <button ion-button [disabled]="!walletForm.valid" type="submit">
+        Add
+      </button>
+    </div>
+    
+  
+  </ion-list>
+  </form>
+</ion-content>

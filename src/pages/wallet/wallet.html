@@ -7,26 +7,24 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Crypto Wallets</ion-title>
+    <ion-title>My Wallet</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="addNewWallet()">
+          <ion-icon ios="ios-add" md="md-add"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
-  <ion-toolbar>
-    <ion-segment>
-      <ion-segment-button value="XMR">
-        Monero
-      </ion-segment-button>
-      <ion-segment-button value="XRP">
-        Ripple
-      </ion-segment-button>
-      <ion-segment-button value="ADA">
-        Cardano
-      </ion-segment-button>
-      <ion-segment-button value="XLM">
-        Stellar
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <ion-list no-lines>
+    <button ion-item *ngFor="let wallet of wallets" (click)="cryptoWalletSelected(wallet)">
+      <ion-thumbnail item-start>
+          <img src="{{wallet.logo}}"/>
+      </ion-thumbnail>
+      <h2>{{ wallet.currency }} -  ≈ {{ wallet.fiatCurry }}{{ wallet.fiatCurryEquiv }}</h2>
+      <p>{{ wallet.desc }}</p>
+      <p>Balance : 0</p>
+    </button> 
+  </ion-list>
 </ion-content>
