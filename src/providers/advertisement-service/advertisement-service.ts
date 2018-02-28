@@ -47,9 +47,8 @@ export class AdvertisementServiceProvider {
   // public addadsell(information){
   //   return this.http.post(this.adsell, information, httpOptions);
   // }
-  public getMyadvertisement(){
-    let currentUserName = this.userService.getCurrentUser().username;
-    let URL = environment.api_url + `/guanggao/myadvertisement?currentUserName=${currentUserName}`;
+  public getMyadvertisement(username){
+    let URL = this.advertisement+`/myadvertisement?owner=${username}`;
     return this.http.get<adinformation[]>(URL,httpOptions)
   }
   public getprice(type,fiat){
