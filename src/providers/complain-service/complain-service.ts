@@ -1,6 +1,7 @@
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { complain } from '../../models/complain'
 /*
   Generated class for the ComplainServiceProvider provider.
 
@@ -18,5 +19,9 @@ export class ComplainServiceProvider {
   }
   public sendComplain(complain){
     return this.http.post(this.complainURL, complain , httpOptions);
+  }
+  public getComplains(username){
+    let url = `${this.complainURL}?complainant=${username}`;
+    return this.http.get<complain[]>(url,httpOptions);
   }
 }
