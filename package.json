@@ -1,83 +1,88 @@
 {
-  "name": "coinotc-kitchensink",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
-  "private": true,
-  "nodemonConfig": {
-    "ignore": [
-      "src/*"
-    ]
-  },
-  "scripts": {
-    "clean": "ionic-app-scripts clean",
-    "build": "ionic-app-scripts build",
-    "lint": "ionic-app-scripts lint",
-    "ionic:build": "ionic-app-scripts build",
-    "ionic:serve": "ionic-app-scripts serve",
-    "dev": "nodemon --inspect=9228 ./server/server.js"
-  },
-  "dependencies": {
-    "@angular/common": "5.0.3",
-    "@angular/compiler": "5.0.3",
-    "@angular/compiler-cli": "5.0.3",
-    "@angular/core": "5.0.3",
-    "@angular/forms": "5.0.3",
-    "@angular/http": "5.0.3",
-    "@angular/platform-browser": "5.0.3",
-    "@angular/platform-browser-dynamic": "5.0.3",
-    "@angular/router": "^5.1.3",
-    "@ionic-native/core": "4.4.0",
-    "@ionic-native/splash-screen": "4.4.0",
-    "@ionic-native/status-bar": "4.4.0",
-    "@ionic/storage": "2.1.3",
-    "@ngx-translate/core": "^9.0.2",
-    "@ngx-translate/http-loader": "^2.0.1",
-    "body-parser": "~1.18.2",
-    "cookie-parser": "~1.4.3",
-    "cordova-android": "^6.2.3",
-    "cordova-ios": "^4.4.0",
-    "cordova-plugin-device": "^1.1.4",
-    "cordova-plugin-ionic-webview": "^1.1.16",
-    "cordova-plugin-splashscreen": "^4.0.3",
-    "cordova-plugin-whitelist": "^1.3.1",
-    "cors": "^2.8.4",
-    "debug": "~2.6.9",
-    "dotenv": "^4.0.0",
-    "encodeurl": "^1.0.1",
-    "escape-html": "^1.0.3",
-    "express": "~4.15.5",
-    "firebase": "4.8.0",
-    "ionic-angular": "3.9.2",
-    "ionic-plugin-keyboard": "^2.2.1",
-    "ionic2-super-tabs": "^4.1.4",
-    "ionicons": "3.0.0",
-    "jade": "~1.11.0",
-    "merge-descriptors": "^1.0.1",
-    "mongoose": "^5.0.0-rc2",
-    "morgan": "~1.9.0",
-    "parseurl": "^1.3.2",
-    "rxjs": "5.5.2",
-    "serve-favicon": "~2.4.5",
-    "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.18"
-  },
-  "devDependencies": {
-    "@ionic/app-scripts": "3.1.6",
-    "typescript": "2.4.2"
-  },
-  "description": "An Ionic project",
-  "cordova": {
-    "plugins": {
-      "cordova-plugin-device": {},
-      "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-splashscreen": {},
-      "cordova-plugin-whitelist": {},
-      "ionic-plugin-keyboard": {}
+    "name": "coinotc-kitchensink",
+    "version": "0.0.1",
+    "author": "Ionic Framework",
+    "homepage": "http://ionicframework.com/",
+    "private": true,
+    "nodemonConfig": {
+        "ignore": [
+            "src/*"
+        ]
     },
-    "platforms": [
-      "android",
-      "ios"
-    ]
-  }
+    "scripts": {
+        "clean": "ionic-app-scripts clean",
+        "build": "ionic-app-scripts build",
+        "lint": "ionic-app-scripts lint",
+        "ionic:build": "ionic-app-scripts build",
+        "ionic:serve": "ionic-app-scripts serve",
+        "dev": "nodemon --inspect=9228 ./server/server.js"
+    },
+    "dependencies": {
+        "@angular/common": "5.0.3",
+        "@angular/compiler": "5.0.3",
+        "@angular/compiler-cli": "5.0.3",
+        "@angular/core": "5.0.3",
+        "@angular/forms": "5.0.3",
+        "@angular/http": "5.0.3",
+        "@angular/platform-browser": "5.0.3",
+        "@angular/platform-browser-dynamic": "5.0.3",
+        "@angular/router": "^5.1.3",
+        "@ionic-native/core": "4.4.0",
+        "@ionic-native/splash-screen": "4.4.0",
+        "@ionic-native/status-bar": "4.4.0",
+        "@ionic/storage": "2.1.3",
+        "@ngx-translate/core": "^9.0.2",
+        "@ngx-translate/http-loader": "^2.0.1",
+        "avatar-initials": "^3.0.1",
+        "body-parser": "~1.18.2",
+        "cookie-parser": "~1.4.3",
+        "cordova-android": "^6.4.0",
+        "cordova-ios": "^4.5.4",
+        "cordova-plugin-device": "^1.1.4",
+        "cordova-plugin-ionic-webview": "^1.1.16",
+        "cordova-plugin-splashscreen": "^4.0.3",
+        "cordova-plugin-whitelist": "^1.3.1",
+        "cors": "^2.8.4",
+        "debug": "~2.6.9",
+        "dotenv": "^4.0.0",
+        "encodeurl": "^1.0.1",
+        "escape-html": "^1.0.3",
+        "express": "~4.15.5",
+        "firebase": "4.8.0",
+        "ionic-angular": "3.9.2",
+        "ionic-plugin-keyboard": "^2.2.1",
+        "ionic2-super-tabs": "^4.1.4",
+        "ionicons": "3.0.0",
+        "jade": "~1.11.0",
+        "lodash": "^4.17.4",
+        "merge-descriptors": "^1.0.1",
+        "mongoose": "^5.0.0-rc2",
+        "morgan": "~1.9.0",
+        "ng-avatar": "^4.0.4",
+        "ng2-gravatar-directive": "^2.1.0",
+        "parseurl": "^1.3.2",
+        "rxjs": "5.5.2",
+        "serve-favicon": "~2.4.5",
+        "sw-toolbox": "3.6.0",
+        "zone.js": "0.8.18"
+    },
+    "devDependencies": {
+        "@angular/cli": "^1.6.5",
+        "@ionic/app-scripts": "^3.1.8",
+        "typescript": "2.4.2"
+    },
+    "description": "An Ionic project",
+    "cordova": {
+        "plugins": {
+            "cordova-plugin-device": {},
+            "cordova-plugin-ionic-webview": {},
+            "cordova-plugin-splashscreen": {},
+            "cordova-plugin-whitelist": {},
+            "ionic-plugin-keyboard": {}
+        },
+        "platforms": [
+            "android",
+            "ios"
+        ]
+    }
 }

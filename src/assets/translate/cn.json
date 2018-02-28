@@ -1,5 +1,8 @@
 {
+    "Trade":"交易",
     "OrderList": "订单列表",
+    "Wallet":"钱包",
+    "Me":"我",
     "ActiveBuy": "购买中",
     "ActiveSell": "出售中",
     "FinishedBuy": "购买完成",

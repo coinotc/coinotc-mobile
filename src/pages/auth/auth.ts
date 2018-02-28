@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../../pages/tabs/tabs';
+import { AvatarService } from 'ng-avatar';
 
 /**
  * Generated class for the AuthPage page.
@@ -23,7 +24,7 @@ export class AuthPage {
   isSubmitting = false;
   authForm: FormGroup;
   isModal: boolean; // show close button only in a modal
-  //public pet;
+  
   constructor(
     public navCtrl: NavController,
     private viewCtrl: ViewController,
@@ -40,6 +41,7 @@ export class AuthPage {
     });
     this.isModal = !!params.get('isModal');
   }
+
   authTypeChange() {
     if (this.authType === 'register') {
       this.authForm.addControl('username', new FormControl());
@@ -47,12 +49,15 @@ export class AuthPage {
       this.authForm.removeControl('username');
     }
   }
+
   submitForm() {
     this.isSubmitting = true;
     const credentials = this.authForm.value;
     this.userService.attemptAuth(this.authType, credentials).subscribe(
       user => {
         if(this.isModal) this.viewCtrl.dismiss();
+        this.displayTabs();
+        
         this.navCtrl.push(TabsPage);
       },
       (errors:Errors) => {
@@ -65,6 +70,16 @@ export class AuthPage {
         this.isSubmitting = false;
       }
     );
+  }
+
+  private displayTabs() {
+    let tabs = document.querySelectorAll('.tabbar.show-tabbar');
+
+    if ( tabs !== null ) {
+      Object.keys(tabs).map((key) => {
+        tabs[ key ].style.display = 'flex';
+      });
+    } // end if
   }
   close() {
     this.viewCtrl.dismiss();

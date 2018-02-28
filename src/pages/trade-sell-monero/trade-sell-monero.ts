@@ -27,7 +27,7 @@ export class TradeSellMoneroPage {
   }
   doRefresh(refresher?) {
     // this.list = this.adservice.getadbuy("ETH");
-    this.adservice.getadsell("MONERO").subscribe(result => {
+    this.adservice.getadvertisement("MONERO",0).subscribe(result => {
       this.list = result;
       if (refresher) {
         refresher.complete();

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 //import { Observable } from 'rxjs/Rx';
 import { adinformation } from '../../models/adinformation'
 import { environment } from '../../../environments/environment';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { advertisement } from '../../models/advertisement';
 /*
   Generated class for the AdvertisementServiceProvider provider.
 
@@ -16,24 +18,38 @@ const httpOptions = {
 export class AdvertisementServiceProvider {
   private adbuy = environment.api_url + '/guanggao/buy';
   private adsell = environment.api_url + '/guanggao/sell';
-  constructor(public http: HttpClient) {
+  private advertisement = environment.api_url + '/advertisement';
+  constructor(public http: HttpClient,
+  private userService:UserServiceProvider) {
     console.log('Hello AdvertisementServiceProvider Provider');
   }
-  public getadbuy(crypto){
-    let url = `${this.adbuy}?crypto=${crypto}`
-    console.log(url);
-    return this.http.get<adinformation[]>(url, httpOptions);
+  // public getadbuy(crypto){
+  //   let url = `${this.adbuy}?crypto=${crypto}`
+  //   console.log(url);
+  //   return this.http.get<adinformation[]>(url, httpOptions);
+  // }
+  public getadvertisement(crypto,type){
+    let url = `${this.advertisement}?crypto=${crypto}&type=${type}`;
+    return this.http.get<advertisement[]>(url,httpOptions);
+
   }
-  public addadbuy(information){
-    return this.http.post(this.adbuy, information, httpOptions);
+  // public addadbuy(information){
+  //   return this.http.post(this.adbuy, information, httpOptions);
+  // }
+  public addadvertisement(information){
+    return this.http.post(this.advertisement, information, httpOptions);
   }
-  public getadsell(crypto){
-    let url = `${this.adsell}?crypto=${crypto}`
-    console.log(url);
-    return this.http.get<adinformation[]>(url, httpOptions);
-  }
-  public addadsell(information){
-    return this.http.post(this.adsell, information, httpOptions);
+  // public getadsell(crypto){
+  //   let url = `${this.adsell}?crypto=${crypto}`
+  //   console.log(url);
+  //   return this.http.get<adinformation[]>(url, httpOptions);
+  // }
+  // public addadsell(information){
+  //   return this.http.post(this.adsell, information, httpOptions);
+  // }
+  public getMyadvertisement(username,type){
+    let URL = this.advertisement+`/myadvertisement?owner=${username}&visible=${type}`;
+    return this.http.get<advertisement[]>(URL,httpOptions)
   }
   public getprice(type,fiat){
     let url = `https://api.coinmarketcap.com/v1/ticker/${type}/?convert=${fiat}`;

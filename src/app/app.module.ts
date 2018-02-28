@@ -20,7 +20,7 @@ import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement
 import { OrderListPage } from '../pages/order-list/order-list';
 import { AdinformationPage } from '../pages/adinformation/adinformation'
 import { OrderWindowPageModule } from '../pages/order-window/order-window.module';
-
+import { AdinformationPageModule} from '../pages/adinformation/adinformation.module';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { OrderServiceProvider } from '../providers/order-service/order-service';
@@ -29,7 +29,10 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
 import { ApiServiceProvider } from '../providers/api-service/api-service';
 import { JwtServiceProvider } from '../providers/jwt-service/jwt-service';
 import { ProfileServiceProvider } from '../providers/profile-service/profile-service';
-
+import { AvatarService } from 'ng-avatar'
+import { ComplainServiceProvider } from '../providers/complain-service/complain-service';
+import { CryptowalletProvider } from '../providers/cryptowallet/cryptowallet';
+import { CurrenciesServiceProvider } from '../providers/currencies/currencies-service';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
 
 export function createTranslateLoader(http: HttpClient) {
@@ -44,8 +47,7 @@ export function createTranslateLoader(http: HttpClient) {
     WalletPage,
     TradePage,
     AddadvertisementPage,
-    OrderListPage,
-    AdinformationPage
+    OrderListPage
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,8 @@ export function createTranslateLoader(http: HttpClient) {
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    })
+    }),
+    AdinformationPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -74,8 +77,7 @@ export function createTranslateLoader(http: HttpClient) {
     WalletPage,
     TradePage,
     AddadvertisementPage,
-    OrderListPage,
-    AdinformationPage
+    OrderListPage
   ],
   providers: [
     StatusBar,
@@ -89,7 +91,11 @@ export function createTranslateLoader(http: HttpClient) {
     HttpModule,
     HttpClientModule,
     IonicStorageModule,
-    ProfileServiceProvider
+    ProfileServiceProvider,
+    AvatarService,
+    ComplainServiceProvider,
+    CryptowalletProvider,
+    CurrenciesServiceProvider
 
   ]
 })

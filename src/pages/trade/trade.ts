@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { AddadvertisementPage } from '../addadvertisement/addadvertisement'
-
+import { Content } from 'ionic-angular';
 /**
  * Generated class for the TradePage page.
  *
@@ -15,6 +15,7 @@ import { AddadvertisementPage } from '../addadvertisement/addadvertisement'
   templateUrl: 'trade.html',
 })
 export class TradePage {
+  @ViewChild(Content) content: Content;
   buynsell: string = "buy";
   buycryptos: Object[] = [{
     root: 'TradeBuyEthereumPage',
@@ -63,6 +64,7 @@ export class TradePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TradePage');
+    this.content.resize();
   }
   addbuyad() {
     this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Buy', title: 'publishBuy' })

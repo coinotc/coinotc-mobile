@@ -25,7 +25,7 @@ export class TradeSellCardanoPage {
   }
   doRefresh(refresher?) {
     // this.list = this.adservice.getadbuy("ETH");
-    this.adservice.getadsell("CARDANO").subscribe(result => {
+    this.adservice.getadvertisement("CARDANO",0).subscribe(result => {
       this.list = result;
       if (refresher) {
         refresher.complete();

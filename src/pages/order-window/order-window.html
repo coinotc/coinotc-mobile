@@ -8,6 +8,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>{{'Information' | translate}}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="complain()"  *ngIf="orderInfo.finished == false" icon-only >
+        <ion-icon name="notifications" color="danger"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -19,8 +24,7 @@
     <ion-card [ngSwitch]="switched">
       <button ion-item (click)="onSwitch()">
         {{'Crypto' | translate}}:{{orderInfo.crypto}}
-        <span style="float:right" *ngIf="orderInfo.finished == true">{{'Completed' | translate}}</span>
-        <span style="float:right" *ngIf="orderInfo.finished == false">{{'Active' | translate}}</span>
+        <span style="float:right">{{(orderInfo.finished ? 'Completed':'Active') | translate}}</span>
       </button>
 
       <ion-card-content *ngSwitchCase="true">

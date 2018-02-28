@@ -26,7 +26,7 @@ export class TradeBuyRipplePage {
   }
   doRefresh(refresher?) {
     // this.list = this.adservice.getadbuy("ETH");
-    this.adservice.getadbuy("RIPPLE").subscribe(result => {
+    this.adservice.getadvertisement("RIPPLE",1).subscribe(result => {
       this.list = result;
       if (refresher) {
         refresher.complete();

@@ -26,7 +26,7 @@ export class TradeSellStellarPage {
   }
   doRefresh(refresher?) {
     // this.list = this.adservice.getadbuy("ETH");
-    this.adservice.getadsell("STELLAR").subscribe(result => {
+    this.adservice.getadvertisement("STELLAR",0).subscribe(result => {
       this.list = result;
       if (refresher) {
         refresher.complete();

@@ -22,7 +22,7 @@ export class TabsPage {
       icon: 'logo-bitcoin'
     }, {
       root: OrderListPage,
-      title: 'Order',
+      title: 'OrderList',
       icon :'list'
     }, {
       root: WalletPage,

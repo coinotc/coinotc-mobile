@@ -35,8 +35,8 @@ page-trade {
         contain: layout;
     }
     button[ion-fab] {
-        overflow: inherit;
-        position: relative;
+        position: relative !important;
+        margin-top: 7%;
         ion-label {
             position: absolute;
             top: -8px;

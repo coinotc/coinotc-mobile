@@ -31,6 +31,14 @@
     <ion-list-header>
       Account
     </ion-list-header>
+    
+    <ion-item>
+      <ion-icon name='settings' item-start></ion-icon>
+      <ion-label>Native Currency</ion-label>
+      <ion-select [(ngModel)]="baseCurrency" (ngModelChange)="setBaseCurrency()">
+        <ion-option *ngFor="let currency of currencies" [value]="currency.currenciesCode">{{currency.currenciesDesc}} ({{currency.currenciesCode}})</ion-option>
+      </ion-select>
+    </ion-item>
     <ion-item>
       <button ion-item  (click)="bindPhoneTapped()">
         <ion-icon name="md-list-box" item-start></ion-icon>
@@ -57,7 +65,7 @@
     </ion-list-header>
     <ion-item>
       <ion-icon name='settings' item-start></ion-icon>
-      <ion-label>App Language</ion-label>
+      <ion-label>Select Language</ion-label>
       <ion-select [(ngModel)]="language" (ngModelChange)="switchLanguage()">
         <ion-option *ngFor="let language of languages" [value]="language.value">{{language.label}}</ion-option>
       </ion-select>

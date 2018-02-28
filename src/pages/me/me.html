@@ -4,11 +4,11 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content >
   <ion-list>
     <ion-list-header>
       <ion-avatar item-start>
-        <img [src]="placeholderPicture" (click)="updateProfileImage()" >
+        <img src="" id="avatar-image" (click)="updateProfileImage()"  >
       </ion-avatar>
       <p class="username">{{user.name}}</p>
       <p>{{user.email}}</p>
@@ -30,6 +30,13 @@
     <button ion-item (click)="settingsTapped()">
       <ion-icon name="md-list-box" item-start></ion-icon>
       Settings
+    </button>
+  </ion-list>
+
+  <ion-list>
+    <button ion-item (click)="complain()">
+      <ion-icon name="md-list-box" item-start></ion-icon>
+      Complain
     </button>
   </ion-list>
 

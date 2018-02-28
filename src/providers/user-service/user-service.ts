@@ -8,7 +8,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { ApiServiceProvider } from '../api-service/api-service';
 import { JwtServiceProvider } from '../jwt-service/jwt-service';
 import { User } from '../../models/user.model';
-
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the UserServiceProvider provider.
@@ -18,7 +18,7 @@ import { User } from '../../models/user.model';
 */
 @Injectable()
 export class UserServiceProvider {
-  private currentUserSubject = new BehaviorSubject<User>(new User());
+  private currentUserSubject = new BehaviorSubject<User>(new User('','','','','',null,null,'','',null,null,null,null, null));
   public currentUser = this.currentUserSubject.asObservable().distinctUntilChanged();
 
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
@@ -26,8 +26,9 @@ export class UserServiceProvider {
 
   constructor(
     private apiService: ApiServiceProvider,
-    private jwtService: JwtServiceProvider) {
-    console.log('Hello UserServiceProvider Provider');
+    private jwtService: JwtServiceProvider,
+    private storage: Storage) {
+    console.log('UserServiceProvider Provider');
   }
 
   populate() {
@@ -51,6 +52,13 @@ export class UserServiceProvider {
     this.jwtService.saveToken(user.token).then(() => {
       // Set current user data into observable
       this.currentUserSubject.next(user);
+      console.log(user);
+      console.log(">>> " + user.nativeCurrency);
+      let nativeCurry = {
+        currency: user.nativeCurrency
+      }
+      this.storage.ready().then(() => this.storage.set('nativeCurrency', nativeCurry) as Promise<void>)
+      
       // Set isAuthenticated to true
       this.isAuthenticatedSubject.next(true);
     });
@@ -60,7 +68,7 @@ export class UserServiceProvider {
     // Remove JWT from localstorage
     this.jwtService.destroyToken().then(() => {
       // Set current user to an empty object
-      this.currentUserSubject.next(new User());
+      this.currentUserSubject.next(new User('','','','','',null,null,'','',null,null,null,null,null));
       // Set auth status to false
       this.isAuthenticatedSubject.next(false);
     });
@@ -101,6 +109,14 @@ export class UserServiceProvider {
       // Update the currentUser observable
       this.currentUserSubject.next(data.user);
       return data.user;
+    });
+  }
+
+  // Update the user on the server (email, pass, etc)
+  updateBaseCurrency(currency): Observable<User> {
+    return this.apiService.put('/users/base-currency', currency).map(data => {
+      this.storage.ready().then(() => this.storage.set('nativeCurrency', currency) as Promise<void>)
+      return data;
     });
   }
 
