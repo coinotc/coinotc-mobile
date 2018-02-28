@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { complain } from '../../models/complain';
+import { ComplainServiceProvider } from '../../providers/complain-service/complain-service'
 
 /**
  * Generated class for the ComplainPage page.
@@ -14,8 +17,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'complain.html',
 })
 export class ComplainPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private user;
+  private complains:complain[];
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+  private userServiceProvider: UserServiceProvider,
+  private complainService:ComplainServiceProvider) {
+    this.user = this.userServiceProvider.getCurrentUser();
+    this.complainService.getComplains(this.user.username).subscribe((result) => {
+      this.complains = result;
+    });
   }
 
   ionViewDidLoad() {

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';  
+import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { advertisement} from '../../models/advertisement'
 /**
  * Generated class for the AdvertisementsPage page.
  *
@@ -15,10 +17,15 @@ import { AdvertisementServiceProvider } from '../../providers/advertisement-serv
   templateUrl: 'advertisements.html',
 })
 export class AdvertisementsPage {
+  private activeAdvertisement:advertisement[];
+  private disableAdvertisement:advertisement[];
   value = "Active";
+  private user;
   constructor(public navCtrl: NavController, private navParams: NavParams,
-    private advertisementService : AdvertisementServiceProvider) {
-    
+    private advertisementService : AdvertisementServiceProvider,
+    private userServiceProvider: UserServiceProvider) {
+      this.user = this.userServiceProvider.getCurrentUser();
+      this.doRefresh();
   }
   
   ionViewDidLoad() {
@@ -26,5 +33,26 @@ export class AdvertisementsPage {
   }
   onTabSelect(tab: { index: number; id: string; }) {
     console.log(`Selected tab: `, tab);
+  }
+  onSegment() {
+    this.doRefresh();
+  }
+  doRefresh(refresher?) {
+    switch (this.value) {
+      case 'Active':
+        this.advertisementService.getMyadvertisement(this.user.username,true).subscribe((result) => {
+          this.activeAdvertisement = result;
+          if (refresher) {
+            refresher.complete();
+          }
+        }); break;
+      case 'Disabled':
+        this.advertisementService.getMyadvertisement(this.user.username, false).subscribe(result => {
+          this.disableAdvertisement = result;
+          if (refresher) {
+            refresher.complete();
+          }
+        }); break;
+    }
   }
 }

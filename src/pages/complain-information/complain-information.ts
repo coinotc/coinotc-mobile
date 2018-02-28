@@ -18,7 +18,7 @@ import { ComplainServiceProvider } from '../../providers/complain-service/compla
 export class ComplainInformationPage {
   orderInformation;
   compainUser;
-  model = new complain('','','',0,'')
+  model = new complain('','','',0,'',null);
   constructor(public navCtrl: NavController, public navParams: NavParams,
   private userService:UserServiceProvider,
   private complainService:ComplainServiceProvider
