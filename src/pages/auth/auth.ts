@@ -6,7 +6,6 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../../pages/tabs/tabs';
 import { AvatarService } from 'ng-avatar';
-
 /**
  * Generated class for the AuthPage page.
  *
@@ -57,8 +56,11 @@ export class AuthPage {
       user => {
         if(this.isModal) this.viewCtrl.dismiss();
         this.displayTabs();
-        
-        this.navCtrl.push(TabsPage);
+        if(this.authType === 'register'){
+        this.navCtrl.push("PaymentPrdPage");
+        }else{
+          this.navCtrl.push(TabsPage);
+        }
       },
       (errors:Errors) => {
         for(let field in errors.errors){
