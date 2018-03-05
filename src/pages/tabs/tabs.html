@@ -1,3 +1,3 @@
 <ion-tabs>
-  <ion-tab id="mainTab" *ngFor="let tabRoot of tabRoots" [root]="tabRoot.root" tabTitle="{{tabRoot.title}}" tabIcon="{{tabRoot.icon}}"></ion-tab>
+  <ion-tab id="mainTab" *ngFor="let tabRoot of tabRoots" [root]="tabRoot.root" tabTitle="{{tabRoot.title | translate}}" tabIcon="{{tabRoot.icon}}"></ion-tab>
 </ion-tabs>

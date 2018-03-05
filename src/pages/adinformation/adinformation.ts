@@ -19,7 +19,7 @@ import { OrderWindowPage } from '../order-window/order-window';
   templateUrl: 'adinformation.html',
 })
 export class AdinformationPage {
-  disabled=true ;information: adinformation; title: string; tradetype: { type: String, crypto: String }; user: { order: 200, goodorder: 148, }; range; loading; orderinformation = new OrderInformation(null, null, null, null, null, null, null, null, null, null, false);
+  disabled = true; information: adinformation; title: string; tradetype: { type: String, crypto: String }; user: { order: 200, goodorder: 148, }; range; loading; orderinformation = new OrderInformation(null, null, null, null, null, null, null, null, null, null, false);
   constructor(public navCtrl: NavController, public navParams: NavParams, public userservice: UserServiceProvider, public loadingCtrl: LoadingController, public orderservice: OrderServiceProvider) {
     this.tradetype = navParams.data.tradetype;
     this.information = navParams.data.information;
@@ -54,46 +54,34 @@ export class AdinformationPage {
       this.orderinformation.buyer = this.information.owner;
     }
     // console.log(this.orderinformation);
-    this.orderservice.postorder(this.orderinformation).subscribe(result=>{
+    this.orderservice.postorder(this.orderinformation).subscribe(result => {
       console.log(result);
       let owner = this.information.owner
       this.loading.dismiss();
-      this.navCtrl.push(OrderWindowPage,{ order:result, trader:owner});
+      this.navCtrl.push(OrderWindowPage, { order: result, trader: owner });
     })
   }
   amountchange() {
     this.orderinformation.quantity = this.orderinformation.amount / this.orderinformation.price;
-    if(this.orderinformation.amount > this.information.min_price){
-      if(this.orderinformation.amount < this.information.max_price){
-        if (this.information.owner != this.userservice.getCurrentUser().username){
-          this.disabled = false;
-        }
-      }
-      else{
-        this.disabled = true;
-      }
-    }
-    else{
-      this.disabled = true;
-    }
+    this.checkorder();
   }
   quantitychange() {
     this.orderinformation.amount = this.orderinformation.quantity * this.orderinformation.price;
-    if(this.orderinformation.amount > this.information.min_price){
-      if(this.orderinformation.amount < this.information.max_price){
-        if (this.information.owner != this.userservice.getCurrentUser().username){
+    this.checkorder();
+  }
+  checkorder() {
+    if (this.orderinformation.amount > this.information.min_price) {
+      if (this.orderinformation.amount < this.information.max_price) {
+        if (this.information.owner != this.userservice.getCurrentUser().username) {
           this.disabled = false;
         }
       }
-      else{
+      else {
         this.disabled = true;
       }
     }
-    else{
+    else {
       this.disabled = true;
     }
-  }
-  profile(){
-    this.navCtrl.push("ProfilePage",this.information.owner);
   }
 }
