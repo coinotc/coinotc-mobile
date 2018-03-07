@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { User } from '../../models/user.model';
-
+import { TabsPage } from '../../pages/tabs/tabs';
 /**
  * Generated class for the PaymentPrdPage page.
  *
@@ -29,6 +29,9 @@ export class PaymentPrdPage {
   }
   submit(){
     this.user.tradePrd = this.model.tradePrd;
-    this.userService.update(this.user).subscribe();
+    this.userService.update(this.user).subscribe(user=>{
+      this.navCtrl.push(TabsPage);
+    });
+
   }
 }
