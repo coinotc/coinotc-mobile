@@ -6,6 +6,7 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../../pages/tabs/tabs';
 import { AvatarService } from 'ng-avatar';
+import { PaymentPrdPage } from '../payment-prd/payment-prd'
 /**
  * Generated class for the AuthPage page.
  *
@@ -52,12 +53,13 @@ export class AuthPage {
   submitForm() {
     this.isSubmitting = true;
     const credentials = this.authForm.value;
+    this.navCtrl.push(TabsPage,{});
     this.userService.attemptAuth(this.authType, credentials).subscribe(
       user => {
         if(this.isModal) this.viewCtrl.dismiss();
         this.displayTabs();
         if(this.authType === 'register'){
-        this.navCtrl.push("PaymentPrdPage");
+        this.navCtrl.push(PaymentPrdPage);
         }else{
           this.navCtrl.push(TabsPage);
         }

@@ -17,20 +17,23 @@ import { TabsPage } from '../../pages/tabs/tabs';
 })
 export class PaymentPrdPage {
   private user;
-  model = new User('','','','','',null,null,'','',null,null,null,null, null);
+  model = new User(null,null, null,null,null,null,null,null,null,null,null,null,null, null);
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private userService:UserServiceProvider) {
       this.user = this.userService.getCurrentUser();
-      this.model.tradePrd = this.user.tradePrd;
+      console.log(this.model.tradePrd)
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PaymentPrdPage');
   }
   submit(){
+    console.log(this.model.tradePrd)
     this.user.tradePrd = this.model.tradePrd;
+    console.log(this.user)
     this.userService.update(this.user).subscribe(user=>{
       this.navCtrl.push(TabsPage);
+      
     });
 
   }
