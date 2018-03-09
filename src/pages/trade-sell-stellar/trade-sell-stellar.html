@@ -12,7 +12,7 @@
   <ion-card *ngFor="let item of list">
     <ion-item>
       <ion-avatar item-start>
-        <img src="img/{{item.owner}}.Avatar.png">
+        <ion-text-avatar>{{item.owner}}</ion-text-avatar>
       </ion-avatar>
       <h2>{{item.owner}}</h2>
       <p>{{'payment.'+item.payment | translate}}</p>

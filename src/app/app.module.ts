@@ -32,9 +32,12 @@ import { ComplainServiceProvider } from '../providers/complain-service/complain-
 import { CryptowalletProvider } from '../providers/cryptowallet/cryptowallet';
 import { CurrenciesServiceProvider } from '../providers/currencies/currencies-service';
 import { PaymentPrdPageModule } from '../pages/payment-prd/payment-prd.module';
-import { MePage } from '../pages/me/me';
 import { FaIconComponent } from '../components/fa-icon/fa-icon.component';
-import { IonTextAvatar } from 'ionic-text-avatar';
+import { MePageModule } from '../pages/me/me.module'
+import { BindEmailPage } from '../pages/bind-email/bind-email';
+import { BindPhonePage } from '../pages/bind-phone/bind-phone';
+import { ModifyPrdPage } from '../pages/modify-prd/modify-prd';
+import { RealNameVerifiedPage } from '../pages/real-name-verified/real-name-verified'
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -50,13 +53,17 @@ export function createTranslateLoader(http: HttpClient) {
     ChatPage,
     WalletPage,
     TradePage,
-    MePage,
     AddadvertisementPage,
     OrderListPage,
     FaIconComponent,
-    IonTextAvatar,
+    BindEmailPage,
+    BindPhonePage,
+    ModifyPrdPage,
+    RealNameVerifiedPage
+    
   ],
   imports: [
+    MePageModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
     SuperTabsModule.forRoot(),
@@ -84,9 +91,13 @@ export function createTranslateLoader(http: HttpClient) {
     ChatPage,
     WalletPage,
     TradePage,
-    MePage,
     AddadvertisementPage,
     OrderListPage,
+    BindEmailPage,
+    BindPhonePage,
+    ModifyPrdPage,
+    RealNameVerifiedPage,
+    
   ],
   providers: [
     StatusBar,
@@ -105,6 +116,7 @@ export function createTranslateLoader(http: HttpClient) {
     ComplainServiceProvider,
     CryptowalletProvider,
     CurrenciesServiceProvider
-  ]
+  ],
+
 })
 export class AppModule {}
