@@ -35,6 +35,7 @@ import { ComplainServiceProvider } from '../providers/complain-service/complain-
 import { CryptowalletProvider } from '../providers/cryptowallet/cryptowallet';
 import { CurrenciesServiceProvider } from '../providers/currencies/currencies-service';
 import { PaymentPrdPageModule } from '../pages/payment-prd/payment-prd.module';
+import { MePage } from '../pages/me/me';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
 
 export function createTranslateLoader(http: HttpClient) {
@@ -48,6 +49,7 @@ export function createTranslateLoader(http: HttpClient) {
     ChatPage,
     WalletPage,
     TradePage,
+    MePage,
     AddadvertisementPage,
     OrderListPage
   ],
@@ -55,7 +57,6 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserModule,
     IonicModule.forRoot(MyApp),
     SuperTabsModule.forRoot(),
-    MePageModule,
     AuthPageModule,
     HttpClientModule,
     HttpModule,
@@ -80,6 +81,7 @@ export function createTranslateLoader(http: HttpClient) {
     ChatPage,
     WalletPage,
     TradePage,
+    MePage,
     AddadvertisementPage,
     OrderListPage
   ],

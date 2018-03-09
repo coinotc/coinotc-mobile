@@ -23,9 +23,12 @@ export class ComplainPage {
   private userServiceProvider: UserServiceProvider,
   private complainService:ComplainServiceProvider) {
     this.user = this.userServiceProvider.getCurrentUser();
-    this.complainService.getComplains(this.user.username).subscribe((result) => {
-      this.complains = result;
-    });
+    if(this.user.username){
+      this.complainService.getComplains(this.user.username).subscribe((result) => {
+        this.complains = result;
+      });
+    }
+    
   }
 
   ionViewDidLoad() {
