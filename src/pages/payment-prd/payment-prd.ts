@@ -17,10 +17,12 @@ import { TabsPage } from '../../pages/tabs/tabs';
 })
 export class PaymentPrdPage {
   private user;
-  model = new User(null,null, null,null,null,null,null,null,null,null,null,null,null, null);
+  model = new User("","","","","",0,0,"","",null,null,[],[], "");
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private userService:UserServiceProvider) {
       this.user = this.userService.getCurrentUser();
+      this.model.email = this.user.email;
+      this.model.email = this.user.username;
       console.log(this.model.tradePrd)
   }
 

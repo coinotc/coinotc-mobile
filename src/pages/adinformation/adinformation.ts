@@ -76,8 +76,6 @@ export class AdinformationPage {
       
       this.navCtrl.push(RoomPage, { order: result, trader: owner ,roomkey:this.roomkey});
       console.log(result);
-      owner = this.information.owner
-      this.loading.dismiss();
       this.navCtrl.push(OrderWindowPage, { order: result, trader: owner });
 
     })

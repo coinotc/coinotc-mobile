@@ -21,7 +21,7 @@ const config = {
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = TabsPage;
+  rootPage: any = AuthPage;
 
   constructor(private userService: UserServiceProvider,
     platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private translate: TranslateService) {
