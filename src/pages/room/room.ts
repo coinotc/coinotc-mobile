@@ -1,7 +1,7 @@
 import { Component ,ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams ,Content } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-import * as firebase from 'Firebase';
+import * as firebase from 'firebase';
 /**
  * Generated class for the RoomPage page.
  *

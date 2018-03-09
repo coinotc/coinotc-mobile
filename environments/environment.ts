@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   // api_url: 'https://8e940aeb.ngrok.io/api'
-  api_url: "http://192.168.2.106:3000/api"
+  api_url: "http://192.168.3.42:3200/api"
 };

@@ -9,13 +9,14 @@ import { TabsPage } from '../pages/tabs/tabs'
 import { AuthPage } from '../pages/auth/auth';
 import { TradePage } from '../pages/trade/trade'
 import * as firebase from 'firebase';
-    const config = {
-      apiKey: "AIzaSyBLdeDmPS6oVmkTkZaypNk2OJvOEnxeRH8",
-      authDomain: "coinotc-kitchensink-chat.firebaseapp.com",
-      databaseURL: "https://coinotc-kitchensink-chat.firebaseio.com/",
-      projectId: "coinotc-kitchensink-chat",
-      storageBucket: "coinotc-kitchensink-chat.appspot.com",
-    };
+
+const config = {
+  apiKey: "AIzaSyBLdeDmPS6oVmkTkZaypNk2OJvOEnxeRH8",
+  authDomain: "coinotc-kitchensink-chat.firebaseapp.com",
+  databaseURL: "https://coinotc-kitchensink-chat.firebaseio.com/",
+  projectId: "coinotc-kitchensink-chat",
+  storageBucket: "coinotc-kitchensink-chat.appspot.com",
+};
 @Component({
   templateUrl: 'app.html'
 })
