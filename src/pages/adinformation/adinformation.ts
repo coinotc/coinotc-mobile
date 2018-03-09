@@ -20,10 +20,12 @@ import { RoomPage } from '../room/room';
   templateUrl: 'adinformation.html',
 })
 export class AdinformationPage {
+
   data = { type:'', name:'', message:'',roomname:'' };
   ref = firebase.database().ref('chatrooms/');
   roomkey:any;
   disabled = true; information: adinformation; title: string; tradetype: { type: String, crypto: String }; user: { order: 200, goodorder: 148, }; range; loading; orderinformation = new OrderInformation(null, null, null, null, null, null, null, null, null, null, false, null);
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public userservice: UserServiceProvider, public loadingCtrl: LoadingController, public orderservice: OrderServiceProvider) {
     this.tradetype = navParams.data.tradetype;
     this.information = navParams.data.information;
@@ -73,6 +75,11 @@ export class AdinformationPage {
       this.roomkey = getRoomKey(this.ref)
       
       this.navCtrl.push(RoomPage, { order: result, trader: owner ,roomkey:this.roomkey});
+      console.log(result);
+      let owner = this.information.owner
+      this.loading.dismiss();
+      this.navCtrl.push(OrderWindowPage, { order: result, trader: owner });
+
     })
   }
   amountchange() {
