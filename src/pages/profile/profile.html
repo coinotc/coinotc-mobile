@@ -15,9 +15,10 @@
 <ion-content class="list-avatar-page" *ngIf="model">
   <ion-list no-lines>
     <ion-item>
-      <ion-avatar item-start >
-        <img  id="avatar-image" src="">
-      </ion-avatar>
+        <ion-avatar item-start>
+            <!-- <ion-text-avatar>{{profileUser}}</ion-text-avatar> -->
+          <img src="" id="avatar-image" (click)="updateProfileImage()" >
+        </ion-avatar>
       <h2>{{profileUser}}</h2>
       <p>Trade with him 0 times</p>
     </ion-item>      

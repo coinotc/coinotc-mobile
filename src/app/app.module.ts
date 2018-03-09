@@ -34,7 +34,7 @@ import { CurrenciesServiceProvider } from '../providers/currencies/currencies-se
 import { PaymentPrdPageModule } from '../pages/payment-prd/payment-prd.module';
 import { MePage } from '../pages/me/me';
 import { FaIconComponent } from '../components/fa-icon/fa-icon.component';
-
+import { IonTextAvatar } from 'ionic-text-avatar';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -53,7 +53,8 @@ export function createTranslateLoader(http: HttpClient) {
     MePage,
     AddadvertisementPage,
     OrderListPage,
-    FaIconComponent
+    FaIconComponent,
+    IonTextAvatar,
   ],
   imports: [
     BrowserModule,
@@ -85,7 +86,7 @@ export function createTranslateLoader(http: HttpClient) {
     TradePage,
     MePage,
     AddadvertisementPage,
-    OrderListPage
+    OrderListPage,
   ],
   providers: [
     StatusBar,
