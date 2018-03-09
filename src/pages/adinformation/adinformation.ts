@@ -5,7 +5,8 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { OrderInformation } from '../order-window/orderInformation';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
 import { OrderWindowPage } from '../order-window/order-window';
-
+import * as firebase from 'Firebase';
+import { RoomPage } from '../room/room';
 /**
  * Generated class for the AdinformationPage page.
  *
@@ -19,7 +20,12 @@ import { OrderWindowPage } from '../order-window/order-window';
   templateUrl: 'adinformation.html',
 })
 export class AdinformationPage {
-  disabled = true; information: adinformation; title: string; tradetype: { type: String, crypto: String }; user: { order: 200, goodorder: 148, }; range; loading; orderinformation = new OrderInformation(null, null, null, null, null, null, null, null, null, null, false);
+
+  data = { type:'', name:'', message:'',roomname:'' };
+  ref = firebase.database().ref('chatrooms/');
+  roomkey:any;
+  disabled = true; information: adinformation; title: string; tradetype: { type: String, crypto: String }; user: { order: 200, goodorder: 148, }; range; loading; orderinformation = new OrderInformation(null, null, null, null, null, null, null, null, null, null, false, null);
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public userservice: UserServiceProvider, public loadingCtrl: LoadingController, public orderservice: OrderServiceProvider) {
     this.tradetype = navParams.data.tradetype;
     this.information = navParams.data.information;
@@ -55,10 +61,25 @@ export class AdinformationPage {
     }
     // console.log(this.orderinformation);
     this.orderservice.postorder(this.orderinformation).subscribe(result => {
+      
+      let owner = this.information.owner
+      this.loading.dismiss();
+      this.data.name = this.userservice.getCurrentUser().username;
+      console.log(JSON.parse(JSON.stringify(result,null,4)));
+      this.data.roomname = JSON.parse(JSON.stringify(result))._id;
+      let newData = this.ref.push();
+      newData.set({
+        roomname:this.data.roomname
+      }); //定义房间名 并创建房间
+
+      this.roomkey = getRoomKey(this.ref)
+      
+      this.navCtrl.push(RoomPage, { order: result, trader: owner ,roomkey:this.roomkey});
       console.log(result);
       let owner = this.information.owner
       this.loading.dismiss();
       this.navCtrl.push(OrderWindowPage, { order: result, trader: owner });
+
     })
   }
   amountchange() {
@@ -85,3 +106,16 @@ export class AdinformationPage {
     }
   }
 }
+
+
+
+
+
+export const getRoomKey = ref => {
+  let roomkey ;
+  ref.limitToLast(1).on("child_added",function(prevChildKey){
+    console.log("===>>>>" + prevChildKey.key) 
+    roomkey = prevChildKey.key
+  })//获取roomkey
+  return roomkey;
+};

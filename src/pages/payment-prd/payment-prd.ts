@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { User } from '../../models/user.model';
-
+import { TabsPage } from '../../pages/tabs/tabs';
 /**
  * Generated class for the PaymentPrdPage page.
  *
@@ -17,18 +17,24 @@ import { User } from '../../models/user.model';
 })
 export class PaymentPrdPage {
   private user;
-  model = new User('','','','','',null,null,'','',null,null,null,null, null);
+  model = new User(null,null, null,null,null,null,null,null,null,null,null,null,null, null);
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private userService:UserServiceProvider) {
       this.user = this.userService.getCurrentUser();
-      this.model.tradePrd = this.user.tradePrd;
+      console.log(this.model.tradePrd)
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PaymentPrdPage');
   }
   submit(){
+    console.log(this.model.tradePrd)
     this.user.tradePrd = this.model.tradePrd;
-    this.userService.update(this.user).subscribe();
+    console.log(this.user)
+    this.userService.update(this.user).subscribe(user=>{
+      this.navCtrl.push(TabsPage);
+      
+    });
+
   }
 }
