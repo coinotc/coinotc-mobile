@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { Observable } from 'rxjs/Observable';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  AlertController
+} from 'ionic-angular';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
-import { OrderInformation } from './orderInformation';
 import * as firebase from 'firebase';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { WalletPage } from '../wallet/wallet';
@@ -17,10 +20,9 @@ import { WalletPage } from '../wallet/wallet';
 @IonicPage()
 @Component({
   selector: 'page-order-window',
-  templateUrl: 'order-window.html',
+  templateUrl: 'order-window.html'
 })
 export class OrderWindowPage {
-
   private user;
   private orderInfo;
   trader;
@@ -35,14 +37,20 @@ export class OrderWindowPage {
   typing = '';
   typeStatusId;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private orderServiceProvider: OrderServiceProvider, public alert: AlertController, private userServiceProvider: UserServiceProvider) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private orderServiceProvider: OrderServiceProvider,
+    public alert: AlertController,
+    private userServiceProvider: UserServiceProvider
+  ) {
     this.user = this.userServiceProvider.getCurrentUser();
-    this.orderInfo = navParams.data.order;//information
+    this.orderInfo = navParams.data.order; //information
     this.trader = navParams.data.trader;
     this.ref = firebase.database().ref('messages');
     this.typingStatus = firebase.database().ref('typeStatus');
     this.name = this.user.username;
-    console.log(navParams.data)
+    console.log(navParams.data);
   }
 
   onChange(e) {
@@ -93,14 +101,14 @@ export class OrderWindowPage {
   }
 
   onProfile(trader) {
-    this.navCtrl.push("ProfilePage", trader)
+    this.navCtrl.push('ProfilePage', trader);
   }
 
   onWallet() {
     this.navCtrl.push(WalletPage);
   }
-  complain(){
-    this.navCtrl.push("ComplainInformationPage",this.orderInfo);
+  complain() {
+    this.navCtrl.push('ComplainInformationPage', this.orderInfo);
   }
   ionViewDidLoad() {
     // Presenting popup
@@ -114,7 +122,7 @@ export class OrderWindowPage {
     //     text: 'Continue',
     //     handler: username => {
     //       this.name = username;
-    //       // need to check list of logout users remove them as well. 
+    //       // need to check list of logout users remove them as well.
     //       this.typingStatus.on('value', data => {
     //         data.forEach(data => {
     //           console.log(data.val().id !== this.typeStatusId);
@@ -137,7 +145,7 @@ export class OrderWindowPage {
           key: data.key,
           name: data.val().name,
           message: data.val().message
-        })
+        });
       });
       this.messagesList = tmp;
     });
@@ -147,18 +155,15 @@ export class OrderWindowPage {
     // Handle is typing event
     this.typingStatus.on('value', data => {
       data.forEach(data => {
-        if (typeof (data.val().name) !== 'undefined') {
+        if (typeof data.val().name !== 'undefined') {
           if (data.val().name !== this.name.username) {
-            this.typing = data.val().name + ' is typing...'
+            this.typing = data.val().name + ' is typing...';
             setTimeout(() => {
-              this.typing = ''
-            }, 2000)
+              this.typing = '';
+            }, 2000);
           }
         }
       });
     });
-
   }
-
-
 }

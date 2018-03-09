@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+//import { Observable } from 'rxjs/Rx';
 import { OrderInformation } from '../../pages/order-window/orderInformation';
 import { environment } from '../../../environments/environment';
-
 
 /*
   Generated class for the OrderServiceProvider provider.
@@ -18,7 +17,6 @@ const httpOptions = {
 
 @Injectable()
 export class OrderServiceProvider {
-
   private orderURL = environment.api_url + '/order';
 
   constructor(public httpClient: HttpClient) {
@@ -26,20 +24,23 @@ export class OrderServiceProvider {
   }
 
   public getBuyerOrders(username, finished) {
-    let getURL = `${this.orderURL}/buyer?username=${username}&finished=${finished}`
-    return this.httpClient.get<OrderInformation[]>(getURL,httpOptions)
+    let getURL = `${
+      this.orderURL
+    }/buyer?username=${username}&finished=${finished}`;
+    return this.httpClient.get<OrderInformation[]>(getURL, httpOptions);
   }
 
   public getSellerOrders(username, finished) {
-    let getURL = `${this.orderURL}/seller?username=${username}&finished=${finished}`
-    return this.httpClient.get<OrderInformation[]>(getURL,httpOptions)
+    let getURL = `${
+      this.orderURL
+    }/seller?username=${username}&finished=${finished}`;
+    return this.httpClient.get<OrderInformation[]>(getURL, httpOptions);
   }
 
-  public updateOrder(order){
-    return this.httpClient.put(this.orderURL, order, httpOptions)
-  };
+  public updateOrder(order) {
+    return this.httpClient.put(this.orderURL, order, httpOptions);
+  }
   public postorder(order) {
     return this.httpClient.post(this.orderURL, order, httpOptions);
   }
-
 }

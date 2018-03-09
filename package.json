@@ -52,6 +52,7 @@
         "font-awesome": "4.7.0",
         "ionic-angular": "3.9.2",
         "ionic-plugin-keyboard": "^2.2.1",
+        "ionic-text-avatar": "^1.1.0",
         "ionic2-super-tabs": "^4.1.4",
         "ionicons": "3.0.0",
         "jade": "~1.11.0",

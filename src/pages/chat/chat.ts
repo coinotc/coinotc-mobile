@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  AlertController
+} from 'ionic-angular';
 import * as firebase from 'firebase';
 
 /**
@@ -12,10 +17,9 @@ import * as firebase from 'firebase';
 @IonicPage()
 @Component({
   selector: 'page-chat',
-  templateUrl: 'chat.html',
+  templateUrl: 'chat.html'
 })
 export class ChatPage {
-
   client: any;
   ref;
   typingStatus;
@@ -25,7 +29,11 @@ export class ChatPage {
   typing = '';
   typeStatusId;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alert: AlertController) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public alert: AlertController
+  ) {
     this.ref = firebase.database().ref('messages');
     this.typingStatus = firebase.database().ref('typeStatus');
     this.name = '';
@@ -53,33 +61,36 @@ export class ChatPage {
   ionViewDidLoad() {
     // Presenting popup
 
-
-
-    this.alert.create(
-      {
-      title: 'Username',
-      inputs: [{
-        name: 'username',
-        placeholder: 'username'
-      }],
-      buttons: [{
-        text: 'Continue',
-        handler: username => {
-          this.name = username;
-          // need to check list of logout users remove them as well.
-          this.typingStatus.on('value', data => {
-            data.forEach(data => {
-              console.log(data.val().id !== this.typeStatusId);
-              if (typeof (data.val().name) !== 'undefined') {
-                if (data.val().name === username) {
-                  data.remove();
-                }
-              }
-            });
-          });
-        }
-      }]
-    }).present();
+    this.alert
+      .create({
+        title: 'Username',
+        inputs: [
+          {
+            name: 'username',
+            placeholder: 'username'
+          }
+        ],
+        buttons: [
+          {
+            text: 'Continue',
+            handler: username => {
+              this.name = username;
+              // need to check list of logout users remove them as well.
+              this.typingStatus.on('value', data => {
+                data.forEach(data => {
+                  console.log(data.val().id !== this.typeStatusId);
+                  if (typeof data.val().name !== 'undefined') {
+                    if (data.val().name === username) {
+                      data.remove();
+                    }
+                  }
+                });
+              });
+            }
+          }
+        ]
+      })
+      .present();
 
     //reading data from firebase
     this.ref.on('value', data => {
@@ -89,7 +100,7 @@ export class ChatPage {
           key: data.key,
           name: data.val().name,
           message: data.val().message
-        })
+        });
       });
       this.messagesList = tmp;
     });
@@ -99,17 +110,15 @@ export class ChatPage {
     // Handle is typing event
     this.typingStatus.on('value', data => {
       data.forEach(data => {
-        if (typeof (data.val().name) !== 'undefined') {
+        if (typeof data.val().name !== 'undefined') {
           if (data.val().name !== this.name.username) {
-            this.typing = data.val().name + ' is typing...'
+            this.typing = data.val().name + ' is typing...';
             setTimeout(() => {
-              this.typing = ''
-            }, 2000)
+              this.typing = '';
+            }, 2000);
           }
         }
       });
     });
-
   }
-
 }

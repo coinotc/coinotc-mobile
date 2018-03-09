@@ -1,5 +1,6 @@
 
 # Font Awesome added to ionic usage
+```html
 <!-- basic usage -->
 <fa-icon name="camera-retro"></fa-icon>
 <!-- basic usage with color -->
@@ -15,3 +16,4 @@
   <fa-icon name="group"></fa-icon>
   people
 </button>
+```
