@@ -36,6 +36,7 @@ import { CryptowalletProvider } from '../providers/cryptowallet/cryptowallet';
 import { CurrenciesServiceProvider } from '../providers/currencies/currencies-service';
 import { PaymentPrdPageModule } from '../pages/payment-prd/payment-prd.module';
 import { MePage } from '../pages/me/me';
+import {FaIconComponent} from "../components/fa-icon/fa-icon.component";
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
 
 export function createTranslateLoader(http: HttpClient) {
@@ -51,7 +52,8 @@ export function createTranslateLoader(http: HttpClient) {
     TradePage,
     MePage,
     AddadvertisementPage,
-    OrderListPage
+    OrderListPage,
+    FaIconComponent
   ],
   imports: [
     BrowserModule,

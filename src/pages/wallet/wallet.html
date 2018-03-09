@@ -10,7 +10,7 @@
     <ion-title>My Wallet</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="addNewWallet()">
-        <ion-icon ios="ios-add" md="md-add"></ion-icon>
+        <fa-icon name="qrcode" size="1x"></fa-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -91,9 +91,10 @@
               <ion-item>
                 <ion-label>Address</ion-label>
                 <ion-input type="text" placeholder="Enter ETH address"></ion-input>
+                <button item-right><fa-icon name="qrcode" size="1x"></fa-icon></button>
               </ion-item>
               <ion-item>
-                <ion-label>count</ion-label>
+                <ion-label>Amount</ion-label>
                 <ion-input type="text" placeholder="You can send at most xxx ETH"></ion-input>
               </ion-item>
               <ion-item>

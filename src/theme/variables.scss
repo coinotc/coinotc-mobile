@@ -80,9 +80,13 @@ $colors: (
 
 @import "ionic.ionicons";
 
+// Font Awesome
+$fa-font-path: $font-path;
+@import "font-awesome";
 
 // Fonts
 // --------------------------------------------------
 
 @import "roboto";
 @import "noto-sans";
+
