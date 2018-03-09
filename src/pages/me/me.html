@@ -40,7 +40,7 @@
     </button>
   </ion-list>
 
-  <ion-list>
+  <ion-list *ngIf="currentuser.username != ''">
     <button ion-item (click)="logout()">
       <ion-icon name="power" item-start></ion-icon>
       Logout
