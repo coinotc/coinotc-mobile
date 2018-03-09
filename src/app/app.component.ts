@@ -5,27 +5,27 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
 
 import { UserServiceProvider } from '../providers/user-service/user-service';
-
+import { TabsPage } from '../pages/tabs/tabs'
 import { AuthPage } from '../pages/auth/auth';
+import { TradePage } from '../pages/trade/trade'
 import * as firebase from 'firebase';
-
+    const config = {
+      apiKey: "AIzaSyBLdeDmPS6oVmkTkZaypNk2OJvOEnxeRH8",
+      authDomain: "coinotc-kitchensink-chat.firebaseapp.com",
+      databaseURL: "https://coinotc-kitchensink-chat.firebaseio.com/",
+      projectId: "coinotc-kitchensink-chat",
+      storageBucket: "coinotc-kitchensink-chat.appspot.com",
+    };
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = AuthPage;
+  rootPage: any = TabsPage;
 
   constructor(private userService: UserServiceProvider,
     platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private translate: TranslateService) {
     translate.setDefaultLang('en');
-    let config = {
-      apiKey: "AIzaSyDnDHVLJ2H3mI-eXBF9oldYhr9olRkalKs",
-      authDomain: "chat-cb8c1.firebaseapp.com",
-      databaseURL: "https://chat-cb8c1.firebaseio.com",
-      projectId: "chat-cb8c1",
-      storageBucket: "chat-cb8c1.appspot.com",
-      messagingSenderId: "265407788958"
-    };
+
     firebase.initializeApp(config);
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
