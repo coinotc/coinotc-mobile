@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { advertisement } from '../../models/advertisement';
+import { FormGroup } from '@angular/forms';
 /**
  * Generated class for the AddadvertisementPage page.
  *
@@ -16,6 +17,7 @@ import { advertisement } from '../../models/advertisement';
   templateUrl: 'addadvertisement.html'
 })
 export class AddadvertisementPage {
+  adform: FormGroup;
   rangepercent = 0;
   type: String;
   title: String;
