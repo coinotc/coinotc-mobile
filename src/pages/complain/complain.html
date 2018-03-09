@@ -17,7 +17,7 @@
     <ion-card *ngFor="let complain of complains">
       <ion-item>
         <ion-avatar item-start>
-          <img [src]="">
+          <ion-text-avatar>{{complain.complainant}}</ion-text-avatar>
         </ion-avatar>
         <h2>{{complain.complainant}}
           <span style="float:right">{{complain._id}}</span>

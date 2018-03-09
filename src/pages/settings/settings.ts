@@ -4,6 +4,10 @@ import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
 import { CurrenciesServiceProvider } from '../../providers/currencies/currencies-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { BindEmailPage } from '../bind-email/bind-email';
+import { BindPhonePage } from '../bind-phone/bind-phone';
+import { ModifyPrdPage } from '../modify-prd/modify-prd';
+import { RealNameVerifiedPage } from '../real-name-verified/real-name-verified'
 
 /**
  * Generated class for the SettingsPage page.
@@ -50,7 +54,7 @@ export class SettingsPage {
   }
   
   realNameTapped() {
-    this.navCtrl.push("RealNameVerifiedPage");
+    this.navCtrl.push(RealNameVerifiedPage);
   }
   
   paymentPrdTapped() {
@@ -58,15 +62,15 @@ export class SettingsPage {
   }
   
   bindPhoneTapped() {
-    this.navCtrl.push("BindPhonePage");
+    this.navCtrl.push(BindPhonePage);
   }
   
   bindEmailTapped() {
-    this.navCtrl.push("BindEmailPage");
+    this.navCtrl.push(BindEmailPage);
   }
   
   passwordTapped() {
-    this.navCtrl.push("ModifyPrdPage");
+    this.navCtrl.push(ModifyPrdPage);
   }
 
   setBaseCurrency(){
