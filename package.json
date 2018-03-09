@@ -49,6 +49,7 @@
         "escape-html": "^1.0.3",
         "express": "~4.15.5",
         "firebase": "4.8.0",
+        "font-awesome": "4.7.0",
         "ionic-angular": "3.9.2",
         "ionic-plugin-keyboard": "^2.2.1",
         "ionic2-super-tabs": "^4.1.4",
@@ -72,6 +73,10 @@
         "typescript": "2.4.2"
     },
     "description": "An Ionic project",
+    "config": {
+        "ionic_copy": "./config/copy.config.js",
+        "ionic_sass": "./config/sass.config.js"
+    },
     "cordova": {
         "plugins": {
             "cordova-plugin-device": {},

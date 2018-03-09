@@ -43,11 +43,7 @@ export class OrderListPage {
   }
 
   onDetail(order, trader) {
-<<<<<<< HEAD
-    this.navCtrl.push(OrderWindowPage, { order, trader });
-=======
-    this.navCtrl.push(RoomPage, {order, trader})
->>>>>>> dce9196d32d018a303fa88deb3d18ac2ab1938f9
+    this.navCtrl.push(RoomPage, { order, trader });
   }
 
   onSegment() {

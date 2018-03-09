@@ -9,10 +9,8 @@ import { RouterModule } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
 import { TabsPage } from '../pages/tabs/tabs';
 import { ChatPage } from '../pages/chat/chat';
-import { MePageModule } from '../pages/me/me.module';
 import { AuthPageModule } from '../pages/auth/auth.module';
 import { WalletPage } from '../pages/wallet/wallet';
 import { TradePage } from '../pages/trade/trade';
@@ -34,6 +32,9 @@ import { ComplainServiceProvider } from '../providers/complain-service/complain-
 import { CryptowalletProvider } from '../providers/cryptowallet/cryptowallet';
 import { CurrenciesServiceProvider } from '../providers/currencies/currencies-service';
 import { PaymentPrdPageModule } from '../pages/payment-prd/payment-prd.module';
+import { MePage } from '../pages/me/me';
+import { FaIconComponent } from '../components/fa-icon/fa-icon.component';
+
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -49,14 +50,15 @@ export function createTranslateLoader(http: HttpClient) {
     ChatPage,
     WalletPage,
     TradePage,
+    MePage,
     AddadvertisementPage,
-    OrderListPage
+    OrderListPage,
+    FaIconComponent
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     SuperTabsModule.forRoot(),
-    MePageModule,
     AuthPageModule,
     HttpClientModule,
     HttpModule,
@@ -81,6 +83,7 @@ export function createTranslateLoader(http: HttpClient) {
     ChatPage,
     WalletPage,
     TradePage,
+    MePage,
     AddadvertisementPage,
     OrderListPage
   ],

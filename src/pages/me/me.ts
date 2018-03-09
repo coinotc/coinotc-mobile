@@ -9,7 +9,7 @@ import { AuthPage } from '../auth/auth';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
 import { Errors } from '../../models/errors.model';
-
+import { TabsPage } from '../tabs/tabs';
 /**
  * Generated class for the MePage page.
  *
@@ -44,17 +44,13 @@ export class MePage {
     this.currentuser = this.userService.getCurrentUser();
     console.log(this.user);
     console.log(navParams.data);
-    if (navParams.data.username) {
-      this.user.name = navParams.data.username;
-      this.user.email = navParams.data.email;
-    } else {
-      this.user.name = this.currentuser.username;
-      this.user.email = this.currentuser.email;
-      this.user.imageUrl = this.placeholderPicture;
-    }
 
-    // let initials:string = this.avatar.Avatar('initials', user.username),
-    // gravatar:string = this.avatar.Avatar('gravatar', user.username, 'john@johndoe.com');
+    this.user.name = this.currentuser.username;
+    this.user.email = this.currentuser.email;
+    this.user.imageUrl = this.placeholderPicture;
+
+    // let initials:string = this.avatar.Avatar('initials', this.currentuser.username),
+    // gravatar:string = this.avatar.Avatar('gravatar', this.currentuser.username, 'john@johndoe.com');
 
     //     document.getElementById('avatar-image').setAttribute('src', initials);
   }
@@ -88,7 +84,7 @@ export class MePage {
       user => {
         console.log('log out !!!!!');
         this.jwtService.destroyToken();
-        this.navCtrl.setRoot(AuthPage);
+        this.navCtrl.setRoot(TabsPage);
         let tabs = document.querySelectorAll('.tabbar.show-tabbar');
         console.log(tabs);
         if (tabs !== null) {

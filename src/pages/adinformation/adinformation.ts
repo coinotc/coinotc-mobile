@@ -5,7 +5,7 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { OrderInformation } from '../order-window/orderInformation';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
 import { OrderWindowPage } from '../order-window/order-window';
-import * as firebase from 'Firebase';
+import * as firebase from 'firebase';
 import { RoomPage } from '../room/room';
 /**
  * Generated class for the AdinformationPage page.
@@ -76,8 +76,6 @@ export class AdinformationPage {
       
       this.navCtrl.push(RoomPage, { order: result, trader: owner ,roomkey:this.roomkey});
       console.log(result);
-      let owner = this.information.owner
-      this.loading.dismiss();
       this.navCtrl.push(OrderWindowPage, { order: result, trader: owner });
 
     })
