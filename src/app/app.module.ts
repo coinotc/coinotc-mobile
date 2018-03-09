@@ -4,24 +4,21 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { SuperTabsModule } from 'ionic2-super-tabs';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { HttpModule, Http } from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader'
-
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ChatPage } from '../pages/chat/chat';
-import { MePageModule } from '../pages/me/me.module';
 import { AuthPageModule } from '../pages/auth/auth.module';
 import { WalletPage } from '../pages/wallet/wallet';
 import { TradePage } from '../pages/trade/trade';
-import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement'
+import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement';
 import { OrderListPage } from '../pages/order-list/order-list';
-import { AdinformationPage } from '../pages/adinformation/adinformation'
 import { OrderWindowPageModule } from '../pages/order-window/order-window.module';
-import { RoomPageModule } from '../pages/room/room.module'
-import { AdinformationPageModule} from '../pages/adinformation/adinformation.module';
+import { RoomPageModule } from '../pages/room/room.module';
+import { AdinformationPageModule } from '../pages/adinformation/adinformation.module';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { OrderServiceProvider } from '../providers/order-service/order-service';
@@ -30,15 +27,17 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
 import { ApiServiceProvider } from '../providers/api-service/api-service';
 import { JwtServiceProvider } from '../providers/jwt-service/jwt-service';
 import { ProfileServiceProvider } from '../providers/profile-service/profile-service';
-import { AvatarService } from 'ng-avatar'
+import { AvatarService } from 'ng-avatar';
 import { ComplainServiceProvider } from '../providers/complain-service/complain-service';
 import { CryptowalletProvider } from '../providers/cryptowallet/cryptowallet';
 import { CurrenciesServiceProvider } from '../providers/currencies/currencies-service';
 import { PaymentPrdPageModule } from '../pages/payment-prd/payment-prd.module';
 import { MePage } from '../pages/me/me';
-import {FaIconComponent} from "../components/fa-icon/fa-icon.component";
+import { FaIconComponent } from '../components/fa-icon/fa-icon.component';
 
-const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
+const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
+  useHash: true
+});
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/translate/', '.json');
@@ -71,7 +70,7 @@ export function createTranslateLoader(http: HttpClient) {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
+        useFactory: createTranslateLoader,
         deps: [HttpClient]
       }
     }),
@@ -105,9 +104,6 @@ export function createTranslateLoader(http: HttpClient) {
     ComplainServiceProvider,
     CryptowalletProvider,
     CurrenciesServiceProvider
-
   ]
 })
-
-
-export class AppModule { }
+export class AppModule {}

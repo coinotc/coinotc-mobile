@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 /**
  * Generated class for the AddnewwalletPage page.
@@ -12,16 +12,18 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 @IonicPage()
 @Component({
   selector: 'page-addnewwallet',
-  templateUrl: 'addnewwallet.html',
+  templateUrl: 'addnewwallet.html'
 })
 export class AddnewwalletPage {
   walletForm: FormGroup;
-  constructor(public navCtrl: NavController, 
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
-    private fb: FormBuilder) {
+    private fb: FormBuilder
+  ) {
     this.walletForm = this.fb.group({
-      'cryptoCurrency': ['', Validators.required],
-      'walletName': ['', Validators.required],
+      cryptoCurrency: ['', Validators.required],
+      walletName: ['', Validators.required]
     });
   }
 
@@ -29,7 +31,7 @@ export class AddnewwalletPage {
     console.log('ionViewDidLoad AddnewwalletPage');
   }
 
-  submitForm(){
-    this.navCtrl.push("WalletPage");
+  submitForm() {
+    this.navCtrl.push('WalletPage');
   }
 }
