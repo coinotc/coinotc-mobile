@@ -30,18 +30,11 @@
       [id]="i"></super-tab>
   </super-tabs>
   <ion-fab bottom right>
-    <button ion-fab color="primary">
-      <ion-icon name="add"></ion-icon>
+    <button ion-fab (click)="addbuyad()" color="secondary" *ngIf="buynsell == 'buy'">
+      <ion-icon name="buy"></ion-icon>
     </button>
-    <ion-fab-list side="top">
-      <button ion-fab (click)="addbuyad()" color="secondary">
-        <ion-icon name="buy"></ion-icon>
-        <ion-label>{{'trade.buy' | translate}}</ion-label>
-      </button>
-      <button ion-fab (click)="addsellad()" color="danger">
-        <ion-icon name="sell"></ion-icon>
-        <ion-label>{{'trade.sell' | translate}}</ion-label>
-      </button>
-    </ion-fab-list>
+    <button ion-fab (click)="addsellad()" color="danger" *ngIf="buynsell == 'sell'">
+      <ion-icon name="sell"></ion-icon>
+    </button>
   </ion-fab>
 </ion-content>
