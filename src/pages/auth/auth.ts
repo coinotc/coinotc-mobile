@@ -53,7 +53,7 @@ export class AuthPage {
   submitForm() {
     this.isSubmitting = true;
     const credentials = this.authForm.value;
-    this.navCtrl.push(TabsPage,{});
+    //this.navCtrl.push(TabsPage,{});
     this.userService.attemptAuth(this.authType, credentials).subscribe(
       user => {
         if(this.isModal) this.viewCtrl.dismiss();
@@ -61,7 +61,7 @@ export class AuthPage {
         if(this.authType === 'register'){
         this.navCtrl.push(PaymentPrdPage);
         }else{
-          this.navCtrl.push(TabsPage);
+          this.navCtrl.push(TabsPage,this.userService.getCurrentUser());
         }
       },
       (errors:Errors) => {
