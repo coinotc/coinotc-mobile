@@ -19,6 +19,7 @@ import { TradePage } from '../pages/trade/trade';
 import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement';
 import { OrderListPage } from '../pages/order-list/order-list';
 import { OrderWindowPageModule } from '../pages/order-window/order-window.module';
+import { RoomPageModule } from '../pages/room/room.module';
 import { AdinformationPageModule } from '../pages/adinformation/adinformation.module';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,6 +33,7 @@ import { AvatarService } from 'ng-avatar';
 import { ComplainServiceProvider } from '../providers/complain-service/complain-service';
 import { CryptowalletProvider } from '../providers/cryptowallet/cryptowallet';
 import { CurrenciesServiceProvider } from '../providers/currencies/currencies-service';
+import { PaymentPrdPageModule } from '../pages/payment-prd/payment-prd.module';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -60,6 +62,8 @@ export function createTranslateLoader(http: HttpClient) {
     HttpModule,
     rootRouting,
     OrderWindowPageModule,
+    RoomPageModule,
+    PaymentPrdPageModule,
     IonicStorageModule.forRoot(),
     TranslateModule.forRoot({
       loader: {

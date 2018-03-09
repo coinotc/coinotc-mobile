@@ -5,7 +5,7 @@ import { OrderServiceProvider } from '../../providers/order-service/order-servic
 import { OrderWindowPage } from '../order-window/order-window';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { OrderInformation } from '../order-window/orderInformation';
-
+import { RoomPage } from '../room/room';
 /**
  * Generated class for the OrderListPage page.
  *
@@ -43,7 +43,11 @@ export class OrderListPage {
   }
 
   onDetail(order, trader) {
+<<<<<<< HEAD
     this.navCtrl.push(OrderWindowPage, { order, trader });
+=======
+    this.navCtrl.push(RoomPage, {order, trader})
+>>>>>>> dce9196d32d018a303fa88deb3d18ac2ab1938f9
   }
 
   onSegment() {
