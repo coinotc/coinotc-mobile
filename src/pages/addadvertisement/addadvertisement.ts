@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { advertisement } from '../../models/advertisement';
-import { FormGroup } from '@angular/forms';
 /**
  * Generated class for the AddadvertisementPage page.
  *
@@ -41,7 +41,8 @@ export class AddadvertisementPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private adservice: AdvertisementServiceProvider,
-    private userservice: UserServiceProvider
+    private userservice: UserServiceProvider,
+    private fb: FormBuilder
   ) {
     this.type = navParams.data.type;
     this.title = navParams.data.title;
@@ -50,6 +51,23 @@ export class AddadvertisementPage {
       this.cryptoprice = Number(result[0].price_sgd);
       this.model.price = this.cryptoprice;
     });
+    this.adform = this.fb.group({
+      crypto: ['ETHEREUM', Validators.required],
+      country: ['singapore', Validators.required],
+      fiat: ['SGD', Validators.required],
+      rangepercent: ['', Validators.required],
+      price: ['', [this.notbelowzero]],
+      mixprice: ['', [this.notbelowzero]],
+      maxprice: ['', [this.notbelowzero]],
+      payment: ['', Validators.required],
+      limit: ['', [this.notbelowzero]],
+      massage: ['', Validators.required]
+    })
+  }
+   notbelowzero= (control: FormControl): any => {
+    if (control.value < 0) {
+      return { expired: true, error: true }
+    }
   }
   getcryptoprice() {
     switch (this.model.fiat) {
