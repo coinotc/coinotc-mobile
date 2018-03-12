@@ -1,5 +1,6 @@
 import { NgModule, ErrorHandler, ModuleWithProviders } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { SuperTabsModule } from 'ionic2-super-tabs';
@@ -37,7 +38,9 @@ import { MePageModule } from '../pages/me/me.module'
 import { BindEmailPage } from '../pages/bind-email/bind-email';
 import { BindPhonePage } from '../pages/bind-phone/bind-phone';
 import { ModifyPrdPage } from '../pages/modify-prd/modify-prd';
-import { RealNameVerifiedPage } from '../pages/real-name-verified/real-name-verified'
+import { RealNameVerifiedPage } from '../pages/real-name-verified/real-name-verified';
+import { PincodeInputModule } from  'ionic2-pincode-input';
+import { PincodePage } from '../pages/pincode/pincode'
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -59,10 +62,13 @@ export function createTranslateLoader(http: HttpClient) {
     BindEmailPage,
     BindPhonePage,
     ModifyPrdPage,
-    RealNameVerifiedPage
+    RealNameVerifiedPage,
+    PincodePage
     
   ],
   imports: [
+    BrowserAnimationsModule,
+    PincodeInputModule,
     MePageModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
@@ -97,6 +103,7 @@ export function createTranslateLoader(http: HttpClient) {
     BindPhonePage,
     ModifyPrdPage,
     RealNameVerifiedPage,
+    PincodePage
     
   ],
   providers: [

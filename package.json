@@ -18,6 +18,7 @@
         "dev": "nodemon --inspect=9228 ./server/server.js"
     },
     "dependencies": {
+        "@angular/animations": "^5.2.8",
         "@angular/common": "5.0.3",
         "@angular/compiler": "5.0.3",
         "@angular/compiler-cli": "5.0.3",
@@ -53,6 +54,7 @@
         "ionic-angular": "3.9.2",
         "ionic-plugin-keyboard": "^2.2.1",
         "ionic-text-avatar": "^1.1.0",
+        "ionic2-pincode-input": "^0.1.1",
         "ionic2-super-tabs": "^4.1.4",
         "ionicons": "3.0.0",
         "jade": "~1.11.0",
