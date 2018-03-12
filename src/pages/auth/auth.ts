@@ -16,6 +16,7 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../../pages/tabs/tabs';
 import { PaymentPrdPage } from '../payment-prd/payment-prd';
+import { PincodePage } from '../pincode/pincode'
 
 /**
  * Generated class for the AuthPage page.
@@ -97,6 +98,7 @@ export class AuthPage {
         //   this.navCtrl.setRoot(TabsPage,this.userService.getCurrentUser());
         // }
         this.navCtrl.setRoot(TabsPage, this.userService.getCurrentUser());
+        //this.navCtrl.setRoot(PincodePage);
       },
       (errors: Errors) => {
         for (let field in errors.errors) {
