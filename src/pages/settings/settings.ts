@@ -8,6 +8,7 @@ import { BindEmailPage } from '../bind-email/bind-email';
 import { BindPhonePage } from '../bind-phone/bind-phone';
 import { ModifyPrdPage } from '../modify-prd/modify-prd';
 import { RealNameVerifiedPage } from '../real-name-verified/real-name-verified'
+import { ModifyTradepasswordPage } from '../modify-tradepassword/modify-tradepassword'
 
 /**
  * Generated class for the SettingsPage page.
@@ -58,7 +59,7 @@ export class SettingsPage {
   }
   
   paymentPrdTapped() {
-    this.navCtrl.push("PaymentPrdPage");
+    this.navCtrl.setRoot(ModifyTradepasswordPage);
   }
   
   bindPhoneTapped() {
@@ -70,7 +71,7 @@ export class SettingsPage {
   }
   
   passwordTapped() {
-    this.navCtrl.push(ModifyPrdPage);
+    this.navCtrl.setRoot(ModifyPrdPage);
   }
 
   setBaseCurrency(){

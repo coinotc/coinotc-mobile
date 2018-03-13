@@ -6,7 +6,7 @@ import { PincodePage } from '../pincode/pincode';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { Observable } from 'rxjs/Observable';
-import { Profile } from '../../models/profile.model';
+
 /**
  * Generated class for the ConfirmPincodePage page.
  *
