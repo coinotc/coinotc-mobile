@@ -45,6 +45,7 @@ import { PincodeInputModule } from  'ionic2-pincode-input';
 import { PincodePage } from '../pages/pincode/pincode'
 import { ConfirmPincodePage } from '../pages/confirm-pincode/confirm-pincode'
 import { ProfilePage } from '../pages/profile/profile'
+import { ModifyTradepasswordPage } from '../pages/modify-tradepassword/modify-tradepassword'
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -71,7 +72,8 @@ export function createTranslateLoader(http: HttpClient) {
     RealNameVerifiedPage,
     PincodePage,
     ConfirmPincodePage,
-    ProfilePage
+    ProfilePage,
+    ModifyTradepasswordPage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -114,7 +116,8 @@ export function createTranslateLoader(http: HttpClient) {
     RealNameVerifiedPage,
     PincodePage,
     ConfirmPincodePage,
-    ProfilePage
+    ProfilePage,
+    ModifyTradepasswordPage
   ],
   providers: [
     StatusBar,

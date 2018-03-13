@@ -4,11 +4,12 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/distinctUntilChanged';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiServiceProvider } from '../api-service/api-service';
 import { JwtServiceProvider } from '../jwt-service/jwt-service';
 import { User } from '../../models/user.model';
 import { Storage } from '@ionic/storage';
+import { environment } from '../../../environments/environment';
 
 /*
   Generated class for the UserServiceProvider provider.
@@ -16,6 +17,10 @@ import { Storage } from '@ionic/storage';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
 @Injectable()
 export class UserServiceProvider {
   private currentUserSubject = new BehaviorSubject<User>(new User('','','','','',null,null,'','',null,null,null,null, null));
@@ -27,7 +32,8 @@ export class UserServiceProvider {
   constructor(
     private apiService: ApiServiceProvider,
     private jwtService: JwtServiceProvider,
-    private storage: Storage) {
+    private storage: Storage,
+    public http: HttpClient,) {
     console.log('UserServiceProvider Provider');
   }
 
@@ -118,6 +124,11 @@ export class UserServiceProvider {
       this.storage.ready().then(() => this.storage.set('nativeCurrency', currency) as Promise<void>)
       return data;
     });
+  }
+  public getTradepassword(username){
+    let tradePrdURL = environment.api_url + '/users/tradepassword';
+    let URL = `${tradePrdURL}?username=${username}`;
+    return this.http.get<User>(URL, httpOptions);
   }
 
 }
