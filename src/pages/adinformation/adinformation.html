@@ -17,7 +17,7 @@
   <ion-card>
     <ion-item>
       <ion-avatar item-start>
-        <img src="img/{{information.owner}}.Avatar.png"  (click)="profile()">
+        <ion-text-avatar (click)="profile()">{{information.owner}}</ion-text-avatar>
       </ion-avatar>
       <h2>{{information.owner}}</h2>
       <p>{{'limit' | translate}}:{{information.min_price}}-{{information.max_price}} {{'fiat.'+information.fiat | translate}}</p>

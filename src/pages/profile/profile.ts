@@ -77,6 +77,7 @@ export class ProfilePage {
     this.profile = this.profileService.getProfile(this.profileUser);
     this.profile.subscribe(result => {
       this.model = result[0];
+      console.log(result[0])
       if (this.model.orderCount == 0) {
         this.rate = 0;
       } else {
@@ -96,6 +97,8 @@ export class ProfilePage {
       );
     }
     this.profileService.sendBlock(this.currentUserName, b).subscribe();
+    this.navCtrl.push(ProfilePage,
+      this.profileUser)
   }
   follow() {
     let b = this.userService.getCurrentUser().following;
@@ -108,6 +111,8 @@ export class ProfilePage {
       );
     }
     this.profileService.sendFollowing(this.currentUserName, b).subscribe();
+    this.navCtrl.push(ProfilePage,
+      this.profileUser)
   }
 
   ionViewDidLoad() {
