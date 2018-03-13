@@ -34,17 +34,6 @@
 
 
 <ion-content padding>
-  <!-- [ngSwitch]="buynsell" -->
-  <!-- <super-tabs *ngSwitchCase="'buy'" id="buyTabs" selectedTabIndex="0" toolbarColor="dark" toolbarBackground="light" indicatorColor="light"
-    badgeColor="light">
-    <super-tab *ngFor="let crypto of buycryptos; let i = index" [root]="crypto.root" title="{{crypto.title}}" icon="{{crypto.icon}}"
-      [id]="i"></super-tab>
-  </super-tabs>
-  <super-tabs *ngSwitchCase="'sell'" id="sellTabs" selectedTabIndex="0" toolbarColor="dark" toolbarBackground="light" indicatorColor="light"
-    badgeColor="light">
-    <super-tab *ngFor="let crypto of sellcryptos; let i = index" [root]="crypto.root" title="{{crypto.title}}" icon="{{crypto.icon}}"
-      [id]="i"></super-tab>
-  </super-tabs> -->
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingText="pulldown to refresh" refreshingSpinner="circles" refreshingText="refreshing...">
     </ion-refresher-content>

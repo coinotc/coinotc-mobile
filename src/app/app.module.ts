@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { SuperTabsModule } from 'ionic2-super-tabs';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
@@ -81,7 +80,6 @@ export function createTranslateLoader(http: HttpClient) {
     MePageModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    SuperTabsModule.forRoot(),
     AuthPageModule,
     HttpClientModule,
     HttpModule,
@@ -109,7 +107,7 @@ export function createTranslateLoader(http: HttpClient) {
     AddadvertisementPage,
     OrderListPage,
     AlertPage,
-    AddAlertPage
+    AddAlertPage,
     BindEmailPage,
     BindPhonePage,
     ModifyPrdPage,
