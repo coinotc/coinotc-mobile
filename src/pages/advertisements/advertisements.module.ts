@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { AdvertisementsPage } from './advertisements';
-import { SuperTabsModule } from 'ionic2-super-tabs';
 import { MePageModule } from '../me/me.module';
 
 @NgModule({
@@ -10,7 +9,6 @@ import { MePageModule } from '../me/me.module';
   ],
   imports: [
     IonicPageModule.forChild(AdvertisementsPage),
-    SuperTabsModule,
     MePageModule
   ],
 })
