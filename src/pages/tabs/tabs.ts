@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Alert } from 'ionic-angular';
 import { OrderListPage } from '../order-list/order-list';
 import { MePage } from '../me/me';
 import { WalletPage } from '../wallet/wallet';
 import { TradePage } from '../trade/trade';
+import { AlertPage } from '../alert/alert';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 @Component({
@@ -26,6 +27,11 @@ export class TabsPage {
         root: OrderListPage,
         title: 'OrderList',
         icon: 'list'
+      },
+      {
+        root: AlertPage,
+        title: 'Alerts',
+        icon: 'alarm'
       },
       {
         root: WalletPage,

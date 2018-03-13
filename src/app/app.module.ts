@@ -16,6 +16,7 @@ import { WalletPage } from '../pages/wallet/wallet';
 import { TradePage } from '../pages/trade/trade';
 import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement';
 import { OrderListPage } from '../pages/order-list/order-list';
+import { AlertPage, AddAlertPage } from '../pages/alert/alert';
 import { OrderWindowPageModule } from '../pages/order-window/order-window.module';
 import { RoomPageModule } from '../pages/room/room.module';
 import { AdinformationPageModule } from '../pages/adinformation/adinformation.module';
@@ -53,6 +54,8 @@ export function createTranslateLoader(http: HttpClient) {
     MePage,
     AddadvertisementPage,
     OrderListPage,
+    AlertPage,
+    AddAlertPage,
     FaIconComponent
   ],
   imports: [
@@ -85,7 +88,9 @@ export function createTranslateLoader(http: HttpClient) {
     TradePage,
     MePage,
     AddadvertisementPage,
-    OrderListPage
+    OrderListPage,
+    AlertPage,
+    AddAlertPage
   ],
   providers: [
     StatusBar,

@@ -1,0 +1,25 @@
+<ion-content class="main-view">
+    <div class="overlay" (click)="dismiss()"></div>
+    <div class="modal_content">
+        <ion-row>
+            <ion-item item-left style="width:60%">
+                <h2 text-center>New Price Alert!</h2>
+            </ion-item>
+            <ion-item item-right style="width:40%">
+                <ion-label>Fiat</ion-label>
+                <ion-select float-right [(ngModel)]="fiat" (ngModelChange)="onFiat(fiat)">
+                    <ion-option value="USD">USD</ion-option>
+                    <ion-option value="CNY">CNY</ion-option>
+                    <ion-option value="SGD">SGD</ion-option>
+                    <ion-option value="KWR">KWR</ion-option>
+                </ion-select>
+            </ion-item>
+        </ion-row>
+        <h1 text-center>{{price}} {{fiat}}</h1>
+        <ion-item>
+            <ion-input type="text" [(ngModel)]="price" placeholder="Input the number you want to set"></ion-input>
+        </ion-item>
+        <br>
+        <button ion-button style="width:100%">Create Alert</button>
+    </div>
+</ion-content>
