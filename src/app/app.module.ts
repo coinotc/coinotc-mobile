@@ -17,6 +17,7 @@ import { WalletPage } from '../pages/wallet/wallet';
 import { TradePage } from '../pages/trade/trade';
 import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement';
 import { OrderListPage } from '../pages/order-list/order-list';
+import { AlertPage, AddAlertPage } from '../pages/alert/alert';
 import { OrderWindowPageModule } from '../pages/order-window/order-window.module';
 import { RoomPageModule } from '../pages/room/room.module';
 import { AdinformationPageModule } from '../pages/adinformation/adinformation.module';
@@ -34,6 +35,7 @@ import { CryptowalletProvider } from '../providers/cryptowallet/cryptowallet';
 import { CurrenciesServiceProvider } from '../providers/currencies/currencies-service';
 import { PaymentPrdPageModule } from '../pages/payment-prd/payment-prd.module';
 import { FaIconComponent } from '../components/fa-icon/fa-icon.component';
+import { AlertServiceProvider } from '../providers/alert-service/alert-service';
 import { MePageModule } from '../pages/me/me.module'
 import { BindEmailPage } from '../pages/bind-email/bind-email';
 import { BindPhonePage } from '../pages/bind-phone/bind-phone';
@@ -60,6 +62,8 @@ export function createTranslateLoader(http: HttpClient) {
     TradePage,
     AddadvertisementPage,
     OrderListPage,
+    AlertPage,
+    AddAlertPage,
     FaIconComponent,
     BindEmailPage,
     BindPhonePage,
@@ -68,7 +72,6 @@ export function createTranslateLoader(http: HttpClient) {
     PincodePage,
     ConfirmPincodePage,
     ProfilePage
-    
   ],
   imports: [
     BrowserAnimationsModule,
@@ -103,6 +106,8 @@ export function createTranslateLoader(http: HttpClient) {
     TradePage,
     AddadvertisementPage,
     OrderListPage,
+    AlertPage,
+    AddAlertPage
     BindEmailPage,
     BindPhonePage,
     ModifyPrdPage,
@@ -110,7 +115,6 @@ export function createTranslateLoader(http: HttpClient) {
     PincodePage,
     ConfirmPincodePage,
     ProfilePage
-    
   ],
   providers: [
     StatusBar,
@@ -128,8 +132,8 @@ export function createTranslateLoader(http: HttpClient) {
     AvatarService,
     ComplainServiceProvider,
     CryptowalletProvider,
-    CurrenciesServiceProvider
-  ],
-
+    CurrenciesServiceProvider,
+    AlertServiceProvider
+  ]
 })
 export class AppModule {}

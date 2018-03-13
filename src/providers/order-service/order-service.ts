@@ -23,6 +23,12 @@ export class OrderServiceProvider {
     console.log('Hello OrderServiceProvider Provider');
   }
 
+  public getAlertInformation(fiat, crypto) {
+    let getURL = `${this.orderURL}/alert?fiat=${fiat}&crypto=${crypto}`;
+    console.log(getURL);
+    return this.httpClient.get(getURL, httpOptions);
+  }
+
   public getBuyerOrders(username, finished) {
     let getURL = `${
       this.orderURL
