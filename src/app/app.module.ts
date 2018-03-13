@@ -1,5 +1,6 @@
 import { NgModule, ErrorHandler, ModuleWithProviders } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { SuperTabsModule } from 'ionic2-super-tabs';
@@ -33,10 +34,17 @@ import { ComplainServiceProvider } from '../providers/complain-service/complain-
 import { CryptowalletProvider } from '../providers/cryptowallet/cryptowallet';
 import { CurrenciesServiceProvider } from '../providers/currencies/currencies-service';
 import { PaymentPrdPageModule } from '../pages/payment-prd/payment-prd.module';
-import { MePage } from '../pages/me/me';
 import { FaIconComponent } from '../components/fa-icon/fa-icon.component';
 import { AlertServiceProvider } from '../providers/alert-service/alert-service';
-
+import { MePageModule } from '../pages/me/me.module'
+import { BindEmailPage } from '../pages/bind-email/bind-email';
+import { BindPhonePage } from '../pages/bind-phone/bind-phone';
+import { ModifyPrdPage } from '../pages/modify-prd/modify-prd';
+import { RealNameVerifiedPage } from '../pages/real-name-verified/real-name-verified';
+import { PincodeInputModule } from  'ionic2-pincode-input';
+import { PincodePage } from '../pages/pincode/pincode'
+import { ConfirmPincodePage } from '../pages/confirm-pincode/confirm-pincode'
+import { ProfilePage } from '../pages/profile/profile'
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -52,14 +60,23 @@ export function createTranslateLoader(http: HttpClient) {
     ChatPage,
     WalletPage,
     TradePage,
-    MePage,
     AddadvertisementPage,
     OrderListPage,
     AlertPage,
     AddAlertPage,
-    FaIconComponent
+    FaIconComponent,
+    BindEmailPage,
+    BindPhonePage,
+    ModifyPrdPage,
+    RealNameVerifiedPage,
+    PincodePage,
+    ConfirmPincodePage,
+    ProfilePage
   ],
   imports: [
+    BrowserAnimationsModule,
+    PincodeInputModule,
+    MePageModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
     SuperTabsModule.forRoot(),
@@ -87,11 +104,17 @@ export function createTranslateLoader(http: HttpClient) {
     ChatPage,
     WalletPage,
     TradePage,
-    MePage,
     AddadvertisementPage,
     OrderListPage,
     AlertPage,
     AddAlertPage
+    BindEmailPage,
+    BindPhonePage,
+    ModifyPrdPage,
+    RealNameVerifiedPage,
+    PincodePage,
+    ConfirmPincodePage,
+    ProfilePage
   ],
   providers: [
     StatusBar,

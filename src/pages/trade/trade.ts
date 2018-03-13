@@ -1,7 +1,11 @@
-import { Component, ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { AddadvertisementPage } from '../addadvertisement/addadvertisement'
 import { Content } from 'ionic-angular';
+import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
+import { adinformation } from '../../models/adinformation';
+import { AdinformationPage } from '../adinformation/adinformation';
+import { ProfilePage } from '../profile/profile'
 /**
  * Generated class for the TradePage page.
  *
@@ -16,7 +20,8 @@ import { Content } from 'ionic-angular';
 })
 export class TradePage {
   @ViewChild(Content) content: Content;
-  buynsell: string = "buy";
+  buynsell: string = "buy"; crypto: string = "ETHEREUM";
+  private list: adinformation[];
   buycryptos: Object[] = [{
     root: 'TradeBuyEthereumPage',
     title: 'ETH',
@@ -33,7 +38,7 @@ export class TradePage {
     root: 'TradeBuyStellarPage',
     title: 'XLM',
     icon: 'stellar'
-  },{
+  }, {
     root: 'TradeBuyCardanoPage',
     title: 'ADA',
     icon: 'cardano'
@@ -54,14 +59,36 @@ export class TradePage {
     root: 'TradeSellStellarPage',
     title: 'XLM',
     icon: 'stellar'
-  },{
+  }, {
     root: 'TradeSellCardanoPage',
     title: 'ADA',
     icon: 'cardano'
   }]
-  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App, public adservice: AdvertisementServiceProvider) {
+    this.doRefresh();
   }
-
+  doRefresh(refresher?) {
+    if (this.buynsell =="buy") {
+      this.adservice.getadvertisement(this.crypto, 1).subscribe(result => {
+        console.log(result);
+        this.list = result;
+        if (refresher) {
+          refresher.complete();
+        }
+      })
+    }else{
+      this.adservice.getadvertisement(this.crypto, 0).subscribe(result => {
+        console.log(result);
+        this.list = result;
+        if (refresher) {
+          refresher.complete();
+        }
+      })
+    }
+  }
+  adinformation(information) {
+    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Buy', crypto: 'STELLAR' } })
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TradePage');
     this.content.resize();
@@ -72,4 +99,6 @@ export class TradePage {
   addsellad() {
     this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Sell', title: 'publishSell' })
   }
+  
+  
 }

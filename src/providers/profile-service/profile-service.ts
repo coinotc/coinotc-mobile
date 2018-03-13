@@ -51,6 +51,10 @@ export class ProfileServiceProvider {
     let URL = `${this.profileURL}/follow?username=${username}`;
     return this.http.patch(URL, following, httpOptions);
   }
+  public settradepassword(username, tradepassword) {
+    let URL = `${this.profileURL}/tradepassword?username=${username}`;
+    return this.http.patch(URL, { tradePrd :tradepassword}, httpOptions);
+  }
   // private handleError<T>(operation = 'operation', result?: T) {
   //   return (error: any): Observable<T> => {
   //     return Observable.throw(error || 'backend server error');

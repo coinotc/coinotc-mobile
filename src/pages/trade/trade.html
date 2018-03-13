@@ -5,21 +5,37 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title text-center>
-      <ion-segment [(ngModel)]="buynsell">
+      <ion-segment [(ngModel)]="buynsell" (ngModelChange)="doRefresh()">
         <ion-segment-button value="buy">{{'willing.wannaBuy' | translate}}</ion-segment-button>
         <ion-segment-button value="sell">{{'willing.wannaSell' | translate}}</ion-segment-button>
       </ion-segment>
     </ion-title>
+    <ion-segment [(ngModel)]="crypto" (ngModelChange)="doRefresh()" style="height:55px;">
+      <ion-segment-button value="ETHEREUM">
+        <ion-icon name="eth"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="RIPPLE">
+        <ion-icon name="ripple"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="MONERO">
+        <ion-icon name="monero"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="STELLAR">
+        <ion-icon name="stellar"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="Cardano">
+        <ion-icon name="cardano"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding [ngSwitch]="buynsell">
-  <super-tabs *ngSwitchCase="'buy'" id="buyTabs" selectedTabIndex="0" toolbarColor="dark" toolbarBackground="light" indicatorColor="light"
+<ion-content padding>
+  <!-- [ngSwitch]="buynsell" -->
+  <!-- <super-tabs *ngSwitchCase="'buy'" id="buyTabs" selectedTabIndex="0" toolbarColor="dark" toolbarBackground="light" indicatorColor="light"
     badgeColor="light">
     <super-tab *ngFor="let crypto of buycryptos; let i = index" [root]="crypto.root" title="{{crypto.title}}" icon="{{crypto.icon}}"
       [id]="i"></super-tab>
@@ -28,20 +44,33 @@
     badgeColor="light">
     <super-tab *ngFor="let crypto of sellcryptos; let i = index" [root]="crypto.root" title="{{crypto.title}}" icon="{{crypto.icon}}"
       [id]="i"></super-tab>
-  </super-tabs>
-  <ion-fab bottom right>
-    <button ion-fab color="primary">
-      <ion-icon name="add"></ion-icon>
-    </button>
-    <ion-fab-list side="top">
-      <button ion-fab (click)="addbuyad()" color="secondary">
-        <ion-icon name="buy"></ion-icon>
-        <ion-label>{{'trade.buy' | translate}}</ion-label>
-      </button>
-      <button ion-fab (click)="addsellad()" color="danger">
-        <ion-icon name="sell"></ion-icon>
-        <ion-label>{{'trade.sell' | translate}}</ion-label>
-      </button>
-    </ion-fab-list>
-  </ion-fab>
+  </super-tabs> -->
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="pulldown to refresh" refreshingSpinner="circles" refreshingText="refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card *ngFor="let item of list">
+    <ion-item>
+      <ion-avatar item-start>
+        <!-- <img src="img/{{item.owner}}.Avatar.png"> -->
+        <ion-text-avatar >{{item.owner}}</ion-text-avatar>
+      </ion-avatar>
+      <h2>{{item.owner}}</h2>
+      <p>{{'payment.'+item.payment | translate}}</p>
+      <div item-right text-right>
+        <h5 style="color:#02cb66">{{item.price | number}} {{'fiat.'+item.fiat | translate}}</h5>
+        <button ion-button round (click)="adinformation(item)">{{'Buy' | translate}} {{item.crypto}}</button>
+      </div>
+    </ion-item>
+  </ion-card>
 </ion-content>
+<ion-footer>
+  <ion-fab bottom right>
+    <button ion-fab (click)="addbuyad()" color="secondary" *ngIf="buynsell == 'buy'">
+      <ion-icon name="buy"></ion-icon>
+    </button>
+    <button ion-fab (click)="addsellad()" color="danger" *ngIf="buynsell == 'sell'">
+      <ion-icon name="sell"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-footer>

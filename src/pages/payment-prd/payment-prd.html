@@ -14,17 +14,22 @@
 
 
 <ion-content padding>
-  <ion-list>
-      <ion-item>
-          <ion-label>Payment Password</ion-label>
-        <ion-input placeholder=""  [(ngModel)]="model.tradePrd"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Comfirm</ion-label>
-        <ion-input placeholder=""  ></ion-input>
-      </ion-item>
-      <button ion-button (click)="submit()" color="danger">
-        <ion-label>ok</ion-label>
-      </button>
-    </ion-list>
+    <form [formGroup]="trade" (ngSubmit)="submit()" >
+      <!-- <fieldset [disabled]="isSubmitting" > -->
+        <ion-list>            
+          <ion-item>
+            <ion-input formControlName="PaymentPassword" [(ngModel)]="model.tradePrd" placeholder="Payment Password" type="password"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input formControlName="confirmPassword" [(ngModel)]="confirmPassword" placeholder="Confirm Password" type="password"></ion-input>
+          </ion-item>
+        </ion-list>
+        <div padding>
+          <button ion-button [disabled]="!trade.valid" type="submit">
+           ok
+          </button>
+        </div>
+      <!-- </fieldset> -->
+    </form>
 </ion-content>

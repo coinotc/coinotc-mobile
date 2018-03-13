@@ -7,6 +7,7 @@ import { OrderServiceProvider } from '../../providers/order-service/order-servic
 import { OrderWindowPage } from '../order-window/order-window';
 import * as firebase from 'firebase';
 import { RoomPage } from '../room/room';
+import { ProfilePage } from '../profile/profile'
 /**
  * Generated class for the AdinformationPage page.
  *
@@ -41,7 +42,11 @@ export class AdinformationPage {
       duration: 5000
     });
   }
-
+  profile() {
+    
+      this.navCtrl.push(ProfilePage,
+        this.information.owner)
+    }
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdinformationPage');
   }

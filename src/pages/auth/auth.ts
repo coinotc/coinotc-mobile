@@ -15,7 +15,8 @@ import {
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../../pages/tabs/tabs';
-//import { PaymentPrdPage } from '../payment-prd/payment-prd';
+import { PaymentPrdPage } from '../payment-prd/payment-prd';
+import { PincodePage } from '../pincode/pincode'
 
 /**
  * Generated class for the AuthPage page.
@@ -34,7 +35,6 @@ export class AuthPage {
   isSubmitting = false;
   authForm: FormGroup;
   isModal: boolean; // show close button only in a modal
-
   constructor(
     public navCtrl: NavController,
     private viewCtrl: ViewController,
@@ -44,19 +44,42 @@ export class AuthPage {
     private fb: FormBuilder
   ) {
     // use FormBuilder to create a form group
-    this.authForm = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['']
-    });
+      this.authForm = this.fb.group({
+        email: ['', Validators.required],
+        password: ['', Validators.required]
+      });
     this.isModal = !!params.get('isModal');
   }
 
+  matchValidator = (control: FormControl): { [s: string]: boolean } => {
+
+    if(!control.value){
+      return { required: true}
+    }else if(this.authForm.controls.password.value === control.value){
+      return  { }
+    }else{
+       return { required: true}
+    }
+  }
+  
   authTypeChange() {
     if (this.authType === 'register') {
       this.authForm.addControl('username', new FormControl());
     } else {
       this.authForm.removeControl('username');
+    }
+    if(this.authType === 'login'){
+      this.authForm = this.fb.group({
+        email: ['', Validators.required],
+        password: ['', Validators.required]
+      });
+    }else{
+      this.authForm = this.fb.group({
+        username :['', Validators.required],
+        email: ['', Validators.required],
+        password: ['', Validators.required],
+        confirmPassword: ['',[this.matchValidator]]
+      });
     }
   }
 
@@ -69,12 +92,11 @@ export class AuthPage {
       user => {
         if (this.isModal) this.viewCtrl.dismiss();
         this.displayTabs();
-        // if(this.authType === 'register'){
-        // this.navCtrl.push(PaymentPrdPage);
-        // }else{
-        //   this.navCtrl.setRoot(TabsPage,this.userService.getCurrentUser());
-        // }
-        this.navCtrl.setRoot(TabsPage, this.userService.getCurrentUser());
+        if(this.authType === 'register'){
+        this.navCtrl.setRoot(PincodePage);
+        }else{
+        this.navCtrl.setRoot(TabsPage);
+        }
       },
       (errors: Errors) => {
         for (let field in errors.errors) {
@@ -103,3 +125,4 @@ export class AuthPage {
     this.viewCtrl.dismiss();
   }
 }
+

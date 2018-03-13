@@ -10,6 +10,7 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
 import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../tabs/tabs';
+import { ProfilePage } from '../profile/profile'
 /**
  * Generated class for the MePage page.
  *
@@ -69,7 +70,7 @@ export class MePage {
       this.navCtrl.push(AuthPage);
     } else {
       this.navCtrl.push(
-        'ProfilePage',
+        ProfilePage,
         this.userService.getCurrentUser().username
       );
     }
