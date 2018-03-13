@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
+import { Alert } from '../../models/alert';
+import { Observable } from 'rxjs/Observable';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
+import { AlertServiceProvider } from '../../providers/alert-service/alert-service';
 import {
   IonicPage,
   NavController,
@@ -23,6 +27,9 @@ import {
 })
 export class AlertPage {
   public crypto: string = 'ETHEREUM';
+  public averagePrice;
+  private alerts: Observable<any>;
+  private user;
   cryptosFAB: Object[] = [
     {
       value: 'ETHEREUM',
@@ -49,13 +56,39 @@ export class AlertPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public modalCtrl: ModalController
-  ) {}
+    public modalCtrl: ModalController,
+    private alertServiceProvider: AlertServiceProvider,
+    private userServiceProvider: UserServiceProvider,
+    private orderServiceProvider: OrderServiceProvider
+  ) {
+    this.user = this.userServiceProvider.getCurrentUser().username;
+    this.alerts = this.alertServiceProvider.getAlerts(this.user, this.crypto);
+    this.orderServiceProvider
+      .getAlertInformation('USD', this.crypto)
+      .subscribe(result => {
+        this.averagePrice = result;
+      });
+  }
 
-  changeCrypto(cryptoValue) {}
+  changeCrypto(cryptoValue) {
+    this.crypto = cryptoValue;
+    this.alerts = this.alertServiceProvider.getAlerts(this.user, this.crypto);
+    this.orderServiceProvider
+      .getAlertInformation('USD', this.crypto)
+      .subscribe(result => {
+        if (!result) {
+          this.averagePrice = 0;
+        } else {
+          this.averagePrice = result;
+        }
+      });
+  }
 
   addNewAlert() {
-    let modal = this.modalCtrl.create(AddAlertPage, { crypto: this.crypto });
+    let modal = this.modalCtrl.create(AddAlertPage, {
+      crypto: this.crypto,
+      user: this.user
+    });
     modal.present();
   }
   ionViewDidLoad() {
@@ -70,14 +103,18 @@ export class AlertPage {
 export class AddAlertPage {
   public price: any;
   public crypto: string;
+  public user: string;
   public fiat: string = 'USD';
+  model = new Alert('', null, '', '', null);
 
   constructor(
     public platform: Platform,
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    private orderServiceProvider: OrderServiceProvider
+    private orderServiceProvider: OrderServiceProvider,
+    private alertServiceProvider: AlertServiceProvider
   ) {
+    this.user = this.navParams.get('user');
     this.crypto = this.navParams.get('crypto');
     this.orderServiceProvider
       .getAlertInformation(this.fiat, this.crypto)
@@ -93,6 +130,22 @@ export class AddAlertPage {
       .subscribe(result => {
         this.price = result;
       });
+  }
+
+  onCreate() {
+    this.model.username = this.user;
+    this.model.price = this.price;
+    this.model.fiat = this.fiat;
+    this.model.crypto = this.crypto;
+    console.log(this.user);
+    console.log(this.price);
+    console.log(this.fiat);
+    console.log(this.crypto);
+    console.log(this.model);
+    this.alertServiceProvider.postAlert(this.model).subscribe(result => {
+      console.log(result);
+      this.viewCtrl.dismiss();
+    });
   }
 
   dismiss() {

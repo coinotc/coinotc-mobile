@@ -18,15 +18,30 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+
+  <ion-list>
+    <ion-item-divider color="secondary">
+      {{crypto}}: Average Price is {{averagePrice}} USD
+    </ion-item-divider>
+    <ion-item *ngFor="let alert of alerts | async">
+      <ion-label>
+        <h2>
+          {{alert.price}} {{alert.fiat}}</h2>
+        <p>Created on {{alert.date | date : 'fullDate'}}</p>
+      </ion-label>
+      <ion-toggle></ion-toggle>
+    </ion-item>
+  </ion-list>
 
   <ion-fab bottom right>
     <button ion-fab color="primary">
       <ion-icon name="attach"></ion-icon>
     </button>
     <ion-fab-list side="top">
-      <button *ngFor="let crypto of cryptosFAB" ion-fab float-center (click)="changeCrypto(crypto.value)" color="secondary">
-        <ion-icon name="{{crypto.icon}}" class="cry"></ion-icon>
+      <button *ngFor="let selectedCrypto of cryptosFAB" ion-fab mini float-center (click)="changeCrypto(selectedCrypto.value)"
+        color="secondary">
+        <ion-icon name="{{selectedCrypto.icon}}"></ion-icon>
       </button>
     </ion-fab-list>
   </ion-fab>

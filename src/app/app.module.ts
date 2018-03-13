@@ -35,6 +35,7 @@ import { CurrenciesServiceProvider } from '../providers/currencies/currencies-se
 import { PaymentPrdPageModule } from '../pages/payment-prd/payment-prd.module';
 import { MePage } from '../pages/me/me';
 import { FaIconComponent } from '../components/fa-icon/fa-icon.component';
+import { AlertServiceProvider } from '../providers/alert-service/alert-service';
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
@@ -108,7 +109,8 @@ export function createTranslateLoader(http: HttpClient) {
     AvatarService,
     ComplainServiceProvider,
     CryptowalletProvider,
-    CurrenciesServiceProvider
+    CurrenciesServiceProvider,
+    AlertServiceProvider
   ]
 })
 export class AppModule {}
