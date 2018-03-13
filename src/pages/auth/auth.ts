@@ -92,13 +92,11 @@ export class AuthPage {
       user => {
         if (this.isModal) this.viewCtrl.dismiss();
         this.displayTabs();
-        // if(this.authType === 'register'){
-        // this.navCtrl.setRoot(PaymentPrdPage);
-        // }else{
-        //   this.navCtrl.setRoot(TabsPage,this.userService.getCurrentUser());
-        // }
-        this.navCtrl.setRoot(TabsPage, this.userService.getCurrentUser());
-        //this.navCtrl.setRoot(PincodePage);
+        if(this.authType === 'register'){
+        this.navCtrl.setRoot(PincodePage);
+        }else{
+        this.navCtrl.setRoot(TabsPage);
+        }
       },
       (errors: Errors) => {
         for (let field in errors.errors) {

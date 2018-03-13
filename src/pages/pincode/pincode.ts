@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PincodeController } from  'ionic2-pincode-input/dist/pincode'
+import { ConfirmPincodePage } from '../confirm-pincode/confirm-pincode'
 /**
  * Generated class for the PincodePage page.
  *
@@ -15,33 +16,23 @@ import { PincodeController } from  'ionic2-pincode-input/dist/pincode'
 })
 export class PincodePage {
 
-  code:string;
-  
+  code:Number;
     constructor(
       public navCtrl: NavController,
       public pincodeCtrl: PincodeController,
     ) {
+          let pinCode =  this.pincodeCtrl.create({
+            title:'Pincode',
+            hideForgotPassword:true,
+            hideCancelButton:true
+          });
+          pinCode.present();
+          pinCode.onDidDismiss( (code,status) => 
+            {
+              this.code = code;
+              this.navCtrl.setRoot(ConfirmPincodePage,{code:this.code});
+          })
+          
 
-      let pinCode =  this.pincodeCtrl.create({
-        title:'Pincode'
-      });
-      
-      pinCode.present();
-      
-      pinCode.onDidDismiss( (code,status) => {
-  
-        if(status === 'done'){
-  
-          this.code = code;
-          console.log(code)
-        }else if (status === 'forgot'){
-  
-          // forgot password
-        }
-  
-      })
-  
-    }
-  
-
+  }
 }

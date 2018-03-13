@@ -41,6 +41,8 @@ import { ModifyPrdPage } from '../pages/modify-prd/modify-prd';
 import { RealNameVerifiedPage } from '../pages/real-name-verified/real-name-verified';
 import { PincodeInputModule } from  'ionic2-pincode-input';
 import { PincodePage } from '../pages/pincode/pincode'
+import { ConfirmPincodePage } from '../pages/confirm-pincode/confirm-pincode'
+import { ProfilePage } from '../pages/profile/profile'
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -63,7 +65,9 @@ export function createTranslateLoader(http: HttpClient) {
     BindPhonePage,
     ModifyPrdPage,
     RealNameVerifiedPage,
-    PincodePage
+    PincodePage,
+    ConfirmPincodePage,
+    ProfilePage
     
   ],
   imports: [
@@ -103,7 +107,9 @@ export function createTranslateLoader(http: HttpClient) {
     BindPhonePage,
     ModifyPrdPage,
     RealNameVerifiedPage,
-    PincodePage
+    PincodePage,
+    ConfirmPincodePage,
+    ProfilePage
     
   ],
   providers: [

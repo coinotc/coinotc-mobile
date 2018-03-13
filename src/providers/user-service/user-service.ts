@@ -83,7 +83,7 @@ export class UserServiceProvider {
       })
       
   }
-
+  
   public logout(): Observable<User> {
     return this.apiService.get('/users/logout')
       .map(data => {
