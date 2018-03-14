@@ -54,11 +54,11 @@ export class AuthPage {
   matchValidator = (control: FormControl): { [s: string]: boolean } => {
 
     if(!control.value){
-      return { required: true , errors:true}
+      return { required: true}
     }else if(this.authForm.controls.password.value === control.value){
       return  { }
     }else{
-       return { errors:true}
+       return { required: true}
     }
   }
   
@@ -78,51 +78,38 @@ export class AuthPage {
         username :['', Validators.required],
         email: ['', Validators.required],
         password: ['', Validators.required],
-        confirmPassword: ['',Validators.required]
-        //[this.matchValidator]
+        confirmPassword: ['',[this.matchValidator]]
       });
     }
   }
 
   submitForm() {
-    if(this.authForm.controls.password.value ==this.authForm.controls.confirmPassword.value){
-      this.isSubmitting = true;
-      const credentials = this.authForm.value;
-      //this.navCtrl.push(TabsPage,{});
-      console.log('login success');
-      this.userService.attemptAuth(this.authType, credentials).subscribe(
-        user => {
-          if (this.isModal) this.viewCtrl.dismiss();
-          this.displayTabs();
-          if(this.authType === 'register'){
-          this.navCtrl.setRoot(PincodePage);
-          }else{
-          this.navCtrl.setRoot(TabsPage);
-          }
-        },
-        (errors: Errors) => {
-          for (let field in errors.errors) {
-            this.toastCtrl
-              .create({
-                message: `${field} ${errors.errors[field]}`,
-                duration: 3000
-              })
-              .present();
-          }
-          this.isSubmitting = false;
+    this.isSubmitting = true;
+    const credentials = this.authForm.value;
+    //this.navCtrl.push(TabsPage,{});
+    console.log('login success');
+    this.userService.attemptAuth(this.authType, credentials).subscribe(
+      user => {
+        if (this.isModal) this.viewCtrl.dismiss();
+        this.displayTabs();
+        if(this.authType === 'register'){
+        this.navCtrl.setRoot(PincodePage);
+        }else{
+        this.navCtrl.setRoot(TabsPage);
         }
-      );
-    }else{
-      let toast = this.toastCtrl.create({
-        message: 'User was added successfully',
-        duration: 3000,
-      });
-      toast.onDidDismiss(() => {
-        console.log('Dismissed toast');
-      });
-      toast.present();
-    }
-    
+      },
+      (errors: Errors) => {
+        for (let field in errors.errors) {
+          this.toastCtrl
+            .create({
+              message: `${field} ${errors.errors[field]}`,
+              duration: 3000
+            })
+            .present();
+        }
+        this.isSubmitting = false;
+      }
+    );
   }
 
   private displayTabs() {

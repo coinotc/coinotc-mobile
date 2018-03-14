@@ -40,7 +40,6 @@ import { BindEmailPage } from '../pages/bind-email/bind-email';
 import { BindPhonePage } from '../pages/bind-phone/bind-phone';
 import { ModifyPrdPage } from '../pages/modify-prd/modify-prd';
 import { RealNameVerifiedPage } from '../pages/real-name-verified/real-name-verified';
-import { SettingsPage } from '../pages/settings/settings';
 import { PincodeInputModule } from 'ionic2-pincode-input';
 import { PincodePage } from '../pages/pincode/pincode';
 import { ConfirmPincodePage } from '../pages/confirm-pincode/confirm-pincode';
@@ -74,9 +73,7 @@ export function createTranslateLoader(http: HttpClient) {
     PincodePage,
     ConfirmPincodePage,
     ProfilePage,
-    ModifyTradepasswordPage,
-    SettingsPage
-    
+    ModifyTradepasswordPage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -119,9 +116,7 @@ export function createTranslateLoader(http: HttpClient) {
     PincodePage,
     ConfirmPincodePage,
     ProfilePage,
-    ModifyTradepasswordPage,
-    SettingsPage
-    
+    ModifyTradepasswordPage
   ],
   providers: [
     StatusBar,

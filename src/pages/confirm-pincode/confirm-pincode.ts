@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PincodeController } from  'ionic2-pincode-input/dist/pincode';
 import { TabsPage } from '../tabs/tabs';
 import { PincodePage } from '../pincode/pincode';
@@ -23,15 +23,11 @@ export class ConfirmPincodePage {
   currentUserName;
   comfirmcode:Number;
   password:Number;
-  private type;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public pincodeCtrl: PincodeController,    
     private userService: UserServiceProvider,
     private profileService: ProfileServiceProvider,
-    private toastCtrl: ToastController,
   ) {
-      this.type = this.navParams.data.type;
-      console.log(this.type)
       this.currentUserName = this.userService.getCurrentUser().username
       this.password = navParams.data.code
       let pinCode =  this.pincodeCtrl.create({
@@ -48,14 +44,6 @@ export class ConfirmPincodePage {
             this.profileService.settradepassword(this.currentUserName, this.password).subscribe();
             this.navCtrl.setRoot(TabsPage);
           }else{
-            let toast = this.toastCtrl.create({
-              message: 'Wrong type',
-              duration: 3000,
-            });
-            toast.onDidDismiss(() => {
-              console.log('Dismissed toast');
-            });
-            toast.present();
             this.navCtrl.setRoot(PincodePage);
           }
       })
