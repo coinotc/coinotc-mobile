@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { SuperTabsModule } from 'ionic2-super-tabs';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
@@ -36,17 +35,18 @@ import { CurrenciesServiceProvider } from '../providers/currencies/currencies-se
 import { PaymentPrdPageModule } from '../pages/payment-prd/payment-prd.module';
 import { FaIconComponent } from '../components/fa-icon/fa-icon.component';
 import { AlertServiceProvider } from '../providers/alert-service/alert-service';
-import { MePageModule } from '../pages/me/me.module'
+import { MePageModule } from '../pages/me/me.module';
 import { BindEmailPage } from '../pages/bind-email/bind-email';
 import { BindPhonePage } from '../pages/bind-phone/bind-phone';
 import { ModifyPrdPage } from '../pages/modify-prd/modify-prd';
 import { RealNameVerifiedPage } from '../pages/real-name-verified/real-name-verified';
-import { PincodeInputModule } from  'ionic2-pincode-input';
-import { PincodePage } from '../pages/pincode/pincode'
-import { ConfirmPincodePage } from '../pages/confirm-pincode/confirm-pincode'
-import { ProfilePage } from '../pages/profile/profile'
-import { ModifyTradepasswordPage } from '../pages/modify-tradepassword/modify-tradepassword'
 import { SettingsPage } from '../pages/settings/settings';
+import { PincodeInputModule } from 'ionic2-pincode-input';
+import { PincodePage } from '../pages/pincode/pincode';
+import { ConfirmPincodePage } from '../pages/confirm-pincode/confirm-pincode';
+import { ProfilePage } from '../pages/profile/profile';
+import { ModifyTradepasswordPage } from '../pages/modify-tradepassword/modify-tradepassword';
+import { OneSignal } from '@ionic-native/onesignal';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -84,7 +84,6 @@ export function createTranslateLoader(http: HttpClient) {
     MePageModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    SuperTabsModule.forRoot(),
     AuthPageModule,
     HttpClientModule,
     HttpModule,
@@ -141,7 +140,8 @@ export function createTranslateLoader(http: HttpClient) {
     ComplainServiceProvider,
     CryptowalletProvider,
     CurrenciesServiceProvider,
-    AlertServiceProvider
+    AlertServiceProvider,
+    OneSignal
   ]
 })
 export class AppModule {}

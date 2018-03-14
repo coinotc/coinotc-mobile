@@ -66,7 +66,11 @@ export class AlertPage {
     this.orderServiceProvider
       .getAlertInformation('USD', this.crypto)
       .subscribe(result => {
-        this.averagePrice = result;
+        if (!result) {
+          this.averagePrice = 0;
+        } else {
+          this.averagePrice = result;
+        }
       });
   }
 
