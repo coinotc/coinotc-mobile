@@ -12,6 +12,8 @@
         <ion-segment-button value="sell">{{'willing.wannaSell' | translate}}</ion-segment-button>
       </ion-segment>
     </ion-title>
+  </ion-navbar>
+  <ion-toolbar>
     <ion-segment [(ngModel)]="crypto" (ngModelChange)="doRefresh()" style="height:55px;">
       <ion-segment-button value="ETHEREUM">
         <ion-icon name="eth"></ion-icon>
@@ -29,7 +31,7 @@
         <ion-icon name="cardano"></ion-icon>
       </ion-segment-button>
     </ion-segment>
-  </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 
 
@@ -42,7 +44,7 @@
     <ion-item>
       <ion-avatar item-start>
         <!-- <img src="img/{{item.owner}}.Avatar.png"> -->
-        <ion-text-avatar >{{item.owner}}</ion-text-avatar>
+        <ion-text-avatar>{{item.owner}}</ion-text-avatar>
       </ion-avatar>
       <h2>{{item.owner}}</h2>
       <p>{{'payment.'+item.payment | translate}}</p>
