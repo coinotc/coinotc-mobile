@@ -15,12 +15,15 @@ import { ConfirmPincodePage } from '../confirm-pincode/confirm-pincode'
   templateUrl: 'pincode.html',
 })
 export class PincodePage {
-
+  private type;
   code:Number;
     constructor(
       public navCtrl: NavController,
       public pincodeCtrl: PincodeController,
+      public navParams:NavParams
     ) {
+      this.type = this.navParams.data.type;
+      console.log(this.type)
           let pinCode =  this.pincodeCtrl.create({
             title:'Pincode',
             hideForgotPassword:true,
@@ -30,9 +33,12 @@ export class PincodePage {
           pinCode.onDidDismiss( (code,status) => 
             {
               this.code = code;
-              this.navCtrl.setRoot(ConfirmPincodePage,{code:this.code});
+              if(this.type){
+                this.navCtrl.setRoot(ConfirmPincodePage,{code:this.code,type:this.type});
+              }else{
+                this.navCtrl.setRoot(ConfirmPincodePage,{code:this.code});
+              }
+              
           })
-          
-
   }
 }
