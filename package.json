@@ -87,11 +87,11 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-whitelist": {},
-      "ionic-plugin-keyboard": {},
-      "onesignal-cordova-plugin": {}
+      "ionic-plugin-keyboard": {}
     },
     "platforms": [
       "android",
+      "ios",
       "browser"
     ]
   }
