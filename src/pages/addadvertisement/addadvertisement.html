@@ -59,11 +59,11 @@
     </ion-item>
     <ion-item>
       <ion-label>{{'MinLimit' | translate}}</ion-label>
-      <ion-input type="number" min="0" text-right [(ngModel)]="model.min_price" formControlName="mixprice"></ion-input>
+      <ion-input type="number" min="0" text-right [(ngModel)]="model.min_price" formControlName="min_price" (ngModelChange)="notbelowmax()"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>{{'MaxLimit' | translate}}</ion-label>
-      <ion-input type="number" min="0" text-right [(ngModel)]="model.max_price" formControlName="maxprice"></ion-input>
+      <ion-input type="number" min="0" text-right [(ngModel)]="model.max_price" formControlName="max_price" (ngModelChange)="notbelowmax()"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>{{'Payment' | translate}}</ion-label>
@@ -79,8 +79,8 @@
       <ion-input type="number" min="1" placeholder="{{'minutes' | translate}}" text-right [(ngModel)]="model.limit" formControlName="limit"></ion-input>
     </ion-item>
     <ion-textarea [(ngModel)]="model.massage" placeholder="{{'AdvertisementMessage' | translate}}" formControlName="massage"></ion-textarea>
-    <ion-item text-center *ngSwitchCase="'Buy'"><button ion-button round (click)="addbuyad()" large [disabled]="!adform.valid" >{{'Publish' | translate}}</button></ion-item>
-    <ion-item text-center *ngSwitchCase="'Sell'"><button ion-button round (click)="addsellad()" large [disabled]="!adform.valid" >{{'Publish' | translate}}</button></ion-item>
+    <ion-item text-center *ngSwitchCase="'Buy'"><button ion-button round (click)="addbuyad()" large [disabled]="!adform.valid || belowmax">{{'Publish' | translate}}</button></ion-item>
+    <ion-item text-center *ngSwitchCase="'Sell'"><button ion-button round (click)="addsellad()" large [disabled]="!adform.valid || belowmax">{{'Publish' | translate}}</button></ion-item>
   </ion-list>
   <div *ngSwitchDefault>
     error
