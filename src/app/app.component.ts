@@ -7,6 +7,7 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
 import { AuthPage } from '../pages/auth/auth';
 import * as firebase from 'firebase';
 import { OneSignal } from '@ionic-native/onesignal';
+import { FCM, NotificationData } from '@ionic-native/fcm';
 
 const config = {
   apiKey: 'AIzaSyBLdeDmPS6oVmkTkZaypNk2OJvOEnxeRH8',
@@ -25,10 +26,12 @@ export class MyApp {
     private notification: OneSignal,
     private userService: UserServiceProvider,
     private platform: Platform,
-    statusBar: StatusBar,
-    splashScreen: SplashScreen,
-    private translate: TranslateService
+    private statusBar: StatusBar,
+    private splashScreen: SplashScreen,
+    private translate: TranslateService,
+    private fcm: FCM
   ) {
+    this.initializeFCM();
     this.initializeApp();
     translate.setDefaultLang('en');
     firebase.initializeApp(config);
@@ -37,6 +40,38 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+    });
+  }
+  initializeFCM() {
+    this.platform.ready().then(() => {
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+      this.fcm
+        .getToken()
+        .then((token: string) => {
+          console.log('The token to use is: ', token);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+      this.fcm
+        .onTokenRefresh()
+        .subscribe(
+          (token: string) => console.log('Nuevo token', token),
+          error => console.error(error)
+        );
+      this.fcm.onNotification().subscribe(
+        (data: NotificationData) => {
+          if (data.wasTapped) {
+            console.log('Received in background', JSON.stringify(data));
+          } else {
+            console.log('Received in foreground', JSON.stringify(data));
+          }
+        },
+        error => {
+          console.error('Error in notification', error);
+        }
+      );
     });
   }
   initializeApp() {
