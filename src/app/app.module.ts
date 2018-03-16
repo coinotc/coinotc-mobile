@@ -46,6 +46,7 @@ import { ConfirmPincodePage } from '../pages/confirm-pincode/confirm-pincode';
 import { ProfilePage } from '../pages/profile/profile';
 import { ModifyTradepasswordPage } from '../pages/modify-tradepassword/modify-tradepassword';
 import { OneSignal } from '@ionic-native/onesignal';
+import { FCM } from '@ionic-native/fcm';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -136,7 +137,8 @@ export function createTranslateLoader(http: HttpClient) {
     CryptowalletProvider,
     CurrenciesServiceProvider,
     AlertServiceProvider,
-    OneSignal
+    OneSignal,
+    FCM
   ]
 })
 export class AppModule {}
