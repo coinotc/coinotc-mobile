@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/Observable';
 import { PincodePage } from '../pincode/pincode';
 import { MePage } from '../me/me';
 import { SettingsPage } from '../settings/settings'
-
 /**
  * Generated class for the ModifyTradepasswordPage page.
  *
@@ -42,14 +41,13 @@ export class ModifyTradepasswordPage {
       {
         this.code = code;
         //if(this.code.toString.length == 6 ){
-          console.log(this.tradePrd)
-          if(this.code == this.tradePrd){
-            console.log(11111111111)
-            this.navCtrl.push(PincodePage,{type:"change tradePrd"})
-          }else if(this.code != this.tradePrd){
-            this.navCtrl.setRoot(this.navCtrl.getActive().component)
-          }
-//}
+        console.log(this.tradePrd)
+        if(this.code == this.tradePrd){
+          console.log(11111111111)
+          this.navCtrl.push(PincodePage,{type:"change tradePrd"})
+        }else if(this.code != this.tradePrd){
+          this.navCtrl.setRoot(this.navCtrl.getActive().component)
+        }
     })
   }
   goBack(){
@@ -57,7 +55,6 @@ export class ModifyTradepasswordPage {
     {
       this.navCtrl.setRoot(MePage);
     }
-    
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModifyTradepasswordPage');

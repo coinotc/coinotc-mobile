@@ -40,13 +40,15 @@ import { BindEmailPage } from '../pages/bind-email/bind-email';
 import { BindPhonePage } from '../pages/bind-phone/bind-phone';
 import { ModifyPrdPage } from '../pages/modify-prd/modify-prd';
 import { RealNameVerifiedPage } from '../pages/real-name-verified/real-name-verified';
-import { SettingsPage } from '../pages/settings/settings';
 import { PincodeInputModule } from 'ionic2-pincode-input';
 import { PincodePage } from '../pages/pincode/pincode';
 import { ConfirmPincodePage } from '../pages/confirm-pincode/confirm-pincode';
 import { ProfilePage } from '../pages/profile/profile';
 import { ModifyTradepasswordPage } from '../pages/modify-tradepassword/modify-tradepassword';
 import { OneSignal } from '@ionic-native/onesignal';
+import { SettingsPage } from '../pages/settings/settings';
+import { ComplainInformationPage } from '../pages/complain-information/complain-information';
+import { SendMailServiceProvider } from '../providers/send-mail-service/send-mail-service';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -75,8 +77,8 @@ export function createTranslateLoader(http: HttpClient) {
     ConfirmPincodePage,
     ProfilePage,
     ModifyTradepasswordPage,
-    SettingsPage
-    
+    SettingsPage,
+    ComplainInformationPage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -120,8 +122,8 @@ export function createTranslateLoader(http: HttpClient) {
     ConfirmPincodePage,
     ProfilePage,
     ModifyTradepasswordPage,
-    SettingsPage
-    
+    SettingsPage,
+    ComplainInformationPage
   ],
   providers: [
     StatusBar,
@@ -141,7 +143,8 @@ export function createTranslateLoader(http: HttpClient) {
     CryptowalletProvider,
     CurrenciesServiceProvider,
     AlertServiceProvider,
-    OneSignal
+    OneSignal,
+    SendMailServiceProvider
   ]
 })
 export class AppModule {}

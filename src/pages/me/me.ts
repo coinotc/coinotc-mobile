@@ -10,8 +10,8 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
 import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../tabs/tabs';
-import { ProfilePage } from '../profile/profile'
-import { SettingsPage } from '../settings/settings'
+import { ProfilePage } from '../profile/profile';
+import { SettingsPage } from '../settings/settings';
 /**
  * Generated class for the MePage page.
  *

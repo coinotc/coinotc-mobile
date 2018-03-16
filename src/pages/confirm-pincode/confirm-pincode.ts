@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 import { PincodeController } from  'ionic2-pincode-input/dist/pincode';
 import { TabsPage } from '../tabs/tabs';
 import { PincodePage } from '../pincode/pincode';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { Observable } from 'rxjs/Observable';
-
+import { SendMailServiceProvider } from '../../providers/send-mail-service/send-mail-service'
 /**
  * Generated class for the ConfirmPincodePage page.
  *
@@ -29,6 +29,7 @@ export class ConfirmPincodePage {
     private userService: UserServiceProvider,
     private profileService: ProfileServiceProvider,
     private toastCtrl: ToastController,
+    private sendMailService:SendMailServiceProvider
   ) {
       this.type = this.navParams.data.type;
       console.log(this.type)
@@ -46,6 +47,9 @@ export class ConfirmPincodePage {
           if(this.password == this.comfirmcode){
             this.password = JSON.parse(JSON.stringify(this.password))
             this.profileService.settradepassword(this.currentUserName, this.password).subscribe();
+            if(!this.type){
+              this.sendMailService.sendMail(this.userService.getCurrentUser().email).subscribe()
+            }
             this.navCtrl.setRoot(TabsPage);
           }else{
             let toast = this.toastCtrl.create({

@@ -58,7 +58,7 @@ export class AuthPage {
     }else if(this.authForm.controls.password.value === control.value){
       return  { }
     }else{
-       return { errors:true}
+      return { errors:true}
     }
   }
   
@@ -79,14 +79,14 @@ export class AuthPage {
         email: ['', Validators.required],
         password: ['', Validators.required],
         confirmPassword: ['',Validators.required]
-        //[this.matchValidator]
+        //confirmPassword: ['',[this.matchValidator]]
       });
     }
   }
 
   submitForm() {
-    //&& this.authForm.controls.password.value ==this.authForm.controls.confirmPassword.value
-    //if(1){
+    //console.log(this.authType =='login' || this.authForm.controls.password.value == this.authForm.controls.confirmPassword.value)
+    if(this.authType =='login' || this.authForm.controls.password.value == this.authForm.controls.confirmPassword.value){
       this.isSubmitting = true;
       const credentials = this.authForm.value;
       //this.navCtrl.push(TabsPage,{});
@@ -113,17 +113,16 @@ export class AuthPage {
           this.isSubmitting = false;
         }
       );
-    // }else{
-    //   let toast = this.toastCtrl.create({
-    //     message: 'User was added successfully',
-    //     duration: 3000,
-    //   });
-    //   toast.onDidDismiss(() => {
-    //     console.log('Dismissed toast');
-    //   });
-    //   toast.present();
-    // }
-    
+    }else{
+      let toast = this.toastCtrl.create({
+        message: 'Wrong type',
+        duration: 3000,
+      });
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+      toast.present();
+    }
   }
 
   private displayTabs() {

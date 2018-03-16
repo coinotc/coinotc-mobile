@@ -21,9 +21,9 @@ export class PincodePage {
       public navCtrl: NavController,
       public pincodeCtrl: PincodeController,
       public navParams:NavParams
-    ) {
-      this.type = this.navParams.data.type;
-      console.log(this.type)
+    ) {//change tradePrd
+        this.type = this.navParams.data.type;
+        console.log(this.type)
           let pinCode =  this.pincodeCtrl.create({
             title:'Pincode',
             hideForgotPassword:true,
@@ -38,7 +38,8 @@ export class PincodePage {
               }else{
                 this.navCtrl.setRoot(ConfirmPincodePage,{code:this.code});
               }
-              
           })
+          
+
   }
 }
