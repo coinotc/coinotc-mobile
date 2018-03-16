@@ -87,7 +87,8 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-whitelist": {},
-      "ionic-plugin-keyboard": {}
+      "ionic-plugin-keyboard": {},
+      "onesignal-cordova-plugin": {}
     },
     "platforms": [
       "android",
