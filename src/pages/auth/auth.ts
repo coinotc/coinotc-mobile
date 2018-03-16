@@ -54,11 +54,11 @@ export class AuthPage {
   matchValidator = (control: FormControl): { [s: string]: boolean } => {
 
     if(!control.value){
-      return { required: true}
+      return { required: true , errors:true}
     }else if(this.authForm.controls.password.value === control.value){
       return  { }
     }else{
-       return { required: true}
+      return { errors:true}
     }
   }
   
@@ -78,38 +78,51 @@ export class AuthPage {
         username :['', Validators.required],
         email: ['', Validators.required],
         password: ['', Validators.required],
-        confirmPassword: ['',[this.matchValidator]]
+        confirmPassword: ['',Validators.required]
+        //confirmPassword: ['',[this.matchValidator]]
       });
     }
   }
 
   submitForm() {
-    this.isSubmitting = true;
-    const credentials = this.authForm.value;
-    //this.navCtrl.push(TabsPage,{});
-    console.log('login success');
-    this.userService.attemptAuth(this.authType, credentials).subscribe(
-      user => {
-        if (this.isModal) this.viewCtrl.dismiss();
-        this.displayTabs();
-        if(this.authType === 'register'){
-        this.navCtrl.setRoot(PincodePage);
-        }else{
-        this.navCtrl.setRoot(TabsPage);
+    //console.log(this.authType =='login' || this.authForm.controls.password.value == this.authForm.controls.confirmPassword.value)
+    if(this.authType =='login' || this.authForm.controls.password.value == this.authForm.controls.confirmPassword.value){
+      this.isSubmitting = true;
+      const credentials = this.authForm.value;
+      //this.navCtrl.push(TabsPage,{});
+      console.log('login success');
+      this.userService.attemptAuth(this.authType, credentials).subscribe(
+        user => {
+          if (this.isModal) this.viewCtrl.dismiss();
+          this.displayTabs();
+          if(this.authType === 'register'){
+          this.navCtrl.setRoot(PincodePage);
+          }else{
+          this.navCtrl.setRoot(TabsPage);
+          }
+        },
+        (errors: Errors) => {
+          for (let field in errors.errors) {
+            this.toastCtrl
+              .create({
+                message: `${field} ${errors.errors[field]}`,
+                duration: 3000
+              })
+              .present();
+          }
+          this.isSubmitting = false;
         }
-      },
-      (errors: Errors) => {
-        for (let field in errors.errors) {
-          this.toastCtrl
-            .create({
-              message: `${field} ${errors.errors[field]}`,
-              duration: 3000
-            })
-            .present();
-        }
-        this.isSubmitting = false;
-      }
-    );
+      );
+    }else{
+      let toast = this.toastCtrl.create({
+        message: 'Wrong type',
+        duration: 3000,
+      });
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+      toast.present();
+    }
   }
 
   private displayTabs() {
