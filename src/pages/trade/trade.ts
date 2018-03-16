@@ -70,7 +70,6 @@ export class TradePage {
   doRefresh(refresher?) {
     if (this.buynsell =="buy") {
       this.adservice.getadvertisement(this.crypto, 1).subscribe(result => {
-        console.log(result);
         this.list = result;
         if (refresher) {
           refresher.complete();
@@ -78,7 +77,6 @@ export class TradePage {
       })
     }else{
       this.adservice.getadvertisement(this.crypto, 0).subscribe(result => {
-        console.log(result);
         this.list = result;
         if (refresher) {
           refresher.complete();
@@ -87,7 +85,11 @@ export class TradePage {
     }
   }
   adinformation(information) {
-    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Buy', crypto: 'STELLAR' } })
+    if(information.type == 1){
+    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Buy', crypto: information.crypto } })
+    }else{
+    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: information.crypto } })
+    }
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TradePage');

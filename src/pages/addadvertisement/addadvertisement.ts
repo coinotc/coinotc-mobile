@@ -18,6 +18,7 @@ import { advertisement } from '../../models/advertisement';
 })
 export class AddadvertisementPage {
   adform: FormGroup;
+  belowmax = true;
   rangepercent = 0;
   type: String;
   title: String;
@@ -55,19 +56,28 @@ export class AddadvertisementPage {
       crypto: ['ETHEREUM', Validators.required],
       country: ['singapore', Validators.required],
       fiat: ['SGD', Validators.required],
-      rangepercent: ['', Validators.required],
-      price: ['', [this.notbelowzero]],
-      mixprice: ['', [this.notbelowzero]],
-      maxprice: ['', [this.notbelowzero]],
+      rangepercent: [null, Validators.required],
+      price: [null, [Validators.min(0)]],
+      min_price: [null, [Validators.min(0), Validators.required]],
+      max_price: [null, [Validators.min(0), Validators.required]],
       payment: ['', Validators.required],
-      limit: ['', [this.notbelowzero]],
+      limit: [null, [Validators.min(0)]],
       massage: ['', Validators.required]
     })
   }
-   notbelowzero= (control: FormControl): any => {
-    if (control.value < 0) {
-      return { expired: true, error: true }
+  notbelowmax() {
+    if (this.model.max_price && this.model.min_price) {
+      if (Number(this.model.min_price) > Number(this.model.max_price)) {
+        this.belowmax = true;
+      } else {
+        this.belowmax = false;
+      }
+    } else {
+      this.belowmax = true;
     }
+  }
+  test() {
+    console.log(this.adform);
   }
   getcryptoprice() {
     switch (this.model.fiat) {
@@ -106,6 +116,7 @@ export class AddadvertisementPage {
     console.log('ionViewDidLoad AddadvertisementPage');
   }
   addbuyad() {
+    console.log(this.model);
     this.model.type = 1;
     this.model.owner = this.userservice.getCurrentUser().username;
     this.adservice.addadvertisement(this.model).subscribe(result => {
