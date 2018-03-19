@@ -46,9 +46,11 @@ import { ConfirmPincodePage } from '../pages/confirm-pincode/confirm-pincode';
 import { ProfilePage } from '../pages/profile/profile';
 import { ModifyTradepasswordPage } from '../pages/modify-tradepassword/modify-tradepassword';
 import { OneSignal } from '@ionic-native/onesignal';
+import { FCM } from '@ionic-native/fcm';
 import { SettingsPage } from '../pages/settings/settings';
 import { ComplainInformationPage } from '../pages/complain-information/complain-information';
 import { SendMailServiceProvider } from '../providers/send-mail-service/send-mail-service';
+
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -144,6 +146,7 @@ export function createTranslateLoader(http: HttpClient) {
     CurrenciesServiceProvider,
     AlertServiceProvider,
     OneSignal,
+    FCM,
     SendMailServiceProvider
   ]
 })

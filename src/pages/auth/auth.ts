@@ -16,7 +16,9 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../../pages/tabs/tabs';
 import { PaymentPrdPage } from '../payment-prd/payment-prd';
-import { PincodePage } from '../pincode/pincode'
+import { PincodePage } from '../pincode/pincode';
+import { FCM, NotificationData } from '@ionic-native/fcm';
+import { Platform } from 'ionic-angular';
 
 /**
  * Generated class for the AuthPage page.
@@ -34,6 +36,7 @@ export class AuthPage {
   authType: 'register' | 'login' = 'login';
   isSubmitting = false;
   authForm: FormGroup;
+  deviceToken;
   isModal: boolean; // show close button only in a modal
   constructor(
     public navCtrl: NavController,
@@ -41,41 +44,70 @@ export class AuthPage {
     private toastCtrl: ToastController,
     private userService: UserServiceProvider,
     private params: NavParams,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private fcm: FCM,
+    private platform: Platform
   ) {
     // use FormBuilder to create a form group
-      this.authForm = this.fb.group({
-        email: ['', Validators.required],
-        password: ['', Validators.required]
-      });
+    this.authForm = this.fb.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
     this.isModal = !!params.get('isModal');
+
+    this.platform.ready().then(() => {
+      this.fcm
+        .getToken()
+        .then((token: string) => {
+          console.log('The token to use is: ', token);
+          this.deviceToken = token;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+      this.fcm.onTokenRefresh().subscribe(token => {
+        console.log(token);
+        this.deviceToken = token;
+      });
+      this.fcm.onNotification().subscribe(
+        (data: NotificationData) => {
+          if (data.wasTapped) {
+            console.log('Received in background', JSON.stringify(data));
+          } else {
+            console.log('Received in foreground', JSON.stringify(data));
+          }
+        },
+        error => {
+          console.error('Error in notification', error);
+        }
+      );
+    });
   }
 
   matchValidator = (control: FormControl): { [s: string]: boolean } => {
-
     if(!control.value){
-      return { required: true , errors:true}
+      return { required: true , errors:true }
     }else if(this.authForm.controls.password.value === control.value){
       return  { }
     }else{
-      return { errors:true}
+      return { errors:true }
     }
-  }
-  
+  };
+
   authTypeChange() {
     if (this.authType === 'register') {
       this.authForm.addControl('username', new FormControl());
     } else {
       this.authForm.removeControl('username');
     }
-    if(this.authType === 'login'){
+    if (this.authType === 'login') {
       this.authForm = this.fb.group({
         email: ['', Validators.required],
         password: ['', Validators.required]
       });
-    }else{
+    } else {
       this.authForm = this.fb.group({
-        username :['', Validators.required],
+        username: ['', Validators.required],
         email: ['', Validators.required],
         password: ['', Validators.required],
         confirmPassword: ['',Validators.required]
@@ -91,7 +123,7 @@ export class AuthPage {
       const credentials = this.authForm.value;
       //this.navCtrl.push(TabsPage,{});
       console.log('login success');
-      this.userService.attemptAuth(this.authType, credentials).subscribe(
+      this.userService.attemptAuth(this.authType, credentials, this.deviceToken).subscribe(
         user => {
           if (this.isModal) this.viewCtrl.dismiss();
           this.displayTabs();
@@ -138,4 +170,3 @@ export class AuthPage {
     this.viewCtrl.dismiss();
   }
 }
-

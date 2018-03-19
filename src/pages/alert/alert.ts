@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { FCM } from '@ionic-native/fcm';
 import { Alert } from '../../models/alert';
 import { Observable } from 'rxjs/Observable';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
 import { AlertServiceProvider } from '../../providers/alert-service/alert-service';
+import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import {
   IonicPage,
   NavController,
@@ -30,6 +32,7 @@ export class AlertPage {
   public averagePrice;
   private alerts: Observable<any>;
   private user;
+  private deviceToken;
   cryptosFAB: Object[] = [
     {
       value: 'ETHEREUM',
@@ -59,7 +62,9 @@ export class AlertPage {
     public modalCtrl: ModalController,
     private alertServiceProvider: AlertServiceProvider,
     private userServiceProvider: UserServiceProvider,
-    private orderServiceProvider: OrderServiceProvider
+    private orderServiceProvider: OrderServiceProvider,
+    private profileServiceProvider: ProfileServiceProvider,
+    private fcm: FCM
   ) {
     this.user = this.userServiceProvider.getCurrentUser().username;
     this.alerts = this.alertServiceProvider.getAlerts(this.user, this.crypto);
@@ -72,6 +77,9 @@ export class AlertPage {
           this.averagePrice = result;
         }
       });
+    this.profileServiceProvider.getProfile(this.user).subscribe(result => {
+      this.deviceToken = result[0].deviceToken;
+    });
   }
 
   changeCrypto(cryptoValue) {

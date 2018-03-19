@@ -12,13 +12,32 @@ import { User } from '../../models/user.model';
 @IonicPage()
 @Component({
   selector: 'page-real-name-verified',
-  templateUrl: 'real-name-verified.html',
+  templateUrl: 'real-name-verified.html'
 })
 export class RealNameVerifiedPage {
   private user;
-  model = new User('','','','','',null,null,'','',null,null,null,null, null);
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-  private userService:UserServiceProvider) {
+  model = new User(
+    '',
+    '',
+    '',
+    '',
+    '',
+    null,
+    null,
+    '',
+    '',
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  );
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private userService: UserServiceProvider
+  ) {
     this.user = this.userService.getCurrentUser();
     this.model.verifyName = this.user.verifyName;
     this.model.idCard = this.user.idCard;
@@ -27,7 +46,7 @@ export class RealNameVerifiedPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad RealNameVerifiedPage');
   }
-  submit(){
+  submit() {
     this.user.verifyName = this.model.verifyName;
     this.user.idCard = this.model.idCard;
     this.userService.update(this.user).subscribe();
