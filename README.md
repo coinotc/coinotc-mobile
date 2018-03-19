@@ -2,7 +2,7 @@
 
 ```html
 Run "ionic cordova run browser" when you test on browser.
-Moreever, you can run "ionic cordova run ios/android" to test on your simulator.
+Moreover, you can run "ionic cordova run ios/android" to test on your simulator.
 
 <!-- basic usage -->
 <fa-icon name="camera-retro"></fa-icon>
