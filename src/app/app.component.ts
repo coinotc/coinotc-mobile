@@ -31,7 +31,6 @@ export class MyApp {
     private translate: TranslateService,
     private fcm: FCM
   ) {
-    //this.initializeFCM();
     this.initializeApp();
     translate.setDefaultLang('en');
     firebase.initializeApp(config);
@@ -40,36 +39,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-    });
-  }
-  initializeFCM() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-      this.fcm
-        .getToken()
-        .then((token: string) => {
-          console.log('The token to use is: ', token);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-      this.fcm.onTokenRefresh().subscribe(token => {
-        console.log(token);
-        //error => console.error(error)
-      });
-      this.fcm.onNotification().subscribe(
-        (data: NotificationData) => {
-          if (data.wasTapped) {
-            console.log('Received in background', JSON.stringify(data));
-          } else {
-            console.log('Received in foreground', JSON.stringify(data));
-          }
-        },
-        error => {
-          console.error('Error in notification', error);
-        }
-      );
     });
   }
   initializeApp() {
