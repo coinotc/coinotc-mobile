@@ -2,6 +2,10 @@ import { Component ,ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams ,Content } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import * as firebase from 'firebase';
+import { ComplainInformationPage } from '../complain-information/complain-information';
+import { OrderServiceProvider } from '../../providers/order-service/order-service';
+import { ProfilePage } from '../profile/profile';
+import { WalletPage } from '../wallet/wallet'
 /**
  * Generated class for the RoomPage page.
  *
@@ -16,7 +20,7 @@ import * as firebase from 'firebase';
 })
 export class RoomPage {
   @ViewChild(Content) content: Content;
-  
+  private orderInfo;
 
   private user;
   data = { type:'', name:'', message:'',roomname:'' };
@@ -25,27 +29,38 @@ export class RoomPage {
   roomkey:any;
   nickname:string;
   offStatus:boolean = false;
+  status;
+  switched = false;
+  trader;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    userService:UserServiceProvider) {
+    private userService:UserServiceProvider,
+    private orderServiceProvider: OrderServiceProvider,) {
       this.user = userService.getCurrentUser();
+      this.trader = navParams.data.trader;
       this.data.name = this.user.username;
       this.nickname = this.user.username;
       this.data.roomname = navParams.data.order._id;
-      // let newData = this.ref.push();
-      // newData.set({
-      //   roomname:this.data.roomname
-      // }); //定义房间名 并创建房间
+      this.orderInfo = navParams.data.order; 
       this.data.type = 'message';
-      
-      this.roomkey = navParams.data.roomkey;
+      // console.log(navParams.data.roomkey)
+      // console.log(navParams.data.order.roomkey)
+      if(navParams.data.order.roomkey == null){
+        this.roomkey = navParams.data.roomkey;
+      }else{
+        this.roomkey = navParams.data.order.roomkey
+      }
 
-    let joinData = firebase.database().ref('chatrooms/'+this.roomkey+'/chats').push();
-    joinData.set({
-      type:'join',
-      user:this.data.name,
-      message:this.data.name+' has joined this room.',
-      sendDate:Date()
-    });
+      //this.roomkey = navParams.data.roomkey;
+
+    //let joinData = firebase.database().ref('chatrooms/'+this.roomkey+'/chats').push();
+  //   joinData.set(
+  //     {
+  //     type:'join',
+  //     user:this.data.name,
+  //     message:this.data.name+' has joined this room.',
+  //     sendDate:Date()
+  //   }
+  // );
     this.data.message = '';
 
     firebase.database().ref('chatrooms/'+this.roomkey+'/chats').on('value', resp => {
@@ -60,6 +75,7 @@ export class RoomPage {
 
 
     }
+
     sendMessage() {
       let newData = firebase.database().ref('chatrooms/'+this.roomkey+'/chats').push();
       newData.set({
@@ -72,26 +88,37 @@ export class RoomPage {
     }
   
 
-    exitChat(){
-
+  complain() {
+    this.navCtrl.push(ComplainInformationPage, this.orderInfo);
+  }
+  onSwitch() {
+    if (this.user.username == this.orderInfo.seller) {
+      this.status = 0;
+    } else if (this.user.username == this.orderInfo.buyer) {
+      this.status = 1;
     }
-    // exitChat() {
-    //   let exitData = firebase.database().ref('chatrooms/'+this.roomkey+'/chats').push();
-    //   exitData.set({
-    //     type:'exit',
-    //     user:this.data.name,
-    //     message:this.data.name+' has exited this room.',
-    //     sendDate:Date()
-    //   });
-  
-    //   this.offStatus = true;
-  
-    //   this.navCtrl.setRoot(RoomPage, {
-    //     nickname:this.data.name
-    //   });
-    // }
+    this.switched = !this.switched;
+  }
+  onFinished() {
+    this.status = 2;
+    this.orderInfo.finished = true;
+    this.user.orderCount = this.user.orderCount + 1;
+    this.userService.update(this.user).subscribe();
+    this.orderServiceProvider.updateOrder(this.orderInfo).subscribe();
+  }
+  onComment() {
+    this.status = 3;
+    this.user.goodCount = this.user.goodCount + 1;
+    this.userService.update(this.user).subscribe();
+    this.navCtrl.pop();
+  }
+  onProfile(trader) {
+    this.navCtrl.push(ProfilePage, trader);
+  }
 
-
+  onWallet() {
+    this.navCtrl.push(WalletPage);
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad RoomPage');
   }

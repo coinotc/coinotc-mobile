@@ -50,7 +50,8 @@
       <p>{{'payment.'+item.payment | translate}}</p>
       <div item-right text-right>
         <h5 style="color:#02cb66">{{item.price | number}} {{'fiat.'+item.fiat | translate}}</h5>
-        <button ion-button round (click)="adinformation(item)">{{'Buy' | translate}} {{item.crypto}}</button>
+        <button ion-button round (click)="adinformation(item)" *ngIf="item.type==1" >{{'Buy' | translate}} {{item.crypto}}</button>
+        <button ion-button round (click)="adinformation(item)" *ngIf="item.type==0" >{{'Sell' | translate}} {{item.crypto}}</button>
       </div>
     </ion-item>
   </ion-card>
