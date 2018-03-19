@@ -31,7 +31,7 @@ export class MyApp {
     private translate: TranslateService,
     private fcm: FCM
   ) {
-    this.initializeFCM();
+    //this.initializeFCM();
     this.initializeApp();
     translate.setDefaultLang('en');
     firebase.initializeApp(config);
@@ -54,12 +54,10 @@ export class MyApp {
         .catch(error => {
           console.error(error);
         });
-      this.fcm
-        .onTokenRefresh()
-        .subscribe(
-          (token: string) => console.log('Nuevo token', token),
-          error => console.error(error)
-        );
+      this.fcm.onTokenRefresh().subscribe(token => {
+        console.log(token);
+        //error => console.error(error)
+      });
       this.fcm.onNotification().subscribe(
         (data: NotificationData) => {
           if (data.wasTapped) {

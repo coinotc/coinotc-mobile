@@ -7,5 +7,5 @@ export const environment = {
   production: false,
   //api_url: 'https://8e940aeb.ngrok.io/api'
   //api_url: 'http://api.coinotc.market/api'
-  api_url: 'http://localhost:3000/api'
+  api_url: 'http://172.20.10.8:3000/api'
 };

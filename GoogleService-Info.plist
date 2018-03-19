@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>40026965229-v09og2v4duicgodr7udl0eb3jg6dhelp.apps.googleusercontent.com</string>
+	<string>40026965229-kr4dcdqo14ec3vchf6eaq1vbtl2f7f3l.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.40026965229-v09og2v4duicgodr7udl0eb3jg6dhelp</string>
+	<string>com.googleusercontent.apps.40026965229-kr4dcdqo14ec3vchf6eaq1vbtl2f7f3l</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCIbGOSyugmjBaqTO4O_0oCpmy39Sd0b0g</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>market.coinotcsg.app</string>
+	<string>market.coinotc.app</string>
 	<key>PROJECT_ID</key>
 	<string>fcm-notification-359a7</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:40026965229:ios:b527f20f9e3afa07</string>
+	<string>1:40026965229:ios:2b36e35c5f3c5509</string>
 	<key>DATABASE_URL</key>
 	<string>https://fcm-notification-359a7.firebaseio.com</string>
 </dict>
