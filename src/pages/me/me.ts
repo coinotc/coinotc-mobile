@@ -10,7 +10,8 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
 import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../tabs/tabs';
-import { ProfilePage } from '../profile/profile'
+import { ProfilePage } from '../profile/profile';
+import { SettingsPage } from '../settings/settings';
 /**
  * Generated class for the MePage page.
  *
@@ -63,7 +64,7 @@ export class MePage {
     this.navCtrl.push('TrustedPage');
   }
   settingsTapped() {
-    this.navCtrl.push('SettingsPage');
+    this.navCtrl.push(SettingsPage);
   }
   updateProfileImage() {
     if (this.userService.getCurrentUser().username == '') {
@@ -85,7 +86,7 @@ export class MePage {
       user => {
         console.log('log out !!!!!');
         this.jwtService.destroyToken();
-        this.navCtrl.setRoot(TabsPage);
+        this.navCtrl.setRoot(AuthPage);
         let tabs = document.querySelectorAll('.tabbar.show-tabbar');
         console.log(tabs);
         if (tabs !== null) {

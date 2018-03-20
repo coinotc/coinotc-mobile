@@ -71,11 +71,10 @@ export class AdinformationPage {
     }
     // console.log(this.orderinformation);
     this.orderservice.postorder(this.orderinformation).subscribe(result => {
-
       let owner = this.information.owner
       this.loading.dismiss();
       this.data.name = this.userservice.getCurrentUser().username;
-      console.log(JSON.parse(JSON.stringify(result, null, 4)));
+      //console.log(JSON.parse(JSON.stringify(result,null,4)));
       this.data.roomname = JSON.parse(JSON.stringify(result))._id;
       let newData = this.ref.push();
       newData.set({
@@ -83,10 +82,9 @@ export class AdinformationPage {
       }); //定义房间名 并创建房间
 
       this.roomkey = getRoomKey(this.ref)
-
-      this.navCtrl.push(RoomPage, { order: result, trader: owner, roomkey: this.roomkey });
-      console.log(result);
-      this.navCtrl.push(OrderWindowPage, { order: result, trader: owner });
+      this.orderservice.addRoomKey(this.roomkey,this.data.roomname).subscribe()
+      this.navCtrl.push(RoomPage, { order: result, trader: owner ,roomkey:this.roomkey});
+      //this.navCtrl.push(OrderWindowPage, { order: result, trader: owner });
 
     })
   }
@@ -120,9 +118,9 @@ export class AdinformationPage {
 
 
 export const getRoomKey = ref => {
-  let roomkey;
-  ref.limitToLast(1).on("child_added", function (prevChildKey) {
-    console.log("===>>>>" + prevChildKey.key)
+  let roomkey ;
+  ref.limitToLast(1).on("child_added",function(prevChildKey){
+    //console.log("===>>>>" + prevChildKey.key) 
     roomkey = prevChildKey.key
   })//获取roomkey
   return roomkey;

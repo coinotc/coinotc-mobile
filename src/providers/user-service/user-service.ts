@@ -23,8 +23,28 @@ const httpOptions = {
 
 @Injectable()
 export class UserServiceProvider {
-  private currentUserSubject = new BehaviorSubject<User>(new User('','','','','',null,null,'','',null,null,null,null, null));
-  public currentUser = this.currentUserSubject.asObservable().distinctUntilChanged();
+  private currentUserSubject = new BehaviorSubject<User>(
+    new User(
+      '',
+      '',
+      '',
+      '',
+      '',
+      null,
+      null,
+      '',
+      '',
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    )
+  );
+  public currentUser = this.currentUserSubject
+    .asObservable()
+    .distinctUntilChanged();
 
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
@@ -33,7 +53,8 @@ export class UserServiceProvider {
     private apiService: ApiServiceProvider,
     private jwtService: JwtServiceProvider,
     private storage: Storage,
-    public http: HttpClient,) {
+    public http: HttpClient
+  ) {
     console.log('UserServiceProvider Provider');
   }
 
@@ -41,11 +62,9 @@ export class UserServiceProvider {
     // If JWT detected, attempt to get & store user's info
     this.jwtService.getToken().then(token => {
       if (token) {
-        this.apiService.get('/user')
-          .subscribe(
-          data => this.setAuth(data.user),
-          err => this.purgeAuth()
-          );
+        this.apiService
+          .get('/user')
+          .subscribe(data => this.setAuth(data.user), err => this.purgeAuth());
       } else {
         // Remove any potential remnants of previous auth states
         this.purgeAuth();
@@ -59,12 +78,16 @@ export class UserServiceProvider {
       // Set current user data into observable
       this.currentUserSubject.next(user);
       console.log(user);
-      console.log(">>> " + user.nativeCurrency);
+      console.log('>>> ' + user.nativeCurrency);
       let nativeCurry = {
         currency: user.nativeCurrency
-      }
-      this.storage.ready().then(() => this.storage.set('nativeCurrency', nativeCurry) as Promise<void>)
-      
+      };
+      this.storage
+        .ready()
+        .then(
+          () => this.storage.set('nativeCurrency', nativeCurry) as Promise<void>
+        );
+
       // Set isAuthenticated to true
       this.isAuthenticatedSubject.next(true);
     });
@@ -74,28 +97,45 @@ export class UserServiceProvider {
     // Remove JWT from localstorage
     this.jwtService.destroyToken().then(() => {
       // Set current user to an empty object
-      this.currentUserSubject.next(new User('','','','','',null,null,'','',null,null,null,null,null));
+      this.currentUserSubject.next(
+        new User(
+          '',
+          '',
+          '',
+          '',
+          '',
+          null,
+          null,
+          '',
+          '',
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        )
+      );
       // Set auth status to false
       this.isAuthenticatedSubject.next(false);
     });
   }
 
-  attemptAuth(type, credentials): Observable<User> {
-    let route = (type === 'login') ? '/login' : '';
-    return this.apiService.post('/users' + route, { user: credentials })
+  attemptAuth(type, credentials, deviceToken): Observable<User> {
+    let route = type === 'login' ? '/login' : '';
+    return this.apiService
+      .post('/users' + route, { user: credentials, deviceToken: deviceToken })
       .map(data => {
         this.setAuth(data.user);
         return data;
-      })
-      
-  }
-  
-  public logout(): Observable<User> {
-    return this.apiService.get('/users/logout')
-      .map(data => {
-        this.purgeAuth();
-        return data;
       });
+  }
+
+  public logout(): Observable<User> {
+    return this.apiService.get('/users/logout').map(data => {
+      this.purgeAuth();
+      return data;
+    });
   }
 
   getCurrentUser(): User {
@@ -121,14 +161,17 @@ export class UserServiceProvider {
   // Update the user on the server (email, pass, etc)
   updateBaseCurrency(currency): Observable<User> {
     return this.apiService.put('/users/base-currency', currency).map(data => {
-      this.storage.ready().then(() => this.storage.set('nativeCurrency', currency) as Promise<void>)
+      this.storage
+        .ready()
+        .then(
+          () => this.storage.set('nativeCurrency', currency) as Promise<void>
+        );
       return data;
     });
   }
-  public getTradepassword(username){
+  public getTradepassword(username) {
     let tradePrdURL = environment.api_url + '/users/tradepassword';
     let URL = `${tradePrdURL}?username=${username}`;
     return this.http.get<User>(URL, httpOptions);
   }
-
 }
