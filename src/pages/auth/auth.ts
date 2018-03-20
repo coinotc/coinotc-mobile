@@ -4,13 +4,14 @@ import {
   NavController,
   NavParams,
   ViewController,
-  ToastController
+  ToastController,
+  
 } from 'ionic-angular';
 import {
   FormBuilder,
   FormGroup,
   FormControl,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Errors } from '../../models/errors.model';
@@ -35,6 +36,7 @@ export class AuthPage {
   isSubmitting = false;
   authForm: FormGroup;
   isModal: boolean; // show close button only in a modal
+  password = 'password';
   constructor(
     public navCtrl: NavController,
     private viewCtrl: ViewController,
@@ -51,16 +53,19 @@ export class AuthPage {
     this.isModal = !!params.get('isModal');
   }
 
-  matchValidator = (control: FormControl): { [s: string]: boolean } => {
-
-    if(!control.value){
-      return { required: true , errors:true}
-    }else if(this.authForm.controls.password.value === control.value){
-      return  { }
-    }else{
-      return { errors:true}
-    }
-  }
+  // matchValidator = (control: FormControl): { [s: string]: any } => {
+  //   if(!control.value){
+  //     return { required: true , errors:true}
+  //   }else if(this.authForm.controls.password.value === control.value){
+  //     return { errors:"111" }
+  //   }else{
+  //     return { errors:true}
+  //   }
+  // }
+  // matchPasswordValidator = (control: FormControl): { [s: string]: boolean } => {
+  //   console.log(control)
+  // return
+  // }
   
   authTypeChange() {
     if (this.authType === 'register') {
@@ -78,18 +83,50 @@ export class AuthPage {
         username :['', Validators.required],
         email: ['', Validators.required],
         password: ['', Validators.required],
-        confirmPassword: ['',Validators.required]
+        confirmPassword: ['',[Validators.required,this.equals(this.password)]]
         //confirmPassword: ['',[this.matchValidator]]
       });
     }
   }
-
+  
+  equals(fieldName: string){
+    let fcfirst: FormControl;
+    let fcSecond: FormControl;
+    return function matchValidator(control: FormControl) {
+        if (!control.parent) {
+            return null;
+        }
+        // INITIALIZING THE VALIDATOR.
+        if (!fcfirst) {
+            //INITIALIZING FormControl first
+            fcfirst = control;
+            fcSecond = control.parent.get("password") as FormControl;
+            //FormControl Second
+            if (!fcSecond) {
+                throw new Error('matchValidator(): Second control is not found in the parent group!');
+            }
+            fcSecond.valueChanges.subscribe(() => {
+                fcfirst.updateValueAndValidity();
+            });
+        }
+        if (!fcSecond) {
+            return null;
+        }
+        if (fcSecond.value !== fcfirst.value) {
+            return {
+                matchOther: true
+            };
+        }
+        return null;
+    }
+}
+  
   submitForm() {
+    console.log(this.authForm.controls)
     //console.log(this.authType =='login' || this.authForm.controls.password.value == this.authForm.controls.confirmPassword.value)
-    if(this.authType =='login' || this.authForm.controls.password.value == this.authForm.controls.confirmPassword.value){
+    //if(this.authType =='login' || this.authForm.controls.password.value == this.authForm.controls.confirmPassword.value){
       this.isSubmitting = true;
       const credentials = this.authForm.value;
-      //this.navCtrl.push(TabsPage,{});
       console.log('login success');
       this.userService.attemptAuth(this.authType, credentials).subscribe(
         user => {
@@ -113,16 +150,16 @@ export class AuthPage {
           this.isSubmitting = false;
         }
       );
-    }else{
-      let toast = this.toastCtrl.create({
-        message: 'Wrong type',
-        duration: 3000,
-      });
-      toast.onDidDismiss(() => {
-        console.log('Dismissed toast');
-      });
-      toast.present();
-    }
+    // }else{
+    //   let toast = this.toastCtrl.create({
+    //     message: 'Wrong type',
+    //     duration: 3000,
+    //   });
+    //   toast.onDidDismiss(() => {
+    //     console.log('Dismissed toast');
+    //   });
+    //   toast.present();
+    // }
   }
 
   private displayTabs() {
