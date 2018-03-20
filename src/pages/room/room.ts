@@ -21,7 +21,6 @@ import { WalletPage } from '../wallet/wallet'
 export class RoomPage {
   @ViewChild(Content) content: Content;
   private orderInfo;
-
   private user;
   data = { type:'', name:'', message:'',roomname:'' };
   ref = firebase.database().ref('chatrooms/');
@@ -32,35 +31,39 @@ export class RoomPage {
   status;
   switched = false;
   trader;
+  type;
+  finished;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private userService:UserServiceProvider,
-    private orderServiceProvider: OrderServiceProvider,) {
+    private orderServiceProvider: OrderServiceProvider) {
       this.user = userService.getCurrentUser();
-      this.trader = navParams.data.trader;
       this.data.name = this.user.username;
       this.nickname = this.user.username;
-      this.data.roomname = navParams.data.order._id;
-      this.orderInfo = navParams.data.order; 
+      this.type = navParams.data.type;
       this.data.type = 'message';
-      // console.log(navParams.data.roomkey)
-      // console.log(navParams.data.order.roomkey)
-      if(navParams.data.order.roomkey == null){
-        this.roomkey = navParams.data.roomkey;
+      console.log(this.type)
+      if(this.type == "order"){
+        console.log("1111111111111")
+        this.trader = navParams.data.trader;
+        this.orderInfo = navParams.data.order; 
+        this.finished = this.orderInfo.finished;
+        this.data.roomname = navParams.data.order._id;
+        if(navParams.data.order.roomkey == null){
+          this.roomkey = navParams.data.roomkey;
+        }else{
+          this.roomkey = navParams.data.order.roomkey
+        }
       }else{
-        this.roomkey = navParams.data.order.roomkey
+        console.log("2222222222222")
+        this.data.roomname = navParams.data.conplain;
+        this.finished = true;
+        if(navParams.data.complain.roomkey == null){
+          this.roomkey = navParams.data.roomkey;
+        }else{
+          this.roomkey = navParams.data.complain.roomkey;
+        }
       }
-
-      //this.roomkey = navParams.data.roomkey;
-
-    //let joinData = firebase.database().ref('chatrooms/'+this.roomkey+'/chats').push();
-  //   joinData.set(
-  //     {
-  //     type:'join',
-  //     user:this.data.name,
-  //     message:this.data.name+' has joined this room.',
-  //     sendDate:Date()
-  //   }
-  // );
+      
     this.data.message = '';
 
     firebase.database().ref('chatrooms/'+this.roomkey+'/chats').on('value', resp => {

@@ -4,7 +4,7 @@
       {{data.roomname}}
     </ion-title>
     <ion-buttons end>
-      <button ion-button (click)="complain()"  *ngIf="orderInfo.finished == false" icon-only >
+      <button ion-button (click)="complain()"  *ngIf="finished == false" icon-only >
         <ion-icon name="notifications" color="danger"></ion-icon>
       </button>
     </ion-buttons>
@@ -12,7 +12,7 @@
 </ion-header>
 
 <ion-content>
-  <div ion-item ion-fixed>
+  <div ion-item ion-fixed *ngIf="type == 'order'">
     
     <ion-card [ngSwitch]="switched">
       <button ion-item (click)="onSwitch()">

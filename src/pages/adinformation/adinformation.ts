@@ -78,7 +78,7 @@ export class AdinformationPage {
 
       this.roomkey = getRoomKey(this.ref)
       this.orderservice.addRoomKey(this.roomkey,this.data.roomname).subscribe()
-      this.navCtrl.push(RoomPage, { order: result, trader: owner ,roomkey:this.roomkey});
+      this.navCtrl.push(RoomPage, { order: result, trader: owner ,roomkey:this.roomkey , type:"order"});
       //this.navCtrl.push(OrderWindowPage, { order: result, trader: owner });
 
     })
@@ -107,11 +107,6 @@ export class AdinformationPage {
     }
   }
 }
-
-
-
-
-
 export const getRoomKey = ref => {
   let roomkey ;
   ref.limitToLast(1).on("child_added",function(prevChildKey){
