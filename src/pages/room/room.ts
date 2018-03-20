@@ -52,18 +52,18 @@ export class RoomPage {
         this.orderInfo = navParams.data.order; 
         this.finished = this.orderInfo.finished;
         this.data.roomname = navParams.data.order._id;
-        if(navParams.data.order.roomkey == null){
-          this.roomkey = navParams.data.roomkey;
+        if(navParams.data.roomkey == null){
+          this.roomkey = navParams.data.order.roomkey;
         }else{
-          this.roomkey = navParams.data.order.roomkey
+          this.roomkey = navParams.data.roomkey
         }
       }else{
         this.data.roomname = navParams.data.conplain;
         this.finished = true;
         if(navParams.data.complain.roomkey == null){
-          this.roomkey = navParams.data.roomkey;
-        }else{
           this.roomkey = navParams.data.complain.roomkey;
+        }else{
+          this.roomkey = navParams.data.roomkey;
         }
       }
     this.data.message = '';
