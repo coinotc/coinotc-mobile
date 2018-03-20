@@ -11,9 +11,10 @@
   </ion-navbar>
 </ion-header>
 
+
 <ion-content>
   <div ion-item ion-fixed *ngIf="type == 'order'">
-    
+
     <ion-card [ngSwitch]="switched">
       <button ion-item (click)="onSwitch()">
         {{'Crypto' | translate}}:{{orderInfo.crypto}}
@@ -50,11 +51,11 @@
       <button ion-button round (click)="onProfile(trader)">{{'Trader' | translate}}</button>
       <button ion-button round (click)="onWallet()">{{'Wallet' | translate}}</button>
     </div>
-      
+
   </div>
-        
-  <ion-list>
-    <ion-item *ngFor="let chat of chats" no-lines>
+
+  <ion-list no-lines>
+    <ion-item *ngFor="let chat of chats">
       <div class="chat-status" text-center *ngIf="chat.type==='join'||chat.type==='exit';else message">
         <span class="chat-date">{{chat.sendDate | date:'short'}}</span>
         <span class="chat-content-center">{{chat.message}}</span>
@@ -78,6 +79,7 @@
     </ion-item>
   </ion-list>
 </ion-content>
+
 <ion-footer>
   <ion-grid>
     <ion-row>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Alert } from '../../models/alert';
 import { Observable } from 'rxjs/Observable';
+import { Notification } from '../../models/notification';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
 import { AlertServiceProvider } from '../../providers/alert-service/alert-service';
@@ -30,6 +31,8 @@ export class AlertPage {
   public averagePrice;
   private alerts: Observable<any>;
   private user;
+  private deviceToken;
+  notification = new Notification('', null);
   cryptosFAB: Object[] = [
     {
       value: 'ETHEREUM',
@@ -72,6 +75,11 @@ export class AlertPage {
           this.averagePrice = result;
         }
       });
+    this.profileServiceProvider.getProfile(this.user).subscribe(result => {
+      this.deviceToken = result[0].deviceToken;
+      this.notification.to = this.deviceToken;
+      console.log(result[0]);
+    });
   }
 
   changeCrypto(cryptoValue) {

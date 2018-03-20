@@ -53,6 +53,7 @@ export class AuthPage {
     this.isModal = !!params.get('isModal');
   }
 
+
   // matchValidator = (control: FormControl): { [s: string]: any } => {
   //   if(!control.value){
   //     return { required: true , errors:true}
@@ -67,6 +68,18 @@ export class AuthPage {
   // return
   // }
   
+
+  matchValidator = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return { required: true };
+    } else if (this.authForm.controls.password.value === control.value) {
+      return {};
+    } else {
+      return { required: true };
+    }
+  };
+
+
   authTypeChange() {
     if (this.authType === 'register') {
       this.authForm.addControl('username', new FormControl());
@@ -122,22 +135,21 @@ export class AuthPage {
 }
   
   submitForm() {
-    console.log(this.authForm.controls)
-    //console.log(this.authType =='login' || this.authForm.controls.password.value == this.authForm.controls.confirmPassword.value)
-    //if(this.authType =='login' || this.authForm.controls.password.value == this.authForm.controls.confirmPassword.value){
-      this.isSubmitting = true;
-      const credentials = this.authForm.value;
-      console.log('login success');
-      console.log("111")
-      this.userService.attemptAuth(this.authType, credentials).subscribe(
+    console.log(this.deviceToken);
+    this.isSubmitting = true;
+    const credentials = this.authForm.value;
+    //this.navCtrl.push(TabsPage,{});
+    console.log('login success');
+    this.userService
+      .attemptAuth(this.authType, credentials, this.deviceToken)
+      .subscribe(
         user => {
           if (this.isModal) this.viewCtrl.dismiss();
           this.displayTabs();
-          console.log("111")
-          if(this.authType === 'register'){
-          this.navCtrl.setRoot(PincodePage);
-          }else{
-          this.navCtrl.setRoot(TabsPage);
+          if (this.authType === 'register') {
+            this.navCtrl.setRoot(PincodePage);
+          } else {
+            this.navCtrl.setRoot(TabsPage);
           }
         },
         (errors: Errors) => {
@@ -162,6 +174,7 @@ export class AuthPage {
     //   });
     //   toast.present();
     // }
+
   }
 
   private displayTabs() {

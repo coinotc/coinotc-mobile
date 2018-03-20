@@ -1,6 +1,10 @@
 
 # Font Awesome added to ionic usage
 ```html
+
+Run "ionic cordova run browser" when you test on browser.
+Moreover, you can run "ionic cordova run ios/android" to test on your simulator.
+
 <!-- basic usage -->
 <fa-icon name="camera-retro"></fa-icon>
 <!-- basic usage with color -->
