@@ -35,27 +35,37 @@ export class RoomPage {
   switched = false;
   trader;
   notification = new Notification('', null);
-
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private userService: UserServiceProvider,
+  type;
+  finished;
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private userService:UserServiceProvider,
     private orderServiceProvider: OrderServiceProvider,
     private profileServiceProvider: ProfileServiceProvider,
-    private alertServiceProvider: AlertServiceProvider
-  ) {
-    this.user = userService.getCurrentUser();
-    this.trader = navParams.data.trader;
-    this.data.name = this.user.username;
-    this.nickname = this.user.username;
-    this.data.roomname = navParams.data.order._id;
-    this.orderInfo = navParams.data.order;
-    this.data.type = 'message';
-    if (navParams.data.order.roomkey == null) {
-      this.roomkey = navParams.data.roomkey;
-    } else {
-      this.roomkey = navParams.data.order.roomkey;
-    }
+    private alertServiceProvider: AlertServiceProvider) {
+      this.user = userService.getCurrentUser();
+      this.data.name = this.user.username;
+      this.nickname = this.user.username;
+      this.type = navParams.data.type;
+      this.data.type = 'message';
+      if(this.type == "order"){
+        this.trader = navParams.data.trader;
+        this.orderInfo = navParams.data.order; 
+        this.finished = this.orderInfo.finished;
+        this.data.roomname = navParams.data.order._id;
+        if(navParams.data.order.roomkey == null){
+          this.roomkey = navParams.data.roomkey;
+        }else{
+          this.roomkey = navParams.data.order.roomkey
+        }
+      }else{
+        this.data.roomname = navParams.data.conplain;
+        this.finished = true;
+        if(navParams.data.complain.roomkey == null){
+          this.roomkey = navParams.data.roomkey;
+        }else{
+          this.roomkey = navParams.data.complain.roomkey;
+        }
+      }
     this.data.message = '';
     firebase
       .database()

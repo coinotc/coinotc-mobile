@@ -7,7 +7,6 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
 import { AuthPage } from '../pages/auth/auth';
 import * as firebase from 'firebase';
 import { OneSignal } from '@ionic-native/onesignal';
-import { FCM, NotificationData } from '@ionic-native/fcm';
 
 const config = {
   apiKey: 'AIzaSyBLdeDmPS6oVmkTkZaypNk2OJvOEnxeRH8',
@@ -26,10 +25,9 @@ export class MyApp {
     private notification: OneSignal,
     private userService: UserServiceProvider,
     private platform: Platform,
-    private statusBar: StatusBar,
-    private splashScreen: SplashScreen,
-    private translate: TranslateService,
-    private fcm: FCM
+    statusBar: StatusBar,
+    splashScreen: SplashScreen,
+    private translate: TranslateService
   ) {
     this.initializeApp();
     translate.setDefaultLang('en');
