@@ -85,12 +85,12 @@ export class AuthPage {
   }
 
   matchValidator = (control: FormControl): { [s: string]: boolean } => {
-    if(!control.value){
-      return { required: true , errors:true }
-    }else if(this.authForm.controls.password.value === control.value){
-      return  { }
-    }else{
-      return { errors:true }
+    if (!control.value) {
+      return { required: true };
+    } else if (this.authForm.controls.password.value === control.value) {
+      return {};
+    } else {
+      return { required: true };
     }
   };
 
@@ -110,27 +110,27 @@ export class AuthPage {
         username: ['', Validators.required],
         email: ['', Validators.required],
         password: ['', Validators.required],
-        confirmPassword: ['',Validators.required]
-        //confirmPassword: ['',[this.matchValidator]]
+        confirmPassword: ['', [this.matchValidator]]
       });
     }
   }
 
   submitForm() {
-    //console.log(this.authType =='login' || this.authForm.controls.password.value == this.authForm.controls.confirmPassword.value)
-    if(this.authType =='login' || this.authForm.controls.password.value == this.authForm.controls.confirmPassword.value){
-      this.isSubmitting = true;
-      const credentials = this.authForm.value;
-      //this.navCtrl.push(TabsPage,{});
-      console.log('login success');
-      this.userService.attemptAuth(this.authType, credentials, this.deviceToken).subscribe(
+    console.log(this.deviceToken);
+    this.isSubmitting = true;
+    const credentials = this.authForm.value;
+    //this.navCtrl.push(TabsPage,{});
+    console.log('login success');
+    this.userService
+      .attemptAuth(this.authType, credentials, this.deviceToken)
+      .subscribe(
         user => {
           if (this.isModal) this.viewCtrl.dismiss();
           this.displayTabs();
-          if(this.authType === 'register'){
-          this.navCtrl.setRoot(PincodePage);
-          }else{
-          this.navCtrl.setRoot(TabsPage);
+          if (this.authType === 'register') {
+            this.navCtrl.setRoot(PincodePage);
+          } else {
+            this.navCtrl.setRoot(TabsPage);
           }
         },
         (errors: Errors) => {
@@ -145,16 +145,6 @@ export class AuthPage {
           this.isSubmitting = false;
         }
       );
-    }else{
-      let toast = this.toastCtrl.create({
-        message: 'Wrong type',
-        duration: 3000,
-      });
-      toast.onDidDismiss(() => {
-        console.log('Dismissed toast');
-      });
-      toast.present();
-    }
   }
 
   private displayTabs() {
