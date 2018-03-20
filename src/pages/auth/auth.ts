@@ -128,10 +128,12 @@ export class AuthPage {
       this.isSubmitting = true;
       const credentials = this.authForm.value;
       console.log('login success');
+      console.log("111")
       this.userService.attemptAuth(this.authType, credentials).subscribe(
         user => {
           if (this.isModal) this.viewCtrl.dismiss();
           this.displayTabs();
+          console.log("111")
           if(this.authType === 'register'){
           this.navCtrl.setRoot(PincodePage);
           }else{
