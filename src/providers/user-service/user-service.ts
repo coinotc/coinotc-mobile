@@ -10,6 +10,7 @@ import { JwtServiceProvider } from '../jwt-service/jwt-service';
 import { User } from '../../models/user.model';
 import { Storage } from '@ionic/storage';
 import { environment } from '../../../environments/environment';
+import { FCM, NotificationData } from '@ionic-native/fcm';
 
 /*
   Generated class for the UserServiceProvider provider.
@@ -23,7 +24,7 @@ const httpOptions = {
 
 @Injectable()
 export class UserServiceProvider {
-  private currentUserSubject = new BehaviorSubject<User>(new User('','','','','',null,null,'','',null,null,null,null, null));
+  private currentUserSubject = new BehaviorSubject<User>(new User('','','','','',null,null,'','',null,null,null,null, null,null));
   public currentUser = this.currentUserSubject.asObservable().distinctUntilChanged();
 
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
@@ -74,15 +75,15 @@ export class UserServiceProvider {
     // Remove JWT from localstorage
     this.jwtService.destroyToken().then(() => {
       // Set current user to an empty object
-      this.currentUserSubject.next(new User('','','','','',null,null,'','',null,null,null,null,null));
+      this.currentUserSubject.next(new User('','','','','',null,null,'','',null,null,null,null,null,null));
       // Set auth status to false
       this.isAuthenticatedSubject.next(false);
     });
   }
 
-  attemptAuth(type, credentials): Observable<User> {
+  attemptAuth(type, credentials, deviceToken): Observable<User> {
     let route = (type === 'login') ? '/login' : '';
-    return this.apiService.post('/users' + route, { user: credentials })
+    return this.apiService.post('/users' + route, { user: credentials , deviceToken: deviceToken})
       .map(data => {
         this.setAuth(data.user);
         return data;

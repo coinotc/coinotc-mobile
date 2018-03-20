@@ -13,7 +13,8 @@ export class User {
     public tradePrd:number,
     public following:Array<string>,
     public block:Array<string>,
-    public nativeCurrency :string
+    public nativeCurrency :string,
+    public deviceToken: string
   ){}
   }
   

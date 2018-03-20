@@ -18,7 +18,8 @@ import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../../pages/tabs/tabs';
 import { PaymentPrdPage } from '../payment-prd/payment-prd';
 import { PincodePage } from '../pincode/pincode'
-
+import { FCM, NotificationData } from '@ionic-native/fcm';
+import { Platform } from 'ionic-angular';
 /**
  * Generated class for the AuthPage page.
  *
@@ -35,6 +36,7 @@ export class AuthPage {
   authType: 'register' | 'login' = 'login';
   isSubmitting = false;
   authForm: FormGroup;
+  deviceToken;
   isModal: boolean; // show close button only in a modal
   password = 'password';
   constructor(
@@ -43,7 +45,9 @@ export class AuthPage {
     private toastCtrl: ToastController,
     private userService: UserServiceProvider,
     private params: NavParams,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private fcm: FCM,
+    private platform: Platform
   ) {
     // use FormBuilder to create a form group
       this.authForm = this.fb.group({
@@ -51,6 +55,33 @@ export class AuthPage {
         password: ['', Validators.required]
       });
     this.isModal = !!params.get('isModal');
+    this.platform.ready().then(() => {
+            this.fcm
+              .getToken()
+              .then((token: string) => {
+                console.log('The token to use is: ', token);
+                this.deviceToken = token;
+              })
+              .catch(error => {
+                console.error(error);
+              });
+            this.fcm.onTokenRefresh().subscribe(token => {
+              console.log(token);
+              this.deviceToken = token;
+             });
+            this.fcm.onNotification().subscribe(
+              (data: NotificationData) => {
+                if (data.wasTapped) {
+                  console.log('Received in background', JSON.stringify(data));
+                } else {
+                  console.log('Received in foreground', JSON.stringify(data));
+                }
+              },
+              error => {
+                console.error('Error in notification', error);
+              }
+            );
+          });
   }
 
 

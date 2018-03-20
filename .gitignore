@@ -31,7 +31,7 @@ www/
 server/
 $RECYCLE.BIN/
 server/
-
+resources/
 .env
 .DS_Store
 Thumbs.db

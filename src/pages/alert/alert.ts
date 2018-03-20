@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { FCM } from '@ionic-native/fcm';
 import { Alert } from '../../models/alert';
 import { Observable } from 'rxjs/Observable';
 import { Notification } from '../../models/notification';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
 import { AlertServiceProvider } from '../../providers/alert-service/alert-service';
+import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import {
   IonicPage,
   NavController,
@@ -62,7 +64,9 @@ export class AlertPage {
     public modalCtrl: ModalController,
     private alertServiceProvider: AlertServiceProvider,
     private userServiceProvider: UserServiceProvider,
-    private orderServiceProvider: OrderServiceProvider
+    private orderServiceProvider: OrderServiceProvider,
+    private profileServiceProvider: ProfileServiceProvider,
+    private fcm: FCM
   ) {
     this.user = this.userServiceProvider.getCurrentUser().username;
     this.alerts = this.alertServiceProvider.getAlerts(this.user, this.crypto);
