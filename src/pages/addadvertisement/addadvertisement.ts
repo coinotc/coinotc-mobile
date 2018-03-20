@@ -76,9 +76,6 @@ export class AddadvertisementPage {
       this.belowmax = true;
     }
   }
-  test() {
-    console.log(this.adform);
-  }
   getcryptoprice() {
     switch (this.model.fiat) {
       case 'SGD':

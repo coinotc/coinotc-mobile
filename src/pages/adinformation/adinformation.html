@@ -28,13 +28,13 @@
     </ion-item>
   </ion-card>
   <ion-card>
-    <div ion-row text-center>
+    <div ion-row text-center *ngIf="user" >
       <div ion-col>
-        <h4>{{user.order}}</h4>
+        <h4>{{user.orderCount}}</h4>
         <span>{{'Trades' | translate}}</span>
       </div>
       <div ion-col>
-        <h4>{{user.goodorder}}</h4>
+        <h4>{{user.goodCount}}</h4>
         <span>{{'Good' | translate}}</span>
       </div>
       <div ion-col>
