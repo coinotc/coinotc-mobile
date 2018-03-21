@@ -3,7 +3,7 @@
     <name>CoinOTC-SG</name>
     <description>CoinOTC Singapore.</description>
     <author email="bunnyppl@hotmail.com" href="https://coinotc.market/">CoinOTC Development Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.50.110:8101" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -81,7 +81,9 @@
     <allow-navigation href="http://192.168.31.25:8100" />
     <allow-navigation href="http://172.20.10.3:8100" />
     <allow-navigation href="http://192.168.50.110:8101" />
-    <allow-navigation href="http://192.168.50.110:8102" />
+    <engine name="browser" spec="5.0.3" />
+    <engine name="android" spec="6.3.0" />
+    <engine name="ios" spec="4.5.4" />
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
     <plugin name="onesignal-cordova-plugin" spec="^2.3.1" />
@@ -91,7 +93,4 @@
     <plugin name="cordova-plugin-camera" spec="^4.0.2" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
     <plugin name="cordova-plugin-fcm" spec="^2.1.2" />
-    <engine name="android" spec="6.4.0" />
-    <engine name="ios" spec="4.5.4" />
-    <engine name="browser" spec="5.0.3" />
 </widget>

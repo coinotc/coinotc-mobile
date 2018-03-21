@@ -39,7 +39,25 @@ export class AlertServiceProvider {
     return this.httpClient.get<Alert[]>(getURL, httpOptions);
   }
 
+  public getAbove(above, status, fiat, crypto, price) {
+    let getURL = `${
+      this.alertURL
+    }/getAbove?above=${above}&status=${status}&fiat=${fiat}&crypto=${crypto}&price=${price}`;
+    return this.httpClient.get<Alert[]>(getURL, httpOptions);
+  }
+
+  public getBelow(above, status, fiat, crypto, price) {
+    let getURL = `${
+      this.alertURL
+    }/getBelow?above=${above}&status=${status}&fiat=${fiat}&crypto=${crypto}&price=${price}`;
+    return this.httpClient.get<Alert[]>(getURL, httpOptions);
+  }
+
   public postAlert(alert) {
     return this.httpClient.post(this.alertURL, alert, httpOptions);
+  }
+
+  public updateAlert(alert) {
+    return this.httpClient.put(this.alertURL, alert, httpOptions);
   }
 }

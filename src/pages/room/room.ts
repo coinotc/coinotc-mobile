@@ -34,6 +34,7 @@ export class RoomPage {
   status;
   switched = false;
   trader;
+  average;
   notification = new Notification('', null);
   type;
   finished;
@@ -88,7 +89,6 @@ export class RoomPage {
         sound: 'default',
         click_action: 'FCM_PLUGIN_ACTIVITY'
       };
-      console.log(this.notification);
     });
   }
 
@@ -125,10 +125,95 @@ export class RoomPage {
     this.user.orderCount = this.user.orderCount + 1;
     this.userService.update(this.user).subscribe();
     this.orderServiceProvider.updateOrder(this.orderInfo).subscribe();
+    //Send push notification to trader
     this.alertServiceProvider
       .onNotification(this.notification)
       .subscribe(result => {
         console.log(JSON.stringify(result));
+      });
+    //Send push notification to above alerts
+    this.orderServiceProvider
+      .getAlertInformation(this.orderInfo.fiat, this.orderInfo.crypto)
+      .subscribe(result => {
+        this.average = result;
+        this.alertServiceProvider
+          .getAbove(
+            true,
+            true,
+            this.orderInfo.fiat,
+            this.orderInfo.crypto,
+            this.average
+          )
+          .subscribe(result => {
+            console.log(result);
+            for (let i = 0; i < result.length; i++) {
+              let triggerAlert = new Notification('', null);
+              this.profileServiceProvider
+                .getProfile(result[i].username)
+                .subscribe(result => {
+                  triggerAlert.to = result[0].deviceToken;
+                  triggerAlert.notification = {
+                    title: `You may be willing to SELL ${
+                      this.orderInfo.crypto
+                    } in ${this.orderInfo.fiat} now !`,
+                    body: `The average price from recent trades is ${
+                      this.average
+                    } ${this.orderInfo.fiat}`,
+                    sound: 'default',
+                    click_action: 'FCM_PLUGIN_ACTIVITY',
+                    icon: 'fcm_push_icon'
+                  };
+                  console.log(triggerAlert);
+                  this.alertServiceProvider
+                    .onNotification(triggerAlert)
+                    .subscribe(result => {
+                      console.log(result);
+                    });
+                });
+            }
+          });
+      });
+    //Send push notification to below alerts
+    this.orderServiceProvider
+      .getAlertInformation(this.orderInfo.fiat, this.orderInfo.crypto)
+      .subscribe(result => {
+        this.average = result;
+        this.alertServiceProvider
+          .getBelow(
+            false,
+            true,
+            this.orderInfo.fiat,
+            this.orderInfo.crypto,
+            this.average
+          )
+          .subscribe(result => {
+            console.log(result);
+            for (let i = 0; i < result.length; i++) {
+              let triggerAlert = new Notification('', null);
+              this.profileServiceProvider
+                .getProfile(result[i].username)
+                .subscribe(result => {
+                  triggerAlert.to = result[0].deviceToken;
+                  triggerAlert.notification = {
+                    title: `You may be willing to BUY ${
+                      this.orderInfo.crypto
+                    } in ${this.orderInfo.fiat} now !`,
+                    body: `The average price from recent trades is ${
+                      this.average
+                    } ${this.orderInfo.fiat}`,
+                    sound: 'default',
+                    click_action: 'FCM_PLUGIN_ACTIVITY',
+                    icon: 'fcm_push_icon'
+                  };
+                  console.log(triggerAlert);
+                  this.alertServiceProvider
+                    .onNotification(triggerAlert)
+                    .subscribe(result => {
+                      console.log(result);
+                    });
+                });
+            }
+          });
       });
   }
 

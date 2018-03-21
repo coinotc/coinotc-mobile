@@ -30,7 +30,7 @@
           {{alert.price}} {{alert.fiat}}</h2>
         <p>Created on {{alert.date | date : 'fullDate'}}</p>
       </ion-label>
-      <ion-toggle></ion-toggle>
+      <ion-toggle [(ngModel)]="alert.status" (ngModelChange)="onStatus(alert)"></ion-toggle>
     </ion-item>
   </ion-list>
 
