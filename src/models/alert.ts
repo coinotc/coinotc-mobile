@@ -4,6 +4,8 @@ export class Alert {
     public price: number,
     public crypto: string,
     public fiat: string,
+    public status: boolean,
+    public above: boolean,
     public data: Date
   ) {}
 }

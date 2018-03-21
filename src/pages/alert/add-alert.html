@@ -15,11 +15,23 @@
                 </ion-select>
             </ion-item>
         </ion-row>
-        <h1 text-center>{{price}} {{fiat}}</h1>
+        <ion-row style="width:100%" radio-group [(ngModel)]="model.above">
+            <ion-item style="width:30%">
+                <ion-label>BELOW</ion-label>
+                <ion-radio value="false"></ion-radio>
+            </ion-item>
+            <h1 style="width:40%" text-center>{{price}} {{fiat}}</h1>
+            <ion-item text-right item-right style="width:30%">
+                <ion-label>ABOVE</ion-label>
+                <ion-radio value="true"></ion-radio>
+            </ion-item>
+        </ion-row>
         <ion-item>
-            <ion-input type="text" [(ngModel)]="price" placeholder="Input the number you want to set"></ion-input>
+            <ion-input text-center type="text" [(ngModel)]="price" placeholder="Input the number you want to set"></ion-input>
         </ion-item>
-        <br>
+        <ion-item>
+            <p>Tips:The default value of showed price is the average price from recent orders.</p>
+        </ion-item>
         <button ion-button style="width:100%" (click)="onCreate()">Create Alert</button>
     </div>
 </ion-content>
