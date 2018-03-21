@@ -8,6 +8,7 @@ import { OrderWindowPage } from '../order-window/order-window';
 import * as firebase from 'firebase';
 import { RoomPage } from '../room/room';
 import { ProfilePage } from '../profile/profile'
+import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 /**
  * Generated class for the AdinformationPage page.
  *
@@ -22,31 +23,35 @@ import { ProfilePage } from '../profile/profile'
 })
 export class AdinformationPage {
 
-  data = { type:'', name:'', message:'',roomname:'' };
+  data = { type: '', name: '', message: '', roomname: '' };
   ref = firebase.database().ref('chatrooms/');
-  roomkey:any;
-  disabled = true; information: adinformation; title: string; tradetype: { type: String, crypto: String }; user: { order: 200, goodorder: 148, }; range; loading; orderinformation = new OrderInformation(null, null, null, null, null, null, null, null, null, null, false, null);
+  roomkey: any;
+  disabled = true; information: adinformation; title: string; tradetype: { type: String, crypto: String }; user: { orderCount: number, goodCount: number, }; range; loading; orderinformation = new OrderInformation(null, null, null, null, null, null, null, null, null, null, false, null);
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userservice: UserServiceProvider, public loadingCtrl: LoadingController, public orderservice: OrderServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userservice: UserServiceProvider, public loadingCtrl: LoadingController, public orderservice: OrderServiceProvider, public profileservice: ProfileServiceProvider) {
     this.tradetype = navParams.data.tradetype;
     this.information = navParams.data.information;
     console.log(this.information); console.log(this.tradetype);
-    this.user = {
-      order: 200,
-      goodorder: 148,
-    }
+    this.profileservice.getProfile(this.information.owner).subscribe(result => {
+      console.log(result);
+      this.user = result[0];
+      if (this.user.orderCount) {
+        this.range = Math.trunc(this.user.goodCount / this.user.orderCount * 100);
+      }else{
+        this.range = 0;
+      }
+    })
     this.orderinformation.price = this.information.price;
-    this.range = Math.trunc(this.user.goodorder / this.user.order * 100);
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...',
       duration: 5000
     });
   }
   profile() {
-    
-      this.navCtrl.push(ProfilePage,
-        this.information.owner)
-    }
+
+    this.navCtrl.push(ProfilePage,
+      this.information.owner)
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdinformationPage');
   }
@@ -73,12 +78,12 @@ export class AdinformationPage {
       this.data.roomname = JSON.parse(JSON.stringify(result))._id;
       let newData = this.ref.push();
       newData.set({
-        roomname:this.data.roomname
+        roomname: this.data.roomname
       }); //定义房间名 并创建房间
 
       this.roomkey = getRoomKey(this.ref)
       this.orderservice.addRoomKey(this.roomkey,this.data.roomname).subscribe()
-      this.navCtrl.push(RoomPage, { order: result, trader: owner ,roomkey:this.roomkey});
+      this.navCtrl.push(RoomPage, { order: result, trader: owner ,roomkey:this.roomkey , type:"order"});
       //this.navCtrl.push(OrderWindowPage, { order: result, trader: owner });
 
     })
@@ -107,11 +112,6 @@ export class AdinformationPage {
     }
   }
 }
-
-
-
-
-
 export const getRoomKey = ref => {
   let roomkey ;
   ref.limitToLast(1).on("child_added",function(prevChildKey){

@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { complain } from '../../models/complain';
 import { ComplainServiceProvider } from '../../providers/complain-service/complain-service';
+import * as firebase from 'firebase';
+import { RoomPage } from '../room/room';
 /**
  * Generated class for the ComplainInformationPage page.
  *
@@ -16,9 +18,12 @@ import { ComplainServiceProvider } from '../../providers/complain-service/compla
   templateUrl: 'complain-information.html',
 })
 export class ComplainInformationPage {
+  data = { type:'', name:'', message:'',roomname:'' };
+  ref = firebase.database().ref('chatrooms/');
+  roomkey:any;
   orderInformation;
   compainUser;
-  model = new complain('','','',0,'',null);
+  model = new complain('','','',0,'',null,'');
   constructor(public navCtrl: NavController, public navParams: NavParams,
   private userService:UserServiceProvider,
   private complainService:ComplainServiceProvider
@@ -35,7 +40,17 @@ export class ComplainInformationPage {
     console.log(this.model);
     this.complainService.sendComplain(this.model).subscribe(result => {
       console.log(result);
-      this.navCtrl.pop();
+      this.data.name = this.userService.getCurrentUser().username;
+      this.data.roomname = JSON.parse(JSON.stringify(result))._id;
+      let newData = this.ref.push();
+      newData.set({
+        roomname:this.data.roomname
+      }); //定义房间名 并创建房间
+      console.log(this.data.roomname+">>>>>>>>>>>")
+      this.roomkey = getRoomKey(this.ref)   
+      console.log(this.roomkey)
+      this.complainService.addRoomKey(this.roomkey,this.data.roomname).subscribe();
+      this.navCtrl.push(RoomPage, { complain: this.data.roomname , roomkey:this.roomkey , type:"complain"});
     });
   }
   ionViewDidLoad() {
@@ -43,3 +58,11 @@ export class ComplainInformationPage {
   }
 
 }
+export const getRoomKey = ref => {
+  let roomkey ;
+  ref.limitToLast(1).on("child_added",function(prevChildKey){
+    //console.log("===>>>>" + prevChildKey.key) 
+    roomkey = prevChildKey.key
+  })//获取roomkey
+  return roomkey;
+};

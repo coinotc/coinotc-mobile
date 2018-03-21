@@ -24,4 +24,8 @@ export class ComplainServiceProvider {
     let url = `${this.complainURL}?complainant=${username}`;
     return this.http.get<complain[]>(url,httpOptions);
   }
+  public addRoomKey(roomkey,complainId){
+    let URL = `${this.complainURL}/roomkey?complainId=${complainId}`;
+    return this.http.patch(URL, {roomkey:roomkey}, httpOptions);
+  }
 }
