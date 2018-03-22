@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 //import { Observable } from 'rxjs/Rx';
-import { OrderInformation } from '../../pages/order-window/orderInformation';
+import { OrderInformation } from '../../models/orderInformation';
 import { environment } from '../../../environments/environment';
 
 /*
@@ -43,9 +43,9 @@ export class OrderServiceProvider {
     return this.httpClient.get<OrderInformation[]>(getURL, httpOptions);
   }
 
-  public addRoomKey(roomkey,orderId){
+  public addRoomKey(roomkey, orderId) {
     let URL = `${this.orderURL}/roomkey?orderId=${orderId}`;
-    return this.httpClient.patch(URL, {roomkey:roomkey}, httpOptions);
+    return this.httpClient.patch(URL, { roomkey: roomkey }, httpOptions);
   }
 
   public updateOrder(order) {

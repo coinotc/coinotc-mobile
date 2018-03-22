@@ -34,38 +34,42 @@ export class RoomPage {
   status;
   switched = false;
   trader;
+  average;
   notification = new Notification('', null);
   type;
   finished;
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private userService:UserServiceProvider,
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private userService: UserServiceProvider,
     private orderServiceProvider: OrderServiceProvider,
     private profileServiceProvider: ProfileServiceProvider,
-    private alertServiceProvider: AlertServiceProvider) {
-      this.user = userService.getCurrentUser();
-      this.data.name = this.user.username;
-      this.nickname = this.user.username;
-      this.type = navParams.data.type;
-      this.data.type = 'message';
-      if(this.type == "order"){
-        this.trader = navParams.data.trader;
-        this.orderInfo = navParams.data.order; 
-        this.finished = this.orderInfo.finished;
-        this.data.roomname = navParams.data.order._id;
-        if(navParams.data.roomkey == null){
-          this.roomkey = navParams.data.order.roomkey;
-        }else{
-          this.roomkey = navParams.data.roomkey
-        }
-      }else{
-        this.data.roomname = navParams.data.conplain;
-        this.finished = true;
-        if(navParams.data.complain.roomkey == null){
-          this.roomkey = navParams.data.complain.roomkey;
-        }else{
-          this.roomkey = navParams.data.roomkey;
-        }
+    private alertServiceProvider: AlertServiceProvider
+  ) {
+    this.user = userService.getCurrentUser();
+    this.data.name = this.user.username;
+    this.nickname = this.user.username;
+    this.type = navParams.data.type;
+    this.data.type = 'message';
+    if (this.type == 'order') {
+      this.trader = navParams.data.trader;
+      this.orderInfo = navParams.data.order;
+      this.finished = this.orderInfo.finished;
+      this.data.roomname = navParams.data.order._id;
+      if (navParams.data.roomkey == null) {
+        this.roomkey = navParams.data.order.roomkey;
+      } else {
+        this.roomkey = navParams.data.roomkey;
       }
+    } else {
+      this.data.roomname = navParams.data.conplain;
+      this.finished = true;
+      if (navParams.data.complain.roomkey == null) {
+        this.roomkey = navParams.data.complain.roomkey;
+      } else {
+        this.roomkey = navParams.data.roomkey;
+      }
+    }
     this.data.message = '';
     firebase
       .database()
@@ -79,17 +83,16 @@ export class RoomPage {
           }
         }, 1000);
       });
-    // this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
-    //   this.notification.to = result[0].deviceToken;
-    //   this.notification.notification = {
-    //     title: `Your Order with ${this.trader} is done`,
-    //     body: `Order ID ${this.orderInfo._id} is done`,
-    //     icon: 'fcm_push_icon',
-    //     sound: 'default',
-    //     click_action: 'FCM_PLUGIN_ACTIVITY'
-    //   };
-    //   console.log(this.notification);
-    // });
+    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+      this.notification.to = result[0].deviceToken;
+      this.notification.notification = {
+        title: `Your Order with ${this.trader} has progress !`,
+        body: `Order ID : ${this.orderInfo._id}`,
+        icon: 'fcm_push_icon',
+        sound: 'default',
+        click_action: 'FCM_PLUGIN_ACTIVITY'
+      };
+    });
   }
 
   sendMessage() {
@@ -111,12 +114,27 @@ export class RoomPage {
   }
 
   onSwitch() {
-    if (this.user.username == this.orderInfo.seller) {
+    if (
+      this.user.username == this.orderInfo.seller ||
+      this.orderInfo.informed == true
+    ) {
       this.status = 0;
     } else if (this.user.username == this.orderInfo.buyer) {
       this.status = 1;
     }
     this.switched = !this.switched;
+  }
+
+  onInformed() {
+    this.status = 2;
+    this.orderInfo.informed = true;
+    this.orderServiceProvider.updateOrder(this.orderInfo).subscribe();
+    //Send push notification to trader
+    this.alertServiceProvider
+      .onNotification(this.notification)
+      .subscribe(result => {
+        console.log(JSON.stringify(result));
+      });
   }
 
   onFinished() {
@@ -125,10 +143,95 @@ export class RoomPage {
     this.user.orderCount = this.user.orderCount + 1;
     this.userService.update(this.user).subscribe();
     this.orderServiceProvider.updateOrder(this.orderInfo).subscribe();
+    //Send push notification to trader
     this.alertServiceProvider
       .onNotification(this.notification)
       .subscribe(result => {
         console.log(JSON.stringify(result));
+      });
+    //Send push notification to above alerts
+    this.orderServiceProvider
+      .getAlertInformation(this.orderInfo.fiat, this.orderInfo.crypto)
+      .subscribe(result => {
+        this.average = result;
+        this.alertServiceProvider
+          .getAbove(
+            true,
+            true,
+            this.orderInfo.fiat,
+            this.orderInfo.crypto,
+            this.average
+          )
+          .subscribe(result => {
+            console.log(result);
+            for (let i = 0; i < result.length; i++) {
+              let triggerAlert = new Notification('', null);
+              this.profileServiceProvider
+                .getProfile(result[i].username)
+                .subscribe(result => {
+                  triggerAlert.to = result[0].deviceToken;
+                  triggerAlert.notification = {
+                    title: `You may be willing to SELL ${
+                      this.orderInfo.crypto
+                    } in ${this.orderInfo.fiat} now !`,
+                    body: `The average price from recent trades is ${
+                      this.average
+                    } ${this.orderInfo.fiat}`,
+                    sound: 'default',
+                    click_action: 'FCM_PLUGIN_ACTIVITY',
+                    icon: 'fcm_push_icon'
+                  };
+                  console.log(triggerAlert);
+                  this.alertServiceProvider
+                    .onNotification(triggerAlert)
+                    .subscribe(result => {
+                      console.log(result);
+                    });
+                });
+            }
+          });
+      });
+    //Send push notification to below alerts
+    this.orderServiceProvider
+      .getAlertInformation(this.orderInfo.fiat, this.orderInfo.crypto)
+      .subscribe(result => {
+        this.average = result;
+        this.alertServiceProvider
+          .getBelow(
+            false,
+            true,
+            this.orderInfo.fiat,
+            this.orderInfo.crypto,
+            this.average
+          )
+          .subscribe(result => {
+            console.log(result);
+            for (let i = 0; i < result.length; i++) {
+              let triggerAlert = new Notification('', null);
+              this.profileServiceProvider
+                .getProfile(result[i].username)
+                .subscribe(result => {
+                  triggerAlert.to = result[0].deviceToken;
+                  triggerAlert.notification = {
+                    title: `You may be willing to BUY ${
+                      this.orderInfo.crypto
+                    } in ${this.orderInfo.fiat} now !`,
+                    body: `The average price from recent trades is ${
+                      this.average
+                    } ${this.orderInfo.fiat}`,
+                    sound: 'default',
+                    click_action: 'FCM_PLUGIN_ACTIVITY',
+                    icon: 'fcm_push_icon'
+                  };
+                  console.log(triggerAlert);
+                  this.alertServiceProvider
+                    .onNotification(triggerAlert)
+                    .subscribe(result => {
+                      console.log(result);
+                    });
+                });
+            }
+          });
       });
   }
 

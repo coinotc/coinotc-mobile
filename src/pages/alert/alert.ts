@@ -65,8 +65,7 @@ export class AlertPage {
     private alertServiceProvider: AlertServiceProvider,
     private userServiceProvider: UserServiceProvider,
     private orderServiceProvider: OrderServiceProvider,
-    private profileServiceProvider: ProfileServiceProvider,
-    private fcm: FCM
+    private profileServiceProvider: ProfileServiceProvider
   ) {
     this.user = this.userServiceProvider.getCurrentUser().username;
     this.alerts = this.alertServiceProvider.getAlerts(this.user, this.crypto);
@@ -83,6 +82,12 @@ export class AlertPage {
       this.deviceToken = result[0].deviceToken;
       this.notification.to = this.deviceToken;
       console.log(result[0]);
+    });
+  }
+
+  onStatus(alert) {
+    this.alertServiceProvider.updateAlert(alert).subscribe(result => {
+      this.alerts = this.alertServiceProvider.getAlerts(this.user, this.crypto);
     });
   }
 
@@ -107,6 +112,7 @@ export class AlertPage {
     });
     modal.present();
   }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad AlertPage');
   }
@@ -121,7 +127,7 @@ export class AddAlertPage {
   public crypto: string;
   public user: string;
   public fiat: string = 'USD';
-  model = new Alert('', null, '', '', null);
+  model = new Alert('', null, '', '', true, false, null);
 
   constructor(
     public platform: Platform,
@@ -136,7 +142,8 @@ export class AddAlertPage {
       .getAlertInformation(this.fiat, this.crypto)
       .subscribe(result => {
         this.price = result;
-        console.log(typeof result);
+        console.log(this.model.above);
+        console.log(this.model.status);
       });
   }
 
@@ -146,6 +153,7 @@ export class AddAlertPage {
       .subscribe(result => {
         this.price = result;
       });
+    console.log(this.model.above);
   }
 
   onCreate() {
@@ -153,11 +161,7 @@ export class AddAlertPage {
     this.model.price = this.price;
     this.model.fiat = this.fiat;
     this.model.crypto = this.crypto;
-    console.log(this.user);
-    console.log(this.price);
-    console.log(this.fiat);
-    console.log(this.crypto);
-    console.log(this.model);
+    console.log(this.model.above);
     this.alertServiceProvider.postAlert(this.model).subscribe(result => {
       console.log(result);
       this.viewCtrl.dismiss();
