@@ -38,35 +38,38 @@ export class RoomPage {
   notification = new Notification('', null);
   type;
   finished;
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private userService:UserServiceProvider,
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private userService: UserServiceProvider,
     private orderServiceProvider: OrderServiceProvider,
     private profileServiceProvider: ProfileServiceProvider,
-    private alertServiceProvider: AlertServiceProvider) {
-      this.user = userService.getCurrentUser();
-      this.data.name = this.user.username;
-      this.nickname = this.user.username;
-      this.type = navParams.data.type;
-      this.data.type = 'message';
-      if(this.type == "order"){
-        this.trader = navParams.data.trader;
-        this.orderInfo = navParams.data.order; 
-        this.finished = this.orderInfo.finished;
-        this.data.roomname = navParams.data.order._id;
-        if(navParams.data.roomkey == null){
-          this.roomkey = navParams.data.order.roomkey;
-        }else{
-          this.roomkey = navParams.data.roomkey
-        }
-      }else{
-        this.data.roomname = navParams.data.conplain;
-        this.finished = true;
-        if(navParams.data.complain.roomkey == null){
-          this.roomkey = navParams.data.complain.roomkey;
-        }else{
-          this.roomkey = navParams.data.roomkey;
-        }
+    private alertServiceProvider: AlertServiceProvider
+  ) {
+    this.user = userService.getCurrentUser();
+    this.data.name = this.user.username;
+    this.nickname = this.user.username;
+    this.type = navParams.data.type;
+    this.data.type = 'message';
+    if (this.type == 'order') {
+      this.trader = navParams.data.trader;
+      this.orderInfo = navParams.data.order;
+      this.finished = this.orderInfo.finished;
+      this.data.roomname = navParams.data.order._id;
+      if (navParams.data.roomkey == null) {
+        this.roomkey = navParams.data.order.roomkey;
+      } else {
+        this.roomkey = navParams.data.roomkey;
       }
+    } else {
+      this.data.roomname = navParams.data.conplain;
+      this.finished = true;
+      if (navParams.data.complain.roomkey == null) {
+        this.roomkey = navParams.data.complain.roomkey;
+      } else {
+        this.roomkey = navParams.data.roomkey;
+      }
+    }
     this.data.message = '';
     firebase
       .database()
@@ -83,8 +86,8 @@ export class RoomPage {
     this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
       this.notification.to = result[0].deviceToken;
       this.notification.notification = {
-        title: `Your Order with ${this.trader} is done`,
-        body: `Order ID ${this.orderInfo._id} is done`,
+        title: `Your Order with ${this.trader} has progress !`,
+        body: `Order ID : ${this.orderInfo._id}`,
         icon: 'fcm_push_icon',
         sound: 'default',
         click_action: 'FCM_PLUGIN_ACTIVITY'
@@ -111,12 +114,27 @@ export class RoomPage {
   }
 
   onSwitch() {
-    if (this.user.username == this.orderInfo.seller) {
+    if (
+      this.user.username == this.orderInfo.seller ||
+      this.orderInfo.informed == true
+    ) {
       this.status = 0;
     } else if (this.user.username == this.orderInfo.buyer) {
       this.status = 1;
     }
     this.switched = !this.switched;
+  }
+
+  onInformed() {
+    this.status = 2;
+    this.orderInfo.informed = true;
+    this.orderServiceProvider.updateOrder(this.orderInfo).subscribe();
+    //Send push notification to trader
+    this.alertServiceProvider
+      .onNotification(this.notification)
+      .subscribe(result => {
+        console.log(JSON.stringify(result));
+      });
   }
 
   onFinished() {
