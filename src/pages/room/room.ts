@@ -79,17 +79,17 @@ export class RoomPage {
           }
         }, 1000);
       });
-    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
-      this.notification.to = result[0].deviceToken;
-      this.notification.notification = {
-        title: `Your Order with ${this.trader} is done`,
-        body: `Order ID ${this.orderInfo._id} is done`,
-        icon: 'fcm_push_icon',
-        sound: 'default',
-        click_action: 'FCM_PLUGIN_ACTIVITY'
-      };
-      console.log(this.notification);
-    });
+    // this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+    //   this.notification.to = result[0].deviceToken;
+    //   this.notification.notification = {
+    //     title: `Your Order with ${this.trader} is done`,
+    //     body: `Order ID ${this.orderInfo._id} is done`,
+    //     icon: 'fcm_push_icon',
+    //     sound: 'default',
+    //     click_action: 'FCM_PLUGIN_ACTIVITY'
+    //   };
+    //   console.log(this.notification);
+    // });
   }
 
   sendMessage() {

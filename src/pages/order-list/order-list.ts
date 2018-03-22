@@ -43,7 +43,7 @@ export class OrderListPage {
   }
 
   onDetail(order, trader) {
-    this.navCtrl.push(RoomPage, { order:order, trader:trader });
+    this.navCtrl.push(RoomPage, { order:order, trader:trader , type:"order"});
   }
 
   onSegment() {
