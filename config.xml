@@ -90,5 +90,9 @@
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="cordova-plugin-camera" spec="^4.0.2" />
     <plugin name="cordova-plugin-fcm" spec="^2.1.2" />
-    <engine name="android" spec="~6.3.0" />
+    <allow-navigation href="http://192.168.2.110:8100" />
+    <allow-navigation href="http://192.168.50.196:8100" />
+    <engine name="ios" spec="4.5.4" />
+    <engine name="browser" spec="5.0.3" />
+    <engine name="android" spec="6.3.0" />
 </widget>
