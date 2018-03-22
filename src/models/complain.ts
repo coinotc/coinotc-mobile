@@ -5,7 +5,8 @@ export class complain{
         public pleader: string,
         public type: number,
         public content: string,
-        public status:number
+        public status:number,
+        public roomkey:string
     ){
     }
 }

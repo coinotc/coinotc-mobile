@@ -6,6 +6,7 @@ import {
   ToastController
 } from 'ionic-angular';
 import { AuthPage } from '../auth/auth';
+import { TradePage } from '../trade/trade';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
 import { Errors } from '../../models/errors.model';
@@ -86,14 +87,15 @@ export class MePage {
       user => {
         console.log('log out !!!!!');
         this.jwtService.destroyToken();
-        this.navCtrl.setRoot(AuthPage);
+        
         let tabs = document.querySelectorAll('.tabbar.show-tabbar');
-        console.log(tabs);
+        console.log(JSON.stringify(tabs)+"<<<<<<<<<<<<");
         if (tabs !== null) {
           Object.keys(tabs).map(key => {
             tabs[key].style.display = 'none';
           });
-        } // end if
+        }
+        this.navCtrl.setRoot(AuthPage); // end if
       },
       (errors: Errors) => {
         for (let field in errors.errors) {

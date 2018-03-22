@@ -12,6 +12,7 @@ import { OrderServiceProvider } from '../../providers/order-service/order-servic
 import * as firebase from 'firebase';
 import { RoomPage } from '../room/room';
 import { ProfilePage } from '../profile/profile';
+import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 /**
  * Generated class for the AdinformationPage page.
  *
@@ -32,7 +33,7 @@ export class AdinformationPage {
   information: adinformation;
   title: string;
   tradetype: { type: String; crypto: String };
-  user: { order: 200; goodorder: 148 };
+  user: { orderCount: number; goodCount: number };
   range;
   loading;
   orderinformation = new OrderInformation(
@@ -55,18 +56,25 @@ export class AdinformationPage {
     public navParams: NavParams,
     public userservice: UserServiceProvider,
     public loadingCtrl: LoadingController,
-    public orderservice: OrderServiceProvider
+    public orderservice: OrderServiceProvider,
+    public profileservice: ProfileServiceProvider
   ) {
     this.tradetype = navParams.data.tradetype;
     this.information = navParams.data.information;
     console.log(this.information);
     console.log(this.tradetype);
-    this.user = {
-      order: 200,
-      goodorder: 148
-    };
+    this.profileservice.getProfile(this.information.owner).subscribe(result => {
+      console.log(result);
+      this.user = result[0];
+      if (this.user.orderCount) {
+        this.range = Math.trunc(
+          this.user.goodCount / this.user.orderCount * 100
+        );
+      } else {
+        this.range = 0;
+      }
+    });
     this.orderinformation.price = this.information.price;
-    this.range = Math.trunc(this.user.goodorder / this.user.order * 100);
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...',
       duration: 5000
@@ -111,7 +119,8 @@ export class AdinformationPage {
       this.navCtrl.push(RoomPage, {
         order: result,
         trader: owner,
-        roomkey: this.roomkey
+        roomkey: this.roomkey,
+        type: 'order'
       });
       //this.navCtrl.push(OrderWindowPage, { order: result, trader: owner });
     });
