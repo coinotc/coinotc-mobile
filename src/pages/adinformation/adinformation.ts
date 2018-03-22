@@ -48,6 +48,7 @@ export class AdinformationPage {
     null,
     null,
     false,
+    false,
     null
   );
 
