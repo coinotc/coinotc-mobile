@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 //import { Observable } from 'rxjs/Rx';
-import { OrderInformation } from '../../pages/order-window/orderInformation';
+import { OrderInformation } from '../../models/orderInformation';
 import { environment } from '../../../environments/environment';
 
 /*
