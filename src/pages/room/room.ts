@@ -114,14 +114,24 @@ export class RoomPage {
   }
 
   onSwitch() {
-    if (
-      this.user.username == this.orderInfo.seller ||
-      this.orderInfo.informed == true
-    ) {
-      this.status = 0;
-    } else if (this.user.username == this.orderInfo.buyer) {
-      this.status = 1;
-    }
+    this.orderServiceProvider
+      .getSpecificOrder(this.orderInfo._id)
+      .subscribe(result => {
+        this.orderInfo = result;
+        if (this.orderInfo.finished == false) {
+          if (
+            this.user.username == this.orderInfo.seller &&
+            this.orderInfo.informed == true
+          ) {
+            this.status = 0;
+          } else if (
+            this.user.username == this.orderInfo.buyer &&
+            this.orderInfo.informed == false
+          ) {
+            this.status = 1;
+          }
+        }
+      });
     this.switched = !this.switched;
   }
 
@@ -140,8 +150,6 @@ export class RoomPage {
   onFinished() {
     this.status = 2;
     this.orderInfo.finished = true;
-    this.user.orderCount = this.user.orderCount + 1;
-    this.userService.update(this.user).subscribe();
     this.orderServiceProvider.updateOrder(this.orderInfo).subscribe();
     //Send push notification to trader
     this.alertServiceProvider
@@ -237,8 +245,15 @@ export class RoomPage {
 
   onComment() {
     this.status = 3;
-    this.user.goodCount = this.user.goodCount + 1;
+    this.user.orderCount = this.user.orderCount + 1;
     this.userService.update(this.user).subscribe();
+    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+      let goodCount = result[0].goodCount;
+      goodCount++;
+      this.profileServiceProvider
+        .sendComment(this.trader, goodCount)
+        .subscribe();
+    });
     this.navCtrl.pop();
   }
 
@@ -248,6 +263,12 @@ export class RoomPage {
 
   onWallet() {
     this.navCtrl.push(WalletPage);
+  }
+
+  onExit() {
+    this.user.orderCount = this.user.orderCount + 1;
+    this.userService.update(this.user).subscribe();
+    this.navCtrl.pop();
   }
 
   ionViewDidLoad() {

@@ -3,7 +3,7 @@
     <name>CoinOTC-SG</name>
     <description>CoinOTC Singapore.</description>
     <author email="bunnyppl@hotmail.com" href="https://coinotc.market/">CoinOTC Development Team</author>
-    <content original-src="index.html" src="http://192.168.50.110:8101" />
+    <content original-src="index.html" src="http://192.168.50.110:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
