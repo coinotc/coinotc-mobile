@@ -32,7 +32,8 @@
         <span style="float:right">{{orderInfo.price}}</span>
         <br> {{'Buyer' | translate}}:{{orderInfo.buyer}}
         <span style="float:right">{{'Seller' | translate}}:{{orderInfo.seller}}</span>
-        <br> {{'Message' | translate}}:TBD
+        <br> {{'Message' | translate}}:
+        <span style="float:right">{{orderInfo.message}}</span>
 
         <div align=center [ngSwitch]="status">
           <div *ngIf="orderInfo.finished == false">

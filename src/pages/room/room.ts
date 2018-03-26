@@ -56,6 +56,16 @@ export class RoomPage {
       this.orderInfo = navParams.data.order;
       this.finished = this.orderInfo.finished;
       this.data.roomname = navParams.data.order._id;
+      this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+        this.notification.to = result[0].deviceToken;
+        this.notification.notification = {
+          title: `Your Order with ${this.trader} has progress !`,
+          body: `Order ID : ${this.orderInfo._id}`,
+          icon: 'fcm_push_icon',
+          sound: 'default',
+          click_action: 'FCM_PLUGIN_ACTIVITY'
+        };
+      });
       if (navParams.data.roomkey == null) {
         this.roomkey = navParams.data.order.roomkey;
       } else {
@@ -83,16 +93,6 @@ export class RoomPage {
           }
         }, 1000);
       });
-    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
-      this.notification.to = result[0].deviceToken;
-      this.notification.notification = {
-        title: `Your Order with ${this.trader} has progress !`,
-        body: `Order ID : ${this.orderInfo._id}`,
-        icon: 'fcm_push_icon',
-        sound: 'default',
-        click_action: 'FCM_PLUGIN_ACTIVITY'
-      };
-    });
   }
 
   sendMessage() {
