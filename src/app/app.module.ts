@@ -87,7 +87,7 @@ export function createTranslateLoader(http: HttpClient) {
     PincodeInputModule,
     MePageModule,
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {mode: 'md'}),
     AuthPageModule,
     HttpClientModule,
     HttpModule,
