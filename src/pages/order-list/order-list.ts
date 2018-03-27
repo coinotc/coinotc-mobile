@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,App} from 'ionic-angular';
 //import { Observable } from 'rxjs/Observable';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
@@ -31,7 +31,8 @@ export class OrderListPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private orderServiceProvider: OrderServiceProvider,
-    private userServiceProvider: UserServiceProvider
+    private userServiceProvider: UserServiceProvider,
+    private appCtrl:App
   ) {
     this.user = this.userServiceProvider.getCurrentUser();
     // this.buyerActiveOrders = this.orderServiceProvider.getBuyerOrders(this.user.username, false);
@@ -42,7 +43,7 @@ export class OrderListPage {
   }
 
   onDetail(order, trader) {
-    this.navCtrl.push(RoomPage, { order:order, trader:trader , type:"order"});
+    this.appCtrl.getRootNav().push(RoomPage, { order:order, trader:trader , type:"order"});
   }
 
   onSegment() {
