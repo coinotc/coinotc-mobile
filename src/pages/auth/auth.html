@@ -7,48 +7,53 @@
 <ion-header>
 
     <ion-navbar no-border-bottom>
-      <ion-title >{{ authType === 'register' ? 'Sign Up' : 'Sign In' }}<!-- Line 10 Without Translation -->
-      </ion-title>
+      <img src="../../assets/imgs/logo_1.svg" style="margin-left: 3%;">
+      <!--<ion-title >{{ authType === 'register' ? 'Sign Up' : 'Sign In' }}&lt;!&ndash; Line 10 Without Translation &ndash;&gt;-->
+      <!--</ion-title>-->
       <ion-buttons start *ngIf="isModal">
         <button ion-button (click)="close()">
           Cancel
         </button>
       </ion-buttons>
     </ion-navbar>
-    <ion-toolbar no-border-top>
-      <ion-segment [(ngModel)]="authType" (ngModelChange)="authTypeChange()">
-        <ion-segment-button value="login">
-          {{'SignIn' | translate}}
-        </ion-segment-button>
-        <ion-segment-button value="register" >
-          {{'SignUp' | translate}}
-        </ion-segment-button>
-      </ion-segment>
-    </ion-toolbar>
 
-  </ion-header>
+    <ion-segment [(ngModel)]="authType" (ngModelChange)="authTypeChange()">
+      <ion-segment-button value="login">
+        {{'SignIn' | translate}}
+      </ion-segment-button>
+      <ion-segment-button value="register" >
+        {{'Register' | translate}}
+      </ion-segment-button>
+    </ion-segment>
 
-  <ion-content >
+
+</ion-header>
+
+  <ion-content class="loginRegForm">
     <form [formGroup]="authForm" (ngSubmit)="submitForm()" >
       <!-- <fieldset [disabled]="isSubmitting" > -->
         <ion-list>
           <ion-item *ngIf="authType == 'register'">
-            <ion-input formControlName="username" placeholder="Username" type="text"></ion-input>
+            <ion-label stacked>Username</ion-label>
+            <ion-input formControlName="username" type="text"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input formControlName="email" placeholder="Email" type="text"></ion-input>
+            <ion-label stacked>Email</ion-label>
+            <ion-input formControlName="email" type="text"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input formControlName="password" placeholder="Password" type="password"></ion-input>
+            <ion-label stacked>Password</ion-label>
+            <ion-input formControlName="password" type="password"></ion-input>
           </ion-item>
 
           <ion-item *ngIf=" authType === 'register' ">
-            <ion-input formControlName="confirmPassword"  placeholder="Confirm Password" type="password"></ion-input>
+            <ion-label stacked>Confirm Password</ion-label>
+            <ion-input formControlName="confirmPassword" type="password"></ion-input>
           </ion-item>
         </ion-list>
         <div padding>
           <button ion-button [disabled]="!authForm.valid" type="submit">
-            {{ (authType === 'register' ? 'SignUp' : 'SignIn') | translate }}
+            {{ (authType === 'register' ? 'Register' : 'SignIn') | translate }}
           </button>
         </div>
       <!-- </fieldset> -->
