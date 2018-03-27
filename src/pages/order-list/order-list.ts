@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 //import { Observable } from 'rxjs/Observable';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
-import { OrderWindowPage } from '../order-window/order-window';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { OrderInformation } from '../order-window/orderInformation';
+import { OrderInformation } from '../../models/orderInformation';
 import { RoomPage } from '../room/room';
 /**
  * Generated class for the OrderListPage page.
@@ -43,7 +42,7 @@ export class OrderListPage {
   }
 
   onDetail(order, trader) {
-    this.navCtrl.push(RoomPage, { order:order, trader:trader });
+    this.navCtrl.push(RoomPage, { order:order, trader:trader , type:"order"});
   }
 
   onSegment() {

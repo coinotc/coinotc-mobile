@@ -35,6 +35,6 @@
 	<key>GOOGLE_APP_ID</key>
 	<string>1:40026965229:ios:2b36e35c5f3c5509</string>
 	<key>DATABASE_URL</key>
-	<string>https://fcm-notification-359a7.firebaseio.com</string>
+ <string>https://fcm-notification-359a7.firebaseio.com</string>
 </dict>
-</plist>
+</plist> 

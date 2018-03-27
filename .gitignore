@@ -28,10 +28,10 @@ plugins/
 plugins/android.json
 plugins/ios.json
 www/
-$RECYCLE.BIN/
 server/
-resources/
-
+$RECYCLE.BIN/
+server/*
+resources/*
 .env
 .DS_Store
 Thumbs.db

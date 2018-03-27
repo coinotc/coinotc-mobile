@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  LoadingController
+} from 'ionic-angular';
 import { adinformation } from '../../models/adinformation';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { OrderInformation } from '../order-window/orderInformation';
+import { OrderInformation } from '../../models/orderInformation';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
-import { OrderWindowPage } from '../order-window/order-window';
 import * as firebase from 'firebase';
 import { RoomPage } from '../room/room';
-import { ProfilePage } from '../profile/profile'
+import { ProfilePage } from '../profile/profile';
+import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 /**
  * Generated class for the AdinformationPage page.
  *
@@ -18,35 +23,68 @@ import { ProfilePage } from '../profile/profile'
 @IonicPage()
 @Component({
   selector: 'page-adinformation',
-  templateUrl: 'adinformation.html',
+  templateUrl: 'adinformation.html'
 })
 export class AdinformationPage {
-
-  data = { type:'', name:'', message:'',roomname:'' };
+  data = { type: '', name: '', message: '', roomname: '' };
   ref = firebase.database().ref('chatrooms/');
-  roomkey:any;
-  disabled = true; information: adinformation; title: string; tradetype: { type: String, crypto: String }; user: { order: 200, goodorder: 148, }; range; loading; orderinformation = new OrderInformation(null, null, null, null, null, null, null, null, null, null, false, null);
+  roomkey: any;
+  disabled = true;
+  information: adinformation;
+  title: string;
+  tradetype: { type: String; crypto: String };
+  user: { orderCount: number; goodCount: number };
+  range;
+  loading;
+  orderinformation = new OrderInformation(
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    false,
+    false,
+    null
+  );
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userservice: UserServiceProvider, public loadingCtrl: LoadingController, public orderservice: OrderServiceProvider) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public userservice: UserServiceProvider,
+    public loadingCtrl: LoadingController,
+    public orderservice: OrderServiceProvider,
+    public profileservice: ProfileServiceProvider
+  ) {
     this.tradetype = navParams.data.tradetype;
     this.information = navParams.data.information;
-    console.log(this.information); console.log(this.tradetype);
-    this.user = {
-      order: 200,
-      goodorder: 148,
-    }
+    console.log(this.information);
+    console.log(this.tradetype);
+    this.profileservice.getProfile(this.information.owner).subscribe(result => {
+      console.log(result);
+      this.user = result[0];
+      if (this.user.orderCount) {
+        this.range = Math.trunc(
+          this.user.goodCount / this.user.orderCount * 100
+        );
+      } else {
+        this.range = 0;
+      }
+    });
     this.orderinformation.price = this.information.price;
-    this.range = Math.trunc(this.user.goodorder / this.user.order * 100);
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...',
       duration: 5000
     });
   }
   profile() {
-    
-      this.navCtrl.push(ProfilePage,
-        this.information.owner)
-    }
+    this.navCtrl.push(ProfilePage, this.information.owner);
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdinformationPage');
   }
@@ -57,7 +95,8 @@ export class AdinformationPage {
     this.orderinformation.fiat = this.information.fiat;
     this.orderinformation.payment = this.information.payment;
     this.orderinformation.limit = this.information.limit;
-    if (this.tradetype.type == "buy") {
+    this.orderinformation.message = this.information.message;
+    if (this.tradetype.type == 'buy') {
       this.orderinformation.buyer = this.userservice.getCurrentUser().username;
       this.orderinformation.seller = this.information.owner;
     } else {
@@ -66,57 +105,61 @@ export class AdinformationPage {
     }
     // console.log(this.orderinformation);
     this.orderservice.postorder(this.orderinformation).subscribe(result => {
-      let owner = this.information.owner
+      let owner = this.information.owner;
       this.loading.dismiss();
       this.data.name = this.userservice.getCurrentUser().username;
       //console.log(JSON.parse(JSON.stringify(result,null,4)));
       this.data.roomname = JSON.parse(JSON.stringify(result))._id;
       let newData = this.ref.push();
       newData.set({
-        roomname:this.data.roomname
+        roomname: this.data.roomname
       }); //定义房间名 并创建房间
 
-      this.roomkey = getRoomKey(this.ref)
-      this.orderservice.addRoomKey(this.roomkey,this.data.roomname).subscribe()
-      this.navCtrl.push(RoomPage, { order: result, trader: owner ,roomkey:this.roomkey});
+      this.roomkey = getRoomKey(this.ref);
+      this.orderservice
+        .addRoomKey(this.roomkey, this.data.roomname)
+        .subscribe();
+      this.navCtrl.push(RoomPage, {
+        order: result,
+        trader: owner,
+        roomkey: this.roomkey,
+        type: 'order'
+      });
       //this.navCtrl.push(OrderWindowPage, { order: result, trader: owner });
-
-    })
+    });
   }
   amountchange() {
-    this.orderinformation.quantity = this.orderinformation.amount / this.orderinformation.price;
+    this.orderinformation.quantity =
+      this.orderinformation.amount / this.orderinformation.price;
     this.checkorder();
   }
   quantitychange() {
-    this.orderinformation.amount = this.orderinformation.quantity * this.orderinformation.price;
+    this.orderinformation.amount =
+      this.orderinformation.quantity * this.orderinformation.price;
     this.checkorder();
   }
   checkorder() {
     if (this.orderinformation.amount > this.information.min_price) {
       if (this.orderinformation.amount < this.information.max_price) {
-        if (this.information.owner != this.userservice.getCurrentUser().username) {
+        if (
+          this.information.owner != this.userservice.getCurrentUser().username
+        ) {
           this.disabled = false;
         }
-      }
-      else {
+      } else {
         this.disabled = true;
       }
-    }
-    else {
+    } else {
       this.disabled = true;
     }
   }
 }
 
-
-
-
-
 export const getRoomKey = ref => {
-  let roomkey ;
-  ref.limitToLast(1).on("child_added",function(prevChildKey){
-    //console.log("===>>>>" + prevChildKey.key) 
-    roomkey = prevChildKey.key
-  })//获取roomkey
+  let roomkey;
+  ref.limitToLast(1).on('child_added', function(prevChildKey) {
+    //console.log("===>>>>" + prevChildKey.key)
+    roomkey = prevChildKey.key;
+  }); //获取roomkey
   return roomkey;
 };
