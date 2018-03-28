@@ -1,6 +1,7 @@
 {
   "Trade": "Trade",
   "OrderList": "Order List",
+  "Alerts": "Alert",
   "Wallet": "Wallet",
   "Me": "Me",
   "ActiveBuy": "Active Buy",
@@ -42,6 +43,7 @@
   "USA": "USA",
   "Korea": "Korea",
   "fiat": {
+    "fiat": "Fiat",
     "SGD": "SGD",
     "CNY": "CNY",
     "USD": "USD",
@@ -72,5 +74,12 @@
   "Complainer": "Complainer",
   "Type": "Type",
   "Content": "Content",
-  "Submit": "Submit"
+  "Submit": "Submit",
+  "AveragePriceIs": "Average Price Is",
+  "NewPriceAlert": "New Price Alert",
+  "Above": "ABOVE",
+  "Below": "BELOW",
+  "NewAlertTips":
+    "Tips:The default value of showed price is the average price from recent orders.",
+  "CreateAlert": "Create Alert"
 }

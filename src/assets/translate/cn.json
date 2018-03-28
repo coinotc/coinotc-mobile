@@ -1,6 +1,7 @@
 {
   "Trade": "交易",
   "OrderList": "订单列表",
+  "Alerts": "闹钟",
   "Wallet": "钱包",
   "Me": "我",
   "ActiveBuy": "购买中",
@@ -43,6 +44,7 @@
   "USA": "美国",
   "Korea": "韩国",
   "fiat": {
+    "fiat": "法币",
     "SGD": "新币",
     "CNY": "人民币",
     "USD": "美元",
@@ -73,5 +75,11 @@
   "Complainant": "投诉人",
   "Type": "分类",
   "Content": "描述",
-  "Submit": "提交"
+  "Submit": "提交",
+  "AveragePriceIs": "平均价格是",
+  "NewPriceAlert": "新的价格闹钟",
+  "Above": "高价",
+  "Below": "低价",
+  "NewAlertTips": "提示:默认价格是近期交易的平均价",
+  "CreateAlert": "新建闹钟"
 }

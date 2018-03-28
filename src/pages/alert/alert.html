@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Alerts</ion-title>
+    <ion-title>{{'Alerts' | translate}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="addNewAlert()">
         <ion-icon name="add"></ion-icon>
@@ -22,7 +22,7 @@
 
   <ion-list>
     <ion-item-divider color="secondary">
-      {{crypto}}: Average Price is {{averagePrice}} USD
+      {{crypto}}: {{'AveragePriceIs' | translate}} {{averagePrice}} {{'fiat.USD' | translate}}
     </ion-item-divider>
     <ion-item-sliding #item *ngFor="let alert of alerts | async">
       <ion-item>
