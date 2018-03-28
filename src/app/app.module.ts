@@ -53,6 +53,7 @@ import { AdvertisementsPage } from  '../pages/advertisements/advertisements';
 import { TrustedPage } from '../pages/trusted/trusted';
 import { PopoverPage } from '../pages/popover/popover';
 import {ScrollingHeaderModule} from 'ionic-scrolling-header';
+import { ElasticHeaderModule } from "ionic2-elastic-header/dist";
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -88,6 +89,7 @@ export function createTranslateLoader(http: HttpClient) {
     PopoverPage
   ],
   imports: [
+    ElasticHeaderModule,
     ScrollingHeaderModule,
     BrowserAnimationsModule,
     PincodeInputModule,
@@ -156,7 +158,7 @@ export function createTranslateLoader(http: HttpClient) {
     SendMailServiceProvider,
     Camera,
     FCM,
-    
+
   ]
 })
 export class AppModule {}

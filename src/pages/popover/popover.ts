@@ -22,5 +22,24 @@ export class PopoverPage {
     console.log('ionViewDidLoad PopoverPage');
   }
 
+  china: boolean;
+  singapore: boolean;
+  rmb: boolean;
+  sgd: boolean;
+
+  updateChina() {
+    console.log('China selected:' + this.china);
+  }
   
+  updateSingapore() {
+    console.log('Singapore selected:' + this.singapore);
+  }
+  
+  updateRMB() {
+    console.log('RMB selected:' + this.rmb);
+  }
+  
+  updateSGD() {
+    console.log('SGD selected:' + this.sgd);
+  }
 }

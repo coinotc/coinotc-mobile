@@ -1,4 +1,30 @@
-<ion-list>
-  <button ion-item >Singapore</button>
-  <button ion-item >China</button>
+<ion-list inset>
+  <ion-list-header>
+    Country
+  </ion-list-header>
+
+  <ion-item>
+    <ion-label>China</ion-label>
+    <ion-checkbox [(ngModel)]="china" (ionChange)="updateChina()"></ion-checkbox>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Singapore</ion-label>
+    <ion-checkbox [(ngModel)]="singapore" (ionChange)="updateSingapore()"></ion-checkbox>
+  </ion-item>
+
+  <ion-list-header>
+    Currency
+  </ion-list-header>
+
+  <ion-item>
+    <ion-label>SGD</ion-label>
+    <ion-checkbox [(ngModel)]="sgd" (ionChange)="updateSGD()"></ion-checkbox>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>RMB</ion-label>
+    <ion-checkbox [(ngModel)]="rmb" (ionChange)="updateRMB()"></ion-checkbox>
+  </ion-item>
+
 </ion-list>
