@@ -53,6 +53,7 @@ export class RoomPage {
     this.data.type = 'message';
     if (this.type == 'order') {
       this.trader = navParams.data.trader;
+      console.log(this.trader);
       this.orderInfo = navParams.data.order;
       this.finished = this.orderInfo.finished;
       this.data.roomname = navParams.data.order._id;
