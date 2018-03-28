@@ -12,7 +12,13 @@
   </ion-navbar>
   <ion-toolbar>
     <ion-segment [(ngModel)]="segments">
-      <ion-segment-button value="ActiveBuy" (click)="onSegment()">
+      <ion-segment-button value="Active" (click)="onSegment()">
+        Active
+      </ion-segment-button>
+      <ion-segment-button value="Finished" (click)="onSegment()">
+        Finished
+      </ion-segment-button>
+      <!-- <ion-segment-button value="ActiveBuy" (click)="onSegment()">
         {{'ActiveBuy' | translate}}
       </ion-segment-button>
       <ion-segment-button value="ActiveSell" (click)="onSegment()">
@@ -23,7 +29,7 @@
       </ion-segment-button>
       <ion-segment-button value="FinishedSell" (click)="onSegment()">
         {{'FinishedSell' | translate}}
-      </ion-segment-button>
+      </ion-segment-button> -->
     </ion-segment>
   </ion-toolbar>
 
@@ -39,7 +45,63 @@
 
   <div [ngSwitch]="segments">
 
-    <div *ngSwitchCase="'ActiveBuy'">
+    <div *ngSwitchCase="'Active'">
+
+      <ion-card *ngFor="let order of activeOrders" (click)="onDetail(order,order.buyer==user.username?order.seller:order.buyer)">
+
+        <ion-item>
+          <ion-avatar item-start>
+            <ion-text-avatar>{{order.buyer==user.username?order.seller:order.buyer}}</ion-text-avatar>
+          </ion-avatar>
+          <h2>{{order.buyer==user.username?order.seller:order.buyer}}
+            <span style="float:right">{{order.crypto}}</span>
+          </h2>
+          <ion-badge color="{{order.buyer==user.username?'secondary':'danger'}}">{{order.buyer==user.username?'Buy':'Sell'}}</ion-badge>
+
+        </ion-item>
+
+        <ion-card-content>
+          {{'OrderID' | translate}}:
+          <span style="float:right">{{order._id}}</span>
+          <br>{{'Amount' | translate}}:
+          <span style="float:right">{{order.amount}}</span>
+          <br>{{'Seller' | translate}}:
+          <span style="float:right">{{order.seller}}</span>
+        </ion-card-content>
+
+      </ion-card>
+    </div>
+
+    <div *ngSwitchCase="'Finished'">
+
+      <ion-card *ngFor="let order of finishedOrders" (click)="onDetail(order,order.buyer==user.username?order.seller:order.buyer)">
+
+        <ion-item>
+          <ion-avatar item-start>
+            <ion-text-avatar>{{order.buyer==user.username?order.seller:order.buyer}}</ion-text-avatar>
+          </ion-avatar>
+          <h2>{{order.buyer==user.username?order.seller:order.buyer}}
+            <span style="float:right">{{order.crypto}}</span>
+          </h2>
+          <ion-badge color="{{order.buyer==user.username?'secondary':'danger'}}">{{order.buyer==user.username?'Buy':'Sell'}}</ion-badge>
+        </ion-item>
+
+        <ion-card-content>
+          {{'OrderID' | translate}}:
+          <span style="float:right">{{order._id}}</span>
+          <br>{{'Amount' | translate}}:
+          <span style="float:right">{{order.amount}}</span>
+          <br>{{'Seller' | translate}}:
+          <span style="float:right">{{order.seller}}</span>
+        </ion-card-content>
+
+      </ion-card>
+    </div>
+
+  </div>
+</ion-content>
+
+<!-- <div *ngSwitchCase="'ActiveBuy'">
 
       <ion-card *ngFor="let order of buyerActiveOrders" (click)="onDetail(order,order.seller)">
 
@@ -133,29 +195,5 @@
           <span style="float:right">{{order.buyer}}</span>
         </ion-card-content>
 
-        <!-- <ion-row>
-            <ion-col>
-              <button ion-button icon-left clear small>
-                <ion-icon name="thumbs-up"></ion-icon>
-                <div>12 Trust</div>
-              </button>
-            </ion-col>
-            <ion-col>
-              <button ion-button icon-left clear small>
-                <ion-icon name="thumbs-downt"></ion-icon>
-                <div>4 Distrust</div>
-              </button>
-            </ion-col>
-            <ion-col>
-              <button ion-button icon-right clear small (click)="onDetail(order)">
-                <div>Information</div>
-                <ion-icon name="arrow-round-forward"></ion-icon>
-              </button>
-            </ion-col>
-          </ion-row> -->
-
       </ion-card>
-    </div>
-
-  </div>
-</ion-content>
+    </div> -->

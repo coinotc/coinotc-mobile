@@ -4,7 +4,26 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header [scrollingHeader]='content'>
+  <ion-navbar>
+    <img float-left src="../../assets/imgs/logo_1.svg" style="margin-left: 3%;">
+
+    <button float-right ion-button icon-only (click)="presentPopover($event)">
+      <ion-icon name="more"></ion-icon>
+    </button>
+  </ion-navbar>
+
+  <ion-slides>
+    <ion-slide>
+      <h1>Slide 1</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 2</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 3</h1>
+    </ion-slide>
+  </ion-slides>
   <ion-navbar>
     <ion-title text-center>
       <ion-segment [(ngModel)]="buynsell" (ngModelChange)="doRefresh()">
@@ -14,17 +33,17 @@
     </ion-title>
   </ion-navbar>
   <ion-toolbar>
-    <ion-segment [(ngModel)]="crypto" (ngModelChange)="doRefresh()" style="height:55px;">
-      <ion-segment-button value="ETHEREUM">
+    <ion-segment [(ngModel)]="crypto" (ngModelChange)="doRefresh()" >
+      <ion-segment-button  id="cry" value="ETHEREUM">
         <ion-icon name="eth"></ion-icon>
       </ion-segment-button>
-      <ion-segment-button value="RIPPLE">
+      <ion-segment-button class="cry" value="RIPPLE">
         <ion-icon name="ripple"></ion-icon>
       </ion-segment-button>
-      <ion-segment-button value="MONERO">
+      <ion-segment-button  class="cry" value="MONERO">
         <ion-icon name="monero"></ion-icon>
       </ion-segment-button>
-      <ion-segment-button value="STELLAR">
+      <ion-segment-button  class="cry" value="STELLAR">
         <ion-icon name="stellar"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="CARDANO">
@@ -50,6 +69,7 @@
       <p>{{'payment.'+item.payment | translate}}</p>
       <div item-right text-right>
         <h5 style="color:#02cb66">{{item.price | number}} {{'fiat.'+item.fiat | translate}}</h5>
+
         <button ion-button round (click)="adinformation(item)" *ngIf="item.type==1">{{'Buy' | translate}} {{item.crypto}}</button>
         <button ion-button round (click)="adinformation(item)" *ngIf="item.type==0">{{'Sell' | translate}} {{item.crypto}}</button>
       </div>

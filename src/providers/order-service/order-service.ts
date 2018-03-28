@@ -29,6 +29,13 @@ export class OrderServiceProvider {
     return this.httpClient.get(getURL, httpOptions);
   }
 
+  public getOrders(username, finished) {
+    let getURL = `${
+      this.orderURL
+    }/filter?username=${username}&finished=${finished}`;
+    return this.httpClient.get(getURL, httpOptions);
+  }
+
   public getBuyerOrders(username, finished) {
     let getURL = `${
       this.orderURL
@@ -43,6 +50,11 @@ export class OrderServiceProvider {
     return this.httpClient.get<OrderInformation[]>(getURL, httpOptions);
   }
 
+  public getSpecificOrder(id) {
+    let getURL = `${this.orderURL}/getone?_id=${id}`;
+    return this.httpClient.get<OrderInformation>(getURL, httpOptions);
+  }
+
   public addRoomKey(roomkey, orderId) {
     let URL = `${this.orderURL}/roomkey?orderId=${orderId}`;
     return this.httpClient.patch(URL, { roomkey: roomkey }, httpOptions);
@@ -51,6 +63,7 @@ export class OrderServiceProvider {
   public updateOrder(order) {
     return this.httpClient.put(this.orderURL, order, httpOptions);
   }
+
   public postorder(order) {
     return this.httpClient.post(this.orderURL, order, httpOptions);
   }

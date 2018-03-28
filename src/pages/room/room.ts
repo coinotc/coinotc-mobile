@@ -53,9 +53,20 @@ export class RoomPage {
     this.data.type = 'message';
     if (this.type == 'order') {
       this.trader = navParams.data.trader;
+      console.log(this.trader);
       this.orderInfo = navParams.data.order;
       this.finished = this.orderInfo.finished;
       this.data.roomname = navParams.data.order._id;
+      this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+        this.notification.to = result[0].deviceToken;
+        this.notification.notification = {
+          title: `Your Order with ${this.trader} has progress !`,
+          body: `Order ID : ${this.orderInfo._id}`,
+          icon: 'fcm_push_icon',
+          sound: 'default',
+          click_action: 'FCM_PLUGIN_ACTIVITY'
+        };
+      });
       if (navParams.data.roomkey == null) {
         this.roomkey = navParams.data.order.roomkey;
       } else {
@@ -83,16 +94,6 @@ export class RoomPage {
           }
         }, 1000);
       });
-    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
-      this.notification.to = result[0].deviceToken;
-      this.notification.notification = {
-        title: `Your Order with ${this.trader} has progress !`,
-        body: `Order ID : ${this.orderInfo._id}`,
-        icon: 'fcm_push_icon',
-        sound: 'default',
-        click_action: 'FCM_PLUGIN_ACTIVITY'
-      };
-    });
   }
 
   sendMessage() {
@@ -114,14 +115,24 @@ export class RoomPage {
   }
 
   onSwitch() {
-    if (
-      this.user.username == this.orderInfo.seller ||
-      this.orderInfo.informed == true
-    ) {
-      this.status = 0;
-    } else if (this.user.username == this.orderInfo.buyer) {
-      this.status = 1;
-    }
+    this.orderServiceProvider
+      .getSpecificOrder(this.orderInfo._id)
+      .subscribe(result => {
+        this.orderInfo = result;
+        if (this.orderInfo.finished == false) {
+          if (
+            this.user.username == this.orderInfo.seller &&
+            this.orderInfo.informed == true
+          ) {
+            this.status = 0;
+          } else if (
+            this.user.username == this.orderInfo.buyer &&
+            this.orderInfo.informed == false
+          ) {
+            this.status = 1;
+          }
+        }
+      });
     this.switched = !this.switched;
   }
 
@@ -140,8 +151,6 @@ export class RoomPage {
   onFinished() {
     this.status = 2;
     this.orderInfo.finished = true;
-    this.user.orderCount = this.user.orderCount + 1;
-    this.userService.update(this.user).subscribe();
     this.orderServiceProvider.updateOrder(this.orderInfo).subscribe();
     //Send push notification to trader
     this.alertServiceProvider
@@ -237,17 +246,31 @@ export class RoomPage {
 
   onComment() {
     this.status = 3;
-    this.user.goodCount = this.user.goodCount + 1;
+    this.user.orderCount = this.user.orderCount + 1;
     this.userService.update(this.user).subscribe();
+    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+      let goodCount = result[0].goodCount;
+      goodCount++;
+      this.profileServiceProvider
+        .sendComment(this.trader, goodCount)
+        .subscribe();
+    });
     this.navCtrl.pop();
   }
 
   onProfile(trader) {
+    console.log(trader);
     this.navCtrl.push(ProfilePage, trader);
   }
 
   onWallet() {
     this.navCtrl.push(WalletPage);
+  }
+
+  onExit() {
+    this.user.orderCount = this.user.orderCount + 1;
+    this.userService.update(this.user).subscribe();
+    this.navCtrl.pop();
   }
 
   ionViewDidLoad() {

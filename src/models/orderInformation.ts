@@ -10,6 +10,7 @@ export class OrderInformation {
     public fiat: string,
     public payment: string,
     public limit: number,
+    public message: string,
     public informed: Boolean,
     public finished: Boolean,
     public roomkey: string

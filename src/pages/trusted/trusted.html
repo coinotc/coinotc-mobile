@@ -3,11 +3,11 @@
     <ion-title>Trusted</ion-title>
   </ion-navbar>
   <ion-toolbar>
-    <ion-segment>
-      <ion-segment-button value="following">
+    <ion-segment [(ngModel)]="value">
+      <ion-segment-button value="following"  (click)="onSegment()">
         Following
       </ion-segment-button>
-      <ion-segment-button value="followers">
+      <ion-segment-button value="followers" (click)="onSegment()">
         Followers
       </ion-segment-button>
     </ion-segment>
@@ -16,5 +16,30 @@
 
 
 <ion-content>
+  <div [ngSwitch]="value">
+    <ion-list *ngSwitchCase="'following'">
+        <ion-card *ngFor="let block of blocks" >
+          <ion-item>
+            <ion-avatar item-start>
+              <ion-text-avatar (click)="profile(block)">{{block}}</ion-text-avatar>
+            </ion-avatar>
+            <h2>{{block}}
+            </h2>
+          </ion-item>
 
+        </ion-card>
+    </ion-list>
+    <ion-list *ngSwitchCase="'followers'">
+        <!-- <ion-card *ngFor="let advertisement of activeAdvertisement" >
+          <ion-item>
+            <ion-avatar item-start>
+              <ion-text-avatar>{{advertisement.owner}}</ion-text-avatar>
+            </ion-avatar>
+            <h2>{{advertisement._id}}
+            </h2>
+          </ion-item>
+  
+        </ion-card> -->
+    </ion-list>
+  </div>
 </ion-content>

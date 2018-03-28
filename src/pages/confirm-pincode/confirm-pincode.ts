@@ -6,7 +6,8 @@ import { PincodePage } from '../pincode/pincode';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { Observable } from 'rxjs/Observable';
-import { SendMailServiceProvider } from '../../providers/send-mail-service/send-mail-service'
+import { SendMailServiceProvider } from '../../providers/send-mail-service/send-mail-service';
+import { MePage } from '../me/me';
 /**
  * Generated class for the ConfirmPincodePage page.
  *
@@ -43,6 +44,10 @@ export class ConfirmPincodePage {
       pinCode.present();
       pinCode.onDidDismiss( (code,status) => 
         {
+          if(this.type){
+            if(status === 'cancel')
+              this.navCtrl.setRoot(MePage)
+          }else{
           this.comfirmcode = code;
           if(this.password == this.comfirmcode){
             this.password = JSON.parse(JSON.stringify(this.password))
@@ -62,8 +67,9 @@ export class ConfirmPincodePage {
             toast.present();
             this.navCtrl.setRoot(PincodePage);
           }
+        }
       })
-      
+    
   }
 
   ionViewDidLoad() {

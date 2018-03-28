@@ -30,8 +30,8 @@ plugins/ios.json
 www/
 server/
 $RECYCLE.BIN/
-server/
-resources/
+server/*
+resources/*
 .env
 .DS_Store
 Thumbs.db

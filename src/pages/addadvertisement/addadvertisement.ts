@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators
+} from '@angular/forms';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { advertisement } from '../../models/advertisement';

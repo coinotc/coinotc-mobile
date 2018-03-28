@@ -47,6 +47,7 @@ export class AdinformationPage {
     null,
     null,
     null,
+    null,
     false,
     false,
     null
@@ -94,6 +95,7 @@ export class AdinformationPage {
     this.orderinformation.fiat = this.information.fiat;
     this.orderinformation.payment = this.information.payment;
     this.orderinformation.limit = this.information.limit;
+    this.orderinformation.message = this.information.message;
     if (this.tradetype.type == 'Buy') {
       this.orderinformation.buyer = this.userservice.getCurrentUser().username;
       this.orderinformation.seller = this.information.owner;

@@ -21,12 +21,12 @@ export class TabsPage {
       {
         root: TradePage,
         title: 'Trade',
-        icon: 'logo-bitcoin'
+        icon: 'swap'
       },
       {
         root: OrderListPage,
         title: 'OrderList',
-        icon: 'list'
+        icon: 'filing'
       },
       {
         root: AlertPage,
@@ -36,7 +36,7 @@ export class TabsPage {
       {
         root: WalletPage,
         title: 'Wallet',
-        icon: 'document'
+        icon: 'logo-bitcoin'
       },
       {
         root: MePage,
