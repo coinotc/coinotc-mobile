@@ -20,63 +20,21 @@ import { ProfilePage } from '../profile/profile'
 })
 export class TradePage {
   @ViewChild(Content) content: Content;
-  buynsell: string = "buy"; crypto: string = "ETHEREUM";
+  buynsell: string = "Buy"; crypto: string = "ETHEREUM"; country: string = "singapore";
   private list: adinformation[];
-  buycryptos: Object[] = [{
-    root: 'TradeBuyEthereumPage',
-    title: 'ETH',
-    icon: 'eth'
-  }, {
-    root: 'TradeBuyRipplePage',
-    title: 'XRP',
-    icon: 'ripple'
-  }, {
-    root: 'TradeBuyMoneroPage',
-    title: 'XMR',
-    icon: 'monero'
-  }, {
-    root: 'TradeBuyStellarPage',
-    title: 'XLM',
-    icon: 'stellar'
-  }, {
-    root: 'TradeBuyCardanoPage',
-    title: 'ADA',
-    icon: 'cardano'
-  }]
-  sellcryptos: Object[] = [{
-    root: 'TradeSellEthereumPage',
-    title: 'ETH',
-    icon: 'eth'
-  }, {
-    root: 'TradeSellRipplePage',
-    title: 'XRP',
-    icon: 'ripple'
-  }, {
-    root: 'TradeSellMoneroPage',
-    title: 'XMR',
-    icon: 'monero'
-  }, {
-    root: 'TradeSellStellarPage',
-    title: 'XLM',
-    icon: 'stellar'
-  }, {
-    root: 'TradeSellCardanoPage',
-    title: 'ADA',
-    icon: 'cardano'
-  }]
   constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App, public adservice: AdvertisementServiceProvider) {
     this.doRefresh();
   }
   doRefresh(refresher?) {
-    if (this.buynsell =="buy") {
-      this.adservice.getadvertisement(this.crypto, 1).subscribe(result => {
+    if (this.buynsell === "buy") {
+      this.adservice.getadvertisement(this.crypto, this.country, 1).subscribe(result => {
         this.list = result;
         if (refresher) {
           refresher.complete();
         }
       })
-    }else{
-      this.adservice.getadvertisement(this.crypto, 0).subscribe(result => {
+    } else {
+      this.adservice.getadvertisement(this.crypto, this.country, 0).subscribe(result => {
         this.list = result;
         if (refresher) {
           refresher.complete();
@@ -85,10 +43,10 @@ export class TradePage {
     }
   }
   adinformation(information) {
-    if(information.type == 1){
-    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Buy', crypto: information.crypto } })
-    }else{
-    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: information.crypto } })
+    if (information.type == 1) {
+      this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Buy', crypto: information.crypto } })
+    } else {
+      this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: information.crypto } })
     }
   }
   ionViewDidLoad() {
@@ -101,6 +59,6 @@ export class TradePage {
   addsellad() {
     this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Sell', title: 'publishSell' })
   }
-  
-  
+
+
 }

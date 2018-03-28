@@ -10,7 +10,7 @@ export class advertisement{
         public max_price: number,
         public payment: string,
         public limit: number,
-        public massage: string,
+        public message: string,
         public type: number
     ){
 

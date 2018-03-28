@@ -27,8 +27,8 @@ export class AdvertisementServiceProvider {
   //   console.log(url);
   //   return this.http.get<adinformation[]>(url, httpOptions);
   // }
-  public getadvertisement(crypto, type) {
-    let url = `${this.advertisement}?crypto=${crypto}&type=${type}`;
+  public getadvertisement(crypto, country, type) {
+    let url = `${this.advertisement}?crypto=${crypto}&type=${type}&country=${country}`;
     return this.http.get<advertisement[]>(url, httpOptions);
   }
   // public addadbuy(information){
