@@ -48,6 +48,9 @@ import { ComplainInformationPage } from '../pages/complain-information/complain-
 import { SendMailServiceProvider } from '../providers/send-mail-service/send-mail-service';
 import { Camera } from '@ionic-native/camera';
 import { FCM } from '@ionic-native/fcm';
+import { ComplainPage } from '../pages/complain/complain';
+import { AdvertisementsPage } from  '../pages/advertisements/advertisements';
+import { TrustedPage } from '../pages/trusted/trusted';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -76,7 +79,10 @@ export function createTranslateLoader(http: HttpClient) {
     ProfilePage,
     ModifyTradepasswordPage,
     SettingsPage,
-    ComplainInformationPage
+    ComplainInformationPage,
+    ComplainPage,
+    AdvertisementsPage,
+    TrustedPage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -119,7 +125,10 @@ export function createTranslateLoader(http: HttpClient) {
     ProfilePage,
     ModifyTradepasswordPage,
     SettingsPage,
-    ComplainInformationPage
+    ComplainInformationPage,
+    ComplainPage,
+    AdvertisementsPage,
+    TrustedPage
   ],
   providers: [
     StatusBar,
