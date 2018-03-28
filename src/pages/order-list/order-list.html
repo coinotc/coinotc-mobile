@@ -13,10 +13,10 @@
   <ion-toolbar>
     <ion-segment [(ngModel)]="segments">
       <ion-segment-button value="Active" (click)="onSegment()">
-        Active
+        {{'Active' | translate}}
       </ion-segment-button>
       <ion-segment-button value="Finished" (click)="onSegment()">
-        Finished
+        {{'Finished' | translate}}
       </ion-segment-button>
       <!-- <ion-segment-button value="ActiveBuy" (click)="onSegment()">
         {{'ActiveBuy' | translate}}
@@ -56,7 +56,7 @@
           <h2>{{order.buyer==user.username?order.seller:order.buyer}}
             <span style="float:right">{{order.crypto}}</span>
           </h2>
-          <ion-badge color="{{order.buyer==user.username?'secondary':'danger'}}">{{order.buyer==user.username?'Buy':'Sell'}}</ion-badge>
+          <ion-badge color="{{order.buyer==user.username?'secondary':'danger'}}">{{(order.buyer==user.username?'Buy':'Sell') | translate}}</ion-badge>
 
         </ion-item>
 
@@ -83,7 +83,7 @@
           <h2>{{order.buyer==user.username?order.seller:order.buyer}}
             <span style="float:right">{{order.crypto}}</span>
           </h2>
-          <ion-badge color="{{order.buyer==user.username?'secondary':'danger'}}">{{order.buyer==user.username?'Buy':'Sell'}}</ion-badge>
+          <ion-badge color="{{order.buyer==user.username?'secondary':'danger'}}">{{(order.buyer==user.username?'Buy':'Sell') | translate}}</ion-badge>
         </ion-item>
 
         <ion-card-content>
