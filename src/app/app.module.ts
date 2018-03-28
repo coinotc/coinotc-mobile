@@ -51,6 +51,8 @@ import { FCM } from '@ionic-native/fcm';
 import { ComplainPage } from '../pages/complain/complain';
 import { AdvertisementsPage } from  '../pages/advertisements/advertisements';
 import { TrustedPage } from '../pages/trusted/trusted';
+import { PopoverPage } from '../pages/popover/popover';
+import {ScrollingHeaderModule} from 'ionic-scrolling-header';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -82,9 +84,11 @@ export function createTranslateLoader(http: HttpClient) {
     ComplainInformationPage,
     ComplainPage,
     AdvertisementsPage,
-    TrustedPage
+    TrustedPage,
+    PopoverPage
   ],
   imports: [
+    ScrollingHeaderModule,
     BrowserAnimationsModule,
     PincodeInputModule,
     MePageModule,
@@ -128,7 +132,8 @@ export function createTranslateLoader(http: HttpClient) {
     ComplainInformationPage,
     ComplainPage,
     AdvertisementsPage,
-    TrustedPage
+    TrustedPage,
+    PopoverPage
   ],
   providers: [
     StatusBar,

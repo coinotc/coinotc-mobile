@@ -5,7 +5,9 @@ import { Content } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { adinformation } from '../../models/adinformation';
 import { AdinformationPage } from '../adinformation/adinformation';
-import { ProfilePage } from '../profile/profile'
+import { ProfilePage } from '../profile/profile';
+import { PopoverPage } from '../popover/popover';
+import { PopoverController } from 'ionic-angular';
 /**
  * Generated class for the TradePage page.
  *
@@ -64,7 +66,7 @@ export class TradePage {
     title: 'ADA',
     icon: 'cardano'
   }]
-  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App, public adservice: AdvertisementServiceProvider) {
+  constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public appCtrl: App, public adservice: AdvertisementServiceProvider) {
     this.doRefresh();
   }
   doRefresh(refresher?) {
@@ -101,6 +103,13 @@ export class TradePage {
   addsellad() {
     this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Sell', title: 'publishSell' })
   }
-  
-  
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present({
+      ev: myEvent
+    });
+  }
+
+
 }
