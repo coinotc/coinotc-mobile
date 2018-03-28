@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api_url: 'https://610b0d64.ngrok.io/api'
+  api_url: 'http://192.168.2.109:3000/api'
 };

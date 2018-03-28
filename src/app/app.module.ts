@@ -54,6 +54,8 @@ import { TrustedPage } from '../pages/trusted/trusted';
 import { PopoverPage } from '../pages/popover/popover';
 import {ScrollingHeaderModule} from 'ionic-scrolling-header';
 import { ElasticHeaderModule } from "ionic2-elastic-header/dist";
+import { Network } from '@ionic-native/network';
+
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -158,7 +160,7 @@ export function createTranslateLoader(http: HttpClient) {
     SendMailServiceProvider,
     Camera,
     FCM,
-
+    Network
   ]
 })
 export class AppModule {}
