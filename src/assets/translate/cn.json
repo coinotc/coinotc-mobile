@@ -68,5 +68,10 @@
   "minutes": "分钟",
   "Trades": "交易总量",
   "Rating": "好评率",
-  "howMuchToBuy": "您想要购买的数量"
+  "howMuchToBuy": "您想要购买的数量",
+  "ComplainInformation": "投诉详情",
+  "Complainant": "投诉人",
+  "Type": "分类",
+  "Content": "描述",
+  "Submit": "提交"
 }
