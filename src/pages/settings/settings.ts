@@ -71,7 +71,7 @@ export class SettingsPage {
   }
   
   passwordTapped() {
-    this.navCtrl.setRoot(ModifyPrdPage);
+    this.navCtrl.push(ModifyPrdPage);
   }
 
   setBaseCurrency(){

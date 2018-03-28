@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PincodeController } from  'ionic2-pincode-input/dist/pincode'
 import { ConfirmPincodePage } from '../confirm-pincode/confirm-pincode'
+import { MePage } from '../me/me';
 /**
  * Generated class for the PincodePage page.
  *
@@ -34,7 +35,11 @@ export class PincodePage {
             {
               this.code = code;
               if(this.type){
-                this.navCtrl.setRoot(ConfirmPincodePage,{code:this.code,type:this.type});
+                if(status === 'cancel'){
+                  this.navCtrl.setRoot(MePage)
+                }else{
+                  this.navCtrl.setRoot(ConfirmPincodePage,{code:this.code,type:this.type});
+                }
               }else{
                 this.navCtrl.setRoot(ConfirmPincodePage,{code:this.code});
               }
