@@ -29,6 +29,13 @@ export class OrderServiceProvider {
     return this.httpClient.get(getURL, httpOptions);
   }
 
+  public getOrders(username, finished) {
+    let getURL = `${
+      this.orderURL
+    }/filter?username=${username}&finished=${finished}`;
+    return this.httpClient.get(getURL, httpOptions);
+  }
+
   public getBuyerOrders(username, finished) {
     let getURL = `${
       this.orderURL
