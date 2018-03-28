@@ -38,10 +38,10 @@ export class OrderListPage {
     this.doRefresh();
   }
 
-  onDetail(order) {
+  onDetail(order, trader) {
     this.navCtrl.push(RoomPage, {
       order: order,
-      trader: this.user.username == order.buyer ? order.buyer : order.seller,
+      trader: trader,
       type: 'order'
     });
   }

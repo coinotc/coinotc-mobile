@@ -259,6 +259,7 @@ export class RoomPage {
   }
 
   onProfile(trader) {
+    console.log(trader);
     this.navCtrl.push(ProfilePage, trader);
   }
 

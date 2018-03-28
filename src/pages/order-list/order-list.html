@@ -47,7 +47,7 @@
 
     <div *ngSwitchCase="'Active'">
 
-      <ion-card *ngFor="let order of activeOrders" (click)="onDetail(order)">
+      <ion-card *ngFor="let order of activeOrders" (click)="onDetail(order,order.buyer==user.username?order.seller:order.buyer)">
 
         <ion-item>
           <ion-avatar item-start>
@@ -74,7 +74,7 @@
 
     <div *ngSwitchCase="'Finished'">
 
-      <ion-card *ngFor="let order of finishedOrders" (click)="onDetail(order)">
+      <ion-card *ngFor="let order of finishedOrders" (click)="onDetail(order,order.buyer==user.username?order.seller:order.buyer)">
 
         <ion-item>
           <ion-avatar item-start>
