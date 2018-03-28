@@ -13,6 +13,9 @@ import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../tabs/tabs';
 import { ProfilePage } from '../profile/profile';
 import { SettingsPage } from '../settings/settings';
+import { ComplainPage } from '../complain/complain';
+import { AdvertisementsPage } from  '../advertisements/advertisements';
+import { TrustedPage } from '../trusted/trusted';
 /**
  * Generated class for the MePage page.
  *
@@ -59,10 +62,10 @@ export class MePage {
   }
 
   advertisementsTapped() {
-    this.navCtrl.push('AdvertisementsPage');
+    this.navCtrl.push(AdvertisementsPage);
   }
   trustedTapped() {
-    this.navCtrl.push('TrustedPage');
+    this.navCtrl.push(TrustedPage);
   }
   settingsTapped() {
     this.navCtrl.push(SettingsPage);
@@ -78,7 +81,7 @@ export class MePage {
     }
   }
   complain() {
-    this.navCtrl.push('ComplainPage');
+    this.navCtrl.push(ComplainPage);
   }
   logout() {
     this.isSubmitting = true;

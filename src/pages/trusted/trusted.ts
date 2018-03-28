@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
+import { ProfilePage } from '../profile/profile';
 /**
  * Generated class for the TrustedPage page.
  *
@@ -14,12 +16,35 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'trusted.html',
 })
 export class TrustedPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  value = "following";
+  private user;
+  private blocks;
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private userServiceProvider: UserServiceProvider,
+    private profileService:ProfileServiceProvider) {
+      this.user = this.userServiceProvider.getCurrentUser();
+      this.onSegment()
   }
-
+  profile(username) {
+    this.navCtrl.push(ProfilePage, username);
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TrustedPage');
+  }
+  onSegment() {
+    switch (this.value) {
+      case 'following':
+        this.profileService.getProfile(this.user.username).subscribe((result) => {
+          console.log(result[0].block)
+          this.blocks = result[0].block;
+          
+        }); break;
+      case 'followers':
+      this.profileService.getProfile(this.user.username).subscribe((result) => {
+        console.log(result[0])
+          
+        }); break;
+    }
   }
 
 }
