@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Alert } from '../../models/alert';
@@ -59,5 +59,10 @@ export class AlertServiceProvider {
 
   public updateAlert(alert) {
     return this.httpClient.put(this.alertURL, alert, httpOptions);
+  }
+
+  public deleteAlert(alert) {
+    let deleteParams = new HttpParams().set('_id', alert._id);
+    return this.httpClient.delete(this.alertURL, { params: deleteParams });
   }
 }

@@ -43,7 +43,11 @@ export class ProfileServiceProvider {
   }
   public settradepassword(username, tradepassword) {
     let URL = `${this.profileURL}/tradepassword?username=${username}`;
-    return this.http.patch(URL, { tradePrd :tradepassword}, httpOptions);
+    return this.http.patch(URL, { tradePrd: tradepassword }, httpOptions);
+  }
+  public sendComment(username, goodCount) {
+    let URL = `${this.profileURL}/comment?username=${username}`;
+    return this.http.patch(URL, { good: goodCount }, httpOptions);
   }
   // private handleError<T>(operation = 'operation', result?: T) {
   //   return (error: any): Observable<T> => {

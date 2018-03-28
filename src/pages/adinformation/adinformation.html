@@ -19,7 +19,7 @@
       <ion-avatar item-start>
         <ion-text-avatar (click)="profile()">{{information.owner}}</ion-text-avatar>
       </ion-avatar>
-      <h2>{{information.owner}}</h2>
+      <ion-card-title>{{information.owner}}</ion-card-title>
       <p>{{'limit' | translate}}:{{information.min_price}}-{{information.max_price}} {{'fiat.'+information.fiat | translate}}</p>
       <div item-right text-right>
         <h4>{{information.price}} {{'fiat.'+information.fiat | translate}}</h4>
@@ -28,7 +28,7 @@
     </ion-item>
   </ion-card>
   <ion-card>
-    <div ion-row text-center *ngIf="user" >
+    <div ion-row text-center *ngIf="user">
       <div ion-col>
         <h4>{{user.orderCount}}</h4>
         <span>{{'Trades' | translate}}</span>
@@ -48,7 +48,7 @@
       {{'AdvertisementMessage' | translate}}:
     </ion-card-header>
     <ion-card-content>
-      {{information.massage}}
+      {{information.message}}
     </ion-card-content>
   </ion-card>
   <ion-card>
@@ -58,7 +58,7 @@
     <ion-card-content ion-row no-padding>
       <ion-item ion-col>
         <ion-label item-right>{{'fiat.'+information.fiat | translate}}</ion-label>
-        <ion-input type="number" [(ngModel)]="orderinformation.amount" (ngModelChange)="amountchange()" ></ion-input>
+        <ion-input type="number" [(ngModel)]="orderinformation.amount" (ngModelChange)="amountchange()"></ion-input>
       </ion-item>
       <div text-center ion-col col-1 padding-top>
         <ion-icon name="code-working"></ion-icon>

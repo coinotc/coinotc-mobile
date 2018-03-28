@@ -14,17 +14,17 @@
     </ion-title>
   </ion-navbar>
   <ion-toolbar>
-    <ion-segment [(ngModel)]="crypto" (ngModelChange)="doRefresh()" style="height:55px;">
-      <ion-segment-button value="ETHEREUM">
+    <ion-segment [(ngModel)]="crypto" (ngModelChange)="doRefresh()" >
+      <ion-segment-button  id="cry" value="ETHEREUM">
         <ion-icon name="eth"></ion-icon>
       </ion-segment-button>
-      <ion-segment-button value="RIPPLE">
+      <ion-segment-button class="cry" value="RIPPLE">
         <ion-icon name="ripple"></ion-icon>
       </ion-segment-button>
-      <ion-segment-button value="MONERO">
+      <ion-segment-button  class="cry" value="MONERO">
         <ion-icon name="monero"></ion-icon>
       </ion-segment-button>
-      <ion-segment-button value="STELLAR">
+      <ion-segment-button  class="cry" value="STELLAR">
         <ion-icon name="stellar"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="CARDANO">

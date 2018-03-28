@@ -85,6 +85,12 @@ export class AlertPage {
     });
   }
 
+  onDelete(alert) {
+    this.alertServiceProvider.deleteAlert(alert).subscribe(result => {
+      this.alerts = this.alertServiceProvider.getAlerts(this.user, this.crypto);
+    });
+  }
+
   onStatus(alert) {
     this.alertServiceProvider.updateAlert(alert).subscribe(result => {
       this.alerts = this.alertServiceProvider.getAlerts(this.user, this.crypto);
