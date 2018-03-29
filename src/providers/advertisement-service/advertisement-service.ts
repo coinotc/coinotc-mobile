@@ -16,8 +16,8 @@ const httpOptions = {
 };
 @Injectable()
 export class AdvertisementServiceProvider {
-  //private adbuy = environment.api_url + '/guanggao/buy';
-  //private adsell = environment.api_url + '/guanggao/sell';
+  // private countrySource = new Subject<string>(); private fiatSource = new Subject<string>();
+  // country$ = this.countrySource.asObservable(); fiat$ = this.fiatSource.asObservable();
   private advertisement = environment.api_url + '/advertisement';
   constructor(public http: HttpClient) {
     console.log('Hello AdvertisementServiceProvider Provider');
@@ -27,8 +27,8 @@ export class AdvertisementServiceProvider {
   //   console.log(url);
   //   return this.http.get<adinformation[]>(url, httpOptions);
   // }
-  public getadvertisement(crypto, country, type) {
-    let url = `${this.advertisement}?crypto=${crypto}&type=${type}&country=${country}`;
+  public getadvertisement(crypto, country,fiat, type) {
+    let url = `${this.advertisement}?crypto=${crypto}&type=${type}&country=${country}&fiat=${fiat}`;
     return this.http.get<advertisement[]>(url, httpOptions);
   }
   // public addadbuy(information){
