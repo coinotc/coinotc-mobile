@@ -84,6 +84,7 @@ export class MePage {
     this.navCtrl.push(ComplainPage);
   }
   logout() {
+    //this.tabRef.select(3);
     this.isSubmitting = true;
     console.log(this.userService.logout());
     this.userService.logout().subscribe(

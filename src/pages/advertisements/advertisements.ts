@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';  
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { advertisement} from '../../models/advertisement'
+import { advertisement} from '../../models/advertisement';
+import { ReadAdvertisementPage } from '../read-advertisement/read-advertisement';
 /**
  * Generated class for the AdvertisementsPage page.
  *
