@@ -12,7 +12,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AuthPageModule } from '../pages/auth/auth.module';
 import { WalletPage } from '../pages/wallet/wallet';
-import { TradePage } from '../pages/trade/trade';
+import { TradePage, PopoverPage } from '../pages/trade/trade';
 import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement';
 import { OrderListPage } from '../pages/order-list/order-list';
 import { AlertPage, AddAlertPage } from '../pages/alert/alert';
@@ -49,10 +49,10 @@ import { SendMailServiceProvider } from '../providers/send-mail-service/send-mai
 import { Camera } from '@ionic-native/camera';
 import { FCM } from '@ionic-native/fcm';
 import { ComplainPage } from '../pages/complain/complain';
-import { AdvertisementsPage } from  '../pages/advertisements/advertisements';
+import { AdvertisementsPage } from '../pages/advertisements/advertisements';
 import { TrustedPage } from '../pages/trusted/trusted';
-import { PopoverPage } from '../pages/popover/popover';
-import {ScrollingHeaderModule} from 'ionic-scrolling-header';
+import { ScrollingHeaderModule } from 'ionic-scrolling-header';
+import { ElasticHeaderModule } from 'ionic2-elastic-header/dist'
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -93,7 +93,7 @@ export function createTranslateLoader(http: HttpClient) {
     PincodeInputModule,
     MePageModule,
     BrowserModule,
-    IonicModule.forRoot(MyApp, {mode: 'md'}),
+    IonicModule.forRoot(MyApp, { mode: 'md' }),
     AuthPageModule,
     HttpClientModule,
     HttpModule,
@@ -108,7 +108,8 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    AdinformationPageModule
+    AdinformationPageModule,
+    ElasticHeaderModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -156,7 +157,7 @@ export function createTranslateLoader(http: HttpClient) {
     SendMailServiceProvider,
     Camera,
     FCM,
-    
+    Network
   ]
 })
-export class AppModule {}
+export class AppModule { }

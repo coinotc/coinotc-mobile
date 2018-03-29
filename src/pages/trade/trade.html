@@ -4,9 +4,9 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header [scrollingHeader]='content'>
-  <ion-navbar>
-    <img float-left src="../../assets/imgs/logo_1.svg" style="margin-left: 3%;">
+<ion-header [elasticHeader]="myContent">
+  <ion-navbar >
+    <img float-left src="assets/imgs/logo_1.svg" style="margin-left: 3%;">
 
     <button float-right ion-button icon-only (click)="presentPopover($event)">
       <ion-icon name="more"></ion-icon>
@@ -15,16 +15,15 @@
 
   <ion-slides>
     <ion-slide>
-      <h1>Slide 1</h1>
+      <img src="https://i.ytimg.com/vi/eUxQnXunpmA/maxresdefault.jpg">
     </ion-slide>
     <ion-slide>
-      <h1>Slide 2</h1>
+      <img src="https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg" alt="" >
     </ion-slide>
-    <ion-slide>
-      <h1>Slide 3</h1>
-    </ion-slide>
+
+
   </ion-slides>
-  <ion-navbar>
+  <ion-navbar style=" margin-top: -5px;">
     <ion-title text-center>
       <ion-segment [(ngModel)]="buynsell" (ngModelChange)="doRefresh()">
         <ion-segment-button value="buy">{{'willing.wannaBuy' | translate}}</ion-segment-button>
@@ -32,6 +31,8 @@
       </ion-segment>
     </ion-title>
   </ion-navbar>
+  <!-- <input type="text" #country style="display:none" (ngModelChange)="change()">
+  <input type="text" #fiat style="display:none" (ngModelChange)="change()"> -->
   <ion-toolbar>
     <ion-segment [(ngModel)]="crypto" (ngModelChange)="doRefresh()" >
       <ion-segment-button  id="cry" value="ETHEREUM">
@@ -54,7 +55,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content fullscreen #myContent>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingText="pulldown to refresh" refreshingSpinner="circles" refreshingText="refreshing...">
     </ion-refresher-content>
