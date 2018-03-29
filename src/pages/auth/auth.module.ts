@@ -5,13 +5,11 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [
-    AuthPage,
-  ],
+  declarations: [AuthPage],
   imports: [
     IonicPageModule.forChild(AuthPage),
     RouterModule,
     TranslateModule.forChild()
-  ],
+  ]
 })
 export class AuthPageModule {}
