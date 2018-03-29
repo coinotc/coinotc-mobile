@@ -27,7 +27,7 @@ export class MyApp {
     private splashScreen: SplashScreen,
     private translate: TranslateService
   ) {
-    translate.setDefaultLang('cn');
+    translate.setDefaultLang('en');
     firebase.initializeApp(config);
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
