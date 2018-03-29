@@ -34,6 +34,7 @@ export class AdinformationPage {
   title: string;
   tradetype: { type: String; crypto: String };
   user: { orderCount: number; goodCount: number };
+  ismine;
   range;
   loading;
   orderinformation = new OrderInformation(
@@ -63,8 +64,8 @@ export class AdinformationPage {
   ) {
     this.tradetype = navParams.data.tradetype;
     this.information = navParams.data.information;
-    console.log(this.information);
-    console.log(this.tradetype);
+    this.ismine = navParams.data.tradetype.ismine;
+    console.log(navParams.data);
     this.profileservice.getProfile(this.information.owner).subscribe(result => {
       console.log(result);
       this.user = result[0];
@@ -141,12 +142,8 @@ export class AdinformationPage {
   checkorder() {
     if (this.orderinformation.amount > this.information.min_price) {
       if (this.orderinformation.amount < this.information.max_price) {
-        if (
-          this.information.owner != this.userservice.getCurrentUser().username
-        ) {
-          this.disabled = false;
-        }
-      } else {
+        this.disabled = false;
+      }else{
         this.disabled = true;
       }
     } else {
@@ -157,7 +154,7 @@ export class AdinformationPage {
 
 export const getRoomKey = ref => {
   let roomkey;
-  ref.limitToLast(1).on('child_added', function(prevChildKey) {
+  ref.limitToLast(1).on('child_added', function (prevChildKey) {
     //console.log("===>>>>" + prevChildKey.key)
     roomkey = prevChildKey.key;
   }); //获取roomkey
