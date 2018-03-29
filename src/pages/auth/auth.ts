@@ -20,6 +20,7 @@ import { PaymentPrdPage } from '../payment-prd/payment-prd';
 import { PincodePage } from '../pincode/pincode'
 import { FCM, NotificationData } from '@ionic-native/fcm';
 import { Platform } from 'ionic-angular';
+import { Network } from '@ionic-native/network';
 /**
  * Generated class for the AuthPage page.
  *
@@ -47,7 +48,8 @@ export class AuthPage {
     private params: NavParams,
     private fb: FormBuilder,
     private fcm: FCM,
-    private platform: Platform
+    private platform: Platform,
+    private network: Network
   ) {
     // use FormBuilder to create a form group
       this.authForm = this.fb.group({
@@ -217,8 +219,41 @@ export class AuthPage {
       });
     } // end if
   }
+
   close() {
     this.viewCtrl.dismiss();
+  }
+
+  displayOnlineNetworkUpdate(connectionState: string){
+    let networkType = this.network.type;
+    this.toastCtrl
+        .create({
+          message: `You are now ${connectionState} via ${networkType}`,
+          duration: 3000
+        })
+        .present();
+  }
+
+  displayOfflineNetworkUpdate(connectionState: string){
+    let networkType = this.network.type;
+    this.toastCtrl
+        .create({
+          message: `You are now ${connectionState} via ${networkType}`,
+          showCloseButton: true
+        })
+        .present();
+  }
+
+  ionViewDidEnter() {
+    this.network.onConnect().subscribe(data => {
+      console.log(data);
+      this.displayOnlineNetworkUpdate(data.type);
+    }, error => console.error(error));
+   
+    this.network.onDisconnect().subscribe(data => {
+      console.log(data);
+      this.displayOfflineNetworkUpdate(data.type);
+    }, error => console.error(error));
   }
 }
 
