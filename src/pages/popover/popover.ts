@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the PopoverPage page.
@@ -14,32 +14,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'popover.html',
 })
 export class PopoverPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  country: string; fiat: string;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
   }
-
+  ngOnInit() {
+    if (this.navParams.data) {
+      this.country = this.navParams.data.country;
+      this.fiat = this.navParams.data.fiat;
+    }
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad PopoverPage');
   }
-
-  china: boolean;
-  singapore: boolean;
-  rmb: boolean;
-  sgd: boolean;
-
-  updateChina() {
-    console.log('China selected:' + this.china);
-  }
-  
-  updateSingapore() {
-    console.log('Singapore selected:' + this.singapore);
-  }
-  
-  updateRMB() {
-    console.log('RMB selected:' + this.rmb);
-  }
-  
-  updateSGD() {
-    console.log('SGD selected:' + this.sgd);
+  ionViewWillLeave() {
+    console.log('here');
+    this.viewCtrl.dismiss({ country: this.country, fiat: this.fiat });
+    //this.viewCtrl.onWillDismiss(() => {
+    //})
   }
 }

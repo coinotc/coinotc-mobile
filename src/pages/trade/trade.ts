@@ -1,13 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { NavController, NavParams, App, ViewController } from 'ionic-angular';
 import { AddadvertisementPage } from '../addadvertisement/addadvertisement'
 import { Content } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { adinformation } from '../../models/adinformation';
 import { AdinformationPage } from '../adinformation/adinformation';
 import { ProfilePage } from '../profile/profile';
-import { PopoverPage } from '../popover/popover';
-import { PopoverController } from 'ionic-angular';
+import { PopoverController, Events } from 'ionic-angular';
 /**
  * Generated class for the TradePage page.
  *
@@ -15,70 +14,95 @@ import { PopoverController } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@Component({
+  template: `
+<ion-list inset>
+  <ion-list-header>
+    Country
+  </ion-list-header>
+  <ion-list radio-group [(ngModel)]="countrycopy" (click)="change()" >
+    <ion-item>
+      <ion-label>Singapore</ion-label>
+      <ion-radio value="singapore" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>China</ion-label>
+      <ion-radio value="china"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>USA</ion-label>
+      <ion-radio value="usa"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Korea</ion-label>
+      <ion-radio value="korea"></ion-radio>
+    </ion-item>
+  </ion-list>
+  <ion-list-header>
+    Currency
+  </ion-list-header>
+
+  <ion-list radio-group [(ngModel)]="fiatcopy" (click)="change()">
+    <ion-item>
+      <ion-label>SGD</ion-label>
+      <ion-radio value="SGD" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>CNY</ion-label>
+      <ion-radio value="CNY"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>USD</ion-label>
+      <ion-radio value="USD"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>KRW</ion-label>
+      <ion-radio value="KRW"></ion-radio>
+    </ion-item>
+  </ion-list>
+</ion-list>`,
+})
+export class PopoverPage {
+  countrycopy: string; fiatcopy: string;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public events: Events) {
+    this.countrycopy = this.navParams.data.country;
+    this.fiatcopy = this.navParams.data.fiat;
+  }
+  ngOnInit() {
+    if (this.navParams.data) {
+    }
+  }
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad PopoverPage');
+  }
+  ionViewDidLeave() {
+    // this.viewCtrl.dismiss({ country: this.countrycopy, fiat: this.fiatcopy })
+    this.events.publish('popoverDidLeave', { country: this.countrycopy, fiat: this.fiatcopy })
+  }
+
+}
+
 @Component({
   selector: 'page-trade',
   templateUrl: 'trade.html',
 })
 export class TradePage {
   @ViewChild(Content) content: Content;
-  buynsell: string = "buy"; crypto: string = "ETHEREUM";
+  buynsell: string = "buy"; crypto: string = "ETHEREUM"; country: string = "china"; fiat: string = "SGD"
   private list: adinformation[];
-  buycryptos: Object[] = [{
-    root: 'TradeBuyEthereumPage',
-    title: 'ETH',
-    icon: 'eth'
-  }, {
-    root: 'TradeBuyRipplePage',
-    title: 'XRP',
-    icon: 'ripple'
-  }, {
-    root: 'TradeBuyMoneroPage',
-    title: 'XMR',
-    icon: 'monero'
-  }, {
-    root: 'TradeBuyStellarPage',
-    title: 'XLM',
-    icon: 'stellar'
-  }, {
-    root: 'TradeBuyCardanoPage',
-    title: 'ADA',
-    icon: 'cardano'
-  }]
-  sellcryptos: Object[] = [{
-    root: 'TradeSellEthereumPage',
-    title: 'ETH',
-    icon: 'eth'
-  }, {
-    root: 'TradeSellRipplePage',
-    title: 'XRP',
-    icon: 'ripple'
-  }, {
-    root: 'TradeSellMoneroPage',
-    title: 'XMR',
-    icon: 'monero'
-  }, {
-    root: 'TradeSellStellarPage',
-    title: 'XLM',
-    icon: 'stellar'
-  }, {
-    root: 'TradeSellCardanoPage',
-    title: 'ADA',
-    icon: 'cardano'
-  }]
-  constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public appCtrl: App, public adservice: AdvertisementServiceProvider) {
+  constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public appCtrl: App, public adservice: AdvertisementServiceProvider, public events: Events) {
     this.doRefresh();
   }
   doRefresh(refresher?) {
-    if (this.buynsell =="buy") {
-      this.adservice.getadvertisement(this.crypto, 1).subscribe(result => {
+    if (this.buynsell === "buy") {
+      this.adservice.getadvertisement(this.crypto, this.country, this.fiat, 1).subscribe(result => {
         this.list = result;
         if (refresher) {
           refresher.complete();
         }
       })
-    }else{
-      this.adservice.getadvertisement(this.crypto, 0).subscribe(result => {
+    } else {
+      this.adservice.getadvertisement(this.crypto, this.country, this.fiat, 0).subscribe(result => {
         this.list = result;
         if (refresher) {
           refresher.complete();
@@ -87,10 +111,10 @@ export class TradePage {
     }
   }
   adinformation(information) {
-    if(information.type == 1){
-    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Buy', crypto: information.crypto } })
-    }else{
-    this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: information.crypto } })
+    if (information.type == 1) {
+      this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Buy', crypto: information.crypto } })
+    } else {
+      this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: information.crypto } })
     }
   }
   ionViewDidLoad() {
@@ -105,11 +129,24 @@ export class TradePage {
   }
 
   presentPopover(myEvent) {
-    let popover = this.popoverCtrl.create(PopoverPage);
+    let popover = this.popoverCtrl.create(PopoverPage, {
+      country: this.country, fiat: this.fiat
+    });
     popover.present({
       ev: myEvent
     });
+    popover.onWillDismiss(() => {
+      this.events.subscribe('popoverDidLeave', (data) => {
+        this.country = data.country;
+        this.fiat = data.fiat;
+        this.doRefresh();
+      })
+    })
+    popover.onDidDismiss(() => {
+      this.events.unsubscribe('popoverDidLeave')
+    })
   }
-
-
+  change() {
+    console.log('here');
+  }
 }

@@ -66,9 +66,9 @@ export class AddadvertisementPage {
       min_price: [null, [Validators.min(0), Validators.required]],
       max_price: [null, [Validators.min(0), Validators.required]],
       payment: ['', Validators.required],
-      limit: [null, [Validators.min(0)]],
+      limit: [null, [Validators.min(15), Validators.max(60), Validators.required]],
       message: ['', Validators.required]
-    });
+    })
   }
   notbelowmax() {
     if (this.model.max_price && this.model.min_price) {

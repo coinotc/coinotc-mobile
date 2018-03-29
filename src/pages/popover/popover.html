@@ -2,29 +2,44 @@
   <ion-list-header>
     Country
   </ion-list-header>
-
-  <ion-item>
-    <ion-label>China</ion-label>
-    <ion-checkbox [(ngModel)]="china" (ionChange)="updateChina()"></ion-checkbox>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Singapore</ion-label>
-    <ion-checkbox [(ngModel)]="singapore" (ionChange)="updateSingapore()"></ion-checkbox>
-  </ion-item>
-
+  <ion-list radio-group [(ngModel)]="country">
+    <ion-item>
+      <ion-label>Singapore</ion-label>
+      <ion-radio value="singapore" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>China</ion-label>
+      <ion-radio value="china"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>USA</ion-label>
+      <ion-radio value="usa"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Korea</ion-label>
+      <ion-radio value="korea"></ion-radio>
+    </ion-item>
+  </ion-list>
   <ion-list-header>
     Currency
   </ion-list-header>
 
-  <ion-item>
-    <ion-label>SGD</ion-label>
-    <ion-checkbox [(ngModel)]="sgd" (ionChange)="updateSGD()"></ion-checkbox>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>RMB</ion-label>
-    <ion-checkbox [(ngModel)]="rmb" (ionChange)="updateRMB()"></ion-checkbox>
-  </ion-item>
-
+  <ion-list radio-group [(ngModel)]="fiat">
+    <ion-item>
+      <ion-label>SGD</ion-label>
+      <ion-radio value="SGD" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>CNY</ion-label>
+      <ion-radio value="CNY"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>USD</ion-label>
+      <ion-radio value="USD"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>KRW</ion-label>
+      <ion-radio value="KRW"></ion-radio>
+    </ion-item>
+  </ion-list>
 </ion-list>

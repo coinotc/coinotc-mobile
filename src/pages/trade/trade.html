@@ -31,6 +31,8 @@
       </ion-segment>
     </ion-title>
   </ion-navbar>
+  <!-- <input type="text" #country style="display:none" (ngModelChange)="change()">
+  <input type="text" #fiat style="display:none" (ngModelChange)="change()"> -->
   <ion-toolbar>
     <ion-segment [(ngModel)]="crypto" (ngModelChange)="doRefresh()" >
       <ion-segment-button  id="cry" value="ETHEREUM">
