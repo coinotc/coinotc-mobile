@@ -160,7 +160,7 @@ export function createTranslateLoader(http: HttpClient) {
     SendMailServiceProvider,
     Camera,
     FCM,
-
+    Network
   ]
 })
 export class AppModule { }
