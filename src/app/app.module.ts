@@ -45,6 +45,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { ModifyTradepasswordPage } from '../pages/modify-tradepassword/modify-tradepassword';
 import { SettingsPage } from '../pages/settings/settings';
 import { ComplainInformationPage } from '../pages/complain-information/complain-information';
+import { TwoFactorAuthPage } from '../pages/two-factor-auth/two-factor-auth';
 import { SendMailServiceProvider } from '../providers/send-mail-service/send-mail-service';
 import { Camera } from '@ionic-native/camera';
 import { FCM } from '@ionic-native/fcm';
@@ -87,7 +88,8 @@ export function createTranslateLoader(http: HttpClient) {
     ComplainPage,
     AdvertisementsPage,
     TrustedPage,
-    PopoverPage
+    PopoverPage,
+    TwoFactorAuthPage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -137,7 +139,8 @@ export function createTranslateLoader(http: HttpClient) {
     ComplainPage,
     AdvertisementsPage,
     TrustedPage,
-    PopoverPage
+    PopoverPage,
+    TwoFactorAuthPage
   ],
   providers: [
     StatusBar,

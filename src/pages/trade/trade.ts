@@ -3,6 +3,7 @@ import { NavController, NavParams, App, ViewController } from 'ionic-angular';
 import { AddadvertisementPage } from '../addadvertisement/addadvertisement'
 import { Content } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
+import { UserServiceProvider } from '../../providers/user-service/user-service'
 import { adinformation } from '../../models/adinformation';
 import { AdinformationPage } from '../adinformation/adinformation';
 import { PopoverController, Events } from 'ionic-angular';
@@ -87,10 +88,11 @@ export class PopoverPage {
 })
 export class TradePage {
   @ViewChild(Content) content: Content;
-  buynsell: string = "buy"; crypto: string = "ETHEREUM"; country: string = "china"; fiat: string = "SGD"
+  buynsell: string = "buy"; crypto: string = "ETHEREUM"; country: string = "singapore"; fiat: string = "USD"; currentuser;
   private list: adinformation[];
-  constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public appCtrl: App, public adservice: AdvertisementServiceProvider, public events: Events) {
+  constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public appCtrl: App, public adservice: AdvertisementServiceProvider, public events: Events, public userservice: UserServiceProvider) {
     this.doRefresh();
+    this.currentuser = this.userservice.getCurrentUser().username;
   }
   doRefresh(refresher?) {
     if (this.buynsell === "buy") {
@@ -109,11 +111,15 @@ export class TradePage {
       })
     }
   }
-  adinformation(information) {
-    if (information.type == 1) {
-      this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Buy', crypto: information.crypto } })
+  adinformation(information, ismine) {
+    if (ismine) {
+      this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'My', crypto: 'Advertisement', ismine: ismine } })
     } else {
-      this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: information.crypto } })
+      if (information.type == 1) {
+        this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Buy', crypto: information.crypto, ismine: ismine } })
+      } else {
+        this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: information.crypto, ismine: ismine } })
+      }
     }
   }
   ionViewDidLoad() {
@@ -121,10 +127,10 @@ export class TradePage {
     this.content.resize();
   }
   addbuyad() {
-    this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Buy', title: 'publishBuy' })
+    this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Buy', title: 'publishBuy', crypto: this.crypto, fiat: this.fiat, country: this.country })
   }
   addsellad() {
-    this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Sell', title: 'publishSell' })
+    this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Sell', title: 'publishSell', crypto: this.crypto, fiat: this.fiat, country: this.country })
   }
 
   presentPopover(myEvent) {
@@ -144,8 +150,5 @@ export class TradePage {
     popover.onDidDismiss(() => {
       this.events.unsubscribe('popoverDidLeave')
     })
-  }
-  change() {
-    console.log('here');
   }
 }

@@ -3,26 +3,26 @@
     <div class="modal_content">
         <ion-row>
             <ion-item item-left style="width:60%">
-                <h2 text-center>New Price Alert!</h2>
+                <h2 text-center>{{'NewPriceAlert' | translate}}</h2>
             </ion-item>
             <ion-item item-right style="width:40%">
-                <ion-label>Fiat</ion-label>
+                <ion-label>{{'fiat.fiat' | translate}}</ion-label>
                 <ion-select float-right [(ngModel)]="fiat" (ngModelChange)="onFiat(fiat)">
-                    <ion-option value="USD">USD</ion-option>
-                    <ion-option value="CNY">CNY</ion-option>
-                    <ion-option value="SGD">SGD</ion-option>
-                    <ion-option value="KWR">KWR</ion-option>
+                    <ion-option value="USD">{{'fiat.USD' | translate}}</ion-option>
+                    <ion-option value="CNY">{{'fiat.CNY' | translate}}</ion-option>
+                    <ion-option value="SGD">{{'fiat.SGD' | translate}}</ion-option>
+                    <ion-option value="KWR">{{'fiat.KRW' | translate}}</ion-option>
                 </ion-select>
             </ion-item>
         </ion-row>
         <ion-row style="width:100%" radio-group [(ngModel)]="model.above">
             <ion-item style="width:30%">
-                <ion-label>BELOW</ion-label>
+                <ion-label>{{'Below' | translate}}</ion-label>
                 <ion-radio value="false"></ion-radio>
             </ion-item>
-            <h1 style="width:40%" text-center>{{price}} {{fiat}}</h1>
+            <h1 style="width:40%" text-center>{{fiat}} {{price}}</h1>
             <ion-item text-right item-right style="width:30%">
-                <ion-label>ABOVE</ion-label>
+                <ion-label>{{'Above' | translate}}</ion-label>
                 <ion-radio value="true"></ion-radio>
             </ion-item>
         </ion-row>
@@ -30,8 +30,8 @@
             <ion-input text-center type="text" [(ngModel)]="price" placeholder="Input the number you want to set"></ion-input>
         </ion-item>
         <ion-item>
-            <p>Tips:The default value of showed price is the average price from recent orders.</p>
+            <p text-center>{{'NewAlertTips' | translate}}</p>
         </ion-item>
-        <button ion-button style="width:100%" (click)="onCreate()">Create Alert</button>
+        <button ion-button style="width:100%" (click)="onCreate()">{{'CreateAlert' | translate}}</button>
     </div>
 </ion-content>
