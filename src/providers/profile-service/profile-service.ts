@@ -32,14 +32,13 @@ export class ProfileServiceProvider {
     let URL = `${this.profileURL}?username=${username}`;
     return this.http.get<Profile>(URL, httpOptions);
   }
-
-  public sendBlock(username, block) {
-    let URL = `${this.profileURL}/block?username=${username}`;
-    return this.http.patch(URL, block, httpOptions);
-  }
   public sendFollowing(username, following) {
     let URL = `${this.profileURL}/follow?username=${username}`;
     return this.http.patch(URL, following, httpOptions);
+  }
+  public sendFollowers(username, followers) {
+    let URL = `${this.profileURL}/followers?username=${username}`;
+    return this.http.patch(URL, followers, httpOptions);
   }
   public settradepassword(username, tradepassword) {
     let URL = `${this.profileURL}/tradepassword?username=${username}`;
