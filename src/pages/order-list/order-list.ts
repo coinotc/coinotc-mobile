@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
-//import { Observable } from 'rxjs/Observable';
+import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { OrderInformation } from '../../models/orderInformation';
 import { RoomPage } from '../room/room';
 /**
  * Generated class for the OrderListPage page.
@@ -32,8 +30,7 @@ export class OrderListPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private orderServiceProvider: OrderServiceProvider,
-    private userServiceProvider: UserServiceProvider,
-    private appCtrl: App
+    private userServiceProvider: UserServiceProvider
   ) {
     this.user = this.userServiceProvider.getCurrentUser();
     this.doRefresh();

@@ -10,7 +10,6 @@ import { JwtServiceProvider } from '../jwt-service/jwt-service';
 import { User } from '../../models/user.model';
 import { Storage } from '@ionic/storage';
 import { environment } from '../../../environments/environment';
-import { FCM, NotificationData } from '@ionic-native/fcm';
 
 /*
   Generated class for the UserServiceProvider provider.

@@ -16,7 +16,6 @@ import {
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../../pages/tabs/tabs';
-import { PaymentPrdPage } from '../payment-prd/payment-prd';
 import { PincodePage } from '../pincode/pincode'
 import { FCM, NotificationData } from '@ionic-native/fcm';
 import { Platform } from 'ionic-angular';
@@ -39,7 +38,11 @@ export class AuthPage {
   authForm: FormGroup;
   deviceToken;
   isModal: boolean; // show close button only in a modal
+  networkStatusIndicator: Number = 0;
   password = 'password';
+  onlineToast: any;
+  offlineToast: any;
+  
   constructor(
     public navCtrl: NavController,
     private viewCtrl: ViewController,
@@ -86,21 +89,6 @@ export class AuthPage {
           });
   }
 
-
-  // matchValidator = (control: FormControl): { [s: string]: any } => {
-  //   if(!control.value){
-  //     return { required: true , errors:true}
-  //   }else if(this.authForm.controls.password.value === control.value){
-  //     return { errors:"111" }
-  //   }else{
-  //     return { errors:true}
-  //   }
-  // }
-  // matchPasswordValidator = (control: FormControl): { [s: string]: boolean } => {
-  //   console.log(control)
-  // return
-  // }
-  
 
   matchValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
@@ -226,33 +214,38 @@ export class AuthPage {
 
   displayOnlineNetworkUpdate(connectionState: string){
     let networkType = this.network.type;
-    this.toastCtrl
+    this.networkStatusIndicator = 2;
+    //this.offlineToast.dismiss();
+    this.onlineToast = this.toastCtrl
         .create({
           message: `You are now ${connectionState} via ${networkType}`,
           duration: 3000
-        })
-        .present();
+        }).present();
   }
 
   displayOfflineNetworkUpdate(connectionState: string){
-    let networkType = this.network.type;
-    this.toastCtrl
+    this.networkStatusIndicator = 1;
+    //this.onlineToast.dismiss();
+    this.offlineToast = this.toastCtrl
         .create({
-          message: `You are now ${connectionState} via ${networkType}`,
+          message: `You are now offline`,
           showCloseButton: true
-        })
-        .present();
+        }).present();
   }
 
   ionViewDidEnter() {
     this.network.onConnect().subscribe(data => {
       console.log(data);
-      this.displayOnlineNetworkUpdate(data.type);
+      if(this.networkStatusIndicator != 2){
+        this.displayOnlineNetworkUpdate(data.type);
+      }
     }, error => console.error(error));
    
     this.network.onDisconnect().subscribe(data => {
       console.log(data);
-      this.displayOfflineNetworkUpdate(data.type);
+      if(this.networkStatusIndicator != 1){
+        this.displayOfflineNetworkUpdate(data.type);
+      }
     }, error => console.error(error));
   }
 }

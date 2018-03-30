@@ -90,16 +90,15 @@ export function createTranslateLoader(http: HttpClient) {
     PopoverPage
   ],
   imports: [
-    ScrollingHeaderModule,
     BrowserAnimationsModule,
-    PincodeInputModule,
-    MePageModule,
     BrowserModule,
     IonicModule.forRoot(MyApp, { mode: 'md' }),
-    AuthPageModule,
     HttpClientModule,
     HttpModule,
     rootRouting,
+    AuthPageModule,
+    PincodeInputModule,
+    MePageModule,
     RoomPageModule,
     PaymentPrdPageModule,
     IonicStorageModule.forRoot(),
@@ -111,7 +110,9 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     AdinformationPageModule,
-    ElasticHeaderModule
+    ElasticHeaderModule,
+    ScrollingHeaderModule,
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [

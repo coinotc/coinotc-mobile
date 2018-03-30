@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,App} from 'ionic-angular';
+import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { PincodeController } from  'ionic2-pincode-input/dist/pincode';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { User } from '../../models/user.model';
-import { Observable } from 'rxjs/Observable';
 import { PincodePage } from '../pincode/pincode';
 import { MePage } from '../me/me';
-import { SettingsPage } from '../settings/settings'
+
 /**
  * Generated class for the ModifyTradepasswordPage page.
  *
@@ -26,8 +24,7 @@ export class ModifyTradepasswordPage {
   private pinCode;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public pincodeCtrl: PincodeController,
-    private userService: UserServiceProvider,
-    private appCtrl:App) {
+    private userService: UserServiceProvider) {
      
     this.user = userService.getTradepassword(this.userService.getCurrentUser().username).subscribe( result =>{
       this.tradePrd = JSON.parse(JSON.stringify(result));
@@ -56,24 +53,9 @@ export class ModifyTradepasswordPage {
             this.navCtrl.setRoot(this.navCtrl.getActive().component)
           }
         }
-        //console.log(status)
-        
     })
   }
-  // goBack(){
-  //   console.log(666666666666)
-  //   this.pinCode.present();
-  //   this.pinCode.onDidDismiss( (code,status) => {
-  //     console.log(1111)
-  //     this.appCtrl.getRootNav().push(MePage);
-  //   })
-    
-  //   this.appCtrl.getRootNav().push(MePage);
-  //   // this.navCtrl.setRoot(SettingsPage).then
-  //   // {
-  //   //   this.navCtrl.setRoot(MePage);
-  //   // }
-  // }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModifyTradepasswordPage');
   }

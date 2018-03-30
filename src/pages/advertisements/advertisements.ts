@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController} from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';  
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { advertisement} from '../../models/advertisement'
@@ -21,7 +21,7 @@ export class AdvertisementsPage {
   private disableAdvertisement:advertisement[];
   value = "Active";
   private user;
-  constructor(public navCtrl: NavController, private navParams: NavParams,
+  constructor(public navCtrl: NavController,
     private advertisementService : AdvertisementServiceProvider,
     private userServiceProvider: UserServiceProvider) {
       this.user = this.userServiceProvider.getCurrentUser();

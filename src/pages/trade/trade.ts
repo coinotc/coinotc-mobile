@@ -5,7 +5,6 @@ import { Content } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { adinformation } from '../../models/adinformation';
 import { AdinformationPage } from '../adinformation/adinformation';
-import { ProfilePage } from '../profile/profile';
 import { PopoverController, Events } from 'ionic-angular';
 /**
  * Generated class for the TradePage page.
