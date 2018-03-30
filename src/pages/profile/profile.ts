@@ -28,7 +28,6 @@ export class ProfilePage {
   rate;
   profileUser;
   currentUserName;
-  blockStatus;
   followStatus;
   private ad:advertisement[];
   private trade:advertisement[];
@@ -40,26 +39,10 @@ export class ProfilePage {
     private ev: Events,
     private advertisementService:AdvertisementServiceProvider
   ) {
-    this.ev.subscribe('hello', function() {
-      this.blockStatus = this.userService
-        .getCurrentUser()
-        .block.indexOf(this.profileUser);
-      if (this.blockStatus < 0) {
-        this.blockStatus = 'block';
-      } else {
-        this.blockStatus = 'unblock';
-      }
-    });
+    
     this.profileUser = navParams.data;
     this.currentUserName = this.userService.getCurrentUser().username;
-    this.blockStatus = this.userService
-      .getCurrentUser()
-      .block.indexOf(this.profileUser);
-    if (this.blockStatus < 0) {
-      this.blockStatus = 'block';
-    } else {
-      this.blockStatus = 'unblock';
-    }
+    
     this.followStatus = this.userService
       .getCurrentUser()
       .following.indexOf(this.profileUser);
@@ -89,20 +72,7 @@ export class ProfilePage {
     this.navCtrl.push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: information.crypto } })
     }
   }
-  block() {
-    let b = this.userService.getCurrentUser().block;
-    if (this.blockStatus == 'block') {
-      b.push(this.profileUser);
-    } else {
-      b.splice(
-        this.userService.getCurrentUser().block.indexOf(this.profileUser),
-        1
-      );
-    }
-    this.profileService.sendBlock(this.currentUserName, b).subscribe();
-    this.navCtrl.push(ProfilePage,
-      this.profileUser)
-  }
+  
   follow() {
     let a = this.userService.getCurrentUser().followers;
     let b = this.userService.getCurrentUser().following;
