@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild,ElementRef,Renderer } from '@angular/core';
 import { NavController, NavParams, App, ViewController } from 'ionic-angular';
 import { AddadvertisementPage } from '../addadvertisement/addadvertisement'
 import { Content } from 'ionic-angular';
@@ -88,11 +88,28 @@ export class PopoverPage {
 })
 export class TradePage {
   @ViewChild(Content) content: Content;
+  start = 0;
+  threshold = 100;
+  slideHeaderPrevious = 0;
+  ionScroll:any;
+  showheader:boolean;
+  hideheader:boolean;
+  headercontent:any;
   buynsell: string = "buy"; crypto: string = "ETHEREUM"; country: string = "singapore"; fiat: string = "USD"; currentuser;
   private list: advertisement[];
-  constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public appCtrl: App, public adservice: AdvertisementServiceProvider, public events: Events, public userservice: UserServiceProvider) {
+  constructor(public popoverCtrl: PopoverController,
+              public navCtrl: NavController,
+              public navParams: NavParams,
+              public appCtrl: App,
+              public adservice: AdvertisementServiceProvider,
+              public events: Events,
+              public userservice: UserServiceProvider,
+              public renderer: Renderer,
+              public myElement: ElementRef) {
     this.doRefresh();
     this.currentuser = this.userservice.getCurrentUser().username;
+    this.showheader =false;
+    this.hideheader = true;
   }
   doRefresh(refresher?) {
     if (this.buynsell === "buy") {
@@ -151,4 +168,25 @@ export class TradePage {
       this.events.unsubscribe('popoverDidLeave')
     })
   }
+  ngOnInit() {
+// Ionic scroll element
+    this.ionScroll = this.myElement.nativeElement.getElementsByClassName('scroll-content')[0];
+// On scroll function
+    this.ionScroll.addEventListener("scroll", () => {
+      if(this.ionScroll.scrollTop - this.start > this.threshold) {
+        this.showheader =true;
+        this.hideheader = false;
+      } else {
+        this.showheader =false;
+        this.hideheader = true;
+      }
+      if (this.slideHeaderPrevious >= this.ionScroll.scrollTop - this.start) {
+        this.showheader =false;
+        this.hideheader = true;
+      }
+      this.slideHeaderPrevious = this.ionScroll.scrollTop - this.start;
+    });
+  }
+
+  
 }
