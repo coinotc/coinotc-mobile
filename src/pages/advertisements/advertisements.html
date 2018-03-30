@@ -31,7 +31,7 @@
           <h2>{{advertisement.owner}}</h2>
           <p>{{advertisement.payment}}</p>
           <div item-right text-right>
-            <h5 style="color:#02cb66">{{advertisement.price}} {{+advertisement.fiat}}</h5>
+            <h5 style="color:#02cb66">{{advertisement.price| number : '1.2-2'}} {{+advertisement.fiat}}</h5>
           </div>
         </ion-item>
         <ion-item-options>
@@ -55,7 +55,7 @@
             <h2>{{advertisement.owner}}</h2>
             <p>{{advertisement.payment}}</p>
           <div item-right text-right>
-            <h5 style="color:#02cb66">{{advertisement.price}} {{advertisement.fiat}}</h5>
+            <h5 style="color:#02cb66">{{advertisement.price| number : '1.2-2'}} {{advertisement.fiat}}</h5>
           </div>
         </ion-item>
         <ion-item-options>

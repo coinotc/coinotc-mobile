@@ -64,7 +64,7 @@
           {{'OrderID' | translate}}:
           <span style="float:right">{{order._id}}</span>
           <br>{{'Amount' | translate}}:
-          <span style="float:right">{{order.amount}}</span>
+          <span style="float:right">{{order.amount| number : '1.2-2'}}</span>
           <br>{{'Seller' | translate}}:
           <span style="float:right">{{order.seller}}</span>
         </ion-card-content>
@@ -90,7 +90,7 @@
           {{'OrderID' | translate}}:
           <span style="float:right">{{order._id}}</span>
           <br>{{'Amount' | translate}}:
-          <span style="float:right">{{order.amount}}</span>
+          <span style="float:right">{{order.amount| number : '1.2-2'}}</span>
           <br>{{'Seller' | translate}}:
           <span style="float:right">{{order.seller}}</span>
         </ion-card-content>
