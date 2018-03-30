@@ -89,13 +89,15 @@ export class PopoverPage {
 })
 export class TradePage {
   @ViewChild(Content) content: Content;
-  buynsell: string = "buy"; crypto: string = "ETHEREUM"; country: string = "singapore"; fiat: string = "USD"; currentuser;
+  buynsell: string = "buy"; crypto: string = "ETHEREUM"; country: string = "usa"; fiat: string = "USD"; currentuser;
   private list: adinformation[];
   constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public appCtrl: App, public adservice: AdvertisementServiceProvider, public events: Events, public userservice: UserServiceProvider) {
     this.doRefresh();
-    this.currentuser = this.userservice.getCurrentUser().username;
   }
   doRefresh(refresher?) {
+    if (!this.currentuser) {
+      this.currentuser = this.userservice.getCurrentUser().username;
+    }
     if (this.buynsell === "buy") {
       this.adservice.getadvertisement(this.crypto, this.country, this.fiat, 1).subscribe(result => {
         this.list = result;
