@@ -36,6 +36,7 @@ export class ModifyTradepasswordPage {
       this.pinCode =  this.pincodeCtrl.create({
       title:'Pincode',
       hideForgotPassword:true,
+      enableBackdropDismiss:false,
       //hideCancelButton:true,
       cancelButtonText:"cancel"
     });

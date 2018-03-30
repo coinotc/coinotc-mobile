@@ -3,7 +3,7 @@ import { NavController, NavParams, App, ViewController } from 'ionic-angular';
 import { AddadvertisementPage } from '../addadvertisement/addadvertisement'
 import { Content } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
-import { adinformation } from '../../models/adinformation';
+import { advertisement } from '../../models/advertisement';
 import { AdinformationPage } from '../adinformation/adinformation';
 import { ProfilePage } from '../profile/profile';
 import { PopoverController, Events } from 'ionic-angular';
@@ -89,7 +89,7 @@ export class PopoverPage {
 export class TradePage {
   @ViewChild(Content) content: Content;
   buynsell: string = "buy"; crypto: string = "ETHEREUM"; country: string = "china"; fiat: string = "SGD"
-  private list: adinformation[];
+  private list: advertisement[];
   constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public appCtrl: App, public adservice: AdvertisementServiceProvider, public events: Events) {
     this.doRefresh();
   }
