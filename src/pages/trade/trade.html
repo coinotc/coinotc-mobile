@@ -5,8 +5,8 @@
   Ionic pages and navigation.
 -->
 <ion-header [elasticHeader]="myContent">
-  <ion-navbar >
-    <img float-left src="assets/imgs/logo_1.svg" style="margin-left: 3%;">
+  <ion-navbar>
+    <img float-left src="../../assets/imgs/logo_1.svg" style="margin-left: 3%;">
 
     <button float-right ion-button icon-only (click)="presentPopover($event)">
       <ion-icon name="more"></ion-icon>
@@ -18,7 +18,7 @@
       <img src="https://i.ytimg.com/vi/eUxQnXunpmA/maxresdefault.jpg">
     </ion-slide>
     <ion-slide>
-      <img src="https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg" alt="" >
+      <img src="https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg" alt="">
     </ion-slide>
 
 
@@ -34,17 +34,17 @@
   <!-- <input type="text" #country style="display:none" (ngModelChange)="change()">
   <input type="text" #fiat style="display:none" (ngModelChange)="change()"> -->
   <ion-toolbar>
-    <ion-segment [(ngModel)]="crypto" (ngModelChange)="doRefresh()" >
-      <ion-segment-button  id="cry" value="ETHEREUM">
+    <ion-segment [(ngModel)]="crypto" (ngModelChange)="doRefresh()">
+      <ion-segment-button id="cry" value="ETHEREUM">
         <ion-icon name="eth"></ion-icon>
       </ion-segment-button>
       <ion-segment-button class="cry" value="RIPPLE">
         <ion-icon name="ripple"></ion-icon>
       </ion-segment-button>
-      <ion-segment-button  class="cry" value="MONERO">
+      <ion-segment-button class="cry" value="MONERO">
         <ion-icon name="monero"></ion-icon>
       </ion-segment-button>
-      <ion-segment-button  class="cry" value="STELLAR">
+      <ion-segment-button class="cry" value="STELLAR">
         <ion-icon name="stellar"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="CARDANO">
@@ -70,9 +70,9 @@
       <p>{{'payment.'+item.payment | translate}}</p>
       <div item-right text-right>
         <h5 style="color:#02cb66">{{item.price | number}} {{'fiat.'+item.fiat | translate}}</h5>
-
-        <button ion-button round (click)="adinformation(item)" *ngIf="item.type==1">{{'Buy' | translate}} {{item.crypto}}</button>
-        <button ion-button round (click)="adinformation(item)" *ngIf="item.type==0">{{'Sell' | translate}} {{item.crypto}}</button>
+        <button ion-button round (click)="adinformation(item,true)" *ngIf="item.owner === currentuser">view my advertisement</button>
+        <button ion-button round (click)="adinformation(item,false)" *ngIf="item.type==1 && item.owner != currentuser">{{'Buy' | translate}} {{item.crypto}}</button>
+        <button ion-button round (click)="adinformation(item,false)" *ngIf="item.type==0 && item.owner != currentuser">{{'Sell' | translate}} {{item.crypto}}</button>
       </div>
     </ion-item>
   </ion-card>

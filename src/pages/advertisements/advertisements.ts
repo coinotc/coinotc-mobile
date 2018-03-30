@@ -23,7 +23,7 @@ export class AdvertisementsPage {
   private disableAdvertisement:advertisement[];
   value = "Active";
   private user;
-  constructor(public navCtrl: NavController, private navParams: NavParams,
+  constructor(public navCtrl: NavController,
     private advertisementService : AdvertisementServiceProvider,
     private appCtrl: App,
     private userServiceProvider: UserServiceProvider) {

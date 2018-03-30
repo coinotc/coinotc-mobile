@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FCM } from '@ionic-native/fcm';
 import { Alert } from '../../models/alert';
 import { Observable } from 'rxjs/Observable';
 import { Notification } from '../../models/notification';
@@ -68,7 +67,7 @@ export class AlertPage {
     private profileServiceProvider: ProfileServiceProvider
   ) {
     this.user = this.userServiceProvider.getCurrentUser().username;
-    this.alerts = this.alertServiceProvider.getAlerts(this.user, this.crypto);
+    this.doRefresh();
     this.orderServiceProvider
       .getAlertInformation('USD', this.crypto)
       .subscribe(result => {
@@ -87,19 +86,19 @@ export class AlertPage {
 
   onDelete(alert) {
     this.alertServiceProvider.deleteAlert(alert).subscribe(result => {
-      this.alerts = this.alertServiceProvider.getAlerts(this.user, this.crypto);
+      this.doRefresh();
     });
   }
 
   onStatus(alert) {
     this.alertServiceProvider.updateAlert(alert).subscribe(result => {
-      this.alerts = this.alertServiceProvider.getAlerts(this.user, this.crypto);
+      this.doRefresh();
     });
   }
 
   changeCrypto(cryptoValue) {
     this.crypto = cryptoValue;
-    this.alerts = this.alertServiceProvider.getAlerts(this.user, this.crypto);
+    this.doRefresh();
     this.orderServiceProvider
       .getAlertInformation('USD', this.crypto)
       .subscribe(result => {
@@ -116,7 +115,17 @@ export class AlertPage {
       crypto: this.crypto,
       user: this.user
     });
+    modal.onDidDismiss(() => {
+      this.doRefresh();
+    });
     modal.present();
+  }
+
+  doRefresh(refresher?) {
+    this.alerts = this.alertServiceProvider.getAlerts(this.user, this.crypto);
+    if (refresher) {
+      refresher.complete();
+    }
   }
 
   ionViewDidLoad() {

@@ -10,7 +10,6 @@ import { JwtServiceProvider } from '../jwt-service/jwt-service';
 import { User } from '../../models/user.model';
 import { Storage } from '@ionic/storage';
 import { environment } from '../../../environments/environment';
-import { FCM, NotificationData } from '@ionic-native/fcm';
 
 /*
   Generated class for the UserServiceProvider provider.
@@ -34,7 +33,7 @@ export class UserServiceProvider {
     private apiService: ApiServiceProvider,
     private jwtService: JwtServiceProvider,
     private storage: Storage,
-    public http: HttpClient,) {
+    public http: HttpClient, ) {
     console.log('UserServiceProvider Provider');
   }
 
@@ -44,8 +43,8 @@ export class UserServiceProvider {
       if (token) {
         this.apiService.get('/user')
           .subscribe(
-          data => this.setAuth(data.user),
-          err => this.purgeAuth()
+            data => this.setAuth(data.user),
+            err => this.purgeAuth()
           );
       } else {
         // Remove any potential remnants of previous auth states
@@ -65,7 +64,7 @@ export class UserServiceProvider {
         currency: user.nativeCurrency
       }
       this.storage.ready().then(() => this.storage.set('nativeCurrency', nativeCurry) as Promise<void>)
-      
+
       // Set isAuthenticated to true
       this.isAuthenticatedSubject.next(true);
     });
@@ -83,14 +82,14 @@ export class UserServiceProvider {
 
   attemptAuth(type, credentials, deviceToken): Observable<User> {
     let route = (type === 'login') ? '/login' : '';
-    return this.apiService.post('/users' + route, { user: credentials , deviceToken: deviceToken})
+    return this.apiService.post('/users' + route, { user: credentials, deviceToken: deviceToken })
       .map(data => {
         this.setAuth(data.user);
         return data;
       })
-      
+
   }
-  
+
   public logout(): Observable<User> {
     return this.apiService.get('/users/logout')
       .map(data => {
@@ -126,10 +125,12 @@ export class UserServiceProvider {
       return data;
     });
   }
-  public getTradepassword(username){
+  public getTradepassword(username) {
     let tradePrdURL = environment.api_url + '/users/tradepassword';
     let URL = `${tradePrdURL}?username=${username}`;
     return this.http.get<User>(URL, httpOptions);
   }
-
+  public get2faSecret(username) {
+    return this.http.get(`/2fa?username=${username}`, httpOptions);
+  }
 }

@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {
   FormBuilder,
   FormGroup,
-  FormControl,
   Validators
 } from '@angular/forms';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
@@ -30,9 +29,9 @@ export class AddadvertisementPage {
   model = new advertisement(
     '',
     true,
-    'ETHEREUM',
-    'singapore',
-    'SGD',
+    null,
+    null,
+    null,
     null,
     null,
     null,
@@ -52,23 +51,41 @@ export class AddadvertisementPage {
   ) {
     this.type = navParams.data.type;
     this.title = navParams.data.title;
+    this.model.crypto = navParams.data.crypto;
+    this.model.fiat = navParams.data.fiat;
+    this.model.country = navParams.data.country;
     this.changerange();
-    this.adservice.getprice('Ethereum', 'SGD').subscribe(result => {
+    this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(result => {
       this.cryptoprice = Number(result[0].price_sgd);
       this.model.price = this.cryptoprice;
     });
-    this.adform = this.fb.group({
-      crypto: ['ETHEREUM', Validators.required],
-      country: ['singapore', Validators.required],
-      fiat: ['SGD', Validators.required],
-      rangepercent: [null, Validators.required],
-      price: [null, [Validators.min(0)]],
-      min_price: [null, [Validators.min(0), Validators.required]],
-      max_price: [null, [Validators.min(0), Validators.required]],
-      payment: ['', Validators.required],
-      limit: [null, [Validators.min(15), Validators.max(60), Validators.required]],
-      message: ['', Validators.required]
-    })
+    if (this.type == 'Buy') {
+      this.adform = this.fb.group({
+        crypto: [this.model.crypto, Validators.required],
+        country: [this.model.country, Validators.required],
+        fiat: [this.model.fiat, Validators.required],
+        rangepercent: [null, Validators.required],
+        price: [null, [Validators.min(0)]],
+        min_price: [null, [Validators.min(0), Validators.required]],
+        max_price: [null, [Validators.min(0), Validators.required]],
+        payment: ['', Validators.required],
+        limit: [null, [Validators.min(15), Validators.max(60), Validators.required]],
+        message: ['', Validators.required]
+      })
+    }else{
+      this.adform = this.fb.group({
+        crypto: [this.model.crypto, Validators.required],
+        country: [this.model.country, Validators.required],
+        fiat: [this.model.fiat, Validators.required],
+        rangepercent: [null, Validators.required],
+        price: [null, [Validators.min(0)]],
+        min_price: [null, [Validators.min(0), Validators.required]],
+        max_price: [null, [Validators.min(0), Validators.required]],
+        payment: ['', Validators.required],
+        limit: [null, [Validators.min(15), Validators.max(60)]],
+        message: ['', Validators.required]
+      })
+    }
   }
   notbelowmax() {
     if (this.model.max_price && this.model.min_price) {

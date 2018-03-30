@@ -5,7 +5,6 @@ import { TabsPage } from '../tabs/tabs';
 import { PincodePage } from '../pincode/pincode';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
-import { Observable } from 'rxjs/Observable';
 import { SendMailServiceProvider } from '../../providers/send-mail-service/send-mail-service';
 import { MePage } from '../me/me';
 /**
