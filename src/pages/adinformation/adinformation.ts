@@ -49,6 +49,7 @@ export class AdinformationPage {
     null,
     null,
     null,
+    null,
     false,
     false,
     null
@@ -97,6 +98,7 @@ export class AdinformationPage {
     this.orderinformation.payment = this.information.payment;
     this.orderinformation.limit = this.information.limit;
     this.orderinformation.message = this.information.message;
+    this.orderinformation.owner = this.information.owner;
     if (this.tradetype.type == 'Buy') {
       this.orderinformation.buyer = this.userservice.getCurrentUser().username;
       this.orderinformation.seller = this.information.owner;
@@ -140,10 +142,10 @@ export class AdinformationPage {
     this.checkorder();
   }
   checkorder() {
-    if (this.orderinformation.amount > this.information.min_price) {
-      if (this.orderinformation.amount < this.information.max_price) {
+    if (this.orderinformation.amount >= this.information.min_price) {
+      if (this.orderinformation.amount <= this.information.max_price) {
         this.disabled = false;
-      }else{
+      } else {
         this.disabled = true;
       }
     } else {
