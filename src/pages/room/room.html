@@ -17,7 +17,7 @@
 
     <ion-card [ngSwitch]="switched">
       <button ion-item (click)="onSwitch()">
-        {{'Crypto' | translate}}:{{orderInfo.crypto}}
+        {{orderInfo.crypto}}
         <span style="float:right">{{(orderInfo.finished ? 'Completed':'Active') | translate}}</span>
       </button>
 
@@ -28,7 +28,7 @@
         <span style="float:right">{{orderInfo.amount}}</span>
         <br> {{'Quantity' | translate}}
         <span style="float:right">{{orderInfo.quantity}}</span>
-        <br> {{'Price' | translate}}
+        <br> {{'Price' | translate| number : '1.2-2'}}
         <span style="float:right">{{orderInfo.price}}</span>
         <br> {{'Buyer' | translate}}:{{orderInfo.buyer}}
         <span style="float:right">{{'Seller' | translate}}:{{orderInfo.seller}}</span>

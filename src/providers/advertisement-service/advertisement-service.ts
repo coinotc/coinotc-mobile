@@ -1,10 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-//import { Observable } from 'rxjs/Rx';
-//import { adinformation } from '../../models/adinformation'
 import { environment } from '../../../environments/environment';
-import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { advertisement } from '../../models/advertisement';
+
 /*
   Generated class for the AdvertisementServiceProvider provider.
 
@@ -49,6 +47,26 @@ export class AdvertisementServiceProvider {
     let URL =
       this.advertisement + `/myadvertisement?owner=${username}&visible=${type}`;
     return this.http.get<advertisement[]>(URL, httpOptions);
+  }
+  public getMyEditAdvertisement(id) {
+    let URL =
+      this.advertisement + `/editAdvertisement?id=${id}`;
+    return this.http.get<advertisement[]>(URL, httpOptions);
+  }
+  public changeVisible( id , visible) {
+    let URL =
+      this.advertisement + `?_id=${id}`;
+    return this.http.patch(URL, { visible: visible }, httpOptions);
+  }
+  public deleteSatatus(id) {
+    let URL =
+      this.advertisement + `/deleteStatuts/`;
+    return this.http.patch(URL, { _id: id }, httpOptions);
+  }
+  public editAdvertisement(info){
+    let URL =
+      this.advertisement + `/editAdvertisement/`;
+      return this.http.put(URL,info,httpOptions);
   }
   public getprice(type, fiat) {
     let url = `https://api.coinmarketcap.com/v1/ticker/${type}/?convert=${fiat}`;

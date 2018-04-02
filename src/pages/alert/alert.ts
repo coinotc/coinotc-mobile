@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FCM } from '@ionic-native/fcm';
 import { Alert } from '../../models/alert';
 import { Observable } from 'rxjs/Observable';
 import { Notification } from '../../models/notification';

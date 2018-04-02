@@ -55,7 +55,7 @@ import { TrustedPage } from '../pages/trusted/trusted';
 import { ScrollingHeaderModule } from 'ionic-scrolling-header';
 import { ElasticHeaderModule } from 'ionic2-elastic-header/dist'
 import { Network } from '@ionic-native/network';
-
+import { EditAdvertisementPage } from '../pages/edit-advertisement/edit-advertisement';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -89,19 +89,19 @@ export function createTranslateLoader(http: HttpClient) {
     AdvertisementsPage,
     TrustedPage,
     PopoverPage,
+    EditAdvertisementPage,
     TwoFactorAuthPage
   ],
   imports: [
-    ScrollingHeaderModule,
     BrowserAnimationsModule,
-    PincodeInputModule,
-    MePageModule,
     BrowserModule,
     IonicModule.forRoot(MyApp, { mode: 'md' }),
-    AuthPageModule,
     HttpClientModule,
     HttpModule,
     rootRouting,
+    AuthPageModule,
+    PincodeInputModule,
+    MePageModule,
     RoomPageModule,
     PaymentPrdPageModule,
     IonicStorageModule.forRoot(),
@@ -113,7 +113,9 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     AdinformationPageModule,
-    ElasticHeaderModule
+    ElasticHeaderModule,
+    ScrollingHeaderModule,
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -139,6 +141,7 @@ export function createTranslateLoader(http: HttpClient) {
     AdvertisementsPage,
     TrustedPage,
     PopoverPage,
+    EditAdvertisementPage,
     TwoFactorAuthPage
   ],
   providers: [

@@ -6,11 +6,9 @@ import {
   ToastController
 } from 'ionic-angular';
 import { AuthPage } from '../auth/auth';
-import { TradePage } from '../trade/trade';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
 import { Errors } from '../../models/errors.model';
-import { TabsPage } from '../tabs/tabs';
 import { ProfilePage } from '../profile/profile';
 import { SettingsPage } from '../settings/settings';
 import { ComplainPage } from '../complain/complain';
@@ -84,6 +82,7 @@ export class MePage {
     this.navCtrl.push(ComplainPage);
   }
   logout() {
+    //this.tabRef.select(3);
     this.isSubmitting = true;
     console.log(this.userService.logout());
     this.userService.logout().subscribe(

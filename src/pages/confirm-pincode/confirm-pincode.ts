@@ -5,7 +5,6 @@ import { TabsPage } from '../tabs/tabs';
 import { PincodePage } from '../pincode/pincode';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
-import { Observable } from 'rxjs/Observable';
 import { SendMailServiceProvider } from '../../providers/send-mail-service/send-mail-service';
 import { MePage } from '../me/me';
 /**
@@ -39,7 +38,8 @@ export class ConfirmPincodePage {
       let pinCode =  this.pincodeCtrl.create({
         title:'Pincode',
         hideForgotPassword:true,
-        hideCancelButton:true
+        hideCancelButton:true,
+        enableBackdropDismiss:false
       });
       pinCode.present();
       pinCode.onDidDismiss( (code,status) => 

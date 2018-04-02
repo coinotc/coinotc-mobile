@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Alert } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { OrderListPage } from '../order-list/order-list';
 import { MePage } from '../me/me';
 import { WalletPage } from '../wallet/wallet';
