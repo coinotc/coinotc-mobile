@@ -193,6 +193,12 @@ export class RoomPage {
                       console.log(result);
                     });
                 });
+              result[i].status = false;
+              this.alertServiceProvider
+                .updateAlert(result[i])
+                .subscribe(result => {
+                  console.log(result);
+                });
             }
           });
       });
@@ -234,6 +240,12 @@ export class RoomPage {
                     .subscribe(result => {
                       console.log(result);
                     });
+                });
+              result[i].status = false;
+              this.alertServiceProvider
+                .updateAlert(result[i])
+                .subscribe(result => {
+                  console.log(result);
                 });
             }
           });
