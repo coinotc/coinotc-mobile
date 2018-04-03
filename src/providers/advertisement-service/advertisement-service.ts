@@ -14,8 +14,6 @@ const httpOptions = {
 };
 @Injectable()
 export class AdvertisementServiceProvider {
-  // private countrySource = new Subject<string>(); private fiatSource = new Subject<string>();
-  // country$ = this.countrySource.asObservable(); fiat$ = this.fiatSource.asObservable();
   private advertisement = environment.api_url + '/advertisement';
   constructor(public http: HttpClient) {
     console.log('Hello AdvertisementServiceProvider Provider');

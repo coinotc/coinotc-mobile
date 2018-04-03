@@ -19,8 +19,8 @@
       <ion-label>{{'SelectCurrency' | translate}}</ion-label>
       <ion-select item-right [(ngModel)]="model.crypto" (ngModelChange)="getcryptoprice()" formControlName="crypto">
         <ion-option value="ETHEREUM">Ethereum</ion-option>
-        <ion-option value="MONERO">Monero</ion-option>
         <ion-option value="RIPPLE">Ripple</ion-option>
+        <ion-option value="MONERO">Monero</ion-option>
         <ion-option value="STELLAR">Stellar</ion-option>
         <ion-option value="CARDANO">Cardano</ion-option>
       </ion-select>
@@ -79,8 +79,8 @@
       <ion-input type="number" min="15" max="60" placeholder="{{'minutes' | translate}}" text-right [(ngModel)]="model.limit" formControlName="limit"></ion-input>
     </ion-item>
     <ion-textarea [(ngModel)]="model.message" placeholder="{{'AdvertisementMessage' | translate}}" formControlName="message"></ion-textarea>
-    <ion-item text-center *ngSwitchCase="'Buy'"><button ion-button round (click)="addbuyad()" large [disabled]="!adform.valid || belowmax">{{'Publish' | translate}}</button></ion-item>
-    <ion-item text-center *ngSwitchCase="'Sell'"><button ion-button round (click)="addsellad()" large [disabled]="!adform.valid || belowmax">{{'Publish' | translate}}</button></ion-item>
+    <ion-item text-center *ngSwitchCase="'Buy'"><button ion-button round (click)="addbuyad()" large [disabled]="!adform.valid || belowmax || getprice">{{'Publish' | translate}}</button></ion-item>
+    <ion-item text-center *ngSwitchCase="'Sell'"><button ion-button round (click)="addsellad()" large [disabled]="!adform.valid || belowmax || getprice">{{'Publish' | translate}}</button></ion-item>
   </ion-list>
   <div *ngSwitchDefault>
     error

@@ -24,6 +24,7 @@ export class AddadvertisementPage {
   adform: FormGroup;
   belowmax = true;
   rangepercent = 0;
+  getprice = true;
   type: String;
   title: String;
   model = new advertisement(
@@ -72,7 +73,7 @@ export class AddadvertisementPage {
         limit: [null, [Validators.min(15), Validators.max(60), Validators.required]],
         message: ['', Validators.required]
       })
-    }else{
+    } else {
       this.adform = this.fb.group({
         crypto: [this.model.crypto, Validators.required],
         country: [this.model.country, Validators.required],
@@ -124,6 +125,9 @@ export class AddadvertisementPage {
           this.changerange();
         });
         break;
+    }
+    if (this.cryptoprice != NaN) {
+      this.getprice = false;
     }
   }
   changerange() {

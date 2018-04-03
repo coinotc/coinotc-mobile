@@ -2,6 +2,21 @@
 // iOS only Sass variables can go here
 
 page-trade {
+    .ETHEREUM{
+        background-color: #90a3ef;
+    }
+    .RIPPLE{
+        background-color: #00aae4;
+    }
+    .MONERO{
+        background-color: #fd924b;
+    }
+    .STELLAR{
+        background-color: #59caec;
+    }
+    .CARDANO{
+        background-color: #75d7d7;
+    }
   .scroll-content{
     top:-56px !important;
     padding-top: 60px !important;
