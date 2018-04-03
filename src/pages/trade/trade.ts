@@ -1,10 +1,10 @@
-import { Component, ViewChild,ElementRef,Renderer } from '@angular/core';
+import { Component, ViewChild, ElementRef, Renderer } from '@angular/core';
 import { NavController, NavParams, App, ViewController } from 'ionic-angular';
-import { AddadvertisementPage } from '../addadvertisement/addadvertisement'
+import { AddadvertisementPage } from '../addadvertisement/addadvertisement';
 import { Content } from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { advertisement } from '../../models/advertisement';
-import { UserServiceProvider } from '../../providers/user-service/user-service'
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { AdinformationPage } from '../adinformation/adinformation';
 import { PopoverController, Events } from 'ionic-angular';
 /**
@@ -60,11 +60,17 @@ import { PopoverController, Events } from 'ionic-angular';
       <ion-radio value="KRW"></ion-radio>
     </ion-item>
   </ion-list>
-</ion-list>`,
+</ion-list>`
 })
 export class PopoverPage {
-  countrycopy: string; fiatcopy: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public events: Events) {
+  countrycopy: string;
+  fiatcopy: string;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public viewCtrl: ViewController,
+    public events: Events
+  ) {
     this.countrycopy = this.navParams.data.country;
     this.fiatcopy = this.navParams.data.fiat;
   }
@@ -77,65 +83,94 @@ export class PopoverPage {
   }
   ionViewDidLeave() {
     // this.viewCtrl.dismiss({ country: this.countrycopy, fiat: this.fiatcopy })
-    this.events.publish('popoverDidLeave', { country: this.countrycopy, fiat: this.fiatcopy })
+    this.events.publish('popoverDidLeave', {
+      country: this.countrycopy,
+      fiat: this.fiatcopy
+    });
   }
-
 }
 
 @Component({
   selector: 'page-trade',
-  templateUrl: 'trade.html',
+  templateUrl: 'trade.html'
 })
 export class TradePage {
   @ViewChild(Content) content: Content;
   start = 0;
   threshold = 100;
   slideHeaderPrevious = 0;
-  ionScroll:any;
-  showheader:boolean;
-  hideheader:boolean;
-  headercontent:any;
-  buynsell: string = "buy"; crypto: string = "ETHEREUM"; country: string = "singapore"; fiat: string = "USD"; currentuser;
+  ionScroll: any;
+  showheader: boolean;
+  hideheader: boolean;
+  headercontent: any;
+  buynsell: string = 'buy';
+  crypto: string = 'ETHEREUM';
+  country: string = 'singapore';
+  fiat: string = 'USD';
+  currentuser;
   private list: advertisement[];
-  constructor(public popoverCtrl: PopoverController,
-              public navCtrl: NavController,
-              public navParams: NavParams,
-              public appCtrl: App,
-              public adservice: AdvertisementServiceProvider,
-              public events: Events,
-              public userservice: UserServiceProvider,
-              public renderer: Renderer,
-              public myElement: ElementRef) {
+  constructor(
+    public popoverCtrl: PopoverController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public appCtrl: App,
+    public adservice: AdvertisementServiceProvider,
+    public events: Events,
+    public userservice: UserServiceProvider,
+    public renderer: Renderer,
+    public myElement: ElementRef
+  ) {
     this.doRefresh();
     this.currentuser = this.userservice.getCurrentUser().username;
-    this.showheader =false;
+    this.showheader = false;
     this.hideheader = true;
   }
   doRefresh(refresher?) {
-    if (this.buynsell === "buy") {
-      this.adservice.getadvertisement(this.crypto, this.country, this.fiat, 1).subscribe(result => {
-        this.list = result;
-        if (refresher) {
-          refresher.complete();
-        }
-      })
+    if (this.buynsell === 'buy') {
+      this.adservice
+        .getadvertisement(this.crypto, this.country, this.fiat, 1)
+        .subscribe(result => {
+          this.list = result;
+          if (refresher) {
+            refresher.complete();
+          }
+        });
     } else {
-      this.adservice.getadvertisement(this.crypto, this.country, this.fiat, 0).subscribe(result => {
-        this.list = result;
-        if (refresher) {
-          refresher.complete();
-        }
-      })
+      this.adservice
+        .getadvertisement(this.crypto, this.country, this.fiat, 0)
+        .subscribe(result => {
+          this.list = result;
+          if (refresher) {
+            refresher.complete();
+          }
+        });
     }
   }
   adinformation(information, ismine) {
     if (ismine) {
-      this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'My', crypto: 'Advertisement', ismine: ismine } })
+      this.appCtrl.getRootNav().push(AdinformationPage, {
+        information: information,
+        tradetype: { type: 'My', crypto: 'Advertisement', ismine: ismine }
+      });
     } else {
       if (information.type == 1) {
-        this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Buy', crypto: information.crypto, ismine: ismine } })
+        this.appCtrl.getRootNav().push(AdinformationPage, {
+          information: information,
+          tradetype: {
+            type: 'Buy',
+            crypto: information.crypto,
+            ismine: ismine
+          }
+        });
       } else {
-        this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: information.crypto, ismine: ismine } })
+        this.appCtrl.getRootNav().push(AdinformationPage, {
+          information: information,
+          tradetype: {
+            type: 'Sell',
+            crypto: information.crypto,
+            ismine: ismine
+          }
+        });
       }
     }
   }
@@ -144,49 +179,62 @@ export class TradePage {
     this.content.resize();
   }
   addbuyad() {
-    this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Buy', title: 'publishBuy', crypto: this.crypto, fiat: this.fiat, country: this.country })
+    this.appCtrl.getRootNav().push(AddadvertisementPage, {
+      type: 'Buy',
+      title: 'publishBuy',
+      crypto: this.crypto,
+      fiat: this.fiat,
+      country: this.country
+    });
   }
   addsellad() {
-    this.appCtrl.getRootNav().push(AddadvertisementPage, { type: 'Sell', title: 'publishSell', crypto: this.crypto, fiat: this.fiat, country: this.country })
+    this.appCtrl.getRootNav().push(AddadvertisementPage, {
+      type: 'Sell',
+      title: 'publishSell',
+      crypto: this.crypto,
+      fiat: this.fiat,
+      country: this.country
+    });
   }
 
   presentPopover(myEvent) {
     let popover = this.popoverCtrl.create(PopoverPage, {
-      country: this.country, fiat: this.fiat
+      country: this.country,
+      fiat: this.fiat
     });
     popover.present({
       ev: myEvent
     });
     popover.onWillDismiss(() => {
-      this.events.subscribe('popoverDidLeave', (data) => {
+      this.events.subscribe('popoverDidLeave', data => {
         this.country = data.country;
         this.fiat = data.fiat;
         this.doRefresh();
-      })
-    })
+      });
+    });
     popover.onDidDismiss(() => {
-      this.events.unsubscribe('popoverDidLeave')
-    })
+      this.events.unsubscribe('popoverDidLeave');
+    });
   }
   ngOnInit() {
-// Ionic scroll element
-    this.ionScroll = this.myElement.nativeElement.getElementsByClassName('scroll-content')[0];
-// On scroll function
-    this.ionScroll.addEventListener("scroll", () => {
-      if(this.ionScroll.scrollTop - this.start > this.threshold) {
-        this.showheader =true;
+    // Ionic scroll element
+    this.ionScroll = this.myElement.nativeElement.getElementsByClassName(
+      'scroll-content'
+    )[0];
+    // On scroll function
+    this.ionScroll.addEventListener('scroll', () => {
+      if (this.ionScroll.scrollTop - this.start > this.threshold) {
+        this.showheader = true;
         this.hideheader = false;
       } else {
-        this.showheader =false;
+        this.showheader = false;
         this.hideheader = true;
       }
       if (this.slideHeaderPrevious >= this.ionScroll.scrollTop - this.start) {
-        this.showheader =false;
+        this.showheader = false;
         this.hideheader = true;
       }
       this.slideHeaderPrevious = this.ionScroll.scrollTop - this.start;
     });
   }
-
-  
 }

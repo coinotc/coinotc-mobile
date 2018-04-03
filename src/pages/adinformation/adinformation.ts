@@ -49,8 +49,7 @@ export class AdinformationPage {
     null,
     null,
     null,
-    false,
-    false,
+    1,
     null
   );
 
@@ -143,7 +142,7 @@ export class AdinformationPage {
     if (this.orderinformation.amount > this.information.min_price) {
       if (this.orderinformation.amount < this.information.max_price) {
         this.disabled = false;
-      }else{
+      } else {
         this.disabled = true;
       }
     } else {
@@ -154,7 +153,7 @@ export class AdinformationPage {
 
 export const getRoomKey = ref => {
   let roomkey;
-  ref.limitToLast(1).on('child_added', function (prevChildKey) {
+  ref.limitToLast(1).on('child_added', function(prevChildKey) {
     //console.log("===>>>>" + prevChildKey.key)
     roomkey = prevChildKey.key;
   }); //获取roomkey

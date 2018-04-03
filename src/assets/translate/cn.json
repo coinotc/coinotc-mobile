@@ -33,8 +33,6 @@
   "Bad": "差评",
   "Trader": "对方详情",
   "Completed": "交易完成",
-  "Finished": "交易完成",
-  "Active": "交易中",
   "SignIn": "登录账号",
   "SignUp": "注册账号",
   "SelectCurrency": "选择币种",
@@ -49,6 +47,12 @@
     "CNY": "人民币",
     "USD": "美元",
     "KRW": "韩元"
+  },
+  "orderStatus": {
+    "0": "交易完成",
+    "1": "待付款",
+    "2": "待发货",
+    "3": "待评价"
   },
   "limit": "金额区间",
   "MinLimit": "最低交易额",
