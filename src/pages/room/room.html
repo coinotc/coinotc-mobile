@@ -25,11 +25,13 @@
         {{'OrderID' | translate}}:
         <span style="float:right">{{orderInfo._id}}</span>
         <br> {{'Amount' | translate}}
-        <span style="float:right">{{orderInfo.amount}}</span>
+        <span style="float:right">{{orderInfo.fiat}} {{orderInfo.amount}}</span>
         <br> {{'Quantity' | translate}}
         <span style="float:right">{{orderInfo.quantity}}</span>
         <br> {{'Price' | translate}}
         <span style="float:right">{{orderInfo.price | number : '1.2-2'}}</span>
+        <br> {{'Fee' | translate}}
+        <span style="float:right">{{0.07 * orderInfo.quantity}} {{orderInfo.crypto}}</span>
         <br> {{'Buyer' | translate}}:{{orderInfo.buyer}}
         <span style="float:right">{{'Seller' | translate}}:{{orderInfo.seller}}</span>
         <br> {{'Message' | translate}}:

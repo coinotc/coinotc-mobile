@@ -126,6 +126,9 @@ export class TradePage {
     this.hideheader = true;
   }
   doRefresh(refresher?) {
+    if (!this.currentuser) {
+      this.currentuser = this.userservice.getCurrentUser().username;
+    }
     if (this.buynsell === 'buy') {
       this.adservice
         .getadvertisement(this.crypto, this.country, this.fiat, 1)
