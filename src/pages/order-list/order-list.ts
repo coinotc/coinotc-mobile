@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  App,
+  Events
+} from 'ionic-angular';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { RoomPage } from '../room/room';
@@ -31,7 +37,8 @@ export class OrderListPage {
     public navParams: NavParams,
     private orderServiceProvider: OrderServiceProvider,
     private userServiceProvider: UserServiceProvider,
-    private appCtrl: App
+    private appCtrl: App,
+    private events: Events
   ) {
     this.doRefresh();
   }
@@ -41,6 +48,10 @@ export class OrderListPage {
       order: order,
       trader: trader,
       type: 'order'
+    });
+
+    this.events.subscribe('reloadList', () => {
+      this.doRefresh();
     });
   }
 
