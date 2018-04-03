@@ -118,26 +118,22 @@ export class TradePage {
     public events: Events,
     public userservice: UserServiceProvider,
     public renderer: Renderer,
-    public myElement: ElementRef
-  ) {
-    this.doRefresh();
-    this.currentuser = this.userservice.getCurrentUser().username;
+    public myElement: ElementRef) {
     this.showheader = false;
     this.hideheader = true;
   }
+  ionViewDidEnter(){
+    this.currentuser = this.userservice.getCurrentUser().username;
+    this.doRefresh();
+  }
   doRefresh(refresher?) {
-    if (!this.currentuser) {
-      this.currentuser = this.userservice.getCurrentUser().username;
-    }
-    if (this.buynsell === 'buy') {
-      this.adservice
-        .getadvertisement(this.crypto, this.country, this.fiat, 1)
-        .subscribe(result => {
-          this.list = result;
-          if (refresher) {
-            refresher.complete();
-          }
-        });
+    if (this.buynsell === "buy") {
+      this.adservice.getadvertisement(this.crypto, this.country, this.fiat, 1).subscribe(result => {
+        this.list = result;
+        if (refresher) {
+          refresher.complete();
+        }
+      })
     } else {
       this.adservice
         .getadvertisement(this.crypto, this.country, this.fiat, 0)
@@ -221,11 +217,9 @@ export class TradePage {
   }
   ngOnInit() {
     // Ionic scroll element
-    this.ionScroll = this.myElement.nativeElement.getElementsByClassName(
-      'scroll-content'
-    )[0];
+    this.ionScroll = this.myElement.nativeElement.getElementsByClassName('scroll-content')[0];
     // On scroll function
-    this.ionScroll.addEventListener('scroll', () => {
+    this.ionScroll.addEventListener("scroll", () => {
       if (this.ionScroll.scrollTop - this.start > this.threshold) {
         this.showheader = true;
         this.hideheader = false;

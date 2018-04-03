@@ -33,20 +33,20 @@
     <form [formGroup]="authForm" (ngSubmit)="submitForm()" >
       <!-- <fieldset [disabled]="isSubmitting" > -->
         <ion-list>
-          <ion-item *ngIf="authType == 'register'">
+          <ion-item *ngIf="authType == 'register'" >
             <ion-label stacked>Username</ion-label>
             <ion-input formControlName="username" type="text"></ion-input>
           </ion-item>
-          <ion-item>
+          <ion-item >
             <ion-label stacked>Email</ion-label>
             <ion-input formControlName="email" type="text"></ion-input>
           </ion-item>
-          <ion-item>
+          <ion-item >
             <ion-label stacked>Password</ion-label>
             <ion-input formControlName="password" type="password"></ion-input>
           </ion-item>
 
-          <ion-item *ngIf=" authType === 'register' ">
+          <ion-item *ngIf=" authType === 'register' " >
             <ion-label stacked>Confirm Password</ion-label>
             <ion-input formControlName="confirmPassword" type="password"></ion-input>
           </ion-item>
@@ -58,4 +58,5 @@
         </div>
       <!-- </fieldset> -->
     </form>
+
   </ion-content>
