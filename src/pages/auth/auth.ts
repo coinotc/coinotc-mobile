@@ -176,8 +176,10 @@ export class AuthPage {
               console.log(this.navCtrl.parent)
               this.navCtrl.parent.previousTab(false)
               this.navCtrl.parent.select(0);
+              
             }
             this.navCtrl.setRoot(TabsPage);
+            
             //this.navCtrl.parent.previousTab(false)
           }
           
