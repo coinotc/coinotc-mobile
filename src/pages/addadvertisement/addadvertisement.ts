@@ -24,7 +24,7 @@ export class AddadvertisementPage {
   adform: FormGroup;
   belowmax = true;
   rangepercent = 0;
-  getprice = true;
+  notgetprice = true;
   type: String;
   title: String;
   model = new advertisement(
@@ -55,11 +55,12 @@ export class AddadvertisementPage {
     this.model.crypto = navParams.data.crypto;
     this.model.fiat = navParams.data.fiat;
     this.model.country = navParams.data.country;
-    this.changerange();
-    this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(result => {
-      this.cryptoprice = Number(result[0].price_sgd);
-      this.model.price = this.cryptoprice;
-    });
+    // this.changerange();
+    // this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(result => {
+    //   this.cryptoprice = Number(result[0].price_sgd);
+    //   this.model.price = this.cryptoprice;
+    // });
+    this.getcryptoprice();
     if (this.type == 'Buy') {
       this.adform = this.fb.group({
         crypto: [this.model.crypto, Validators.required],
@@ -105,35 +106,35 @@ export class AddadvertisementPage {
         this.adservice.getprice(this.model.crypto, 'SGD').subscribe(result => {
           this.cryptoprice = Number(result[0].price_sgd);
           this.changerange();
-        });
+        }, error => this.changerange(error));
         break;
       case 'CNY':
         this.adservice.getprice(this.model.crypto, 'CNY').subscribe(result => {
           this.cryptoprice = Number(result[0].price_cny);
           this.changerange();
-        });
+        }, error => this.changerange(error));
         break;
       case 'USD':
         this.adservice.getprice(this.model.crypto, 'USD').subscribe(result => {
           this.cryptoprice = Number(result[0].price_usd);
           this.changerange();
-        });
+        }, error => this.changerange(error));
         break;
       case 'KRW':
         this.adservice.getprice(this.model.crypto, 'KRW').subscribe(result => {
           this.cryptoprice = Number(result[0].price_krw);
           this.changerange();
-        });
+        }, error => this.changerange(error));
         break;
     }
-    if (this.cryptoprice != NaN) {
-      this.getprice = false;
-    }
   }
-  changerange() {
-    this.model.price = Number(
-      (this.cryptoprice * (100 + this.rangepercent) / 100).toFixed(4)
-    );
+  changerange(error?) {
+    if (error) {
+      this,this.notgetprice = true;
+    } else {
+      this.notgetprice = false;
+      this.model.price = Number((this.cryptoprice * (100 + this.rangepercent) / 100).toFixed(4));
+    }
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddadvertisementPage');
