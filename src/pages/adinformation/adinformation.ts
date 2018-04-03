@@ -50,8 +50,7 @@ export class AdinformationPage {
     null,
     null,
     null,
-    false,
-    false,
+    1,
     null
   );
 
@@ -156,7 +155,7 @@ export class AdinformationPage {
 
 export const getRoomKey = ref => {
   let roomkey;
-  ref.limitToLast(1).on('child_added', function (prevChildKey) {
+  ref.limitToLast(1).on('child_added', function(prevChildKey) {
     //console.log("===>>>>" + prevChildKey.key)
     roomkey = prevChildKey.key;
   }); //获取roomkey

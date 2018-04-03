@@ -31,7 +31,6 @@ export class RoomPage {
   roomkey: any;
   nickname: string;
   offStatus: boolean = false;
-  status;
   switched = false;
   trader;
   average;
@@ -119,27 +118,19 @@ export class RoomPage {
       .getSpecificOrder(this.orderInfo._id)
       .subscribe(result => {
         this.orderInfo = result;
-        if (this.orderInfo.finished == false) {
-          if (
-            this.user.username == this.orderInfo.seller &&
-            this.orderInfo.informed == true
-          ) {
-            this.status = 0;
-          } else if (
-            this.user.username == this.orderInfo.buyer &&
-            this.orderInfo.informed == false
-          ) {
-            this.status = 1;
-          }
-        }
       });
     this.switched = !this.switched;
   }
 
   onInformed() {
-    this.status = 2;
-    this.orderInfo.informed = true;
-    this.orderServiceProvider.updateOrder(this.orderInfo).subscribe();
+    this.orderInfo.finished = 2;
+    this.orderServiceProvider.updateOrder(this.orderInfo).subscribe(result => {
+      this.orderServiceProvider
+        .getSpecificOrder(this.orderInfo._id)
+        .subscribe(result => {
+          this.orderInfo = result;
+        });
+    });
     //Send push notification to trader
     this.alertServiceProvider
       .onNotification(this.notification)
@@ -149,9 +140,14 @@ export class RoomPage {
   }
 
   onFinished() {
-    this.status = 2;
-    this.orderInfo.finished = true;
-    this.orderServiceProvider.updateOrder(this.orderInfo).subscribe();
+    this.orderInfo.finished = 3;
+    this.orderServiceProvider.updateOrder(this.orderInfo).subscribe(result => {
+      this.orderServiceProvider
+        .getSpecificOrder(this.orderInfo._id)
+        .subscribe(result => {
+          this.orderInfo = result;
+        });
+    });
     //Send push notification to trader
     this.alertServiceProvider
       .onNotification(this.notification)
@@ -245,7 +241,7 @@ export class RoomPage {
   }
 
   onComment() {
-    this.status = 3;
+    this.orderInfo.finished = 0;
     this.user.orderCount = this.user.orderCount + 1;
     this.userService.update(this.user).subscribe();
     this.profileServiceProvider.getProfile(this.trader).subscribe(result => {

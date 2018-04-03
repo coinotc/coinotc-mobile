@@ -12,8 +12,7 @@ export class OrderInformation {
     public payment: string,
     public limit: number,
     public message: string,
-    public informed: Boolean,
-    public finished: Boolean,
+    public finished: Number,
     public roomkey: string
   ) { }
 }
