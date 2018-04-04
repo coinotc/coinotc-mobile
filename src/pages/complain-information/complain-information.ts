@@ -23,13 +23,21 @@ export class ComplainInformationPage {
   roomkey:any;
   orderInformation;
   compainUser;
-  model = new complain('','','',0,'',null,'');
+  Complainant;
+  model = new complain('','','',0,'',null,'','','','','','');
   constructor(public navCtrl: NavController, public navParams: NavParams,
   private userService:UserServiceProvider,
   private complainService:ComplainServiceProvider
   ) {
     this.orderInformation = this.navParams.data;
+    if(this.orderInformation.buyer == this.userService.getCurrentUser().username){
+      this.Complainant = "Buyer";
+    }else{
+      this.Complainant = "Seller";
+    }
+    console.log(this.Complainant)
     this.compainUser = this.userService.getCurrentUser().username == this.orderInformation.seller ? this.orderInformation.buyer : this.orderInformation.seller; 
+    
     //console.log(this.compainUser)
   }
 
@@ -37,6 +45,10 @@ export class ComplainInformationPage {
     this.model.pleader = this.compainUser;
     this.model.complainant = this.userService.getCurrentUser().username;
     this.model.orderId = this.orderInformation._id;
+    this.model.crypto = this.orderInformation.crypto;
+    this.model.fiat = this.orderInformation.fiat;
+    this.model.role = this.Complainant;
+    this.model.country = this.orderInformation.country;
     console.log(this.model);
     this.complainService.sendComplain(this.model).subscribe(result => {
       console.log(result);
