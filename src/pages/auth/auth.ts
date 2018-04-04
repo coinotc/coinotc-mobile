@@ -5,6 +5,7 @@ import {
   NavParams,
   ViewController,
   ToastController,
+  LoadingController
   
 } from 'ionic-angular';
 import {
@@ -52,7 +53,8 @@ export class AuthPage {
     private fb: FormBuilder,
     private fcm: FCM,
     private platform: Platform,
-    private network: Network
+    private network: Network,
+    private loadingCtrl: LoadingController
   ) {
     // use FormBuilder to create a form group
       this.authForm = this.fb.group({
@@ -156,12 +158,18 @@ export class AuthPage {
 }
   
   submitForm() {
+    let loading = this.loadingCtrl.create({
+        spinner: 'circles',
+        content: 'loading...',
+        duration: 3000
+
+    });
+    loading.present();
     console.log(this.deviceToken);
     this.isSubmitting = true;
     const credentials = this.authForm.value;
     //this.navCtrl.push(TabsPage,{});
-    console.log('login success');
-
+    
     //console.log(this.navCtrl.parent);
     this.userService
       .attemptAuth(this.authType, credentials, this.deviceToken)
@@ -178,12 +186,14 @@ export class AuthPage {
               this.navCtrl.parent.select(0);
               
             }
-            this.navCtrl.setRoot(TabsPage);
-            
+            setTimeout(() => {
+              this.navCtrl.setRoot(TabsPage);
+            }, 1000);
+            setTimeout(() => {
+              loading.dismiss();
+            }, 2500);
             //this.navCtrl.parent.previousTab(false)
           }
-          
-          
         },
         (errors: Errors) => {
           for (let field in errors.errors) {
@@ -260,5 +270,6 @@ export class AuthPage {
       }
     }, error => console.error(error));
   }
+
 }
 

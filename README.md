@@ -1,3 +1,13 @@
+# How to enable livereload
+* Added the following line of codes to the index.html
+```html
+<meta http-equiv="Content-Security-Policy" content="font-src 'self' data:; img-src * data:; default-src gap://ready file://* *; script-src 'self' 'unsafe-inline' 'unsafe-eval' * ; style-src 'self' 'unsafe-inline' *">
+```
+* Terminal run 
+```
+ionic cordova run android --livereload-host --livereload -c
+```
+* Launch Chrome browser access the following url chrome://inspect
 
 # Font Awesome added to ionic usage
 ```html
