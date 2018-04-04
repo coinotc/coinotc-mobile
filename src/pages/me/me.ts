@@ -3,7 +3,8 @@ import {
   IonicPage,
   NavController,
   NavParams,
-  ToastController
+  ToastController,
+  App
 } from 'ionic-angular';
 import { AuthPage } from '../auth/auth';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
@@ -14,6 +15,7 @@ import { SettingsPage } from '../settings/settings';
 import { ComplainPage } from '../complain/complain';
 import { AdvertisementsPage } from  '../advertisements/advertisements';
 import { TrustedPage } from '../trusted/trusted';
+import { TradePage } from '../trade/trade';
 /**
  * Generated class for the MePage page.
  *
@@ -40,9 +42,10 @@ export class MePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private userService: UserServiceProvider,
-    private jwtService: JwtServiceProvider,
-    private toastCtrl: ToastController
+    public userService: UserServiceProvider,
+    public jwtService: JwtServiceProvider,
+    public toastCtrl: ToastController,
+    public appCtrl:App
   ) {
     this.currentuser = this.userService.getCurrentUser();
     this.user.name = this.currentuser.username;
@@ -79,15 +82,14 @@ export class MePage {
       user => {
         console.log('log out !!!!!');
         this.jwtService.destroyToken();
-        
         let tabs = document.querySelectorAll('.tabbar.show-tabbar');
-        console.log(JSON.stringify(tabs)+"<<<<<<<<<<<<");
         if (tabs !== null) {
           Object.keys(tabs).map(key => {
             tabs[key].style.display = 'none';
           });
         }
-        this.navCtrl.setRoot(AuthPage); // end if
+        let nav = this.appCtrl.getRootNav();
+        nav.setRoot(AuthPage) // end if
       },
       (errors: Errors) => {
         for (let field in errors.errors) {

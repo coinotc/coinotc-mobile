@@ -1,5 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  Content,
+  Events
+} from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import * as firebase from 'firebase';
 import { ComplainInformationPage } from '../complain-information/complain-information';
@@ -9,6 +15,7 @@ import { WalletPage } from '../wallet/wallet';
 import { Notification } from '../../models/notification';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { AlertServiceProvider } from '../../providers/alert-service/alert-service';
+import { OrderListPage } from '../order-list/order-list';
 /**
  * Generated class for the RoomPage page.
  *
@@ -31,7 +38,6 @@ export class RoomPage {
   roomkey: any;
   nickname: string;
   offStatus: boolean = false;
-  status;
   switched = false;
   trader;
   average;
@@ -44,7 +50,8 @@ export class RoomPage {
     private userService: UserServiceProvider,
     private orderServiceProvider: OrderServiceProvider,
     private profileServiceProvider: ProfileServiceProvider,
-    private alertServiceProvider: AlertServiceProvider
+    private alertServiceProvider: AlertServiceProvider,
+    private events: Events
   ) {
     this.user = userService.getCurrentUser();
     this.data.name = this.user.username;
@@ -119,27 +126,19 @@ export class RoomPage {
       .getSpecificOrder(this.orderInfo._id)
       .subscribe(result => {
         this.orderInfo = result;
-        if (this.orderInfo.finished == false) {
-          if (
-            this.user.username == this.orderInfo.seller &&
-            this.orderInfo.informed == true
-          ) {
-            this.status = 0;
-          } else if (
-            this.user.username == this.orderInfo.buyer &&
-            this.orderInfo.informed == false
-          ) {
-            this.status = 1;
-          }
-        }
       });
     this.switched = !this.switched;
   }
 
   onInformed() {
-    this.status = 2;
-    this.orderInfo.informed = true;
-    this.orderServiceProvider.updateOrder(this.orderInfo).subscribe();
+    this.orderInfo.finished = 2;
+    this.orderServiceProvider.updateOrder(this.orderInfo).subscribe(result => {
+      this.orderServiceProvider
+        .getSpecificOrder(this.orderInfo._id)
+        .subscribe(result => {
+          this.orderInfo = result;
+        });
+    });
     //Send push notification to trader
     this.alertServiceProvider
       .onNotification(this.notification)
@@ -149,9 +148,14 @@ export class RoomPage {
   }
 
   onFinished() {
-    this.status = 2;
-    this.orderInfo.finished = true;
-    this.orderServiceProvider.updateOrder(this.orderInfo).subscribe();
+    this.orderInfo.finished = 3;
+    this.orderServiceProvider.updateOrder(this.orderInfo).subscribe(result => {
+      this.orderServiceProvider
+        .getSpecificOrder(this.orderInfo._id)
+        .subscribe(result => {
+          this.orderInfo = result;
+        });
+    });
     //Send push notification to trader
     this.alertServiceProvider
       .onNotification(this.notification)
@@ -197,6 +201,12 @@ export class RoomPage {
                       console.log(result);
                     });
                 });
+              result[i].status = false;
+              this.alertServiceProvider
+                .updateAlert(result[i])
+                .subscribe(result => {
+                  console.log(result);
+                });
             }
           });
       });
@@ -239,13 +249,19 @@ export class RoomPage {
                       console.log(result);
                     });
                 });
+              result[i].status = false;
+              this.alertServiceProvider
+                .updateAlert(result[i])
+                .subscribe(result => {
+                  console.log(result);
+                });
             }
           });
       });
   }
 
   onComment() {
-    this.status = 3;
+    this.orderInfo.finished = 0;
     this.user.orderCount = this.user.orderCount + 1;
     this.userService.update(this.user).subscribe();
     this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
@@ -255,6 +271,7 @@ export class RoomPage {
         .sendComment(this.trader, goodCount)
         .subscribe();
     });
+    this.events.publish('reloadList');
     this.navCtrl.pop();
   }
 
@@ -270,11 +287,12 @@ export class RoomPage {
   onExit() {
     this.user.orderCount = this.user.orderCount + 1;
     this.userService.update(this.user).subscribe();
+    this.events.publish('reloadList');
     this.navCtrl.pop();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RoomPage');
+  ionViewDidLeave() {
+    this.events.unsubscribe('reloadList');
   }
 }
 

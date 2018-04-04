@@ -15,38 +15,42 @@
 <ion-content>
   <div ion-item ion-fixed *ngIf="type == 'order'">
 
-    <ion-card [ngSwitch]="switched">
+    <ion-list [ngSwitch]="switched">
       <button ion-item (click)="onSwitch()">
-        {{'Crypto' | translate}}:{{orderInfo.crypto}}
-        <span style="float:right">{{(orderInfo.finished ? 'Completed':'Active') | translate}}</span>
+        <span text-capitalize>{{orderInfo.crypto | lowercase}}</span>
+        <span style="float:right">{{("orderStatus." + orderInfo.finished)| translate}}</span>
       </button>
 
-      <ion-card-content *ngSwitchCase="true">
+      <ion-item *ngSwitchCase="true">
         {{'OrderID' | translate}}:
         <span style="float:right">{{orderInfo._id}}</span>
         <br> {{'Amount' | translate}}
-        <span style="float:right">{{orderInfo.amount}}</span>
+        <span style="float:right">{{orderInfo.fiat}} {{orderInfo.amount}}</span>
         <br> {{'Quantity' | translate}}
-        <span style="float:right">{{orderInfo.quantity}}</span>
+        <span style="float:right">{{orderInfo.quantity}} {{orderInfo.crypto}}</span>
         <br> {{'Price' | translate}}
-        <span style="float:right">{{orderInfo.price}}</span>
+        <span style="float:right">{{orderInfo.price | number : '1.2-2'}} {{orderInfo.fiat}}/{{orderInfo.crypto}}</span>
+        <br> {{'Fee' | translate}}
+        <span style="float:right">{{0.07 * orderInfo.quantity}} {{orderInfo.crypto}}</span>
         <br> {{'Buyer' | translate}}:{{orderInfo.buyer}}
         <span style="float:right">{{'Seller' | translate}}:{{orderInfo.seller}}</span>
         <br> {{'Message' | translate}}:
         <span style="float:right">{{orderInfo.message}}</span>
 
-        <div align=center [ngSwitch]="status">
-          <div *ngIf="orderInfo.finished == false">
-            <button ion-button round *ngSwitchCase="0" (click)="onFinished()">{{'Approve' | translate}}</button>
-            <button ion-button round *ngSwitchCase="1" (click)="onInformed()">{{'Inform' | translate}}</button>
+        <div align=center>
+          <div *ngIf="orderInfo.finished == 1 || orderInfo.finished ==2">
+            <button ion-button large round *ngIf="user.username == orderInfo.seller" [disabled]="orderInfo.finished !== 2" (click)="onFinished()">{{'Approve' | translate}}</button>
+            <button ion-button large round *ngIf="user.username == orderInfo.buyer" (click)="onInformed()">{{'Inform' | translate}}</button>
           </div>
-          <button ion-button round *ngSwitchCase="2" (click)="onComment()">{{'Good' | translate}}</button>
-          <button ion-button round *ngSwitchCase="2" (click)="onExit()">{{'Bad' | translate}}</button>
+          <div *ngIf="orderInfo.finished == 3">
+            <button ion-button large round (click)="onComment()">{{'Good' | translate}}</button>
+            <button ion-button large round (click)="onExit()">{{'Bad' | translate}}</button>
+          </div>
         </div>
 
-      </ion-card-content>
+      </ion-item>
 
-    </ion-card>
+    </ion-list>
 
     <div align=center>
       <button ion-button round (click)="onProfile(trader)">{{'Trader' | translate}}</button>

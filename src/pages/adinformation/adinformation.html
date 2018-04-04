@@ -51,21 +51,21 @@
       {{information.message}}
     </ion-card-content>
   </ion-card>
-  <ion-card>
+  <ion-card *ngIf="!ismine">
     <ion-card-header>
       {{'howMuchToBuy' | translate}}
     </ion-card-header>
     <ion-card-content ion-row no-padding>
       <ion-item ion-col>
         <ion-label item-right>{{'fiat.'+information.fiat | translate}}</ion-label>
-        <ion-input type="number" [disabled]="ismine" [(ngModel)]="orderinformation.amount" (ngModelChange)="amountchange()"></ion-input>
+        <ion-input type="number" [(ngModel)]="orderinformation.amount" (ngModelChange)="amountchange()"></ion-input>
       </ion-item>
       <div text-center ion-col col-1 padding-top>
         <ion-icon name="code-working"></ion-icon>
       </div>
       <ion-item ion-col>
         <ion-label item-right>{{information.crypto}}</ion-label>
-        <ion-input type="number" [disabled]="ismine" [(ngModel)]="orderinformation.quantity" (ngModelChange)="quantitychange()"></ion-input>
+        <ion-input type="number" [(ngModel)]="orderinformation.quantity" (ngModelChange)="quantitychange()"></ion-input>
       </ion-item>
     </ion-card-content>
   </ion-card>
