@@ -57,7 +57,7 @@
             <span style="float:right">{{order.crypto}}</span>
           </h2>
           <ion-badge color="{{order.buyer==user.username?'secondary':'danger'}}">{{(order.buyer==user.username?'Buy':'Sell') | translate}}</ion-badge>
-
+          <span style="float:right">{{('orderStatus.' + order.finished) | translate}}</span>
         </ion-item>
 
         <ion-card-content>
@@ -84,6 +84,7 @@
             <span style="float:right">{{order.crypto}}</span>
           </h2>
           <ion-badge color="{{order.buyer==user.username?'secondary':'danger'}}">{{(order.buyer==user.username?'Buy':'Sell') | translate}}</ion-badge>
+          <span style="float:right">{{('orderStatus.' + order.finished) | translate}}</span>
         </ion-item>
 
         <ion-card-content>

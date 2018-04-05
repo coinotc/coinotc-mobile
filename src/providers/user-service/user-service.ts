@@ -74,9 +74,10 @@ export class UserServiceProvider {
     // Remove JWT from localstorage
     this.jwtService.destroyToken().then(() => {
       // Set current user to an empty object
-      this.currentUserSubject.next(new User('','','','','',null,null,'','',null,null,null,null,null,null,null));
+      this.currentUserSubject.next({} as User);
       // Set auth status to false
       this.isAuthenticatedSubject.next(false);
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+this.getCurrentUser().username+"<<<<<<<<<<<<<<<<<<")
     });
   }
 

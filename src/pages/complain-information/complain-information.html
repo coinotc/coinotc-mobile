@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{'ComplainInformation' | translate}}</ion-title>
+    <ion-title>{{'Complain' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,7 +16,7 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-label>{{'Complainant' | translate}}</ion-label>
+      <ion-label>{{Complainant}}</ion-label>
       <ion-label>{{compainUser}}</ion-label>
     </ion-item>
     <ion-item>
@@ -26,18 +26,15 @@
     <ion-item>
       <ion-label>{{'Type' | translate}}</ion-label>
       <ion-select [(ngModel)]="model.type" interface="popover">
-        <ion-option value="0">111</ion-option>
-        <ion-option value="1">NES</ion-option>
-        <ion-option value="2">Nintendo64</ion-option>
-        <ion-option value="3">PlayStation</ion-option>
-        <ion-option value="3">Sega Genesis</ion-option>
-        <ion-option value="4">Sega Saturn</ion-option>
-        <ion-option value="5">SNES</ion-option>
+        <ion-option value="0">Order</ion-option>
+        <ion-option value="1">Wallet</ion-option>
+        <ion-option value="2">Application</ion-option>
+        <ion-option value="3">Others</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>{{'Content' | translate}}</ion-label>
-      <ion-textarea [(ngModel)]="model.content"></ion-textarea>
+      <ion-textarea [(ngModel)]="model.content" rows="10"></ion-textarea>
     </ion-item>
     <button ion-button (click)="submit()" color="primary">
       <ion-label>{{'Submit' | translate}}</ion-label>

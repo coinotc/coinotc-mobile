@@ -2,6 +2,7 @@ export class OrderInformation {
   constructor(
     public buyer: string,
     public seller: string,
+    public owner: string,
     public crypto: string,
     public country: string,
     public quantity: number,
@@ -11,8 +12,7 @@ export class OrderInformation {
     public payment: string,
     public limit: number,
     public message: string,
-    public informed: Boolean,
-    public finished: Boolean,
+    public finished: Number,
     public roomkey: string
-  ) {}
+  ) { }
 }

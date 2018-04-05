@@ -184,19 +184,16 @@ export class AuthPage {
               console.log(this.navCtrl.parent)
               this.navCtrl.parent.previousTab(false)
               this.navCtrl.parent.select(0);
+              
             }
-          
             setTimeout(() => {
               this.navCtrl.setRoot(TabsPage);
             }, 1000);
-    
             setTimeout(() => {
               loading.dismiss();
             }, 2500);
             //this.navCtrl.parent.previousTab(false)
           }
-          
-          
         },
         (errors: Errors) => {
           for (let field in errors.errors) {
