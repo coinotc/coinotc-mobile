@@ -5,24 +5,17 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { environment } from '../../../environments/environment';
-
 import { JwtServiceProvider } from '../jwt-service/jwt-service';
 
-/*
-  Generated class for the ApiServiceProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class ApiServiceProvider {
+
   private API_URL = environment.api_url;
 
-
   constructor(
-    private http: Http,
-    private jwtService: JwtServiceProvider) {
-    console.log('Hello ApiServiceProvider Provider');
+    public http: Http,
+    private jwtService:JwtServiceProvider
+  ) {
   }
 
   private setHeaders(): Headers{
@@ -46,8 +39,25 @@ export class ApiServiceProvider {
     .map((res:Response) => res.json());
   }
 
+  getExternal(path: string): Observable<any> {
+    return this.http.get(`${path}`)
+    .catch(this.formatErrors)
+    .map((res:Response) => res.json());
+  }
+
   put(path: string, body: Object = {}): Observable<any> {
-    return this.http.put(`${this.API_URL}${path}`,
+    return this.http.put(
+      `${this.API_URL}${path}`,
+      JSON.stringify(body),
+      { headers: this.setHeaders() }
+    )
+    .catch(this.formatErrors)
+    .map((res:Response) => res.json());
+  }
+
+  patch(path: string, body: Object = {}): Observable<any> {
+    return this.http.put(
+      `${this.API_URL}${path}`,
       JSON.stringify(body),
       { headers: this.setHeaders() }
     )
@@ -73,4 +83,5 @@ export class ApiServiceProvider {
     .catch(this.formatErrors)
     .map((res:Response) => res.json());
   }
+
 }

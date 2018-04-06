@@ -88,8 +88,8 @@ export class MePage {
             tabs[key].style.display = 'none';
           });
         }
-        let nav = this.appCtrl.getRootNav();
-        nav.setRoot(AuthPage) // end if
+        let nav = this.appCtrl.getActiveNavs();
+        nav[0].setRoot(AuthPage) // end if
       },
       (errors: Errors) => {
         for (let field in errors.errors) {
