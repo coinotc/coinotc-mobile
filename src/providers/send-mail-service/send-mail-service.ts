@@ -1,23 +1,22 @@
 import { HttpClient ,HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { ApiServiceProvider } from '../api-service/api-service';
+import { Observable} from 'rxjs/Rx';
 /*
   Generated class for the SendMailServiceProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
-};
 @Injectable()
 export class SendMailServiceProvider {
-  private sendMailURL =  environment.api_url + '/sendmail';
-  constructor(public http: HttpClient) {
+  private sendMailURL =  '/sendmail';
+  constructor(public apiService: ApiServiceProvider) {
     console.log('Hello SendMailServiceProvider Provider');
   }
   public sendMail(email){
-    let URL = `${this.sendMailURL}?eamil=${email}`
-    return this.http.get(URL, httpOptions);
+    let URL = `${this.sendMailURL}?email=${email}`
+    return this.apiService.get(URL);
   }
 }

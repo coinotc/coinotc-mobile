@@ -88,6 +88,7 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <allow-navigation href="http://192.168.1.47:8100" />
+    <allow-navigation href="http://192.168.2.107:8100" />
     <engine name="ios" spec="4.5.4" />
     <engine name="browser" spec="5.0.3" />
     <engine name="android" spec="6.3.0" />

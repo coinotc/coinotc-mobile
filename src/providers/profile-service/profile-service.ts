@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-//import { Observable } from 'rxjs/Rx';
-//import { catchError } from 'rxjs/operators';
 import { Profile } from '../../models/profile.model';
 import { environment } from '../../../environments/environment';
 import { UserServiceProvider } from '../user-service/user-service';
+import { ApiServiceProvider } from '../api-service/api-service';
+import { Observable} from 'rxjs/Rx';
 /*
   Generated class for the ProfileServiceProvider provider.
 
@@ -12,45 +12,37 @@ import { UserServiceProvider } from '../user-service/user-service';
   and Angular DI.
 */
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-
 @Injectable()
 export class ProfileServiceProvider {
   currentUserName = this.userService.getCurrentUser().username;
-  private profileURL = environment.api_url + '/users/public';
+  private profileURL = '/users/public';
 
   constructor(
-    public http: HttpClient,
+    public apiService: ApiServiceProvider,
     private userService: UserServiceProvider
   ) {
     console.log('Hello ProfileServiceProvider Provider');
   }
 
-  public getProfile(username) {
+  public getProfile(username) : Observable<Profile>{
     let URL = `${this.profileURL}?username=${username}`;
-    return this.http.get<Profile>(URL, httpOptions);
+    return this.apiService.get(URL);
   }
   public sendFollowing(username, following) {
     let URL = `${this.profileURL}/follow?username=${username}`;
-    return this.http.patch(URL, following, httpOptions);
+    return this.apiService.patch(URL, following);
   }
   public sendFollowers(username, followers) {
     let URL = `${this.profileURL}/followers?username=${username}`;
-    return this.http.patch(URL, followers, httpOptions);
+    return this.apiService.patch(URL, followers);
   }
   public settradepassword(username, tradepassword) {
     let URL = `${this.profileURL}/tradepassword?username=${username}`;
-    return this.http.patch(URL, { tradePrd: tradepassword }, httpOptions);
+    return this.apiService.patch(URL, { tradePrd: tradepassword });
   }
   public sendComment(username, goodCount) {
     let URL = `${this.profileURL}/comment?username=${username}`;
-    return this.http.patch(URL, { good: goodCount }, httpOptions);
+    return this.apiService.patch(URL, { good: goodCount });
   }
-  // private handleError<T>(operation = 'operation', result?: T) {
-  //   return (error: any): Observable<T> => {
-  //     return Observable.throw(error || 'backend server error');
-  //   };
-  // }
+
 }
