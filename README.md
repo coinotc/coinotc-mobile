@@ -31,3 +31,6 @@ Moreover, you can run "ionic cordova run ios/android" to test on your simulator.
   people
 </button>
 ```
+
+# Coinmarket Cap API won't work with livereload.
+* Please clean up all the ip addresses in config.xml before testing with coinmarket cap.
