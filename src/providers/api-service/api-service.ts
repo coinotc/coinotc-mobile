@@ -17,6 +17,7 @@ export class ApiServiceProvider {
     private jwtService:JwtServiceProvider
   ) {
   }
+  
 
   private setHeaders(): Headers{
     let headersConfig = {
@@ -28,6 +29,19 @@ export class ApiServiceProvider {
     }
     return new Headers(headersConfig);
   }
+  
+  private setHeadersFCM(): Headers{
+    let headersConfig = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization':
+        'key=AAAACVHLBO0:APA91bFTeWrJGpHS7SThKBSRjaxv2EUnoQ56IviM8QlOv_dKU_OOZ8KArka5ObvBwBnxZD7GqOciuvKjvu0oYnLph391RJSkhQVCfU7SntCzhXO4rr3GNfzpfment_9FzjBwVUX7Gd_z'
+
+    }
+    return new Headers(headersConfig);
+  }
+  
+  
 
   private formatErrors(error:any){
     return Observable.throw(error.json());
@@ -70,6 +84,16 @@ export class ApiServiceProvider {
       `${this.API_URL}${path}`,
       JSON.stringify(body),
       { headers: this.setHeaders() }
+    )
+    .catch(this.formatErrors)
+    .map((res:Response) => res.json());
+  }
+  
+  postFCM(path: string, body: Object = {}): Observable<any> {
+    return this.http.post(
+      `${this.API_URL}${path}`,
+      JSON.stringify(body),
+      { headers: this.setHeadersFCM() }
     )
     .catch(this.formatErrors)
     .map((res:Response) => res.json());
