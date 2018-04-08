@@ -40,6 +40,7 @@
 - [ ] #98 (iOS/Android) Implement GO button in keyboard (Alert)
 - [x] #102 (iOS/Android) Simulteanoues Touch Triggers App Crash
 - [x] #104 (iOS/Android) Add fee for order info for advertisers
+- [ ] #105 (iOS/Android) FEATURE: Soft Logout with 6 PIN
 - [x] #106 (iOS/Android) Disable Copy Paste in Password Field
 - [ ] #107 (iOS/Android) Data Retention of Previous User
 - [ ] #111 (iOS/Android) Alert Validation in Input
