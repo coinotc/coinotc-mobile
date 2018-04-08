@@ -17,9 +17,6 @@ import { environment } from '../../../environments/environment';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 
 @Injectable()
 export class UserServiceProvider {
@@ -85,6 +82,7 @@ export class UserServiceProvider {
     let route = (type === 'login') ? '/login' : '';
     return this.apiService.post('/users' + route, { user: credentials, deviceToken: deviceToken })
       .map(data => {
+        console.log("----> setAuth");
         this.setAuth(data.user);
         return data;
       })
@@ -126,12 +124,13 @@ export class UserServiceProvider {
       return data;
     });
   }
+
   public getTradepassword(username) {
     let tradePrdURL = environment.api_url + '/users/tradepassword';
     let URL = `${tradePrdURL}?username=${username}`;
-    return this.http.get<User>(URL, httpOptions);
+    return this.apiService.get(URL);
   }
   public get2faSecret(username) {
-    return this.http.get(`/2fa?username=${username}`, httpOptions);
+    return this.apiService.get(`/2fa?username=${username}`);
   }
 }

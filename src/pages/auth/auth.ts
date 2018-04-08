@@ -175,16 +175,17 @@ export class AuthPage {
       .attemptAuth(this.authType, credentials, this.deviceToken)
       .subscribe(
         user => {
+          console.log("subscribe user!!!");
           if (this.isModal) this.viewCtrl.dismiss();
           this.displayTabs();
           if (this.authType === 'register') {
             this.navCtrl.setRoot(PincodePage);
           } else {
+            console.log("Login ...." + this.navCtrl.parent);
             if(this.navCtrl.parent != null){
-              console.log(this.navCtrl.parent)
+              console.log(">>>>"+ this.navCtrl.parent)
               this.navCtrl.parent.previousTab(false)
               this.navCtrl.parent.select(0);
-              
             }
             setTimeout(() => {
               this.navCtrl.setRoot(TabsPage);

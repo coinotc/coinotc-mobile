@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api_url: 'http://api.coinotc.market/api'
+  api_url: 'https://api.coinotc.market/api'
 };

@@ -12,7 +12,7 @@ export class OrderInformation {
     public payment: string,
     public limit: number,
     public message: string,
-    public finished: Number,
+    public finished: number,
     public roomkey: string
   ) { }
 }
