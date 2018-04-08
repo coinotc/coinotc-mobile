@@ -95,12 +95,16 @@
 <ion-footer>
   <ion-grid>
     <ion-row>
+     <form (ngSubmit)="sendMessage()" >
       <ion-col col-10>
         <ion-input type="text" placeholder="Type a message" [(ngModel)]="data.message" name="message"></ion-input>
       </ion-col>
-      <ion-col col-2 (click)="sendMessage()">
+      <button ion-button>
+      <ion-col col-2  type="submit">
         <ion-icon name="paper-plane"></ion-icon>
       </ion-col>
+      </button>
+    </form>
     </ion-row>
   </ion-grid>
 </ion-footer>
