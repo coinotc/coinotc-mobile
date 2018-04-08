@@ -7,10 +7,7 @@
 <ion-content >
   <ion-list *ngIf="currentuser.username != ''">
     <ion-list-header>
-      <ion-avatar item-start>
-          <ion-text-avatar (tap)="updateProfileImage()">{{user.name}}</ion-text-avatar>
-        <!-- <img src="" id="avatar-image" (tap)="updateProfileImage()" > -->
-      </ion-avatar>
+      <text-avatar [text]="user.name" (tap)="updateProfileImage()" item-left></text-avatar>
       <p class="username">{{user.name}}</p>
       <p>{{user.email}}</p>
     </ion-list-header>

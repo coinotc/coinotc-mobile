@@ -2,19 +2,18 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { MePage } from './me';
-import { IonTextAvatar } from 'ionic-text-avatar';
-
+import { TextAvatarDirective } from '../../directives/text-avatar/text-avatar';
 
 @NgModule({
   declarations: [
     MePage,
-    IonTextAvatar
+    TextAvatarDirective
     
   ],
   imports: [
     IonicPageModule.forChild(MePage),
     
   ],
-  exports: [IonTextAvatar]
+  exports: [TextAvatarDirective]
 })
 export class MePageModule {}

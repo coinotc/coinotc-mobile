@@ -59,6 +59,7 @@
     "express": "~4.15.5",
     "firebase": "4.8.0",
     "font-awesome": "4.7.0",
+    "identicon.js": "^2.3.2",
     "ion": "0.9.14",
     "ionic-angular": "3.9.2",
     "ionic-plugin-keyboard": "^2.2.1",

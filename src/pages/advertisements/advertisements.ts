@@ -60,11 +60,11 @@ export class AdvertisementsPage {
   }
   read(information){
     console.log(information)
-      if (information.type == 1) {
-        this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Buy', crypto: information.crypto } })
-      } else {
-        this.appCtrl.getRootNav().push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: information.crypto } })
-      }
+        this.appCtrl.getRootNav().push(AdinformationPage, {
+          information: information,
+          tradetype: { type: 'My', crypto: 'Advertisement', ismine: true }
+        });
+      
     }
     setVisible(information){
     this.advertisementService.changeVisible(information._id,information.visible).subscribe(result=>{
