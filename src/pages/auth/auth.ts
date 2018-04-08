@@ -5,8 +5,8 @@ import {
   NavParams,
   ViewController,
   ToastController,
-  LoadingController
-  
+  LoadingController,
+  App
 } from 'ionic-angular';
 import {
   FormBuilder,
@@ -54,7 +54,8 @@ export class AuthPage {
     private fcm: FCM,
     private platform: Platform,
     private network: Network,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    public appCtrl:App
   ) {
     // use FormBuilder to create a form group
       this.authForm = this.fb.group({
@@ -188,7 +189,7 @@ export class AuthPage {
               this.navCtrl.parent.select(0);
             }
             setTimeout(() => {
-              this.navCtrl.setRoot(TabsPage);
+              this.appCtrl.getRootNav().setRoot(TabsPage);
             }, 1000);
             setTimeout(() => {
               loading.dismiss();
