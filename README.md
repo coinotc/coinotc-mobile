@@ -1,12 +1,14 @@
-### Issue Checklist 
 
 #### Legend
 - [ ] Yet To Be Done
 
 - [x] Waiting For Approval
 
-~~-[x] Waiting For Approval~~
+~~-[x] Waiting For Approval/ DONE~~
 
+---------------------
+
+### Issue Checklist 
 
 ---------------------
 
