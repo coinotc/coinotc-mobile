@@ -56,6 +56,10 @@ import { ScrollingHeaderModule } from 'ionic-scrolling-header';
 import { ElasticHeaderModule } from 'ionic2-elastic-header/dist'
 import { Network } from '@ionic-native/network';
 import { EditAdvertisementPage } from '../pages/edit-advertisement/edit-advertisement';
+import { GoogleAuthPage } from '../pages/google-auth/google-auth'; 
+import { GaBackupKeyPage } from '../pages/ga-backup-key/ga-backup-key';
+import { GoogleAuthServiceProvider } from '../providers/google-auth-service/google-auth-service';
+import { GaEnterKeyPage } from '../pages/ga-enter-key/ga-enter-key';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -90,7 +94,10 @@ export function createTranslateLoader(http: HttpClient) {
     TrustedPage,
     PopoverPage,
     EditAdvertisementPage,
-    TwoFactorAuthPage
+    TwoFactorAuthPage,
+    GoogleAuthPage,
+    GaBackupKeyPage,
+    GaEnterKeyPage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -142,7 +149,10 @@ export function createTranslateLoader(http: HttpClient) {
     TrustedPage,
     PopoverPage,
     EditAdvertisementPage,
-    TwoFactorAuthPage
+    TwoFactorAuthPage,
+    GoogleAuthPage,
+    GaBackupKeyPage,
+    GaEnterKeyPage
   ],
   providers: [
     StatusBar,
@@ -165,7 +175,8 @@ export function createTranslateLoader(http: HttpClient) {
     SendMailServiceProvider,
     Camera,
     FCM,
-    Network
+    Network,
+    GoogleAuthServiceProvider
   ]
 })
 export class AppModule { }

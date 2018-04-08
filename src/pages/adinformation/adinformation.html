@@ -16,9 +16,7 @@
 <ion-content padding>
   <ion-card>
     <ion-item>
-      <ion-avatar item-start>
-        <ion-text-avatar (click)="profile()">{{information.owner}}</ion-text-avatar>
-      </ion-avatar>
+      <text-avatar [text]="information.owner" (tap)="profile()" item-left></text-avatar>
       <ion-card-title>{{information.owner}}</ion-card-title>
       <p>{{'limit' | translate}}:{{information.min_price}}-{{information.max_price}} {{'fiat.'+information.fiat | translate}}</p>
       <div item-right text-right>

@@ -7,42 +7,46 @@
 <ion-content >
   <ion-list *ngIf="currentuser.username != ''">
     <ion-list-header>
-      <ion-avatar item-start>
-          <ion-text-avatar (click)="updateProfileImage()">{{user.name}}</ion-text-avatar>
-        <!-- <img src="" id="avatar-image" (click)="updateProfileImage()" > -->
-      </ion-avatar>
+      <text-avatar [text]="user.name" (tap)="updateProfileImage()" item-left></text-avatar>
       <p class="username">{{user.name}}</p>
       <p>{{user.email}}</p>
     </ion-list-header>
   </ion-list>
 
   <ion-list no-border *ngIf="currentuser.username != ''">
-    <button ion-item (click)="advertisementsTapped()">
+    <button ion-item (tap)="advertisementsTapped()">
       <ion-icon name="md-list-box"  item-start ></ion-icon>
       Advertisements
     </button>
-    <button ion-item  (click)="trustedTapped()">
+    <button ion-item  (tap)="trustedTapped()">
       <ion-icon name="md-list-box" item-start></ion-icon>
       Follow
     </button>
   </ion-list>
 
   <ion-list *ngIf="currentuser.username != ''">
-    <button ion-item (click)="settingsTapped()">
+    <button ion-item (tap)="settingsTapped()">
       <ion-icon name="md-list-box" item-start></ion-icon>
       Settings
     </button>
   </ion-list>
 
   <ion-list *ngIf="currentuser.username != ''">
-    <button ion-item (click)="complain()">
+    <button ion-item (tap)="complain()">
       <ion-icon name="md-list-box" item-start></ion-icon>
       Complain
     </button>
   </ion-list>
 
   <ion-list *ngIf="currentuser.username != ''">
-    <button ion-item (click)="logout()">
+    <button ion-item (tap)="googleAuth()">
+      <ion-icon name="md-list-box" item-start></ion-icon>
+      Google Authenticator
+    </button>
+  </ion-list>
+
+  <ion-list *ngIf="currentuser.username != ''">
+    <button ion-item (tap)="logout()">
       <ion-icon name="power" item-start></ion-icon>
       Logout
     </button>

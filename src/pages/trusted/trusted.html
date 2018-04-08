@@ -20,9 +20,8 @@
     <ion-list *ngSwitchCase="'following'">
         <ion-card *ngFor="let following of followings" >
           <ion-item>
-            <ion-avatar item-start>
-              <ion-text-avatar (click)="profile(following)">{{following}}</ion-text-avatar>
-            </ion-avatar>
+            <text-avatar [text]="following" (tap)="profile(following)" item-left></text-avatar>
+
             <h2>{{following}}
             </h2>
           </ion-item>
@@ -32,9 +31,8 @@
     <ion-list *ngSwitchCase="'followers'">
       <ion-card *ngFor="let follower of followers" >
         <ion-item>
-          <ion-avatar item-start>
-            <ion-text-avatar (click)="profile(follower)">{{follower}}</ion-text-avatar>
-          </ion-avatar>
+          <text-avatar [text]="follower" (tap)="profile(follower)" item-left></text-avatar>
+
           <h2>{{follower}}
           </h2>
         </ion-item>
