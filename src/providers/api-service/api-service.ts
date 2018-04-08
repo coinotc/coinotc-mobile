@@ -70,7 +70,7 @@ export class ApiServiceProvider {
   }
 
   patch(path: string, body: Object = {}): Observable<any> {
-    return this.http.put(
+    return this.http.patch(
       `${this.API_URL}${path}`,
       JSON.stringify(body),
       { headers: this.setHeaders() }
