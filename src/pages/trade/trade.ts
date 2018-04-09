@@ -66,6 +66,9 @@ import { ProfilePage } from '../profile/profile';
 export class PopoverPage {
   countrycopy: string;
   fiatcopy: string;
+  isClear: boolean = true;
+  isSolid: boolean = true;
+  
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
