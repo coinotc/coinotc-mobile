@@ -1,5 +1,5 @@
 <ion-content class="main-view">
-    <div class="overlay" (click)="dismiss()"></div>
+    <div class="overlay" (tap)="dismiss()"></div>
     <div class="modal_content">
         <ion-row>
             <ion-item  style="width:60%">
@@ -32,6 +32,6 @@
         <ion-item>
             <p text-center>{{'NewAlertTips' | translate}}</p>
         </ion-item>
-        <button ion-button style="width:100%" (click)="onCreate()">{{'CreateAlert' | translate}}</button>
+        <button ion-button style="width:100%" (tap)="onCreate()">{{'CreateAlert' | translate}}</button>
     </div>
 </ion-content>

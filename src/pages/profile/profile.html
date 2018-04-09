@@ -19,7 +19,7 @@
       <h2>{{profileUser}}</h2>
     </ion-item>      
     <ion-note *ngIf="currentUserName !== profileUser" item-end>
-        <button ion-button (click)="follow()" >{{followStatus}}</button>
+        <button ion-button (tap)="follow()" >{{followStatus}}</button>
      </ion-note>
     <ion-item>
       <ion-grid>
@@ -50,10 +50,10 @@
   </ion-list>
   <ion-toolbar>
     <ion-segment [(ngModel)]="value">
-      <ion-segment-button value="ad" (click)="onSegment()">
+      <ion-segment-button value="ad" (tap)="onSegment()">
         His Ad
       </ion-segment-button>
-      <ion-segment-button value="trade" (click)="onSegment()">
+      <ion-segment-button value="trade" (tap)="onSegment()">
         My trades with him
       </ion-segment-button>
     </ion-segment>
@@ -62,7 +62,7 @@
   <ion-list>
     <div [ngSwitch]="value">
       <ion-list *ngSwitchCase="'ad'">
-        <ion-item *ngFor="let advertisement of ad" (click)="adinformation(advertisement)">
+        <ion-item *ngFor="let advertisement of ad" (tap)="adinformation(advertisement)">
           <text-avatar [text]="advertisement.owner" item-left></text-avatar>
           <h2>{{advertisement.owner}}</h2>
           <p>{{advertisement.payment}}</p>
@@ -72,7 +72,7 @@
         </ion-item>
       </ion-list>
       <ion-list *ngSwitchCase="'trade'">
-        <ion-item  *ngFor="let advertisement of trade"  (click)="onDetail(advertisement,advertisement.owner)">
+        <ion-item  *ngFor="let advertisement of trade"  (tap)="onDetail(advertisement,advertisement.owner)">
           <text-avatar [text]="advertisement.owner" item-left></text-avatar>
           <h2>{{advertisement.owner}}</h2>
           <p>{{advertisement.payment}}</p>

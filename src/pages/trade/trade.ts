@@ -21,7 +21,7 @@ import { ProfilePage } from '../profile/profile';
   <ion-list-header>
     Country
   </ion-list-header>
-  <ion-list radio-group [(ngModel)]="countrycopy" (click)="change()" >
+  <ion-list radio-group [(ngModel)]="countrycopy" (tap)="change()" >
     <ion-item>
       <ion-label>Singapore</ion-label>
       <ion-radio value="singapore" checked></ion-radio>
@@ -43,7 +43,7 @@ import { ProfilePage } from '../profile/profile';
     Currency
   </ion-list-header>
 
-  <ion-list radio-group [(ngModel)]="fiatcopy" (click)="change()">
+  <ion-list radio-group [(ngModel)]="fiatcopy" (tap)="change()">
     <ion-item>
       <ion-label>SGD</ion-label>
       <ion-radio value="SGD" checked></ion-radio>

@@ -8,7 +8,7 @@
   <ion-toolbar>
     <img float-left src="assets/imgs/logo_1.svg" style="margin-left: 3%;">
 
-    <button float-right ion-button icon-only no-border no-shadow color="light" [solid]="isSolid" [clear]="isClear" (click)="presentPopover($event)">
+    <button float-right ion-button icon-only no-border no-shadow color="light" [solid]="isSolid" [clear]="isClear" (tap)="presentPopover($event)">
       <!--<i class="fas fa-filter fa-2x"></i>-->
       <i class="fa fa-sliders fa-2x" aria-hidden="true"></i>
     </button>
@@ -71,19 +71,19 @@
       <p>{{'payment.'+item.payment | translate}}</p>
       <div item-right text-right>
         <h5 style="color:#02cb66">{{item.price | number : '1.2-2'}} {{'fiat.'+item.fiat | translate}}</h5>
-        <button ion-button [ngClass]="item.crypto" round (click)="adinformation(item,true)" *ngIf="item.owner === currentuser">view my advertisement</button>
-        <button ion-button [ngClass]="item.crypto" round (click)="adinformation(item,false)" *ngIf="item.type==1 && item.owner != currentuser">{{'Buy' | translate}} {{item.crypto}}</button>
-        <button ion-button [ngClass]="item.crypto" round (click)="adinformation(item,false)" *ngIf="item.type==0 && item.owner != currentuser">{{'Sell' | translate}} {{item.crypto}}</button>
+        <button ion-button [ngClass]="item.crypto" round (tap)="adinformation(item,true)" *ngIf="item.owner === currentuser">view my advertisement</button>
+        <button ion-button [ngClass]="item.crypto" round (tap)="adinformation(item,false)" *ngIf="item.type==1 && item.owner != currentuser">{{'Buy' | translate}} {{item.crypto}}</button>
+        <button ion-button [ngClass]="item.crypto" round (tap)="adinformation(item,false)" *ngIf="item.type==0 && item.owner != currentuser">{{'Sell' | translate}} {{item.crypto}}</button>
       </div>
     </ion-item>
   </ion-card>
 </ion-content>
 <ion-footer>
   <ion-fab bottom right>
-    <button ion-fab (click)="addbuyad()" color="secondary" *ngIf="buynsell == 'buy'">
+    <button ion-fab (tap)="addbuyad()" color="secondary" *ngIf="buynsell == 'buy'">
       <ion-icon name="buy"></ion-icon>
     </button>
-    <button ion-fab (click)="addsellad()" color="danger" *ngIf="buynsell == 'sell'">
+    <button ion-fab (tap)="addsellad()" color="danger" *ngIf="buynsell == 'sell'">
       <ion-icon name="sell"></ion-icon>
     </button>
   </ion-fab>
