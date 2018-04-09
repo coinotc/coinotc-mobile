@@ -84,6 +84,7 @@ export class AdinformationPage {
     });
   }
   profile() {
+    if( this.information.owner !=this.userservice.getCurrentUser().username)
     this.navCtrl.push(ProfilePage, this.information.owner);
   }
   ionViewDidLoad() {

@@ -2,10 +2,10 @@
     <div class="overlay" (click)="dismiss()"></div>
     <div class="modal_content">
         <ion-row>
-            <ion-item item-left style="width:60%">
+            <ion-item  style="width:60%">
                 <h2 text-center>{{'NewPriceAlert' | translate}}</h2>
             </ion-item>
-            <ion-item item-right style="width:40%">
+            <ion-item  style="width:70%">
                 <ion-label>{{'fiat.fiat' | translate}}</ion-label>
                 <ion-select float-right [(ngModel)]="fiat" (ngModelChange)="onFiat(fiat)">
                     <ion-option value="USD">{{'fiat.USD' | translate}}</ion-option>

@@ -26,7 +26,6 @@
       <ion-item-sliding *ngFor="let advertisement of disableAdvertisement" >
         <ion-item  (click)="edit(advertisement)">
           <text-avatar [text]="advertisement.owner" item-left></text-avatar>
-
           <h2>{{advertisement.owner}}</h2>
           <p>{{advertisement.payment}}</p>
           <div item-right text-right>

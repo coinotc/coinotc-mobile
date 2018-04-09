@@ -7,6 +7,7 @@ import { advertisement } from '../../models/advertisement';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { AdinformationPage } from '../adinformation/adinformation';
 import { PopoverController, Events } from 'ionic-angular';
+import { ProfilePage } from '../profile/profile';
 /**
  * Generated class for the TradePage page.
  *
@@ -176,6 +177,10 @@ export class TradePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad TradePage');
     this.content.resize();
+  }
+  profile(owner) {
+    if(owner != this.currentuser)
+    this.appCtrl.getRootNav().push(ProfilePage,owner);
   }
   addbuyad() {
     this.appCtrl.getRootNav().push(AddadvertisementPage, {

@@ -64,7 +64,7 @@
   </ion-refresher>
   <ion-card *ngFor="let item of list">
     <ion-item>
-      <text-avatar [text]="item.owner" item-left></text-avatar>
+      <text-avatar [text]="item.owner" (tap)="profile(item.owner)" item-left></text-avatar>
 
       <h2>{{item.owner}}</h2>
       <p>{{'payment.'+item.payment | translate}}</p>
