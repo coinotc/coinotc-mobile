@@ -27,13 +27,13 @@
 - [x] #83 (iOS/Android) Clean up CSS in Order Information
 - [x] #84 (iOS/Android) Clean Up Complain Page
 - [x] #85 (iOS/Android) Implement Slug for complain ID
-- [ ] #86 (iOS/Android) Implement GO button in keyboard (Chat)
+- [x] #86 (iOS/Android) Implement GO button in keyboard (Chat)
 - [x] #87 (iOS/Android) Add other Order Status 
 - [ ] #88 (iOS/Android) Change rating flow
 - [ ] #89 (iOS/Android) Change rating system to Stars
 - [x] #90 (iOS/Android) Change order info from card to list
 - [x] #91 (iOS/Android) order not pushed to finished after done
-- [ ] #92 (iOS/Android) Chat Room Title Change
+- [x] #92 (iOS/Android) Chat Room Title Change
 - [x] #93 (iOS/Android) Remove Block Function
 - [ ] #94 (iOS/Android) MY Trades With Him Tab
 - [ ] #95 (iOS/Android) Chat Room Image Upload
