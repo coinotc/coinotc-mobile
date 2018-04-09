@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApiServiceProvider } from '../api-service/api-service';
+import { Observable} from 'rxjs/Rx';
 
 /*
   Generated class for the CurrenciesProvider provider.
@@ -7,17 +9,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-
 @Injectable()
 export class CurrenciesServiceProvider {
-  constructor(public http: HttpClient) {
+  constructor(public apiService: ApiServiceProvider) {
     console.log('CurrenciesProvider ...');
   }
 
   getCurrencies() {
-    return this.http.get('../assets/data/currencies.json', httpOptions);
+    return this.apiService.getExternal('../assets/data/currencies.json');
   }
 }

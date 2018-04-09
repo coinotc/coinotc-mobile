@@ -16,6 +16,7 @@ import { ComplainPage } from '../complain/complain';
 import { AdvertisementsPage } from  '../advertisements/advertisements';
 import { TrustedPage } from '../trusted/trusted';
 import { TradePage } from '../trade/trade';
+import { GoogleAuthPage } from '../google-auth/google-auth';
 /**
  * Generated class for the MePage page.
  *
@@ -53,26 +54,29 @@ export class MePage {
   }
 
   advertisementsTapped() {
-    this.navCtrl.push(AdvertisementsPage);
+    this.appCtrl.getRootNav().push(AdvertisementsPage);
   }
   trustedTapped() {
-    this.navCtrl.push(TrustedPage);
+    this.appCtrl.getRootNav().push(TrustedPage);
   }
   settingsTapped() {
-    this.navCtrl.push(SettingsPage);
+    this.appCtrl.getRootNav().push(SettingsPage);
+  }
+  googleAuth(){
+    this.appCtrl.getRootNav().push(GoogleAuthPage);
   }
   updateProfileImage() {
     if (this.userService.getCurrentUser().username == '') {
       this.navCtrl.push(AuthPage);
     } else {
-      this.navCtrl.push(
+      this.appCtrl.getRootNav().push(
         ProfilePage,
         this.userService.getCurrentUser().username
       );
     }
   }
   complain() {
-    this.navCtrl.push(ComplainPage);
+    this.appCtrl.getRootNav().push(ComplainPage);
   }
   logout() {
     //this.tabRef.select(3);
@@ -88,8 +92,8 @@ export class MePage {
             tabs[key].style.display = 'none';
           });
         }
-        let nav = this.appCtrl.getRootNav();
-        nav.setRoot(AuthPage) // end if
+        let nav = this.appCtrl.getActiveNavs();
+        nav[0].setRoot(AuthPage) // end if
       },
       (errors: Errors) => {
         for (let field in errors.errors) {

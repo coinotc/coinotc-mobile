@@ -5,8 +5,8 @@ import {
   NavParams,
   ViewController,
   ToastController,
-  LoadingController
-  
+  LoadingController,
+  App
 } from 'ionic-angular';
 import {
   FormBuilder,
@@ -54,7 +54,8 @@ export class AuthPage {
     private fcm: FCM,
     private platform: Platform,
     private network: Network,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    public appCtrl:App
   ) {
     // use FormBuilder to create a form group
       this.authForm = this.fb.group({
@@ -175,19 +176,20 @@ export class AuthPage {
       .attemptAuth(this.authType, credentials, this.deviceToken)
       .subscribe(
         user => {
+          console.log("subscribe user!!!");
           if (this.isModal) this.viewCtrl.dismiss();
           this.displayTabs();
           if (this.authType === 'register') {
             this.navCtrl.setRoot(PincodePage);
           } else {
+            console.log("Login ...." + this.navCtrl.parent);
             if(this.navCtrl.parent != null){
-              console.log(this.navCtrl.parent)
+              console.log(">>>>"+ this.navCtrl.parent)
               this.navCtrl.parent.previousTab(false)
               this.navCtrl.parent.select(0);
-              
             }
             setTimeout(() => {
-              this.navCtrl.setRoot(TabsPage);
+              this.appCtrl.getRootNav().setRoot(TabsPage);
             }, 1000);
             setTimeout(() => {
               loading.dismiss();

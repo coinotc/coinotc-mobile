@@ -1,8 +1,15 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      {{data.roomname}}
-    </ion-title>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <text-avatar [text]="nickname==orderInfo.buyer?orderInfo.seller:orderInfo.buyer" item-left></text-avatar>
+        </ion-col>
+        <ion-col>
+          <h4>{{nickname==orderInfo.buyer?orderInfo.seller:orderInfo.buyer}}</h4>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <ion-buttons end>
       <button ion-button (click)="complain()" *ngIf="finished == false" icon-only>
         <ion-icon name="notifications" color="danger"></ion-icon>
@@ -88,12 +95,16 @@
 <ion-footer>
   <ion-grid>
     <ion-row>
+     <form (ngSubmit)="sendMessage()" >
       <ion-col col-10>
         <ion-input type="text" placeholder="Type a message" [(ngModel)]="data.message" name="message"></ion-input>
       </ion-col>
-      <ion-col col-2 (click)="sendMessage()">
+      <button ion-button>
+      <ion-col col-2  type="submit">
         <ion-icon name="paper-plane"></ion-icon>
       </ion-col>
+      </button>
+    </form>
     </ion-row>
   </ion-grid>
 </ion-footer>

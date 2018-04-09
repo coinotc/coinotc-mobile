@@ -25,9 +25,8 @@
     <ion-list *ngSwitchCase="'Disabled'">
       <ion-item-sliding *ngFor="let advertisement of disableAdvertisement" >
         <ion-item  (click)="edit(advertisement)">
-          <ion-avatar item-start>
-            <ion-text-avatar>{{advertisement.owner}}</ion-text-avatar>
-          </ion-avatar>
+          <text-avatar [text]="advertisement.owner" item-left></text-avatar>
+
           <h2>{{advertisement.owner}}</h2>
           <p>{{advertisement.payment}}</p>
           <div item-right text-right>
@@ -49,9 +48,7 @@
     <ion-list *ngSwitchCase="'Active'">
       <ion-item-sliding *ngFor="let advertisement of activeAdvertisement" >
         <ion-item (click)="read(advertisement)">
-          <ion-avatar item-start>
-            <ion-text-avatar>{{advertisement.owner}}</ion-text-avatar>
-          </ion-avatar>
+          <text-avatar [text]="advertisement.owner" item-left></text-avatar>
             <h2>{{advertisement.owner}}</h2>
             <p>{{advertisement.payment}}</p>
           <div item-right text-right>

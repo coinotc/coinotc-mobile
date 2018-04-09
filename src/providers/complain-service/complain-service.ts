@@ -1,31 +1,31 @@
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { complain } from '../../models/complain'
+import { complain } from '../../models/complain';
+import { ApiServiceProvider } from '../api-service/api-service';
+import { Observable} from 'rxjs/Rx';
 /*
   Generated class for the ComplainServiceProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
-};
+
 @Injectable()
 export class ComplainServiceProvider {
-  private complainURL =  environment.api_url + '/complain';
-  constructor(public http: HttpClient) {
+  private complainURL = '/complain';
+  constructor(public apiService: ApiServiceProvider) {
     console.log('Hello ComplainServiceProvider Provider');
   }
   public sendComplain(complain){
-    return this.http.post(this.complainURL, complain , httpOptions);
+    return this.apiService.post(this.complainURL, complain);
   }
-  public getComplains(username){
+  public getComplains(username) : Observable<complain[]>{
     let url = `${this.complainURL}?complainant=${username}`;
-    return this.http.get<complain[]>(url,httpOptions);
+    return this.apiService.get(url);
   }
   public addRoomKey(roomkey,complainId){
     let URL = `${this.complainURL}/roomkey?complainId=${complainId}`;
-    return this.http.patch(URL, {roomkey:roomkey}, httpOptions);
+    return this.apiService.patch(URL, {roomkey:roomkey});
   }
 }

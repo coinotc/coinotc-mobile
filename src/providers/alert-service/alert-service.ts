@@ -2,6 +2,9 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Alert } from '../../models/alert';
+import { ApiServiceProvider } from '../api-service/api-service';
+import { Observable} from 'rxjs/Rx';
+
 
 /*
   Generated class for the AlertServiceProvider provider.
@@ -10,59 +13,49 @@ import { Alert } from '../../models/alert';
   and Angular DI.
 */
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-const notificationHttpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    Authorization:
-      'key=AAAACVHLBO0:APA91bFTeWrJGpHS7SThKBSRjaxv2EUnoQ56IviM8QlOv_dKU_OOZ8KArka5ObvBwBnxZD7GqOciuvKjvu0oYnLph391RJSkhQVCfU7SntCzhXO4rr3GNfzpfment_9FzjBwVUX7Gd_z'
-  })
-};
 
 @Injectable()
 export class AlertServiceProvider {
-  private alertURL = environment.api_url + '/alert';
+  private alertURL = '/alert';
 
-  constructor(public httpClient: HttpClient) {
+  constructor(public apiService: ApiServiceProvider) {
     console.log('Hello AlertServiceProvider Provider');
   }
 
   public onNotification(notification) {
     let postURL = 'https://fcm.googleapis.com/fcm/send';
-    return this.httpClient.post(postURL, notification, notificationHttpOptions);
+    return this.apiService.postFCM(postURL, notification);
   }
 
-  public getAlerts(username, crypto) {
+  public getAlerts(username, crypto) :  Observable<Alert[]> {
     let getURL = `${this.alertURL}?username=${username}&crypto=${crypto}`;
-    return this.httpClient.get<Alert[]>(getURL, httpOptions);
+    return this.apiService.get(getURL);
   }
 
-  public getAbove(above, status, fiat, crypto, price) {
+  public getAbove(above, status, fiat, crypto, price) :  Observable<Alert[]>{
     let getURL = `${
       this.alertURL
     }/getAbove?above=${above}&status=${status}&fiat=${fiat}&crypto=${crypto}&price=${price}`;
-    return this.httpClient.get<Alert[]>(getURL, httpOptions);
+    return this.apiService.get(getURL);
   }
 
-  public getBelow(above, status, fiat, crypto, price) {
+  public getBelow(above, status, fiat, crypto, price) :  Observable<Alert[]>{
     let getURL = `${
       this.alertURL
     }/getBelow?above=${above}&status=${status}&fiat=${fiat}&crypto=${crypto}&price=${price}`;
-    return this.httpClient.get<Alert[]>(getURL, httpOptions);
+    return this.apiService.get(getURL);
   }
 
   public postAlert(alert) {
-    return this.httpClient.post(this.alertURL, alert, httpOptions);
+    return this.apiService.post(this.alertURL, alert);
   }
 
   public updateAlert(alert) {
-    return this.httpClient.put(this.alertURL, alert, httpOptions);
+    return this.apiService.put(this.alertURL, alert);
   }
 
-  public deleteAlert(alert) {
-    let deleteParams = new HttpParams().set('_id', alert._id);
-    return this.httpClient.delete(this.alertURL, { params: deleteParams });
-  }
+  // public deleteAlert(alert) {
+  //   let deleteParams = new HttpParams().set('_id', alert._id);
+  //   return this.apiService.delete(this.alertURL, { params: deleteParams });
+  // }
 }

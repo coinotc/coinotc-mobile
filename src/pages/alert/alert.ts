@@ -84,11 +84,11 @@ export class AlertPage {
     });
   }
 
-  onDelete(alert) {
-    this.alertServiceProvider.deleteAlert(alert).subscribe(result => {
-      this.doRefresh();
-    });
-  }
+  // onDelete(alert) {
+  //   this.alertServiceProvider.deleteAlert(alert).subscribe(result => {
+  //     this.doRefresh();
+  //   });
+  // }
 
   onStatus(alert) {
     this.alertServiceProvider.updateAlert(alert).subscribe(result => {
