@@ -29,6 +29,7 @@ export class ProfilePage {
   profileUser;
   currentUserName;
   followStatus;
+  visible
   private ad:advertisement[];
   private trade:advertisement[];
   followingCount;
@@ -59,6 +60,7 @@ export class ProfilePage {
   }
   
   follow() {
+    
     let a = this.userService.getCurrentUser().followers;
     let b = this.userService.getCurrentUser().following;
     if (this.followStatus == 'follow') {
@@ -77,8 +79,8 @@ export class ProfilePage {
     this.profileService.sendFollowing(this.currentUserName, b).subscribe();
     this.profileService.sendFollowers(this.profileUser, a).subscribe();
     this.onSegment(); 
-    this.navCtrl.push(ProfilePage,
-      this.profileUser)
+    // this.navCtrl.push(ProfilePage,
+    //   this.profileUser)
   }
 
   ionViewDidLoad() {
@@ -90,8 +92,10 @@ export class ProfilePage {
       .following.indexOf(this.profileUser);
     if (this.followStatus < 0) {
       this.followStatus = 'follow';
+      this.visible = true;
     } else {
       this.followStatus = 'unfollow';
+      this.visible = false;
     }
     this.profileService.getProfile(this.profileUser).subscribe(result => {
       this.model = result[0];

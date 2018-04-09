@@ -19,7 +19,11 @@
       <h2>{{profileUser}}</h2>
     </ion-item>      
     <ion-note *ngIf="currentUserName !== profileUser" item-end>
-        <button ion-button (tap)="follow()" >{{followStatus}}</button>
+        <button ion-button clear  (tap)="follow()" >
+          <ion-icon 
+            [name]="visible ? 'ios-thumbs-up' :'ios-thumbs-up-outline'">
+          </ion-icon>
+        </button>
      </ion-note>
     <ion-item>
       <ion-grid>

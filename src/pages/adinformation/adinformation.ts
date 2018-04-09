@@ -113,12 +113,14 @@ export class AdinformationPage {
       this.data.name = this.userservice.getCurrentUser().username;
       //console.log(JSON.parse(JSON.stringify(result,null,4)));
       this.data.roomname = JSON.parse(JSON.stringify(result))._id;
+      
       let newData = this.ref.push();
       newData.set({
         roomname: this.data.roomname
       }); //定义房间名 并创建房间
 
       this.roomkey = getRoomKey(this.ref);
+      console.log(this.roomkey+"<<<<<<<<<<here is the roomkey")
       this.orderservice
         .addRoomKey(this.roomkey, this.data.roomname)
         .subscribe();

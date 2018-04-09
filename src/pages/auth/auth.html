@@ -52,11 +52,10 @@
           </ion-item>
         </ion-list>
         <div padding>
-          <button ion-button [disabled]="!authForm.valid" type="submit">
+          <button tappable ion-button [disabled]="!authForm.valid" type="submit">
             {{ (authType === 'register' ? 'Register' : 'SignIn') | translate }}
           </button>
         </div>
-      <!-- </fieldset> -->
     </form>
 
   </ion-content>
