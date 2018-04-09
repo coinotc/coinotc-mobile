@@ -11,7 +11,7 @@
       </ion-row>
     </ion-grid>
     <ion-buttons end>
-      <button ion-button (click)="complain()" *ngIf="finished == false" icon-only>
+      <button ion-button (tap)="complain()" *ngIf="finished == false" icon-only>
         <ion-icon name="notifications" color="danger"></ion-icon>
       </button>
     </ion-buttons>
@@ -23,7 +23,7 @@
   <div ion-item ion-fixed *ngIf="type == 'order'">
 
     <ion-list [ngSwitch]="switched">
-      <button ion-item (click)="onSwitch()">
+      <button ion-item (tap)="onSwitch()">
         <span text-capitalize>{{orderInfo.crypto | lowercase}}</span>
         <span style="float:right">{{("orderStatus." + orderInfo.finished)| translate}}</span>
       </button>
@@ -46,12 +46,12 @@
 
         <div align=center>
           <div *ngIf="orderInfo.finished == 1 || orderInfo.finished ==2">
-            <button ion-button large round *ngIf="user.username == orderInfo.seller" [disabled]="orderInfo.finished !== 2" (click)="onFinished()">{{'Approve' | translate}}</button>
-            <button ion-button large round *ngIf="user.username == orderInfo.buyer" (click)="onInformed()">{{'Inform' | translate}}</button>
+            <button ion-button large round *ngIf="user.username == orderInfo.seller" [disabled]="orderInfo.finished !== 2" (tap)="onFinished()">{{'Approve' | translate}}</button>
+            <button ion-button large round *ngIf="user.username == orderInfo.buyer" (tap)="onInformed()">{{'Inform' | translate}}</button>
           </div>
           <div *ngIf="orderInfo.finished == 3">
-            <button ion-button large round (click)="onComment()">{{'Good' | translate}}</button>
-            <button ion-button large round (click)="onExit()">{{'Bad' | translate}}</button>
+            <button ion-button large round (tap)="onComment()">{{'Good' | translate}}</button>
+            <button ion-button large round (tap)="onExit()">{{'Bad' | translate}}</button>
           </div>
         </div>
 
@@ -60,8 +60,8 @@
     </ion-list>
 
     <div align=center>
-      <button ion-button round (click)="onProfile(trader)">{{'Trader' | translate}}</button>
-      <button ion-button round (click)="onWallet()">{{'Wallet' | translate}}</button>
+      <button ion-button round (tap)="onProfile(trader)">{{'Trader' | translate}}</button>
+      <button ion-button round (tap)="onWallet()">{{'Wallet' | translate}}</button>
     </div>
 
   </div>

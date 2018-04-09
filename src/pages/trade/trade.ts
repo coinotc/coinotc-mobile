@@ -7,6 +7,7 @@ import { advertisement } from '../../models/advertisement';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { AdinformationPage } from '../adinformation/adinformation';
 import { PopoverController, Events } from 'ionic-angular';
+import { ProfilePage } from '../profile/profile';
 /**
  * Generated class for the TradePage page.
  *
@@ -20,7 +21,7 @@ import { PopoverController, Events } from 'ionic-angular';
   <ion-list-header>
     Country
   </ion-list-header>
-  <ion-list radio-group [(ngModel)]="countrycopy" (click)="change()" >
+  <ion-list radio-group [(ngModel)]="countrycopy" (tap)="change()" >
     <ion-item>
       <ion-label>Singapore</ion-label>
       <ion-radio value="singapore" checked></ion-radio>
@@ -42,7 +43,7 @@ import { PopoverController, Events } from 'ionic-angular';
     Currency
   </ion-list-header>
 
-  <ion-list radio-group [(ngModel)]="fiatcopy" (click)="change()">
+  <ion-list radio-group [(ngModel)]="fiatcopy" (tap)="change()">
     <ion-item>
       <ion-label>SGD</ion-label>
       <ion-radio value="SGD" checked></ion-radio>
@@ -179,6 +180,10 @@ export class TradePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad TradePage');
     this.content.resize();
+  }
+  profile(owner) {
+    if(owner != this.currentuser)
+    this.appCtrl.getRootNav().push(ProfilePage,owner);
   }
   addbuyad() {
     this.appCtrl.getRootNav().push(AddadvertisementPage, {

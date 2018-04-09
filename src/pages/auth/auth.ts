@@ -118,14 +118,21 @@ export class AuthPage {
     }else{
       this.authForm = this.fb.group({
         username :['', Validators.required],
-        email: ['', Validators.required],
+        email: ['', [Validators.required,this.emailValidator]],
         password: ['', Validators.required],
         confirmPassword: ['',[Validators.required,this.equals(this.password)]]
         //confirmPassword: ['',[this.matchValidator]]
       });
     }
   }
-  
+  emailValidator = (control: FormControl): { [s: string]: boolean } => {
+    const EMAIL_REGEXP = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
+    if (!control.value) {
+      return { required: true }
+    } else if (!EMAIL_REGEXP.test(control.value)) {
+      return { error: true, email: true };
+    }
+  };
   equals(fieldName: string){
     let fcfirst: FormControl;
     let fcSecond: FormControl;
@@ -180,7 +187,7 @@ export class AuthPage {
           if (this.isModal) this.viewCtrl.dismiss();
           this.displayTabs();
           if (this.authType === 'register') {
-            this.navCtrl.setRoot(PincodePage);
+            this.appCtrl.getRootNav().setRoot(PincodePage);
           } else {
             console.log("Login ...." + this.navCtrl.parent);
             /*

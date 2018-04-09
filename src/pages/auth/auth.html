@@ -11,7 +11,7 @@
       <!--<ion-title >{{ authType === 'register' ? 'Sign Up' : 'Sign In' }}&lt;!&ndash; Line 10 Without Translation &ndash;&gt;-->
       <!--</ion-title>-->
       <ion-buttons start *ngIf="isModal">
-        <button ion-button (click)="close()">
+        <button ion-button (tap)="close()">
           Cancel
         </button>
       </ion-buttons>
@@ -39,7 +39,7 @@
           </ion-item>
           <ion-item >
             <ion-label stacked>Email</ion-label>
-            <ion-input formControlName="email" type="text"></ion-input>
+            <ion-input formControlName="email" type="email"></ion-input>
           </ion-item>
           <ion-item >
             <ion-label stacked>Password</ion-label>

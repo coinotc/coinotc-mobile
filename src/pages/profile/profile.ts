@@ -23,14 +23,16 @@ import { AdinformationPage } from '../adinformation/adinformation';
 export class ProfilePage {
   value = "ad";
   placeholderPicture = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515005723652&di=a1ebb7c0a1b6bfede1ff5ebc057ed073&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D822b27e7b8fb43160e12723948cd2c56%2F6c224f4a20a44623b6b1e24e9222720e0cf3d7a7.jpg';
-  private profile: Observable<Profile>;
-  model = new Profile(null, null, '');
+  //private profile: Observable<Profile>;
+  model = new Profile(null, null, '',null,null);
   rate;
   profileUser;
   currentUserName;
   followStatus;
   private ad:advertisement[];
   private trade:advertisement[];
+  followingCount;
+  followerCount;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -43,23 +45,6 @@ export class ProfilePage {
     this.profileUser = navParams.data;
     this.currentUserName = this.userService.getCurrentUser().username;
     
-    this.followStatus = this.userService
-      .getCurrentUser()
-      .following.indexOf(this.profileUser);
-    if (this.followStatus < 0) {
-      this.followStatus = 'follow';
-    } else {
-      this.followStatus = 'unfollow';
-    }
-    this.profile = this.profileService.getProfile(this.profileUser);
-    this.profile.subscribe(result => {
-      this.model = result[0];
-      if (this.model.orderCount == 0) {
-        this.rate = 0;
-      } else {
-        this.rate = this.model.goodCount / this.model.orderCount;
-      }
-    });
     this.onSegment();
   }
   onDetail(order, trader) {
@@ -91,6 +76,7 @@ export class ProfilePage {
     }
     this.profileService.sendFollowing(this.currentUserName, b).subscribe();
     this.profileService.sendFollowers(this.profileUser, a).subscribe();
+    this.onSegment(); 
     this.navCtrl.push(ProfilePage,
       this.profileUser)
   }
@@ -99,16 +85,32 @@ export class ProfilePage {
     console.log('ionViewDidLoad ProfilePage');
   }
   onSegment() {
+    this.followStatus = this.userService
+      .getCurrentUser()
+      .following.indexOf(this.profileUser);
+    if (this.followStatus < 0) {
+      this.followStatus = 'follow';
+    } else {
+      this.followStatus = 'unfollow';
+    }
+    this.profileService.getProfile(this.profileUser).subscribe(result => {
+      this.model = result[0];
+      this.followerCount = this.model.followers.length;
+      this.followingCount = this.model.following.length;
+      if (this.model.orderCount == 0) {
+        this.rate = 0;
+      } else {
+        this.rate = this.model.goodCount / this.model.orderCount;
+      }
+    });
     switch (this.value) {
       case 'ad':
         this.advertisementService.getMyadvertisement(this.profileUser,true).subscribe((result) => {
           this.ad = result;
-          
         }); break;
       case 'trade':
         this.advertisementService.getMyadvertisement(this.profileUser,true).subscribe(result => {
           this.trade = result;
-         
         }); break;
     }
   } 
