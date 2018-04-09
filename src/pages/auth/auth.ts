@@ -183,16 +183,19 @@ export class AuthPage {
             this.navCtrl.setRoot(PincodePage);
           } else {
             console.log("Login ...." + this.navCtrl.parent);
-            if(this.navCtrl.parent != null){
-              console.log(">>>>"+ this.navCtrl.parent)
-              this.navCtrl.parent.previousTab(false)
-              this.navCtrl.parent.select(0);
-            }
+            /*
             setTimeout(() => {
               this.appCtrl.getRootNav().setRoot(TabsPage);
-            }, 1000);
+            }, 1000);*/
             setTimeout(() => {
-              loading.dismiss();
+              loading.dismiss().then(()=>{
+                if(this.navCtrl.parent != null){
+                  console.log(">>>>"+ this.navCtrl.parent)
+                  this.navCtrl.parent.previousTab(false)
+                  this.navCtrl.parent.select(0);
+                }
+                this.appCtrl.getRootNav().setRoot(TabsPage);
+              }).catch(e=> console.log(e));
             }, 2500);
             //this.navCtrl.parent.previousTab(false)
           }
@@ -209,6 +212,8 @@ export class AuthPage {
           this.isSubmitting = false;
         }
       );
+    
+    
     // }else{
     //   let toast = this.toastCtrl.create({
     //     message: 'Wrong type',
