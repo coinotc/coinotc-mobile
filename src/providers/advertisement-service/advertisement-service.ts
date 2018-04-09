@@ -58,7 +58,7 @@ export class AdvertisementServiceProvider {
   }
 
   public getprice(type, fiat) {
-    let url = `https://api.coinmarketcap.com/v1/ticker/${type}/?convert=${fiat}`;
-    return this.apiService.getExternal(url);
+    let url = `/advertisement/getprice?type=${type}&fiat=${fiat}`;
+    return this.apiService.get(url);
   }
 }
