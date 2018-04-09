@@ -21,7 +21,7 @@ import { ProfilePage } from '../profile/profile';
   <ion-list-header>
     Country
   </ion-list-header>
-  <ion-list radio-group [(ngModel)]="countrycopy" (tap)="change()" >
+  <ion-list radio-group [(ngModel)]="countrycopy">
     <ion-item>
       <ion-label>Singapore</ion-label>
       <ion-radio value="singapore" checked></ion-radio>
@@ -43,7 +43,7 @@ import { ProfilePage } from '../profile/profile';
     Currency
   </ion-list-header>
 
-  <ion-list radio-group [(ngModel)]="fiatcopy" (tap)="change()">
+  <ion-list radio-group [(ngModel)]="fiatcopy">
     <ion-item>
       <ion-label>SGD</ion-label>
       <ion-radio value="SGD" checked></ion-radio>
@@ -78,15 +78,10 @@ export class PopoverPage {
     this.countrycopy = this.navParams.data.country;
     this.fiatcopy = this.navParams.data.fiat;
   }
-  ngOnInit() {
-    if (this.navParams.data) {
-    }
-  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad PopoverPage');
   }
   ionViewDidLeave() {
-    // this.viewCtrl.dismiss({ country: this.countrycopy, fiat: this.fiatcopy })
     this.events.publish('popoverDidLeave', {
       country: this.countrycopy,
       fiat: this.fiatcopy
