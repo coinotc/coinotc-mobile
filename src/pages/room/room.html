@@ -37,8 +37,9 @@
         <span style="float:right">{{orderInfo.quantity}} {{orderInfo.crypto}}</span>
         <br> {{'Price' | translate}}
         <span style="float:right">{{orderInfo.price | number : '1.2-2'}} {{orderInfo.fiat}}/{{orderInfo.crypto}}</span>
-        <br> {{'Fee' | translate}}
-        <span style="float:right">{{0.07 * orderInfo.quantity}} {{orderInfo.crypto}}</span>
+        <span *ngIf="orderInfo.owner == user.username">
+          <br>{{'Fee' | translate}}</span>
+        <span *ngIf="orderInfo.owner == user.username" style="float:right">{{0.07 * orderInfo.quantity}} {{orderInfo.crypto}}</span>
         <br> {{'Buyer' | translate}}:{{orderInfo.buyer}}
         <span style="float:right">{{'Seller' | translate}}:{{orderInfo.seller}}</span>
         <br> {{'Message' | translate}}:
@@ -93,33 +94,33 @@
 </ion-content>
 
 <ion-footer>
-  <form (ngSubmit)="sendMessage()" >
-  <ion-grid>
-    <ion-row>
+  <form (ngSubmit)="sendMessage()">
+    <ion-grid>
+      <ion-row>
 
-         <ion-col col-1 >
-           <button ion-button>
+        <ion-col col-1>
+          <button ion-button>
 
-             <ion-icon name="attach"></ion-icon>
+            <ion-icon name="attach"></ion-icon>
 
-           </button>
-         </ion-col>
-
-
-      <ion-col col-9>
-        <ion-input type="text" placeholder="Type a message" [(ngModel)]="data.message" name="message"></ion-input>
-      </ion-col>
-         <ion-col col-2 >
-           <button ion-button type="submit">
-
-             <ion-icon name="paper-plane"></ion-icon>
-
-           </button>
-         </ion-col>
+          </button>
+        </ion-col>
 
 
+        <ion-col col-9>
+          <ion-input type="text" placeholder="Type a message" [(ngModel)]="data.message" name="message"></ion-input>
+        </ion-col>
+        <ion-col col-2>
+          <button ion-button type="submit">
 
-    </ion-row>
-  </ion-grid>
+            <ion-icon name="paper-plane"></ion-icon>
+
+          </button>
+        </ion-col>
+
+
+
+      </ion-row>
+    </ion-grid>
   </form>
 </ion-footer>
