@@ -1,10 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import {
   IonicPage,
   NavController,
   NavParams,
   Content,
-  Events
+  Events,
+  Platform
 } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import * as firebase from 'firebase';
@@ -16,6 +17,9 @@ import { Notification } from '../../models/notification';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { AlertServiceProvider } from '../../providers/alert-service/alert-service';
 import { OrderListPage } from '../order-list/order-list';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+
 /**
  * Generated class for the RoomPage page.
  *
@@ -30,6 +34,7 @@ import { OrderListPage } from '../order-list/order-list';
 })
 export class RoomPage {
   @ViewChild(Content) content: Content;
+  @ViewChild('chat_input') messageInput: ElementRef;
   private orderInfo;
   private user;
   data = { type: '', name: '', message: '', roomname: '' };
@@ -44,6 +49,8 @@ export class RoomPage {
   notification = new Notification('', null);
   type;
   finished;
+  base64Image: string;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -51,7 +58,10 @@ export class RoomPage {
     private orderServiceProvider: OrderServiceProvider,
     private profileServiceProvider: ProfileServiceProvider,
     private alertServiceProvider: AlertServiceProvider,
-    private events: Events
+    private events: Events,
+    public camera: Camera,
+    public platform: Platform,
+    private photoViewer: PhotoViewer
   ) {
     this.user = userService.getCurrentUser();
     this.data.name = this.user.username;
@@ -115,6 +125,15 @@ export class RoomPage {
       sendDate: Date()
     });
     this.data.message = '';
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    setTimeout(() => {
+      if (this.content.scrollToBottom) {
+        this.content.scrollToBottom();
+      }
+    }, 400)
   }
 
   complain() {
@@ -129,6 +148,79 @@ export class RoomPage {
       });
     this.switched = !this.switched;
   }
+
+  attachImage(){
+    console.log("attached image ....");
+    const options: CameraOptions = {
+        quality: 100,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    };
+
+    if(this.platform.is('cordova')) 
+    {
+        this.camera.getPicture(options).then((imageData) => {
+            // imageData is either a base64 encoded string or a file URI
+            // If it's base64:
+            this.base64Image = 'data:image/jpeg;base64,' + imageData;
+            let newData = firebase
+                .database()
+                .ref('chatrooms/' + this.roomkey + '/chats')
+                .push();
+              newData.set({
+                type: this.data.type,
+                user: this.data.name,
+                message: null,
+                isImage: true,
+                base64Image: this.base64Image,
+                sendDate: Date()
+              });
+        }, (err) => {
+            console.log('Error taking photo', JSON.stringify(err));
+        });
+    }
+  }
+
+  viewAttachedImage(image){
+    // we need to store to the fire storage then keep the url.
+    this.photoViewer.show("https://tribzap2it.files.wordpress.com/2016/05/the-flash-thecw.jpg");
+  }
+  
+  takePhoto(){
+    console.log("take photo ....");
+    const options: CameraOptions = {
+        quality: 100,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        sourceType: this.camera.PictureSourceType.CAMERA
+    };
+
+    if(this.platform.is('cordova')) 
+    {
+        this.camera.getPicture(options).then((imageData) => {
+            // imageData is either a base64 encoded string or a file URI
+            // If it's base64:
+            this.base64Image = 'data:image/jpeg;base64,' + imageData;
+            let newData = firebase
+                .database()
+                .ref('chatrooms/' + this.roomkey + '/chats')
+                .push();
+              newData.set({
+                type: this.data.type,
+                user: this.data.name,
+                message: null,
+                isImage: true,
+                base64Image: this.base64Image,
+                sendDate: Date()
+              });
+        }, (err) => {
+            console.log('Error taking photo', JSON.stringify(err));
+        });
+    }
+  }  
 
   onInformed() {
     this.orderInfo.finished = 2;
@@ -259,6 +351,13 @@ export class RoomPage {
           });
       });
   }
+
+  onFocus() {
+    if (this.messageInput && this.messageInput.nativeElement) {
+      this.messageInput.nativeElement.focus();
+    }
+  }
+
 
   onComment() {
     this.orderInfo.finished = 0;

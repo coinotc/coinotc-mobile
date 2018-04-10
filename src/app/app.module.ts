@@ -1,4 +1,4 @@
-import { NgModule, ErrorHandler, ModuleWithProviders } from '@angular/core';
+import { NgModule, ErrorHandler, ModuleWithProviders, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -60,6 +60,9 @@ import { GoogleAuthPage } from '../pages/google-auth/google-auth';
 import { GaBackupKeyPage } from '../pages/ga-backup-key/ga-backup-key';
 import { GoogleAuthServiceProvider } from '../providers/google-auth-service/google-auth-service';
 import { GaEnterKeyPage } from '../pages/ga-enter-key/ga-enter-key';
+import { EmojiProvider } from '../providers/emoji-service/emoji-service';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -121,8 +124,7 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     AdinformationPageModule,
     ElasticHeaderModule,
-    ScrollingHeaderModule,
-    
+    ScrollingHeaderModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -176,7 +178,10 @@ export function createTranslateLoader(http: HttpClient) {
     Camera,
     FCM,
     Network,
-    GoogleAuthServiceProvider
-  ]
+    GoogleAuthServiceProvider,
+    EmojiProvider,
+    PhotoViewer
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
