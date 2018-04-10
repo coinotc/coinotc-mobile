@@ -194,16 +194,17 @@ export class AuthPage {
             setTimeout(() => {
               this.appCtrl.getRootNav().setRoot(TabsPage);
             }, 1000);*/
-            setTimeout(() => {
-              loading.dismiss().then(()=>{
-                if(this.navCtrl.parent != null){
-                  console.log(">>>>"+ this.navCtrl.parent)
-                  this.navCtrl.parent.previousTab(false)
-                  this.navCtrl.parent.select(0);
-                }
-                this.appCtrl.getRootNav().setRoot(TabsPage);
-              }).catch(e=> console.log(e));
-            }, 2500);
+            loading.dismiss().then(()=>{
+              if(this.navCtrl.parent != null){
+                console.log(">>>>"+ this.navCtrl.parent)
+                this.navCtrl.parent.previousTab(false)
+                this.navCtrl.parent.select(0);
+              }
+              this.appCtrl.getRootNav().setRoot(TabsPage);
+            }).catch(e=> console.log(e));
+            //setTimeout(() => {
+              
+            //}, 2500);
             //this.navCtrl.parent.previousTab(false)
           }
         },
