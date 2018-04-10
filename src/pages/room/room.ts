@@ -80,7 +80,7 @@ export class RoomPage {
         this.roomkey = navParams.data.roomkey;
       }
     } else {
-      this.data.roomname = navParams.data.conplain;
+      this.data.roomname = navParams.data.complain;
       this.finished = true;
       if (navParams.data.complain.roomkey == null) {
         this.roomkey = navParams.data.complain.roomkey;

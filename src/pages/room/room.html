@@ -93,18 +93,33 @@
 </ion-content>
 
 <ion-footer>
+  <form (ngSubmit)="sendMessage()" >
   <ion-grid>
     <ion-row>
-     <form (ngSubmit)="sendMessage()" >
-      <ion-col col-10>
+
+         <ion-col col-1 >
+           <button ion-button>
+
+             <ion-icon name="attach"></ion-icon>
+
+           </button>
+         </ion-col>
+
+
+      <ion-col col-9>
         <ion-input type="text" placeholder="Type a message" [(ngModel)]="data.message" name="message"></ion-input>
       </ion-col>
-      <button ion-button>
-      <ion-col col-2  type="submit">
-        <ion-icon name="paper-plane"></ion-icon>
-      </ion-col>
-      </button>
-    </form>
+         <ion-col col-2 >
+           <button ion-button type="submit">
+
+             <ion-icon name="paper-plane"></ion-icon>
+
+           </button>
+         </ion-col>
+
+
+
     </ion-row>
   </ion-grid>
+  </form>
 </ion-footer>
