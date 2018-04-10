@@ -60,7 +60,6 @@ import { GoogleAuthPage } from '../pages/google-auth/google-auth';
 import { GaBackupKeyPage } from '../pages/ga-backup-key/ga-backup-key';
 import { GoogleAuthServiceProvider } from '../providers/google-auth-service/google-auth-service';
 import { GaEnterKeyPage } from '../pages/ga-enter-key/ga-enter-key';
-import { EmojiProvider } from '../providers/emoji-service/emoji-service';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
@@ -179,7 +178,6 @@ export function createTranslateLoader(http: HttpClient) {
     FCM,
     Network,
     GoogleAuthServiceProvider,
-    EmojiProvider,
     PhotoViewer
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
