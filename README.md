@@ -82,3 +82,23 @@ ionic cordova run android --livereload-host --livereload -c
 
 # Coinmarket Cap API won't work with livereload.
 * Please clean up all the ip addresses in config.xml before testing with coinmarket cap.
+
+# Production Builds (ANDROID)
+To run or build your app for production, run
+```
+ionic cordova run android --release
+# or
+ionic cordova build android --release
+```
+This will minify your app’s code as Ionic’s source and also remove any debugging capabilities from the APK. This is generally used when deploying an app to the Google Play Store.
+
+```
+keytool -genkey -v -keystore coinotc-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias coinotc-alias
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore coinotc-release-key.jks ./platforms/android/build/outputs/apk/android-release-unsigned.apk coinotc-alias
+
+zipalign -v 4 ./platforms/android/build/outputs/apk/android-release-unsigned.apk ./platforms/android/build/outputs/apk/coinotc-release.apk
+
+apksigner verify ./platforms/android/build/outputs/apk/coinotc-release.apk
+
+```
