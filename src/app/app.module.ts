@@ -52,7 +52,7 @@ import { FCM } from '@ionic-native/fcm';
 import { ComplainPage } from '../pages/complain/complain';
 import { AdvertisementsPage } from '../pages/advertisements/advertisements';
 import { TrustedPage } from '../pages/trusted/trusted';
-import { ScrollingHeaderModule } from 'ionic-scrolling-header';
+import {ScrollingHeaderModule} from 'ionic-scrolling-header';
 import { ElasticHeaderModule } from 'ionic2-elastic-header/dist'
 import { Network } from '@ionic-native/network';
 import { EditAdvertisementPage } from '../pages/edit-advertisement/edit-advertisement';
@@ -114,6 +114,7 @@ export function createTranslateLoader(http: HttpClient) {
     RoomPageModule,
     PaymentPrdPageModule,
     IonicStorageModule.forRoot(),
+    ScrollingHeaderModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -122,8 +123,7 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     AdinformationPageModule,
-    ElasticHeaderModule,
-    ScrollingHeaderModule
+    ElasticHeaderModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

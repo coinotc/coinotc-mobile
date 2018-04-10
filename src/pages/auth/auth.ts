@@ -176,9 +176,6 @@ export class AuthPage {
     console.log(this.deviceToken);
     this.isSubmitting = true;
     const credentials = this.authForm.value;
-    //this.navCtrl.push(TabsPage,{});
-    
-    //console.log(this.navCtrl.parent);
     this.userService
       .attemptAuth(this.authType, credentials, this.deviceToken)
       .subscribe(
@@ -190,10 +187,6 @@ export class AuthPage {
             this.appCtrl.getRootNav().setRoot(PincodePage);
           } else {
             console.log("Login ...." + this.navCtrl.parent);
-            /*
-            setTimeout(() => {
-              this.appCtrl.getRootNav().setRoot(TabsPage);
-            }, 1000);*/
             loading.dismiss().then(()=>{
               if(this.navCtrl.parent != null){
                 console.log(">>>>"+ this.navCtrl.parent)
@@ -201,11 +194,8 @@ export class AuthPage {
                 this.navCtrl.parent.select(0);
               }
               this.appCtrl.getRootNav().setRoot(TabsPage);
+              loading = null;
             }).catch(e=> console.log(e));
-            //setTimeout(() => {
-              
-            //}, 2500);
-            //this.navCtrl.parent.previousTab(false)
           }
         },
         (errors: Errors) => {
