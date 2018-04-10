@@ -109,7 +109,7 @@ export class RoomPage {
           if (this.offStatus === false) {
             //this.content.scrollToBottom(300);
           }
-        }, 1000);
+        }, 450);
       });
   }
 
