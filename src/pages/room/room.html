@@ -40,8 +40,9 @@
         <span style="float:right">{{orderInfo.quantity}} {{orderInfo.crypto}}</span>
         <br> {{'Price' | translate}}
         <span style="float:right">{{orderInfo.price | number : '1.2-2'}} {{orderInfo.fiat}}/{{orderInfo.crypto}}</span>
-        <br> {{'Fee' | translate}}
-        <span style="float:right">{{0.07 * orderInfo.quantity}} {{orderInfo.crypto}}</span>
+        <span *ngIf="orderInfo.owner == user.username">
+          <br>{{'Fee' | translate}}</span>
+        <span *ngIf="orderInfo.owner == user.username" style="float:right">{{0.07 * orderInfo.quantity}} {{orderInfo.crypto}}</span>
         <br> {{'Buyer' | translate}}:{{orderInfo.buyer}}
         <span style="float:right">{{'Seller' | translate}}:{{orderInfo.seller}}</span>
         <br> {{'Message' | translate}}:
