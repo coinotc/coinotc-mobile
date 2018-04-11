@@ -1,24 +1,34 @@
 <ion-header>
+
   <ion-navbar>
+
     <ion-grid>
+
       <ion-row>
+
         <ion-col>
           <text-avatar [text]="nickname==orderInfo.buyer?orderInfo.seller:orderInfo.buyer" item-left></text-avatar>
         </ion-col>
+
         <ion-col>
           <h4>{{nickname==orderInfo.buyer?orderInfo.seller:orderInfo.buyer}}</h4>
         </ion-col>
+
       </ion-row>
+
     </ion-grid>
+
     <ion-buttons end>
       <button ion-button (tap)="complain()" *ngIf="finished == false" icon-only>
         <ion-icon name="notifications" color="danger">ss</ion-icon>
       </button>
       <button ion-button clear icon-only item-right (tap)="attachImage()" icon-only>
           <ion-icon name="attach"></ion-icon>
-        </button>
+      </button>
     </ion-buttons>
+
   </ion-navbar>
+
 </ion-header>
 
 
@@ -26,6 +36,7 @@
   <div ion-item ion-fixed *ngIf="type == 'order'">
 
     <ion-list [ngSwitch]="switched">
+
       <button ion-item (tap)="onSwitch()">
         <span text-capitalize>{{orderInfo.crypto | lowercase}}</span>
         <span style="float:right">{{("orderStatus." + orderInfo.finished)| translate}}</span>
@@ -58,7 +69,6 @@
             <button ion-button large round (tap)="onExit()">{{'Bad' | translate}}</button>
           </div>
         </div>
-
       </ion-item>
 
     </ion-list>
@@ -69,7 +79,7 @@
     </div>
 
   </div>
-  <ion-content>
+
       <ion-list no-lines>
         <ion-item *ngFor="let chat of chats">
           <div class="chat-status" text-center *ngIf="chat.type==='join'||chat.type==='exit';else message">
