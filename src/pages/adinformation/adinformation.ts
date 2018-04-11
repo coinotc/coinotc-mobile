@@ -50,6 +50,8 @@ export class AdinformationPage {
     null,
     null,
     null,
+    null,
+    null,
     1,
     null
   );
@@ -84,8 +86,8 @@ export class AdinformationPage {
     });
   }
   profile() {
-    if( this.information.owner !=this.userservice.getCurrentUser().username)
-    this.navCtrl.push(ProfilePage, this.information.owner);
+    if (this.information.owner != this.userservice.getCurrentUser().username)
+      this.navCtrl.push(ProfilePage, this.information.owner);
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdinformationPage');
