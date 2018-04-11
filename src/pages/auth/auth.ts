@@ -119,7 +119,7 @@ export class AuthPage {
       this.authForm = this.fb.group({
         username :['', Validators.required],
         email: ['', [Validators.required,this.emailValidator]],
-        password: ['', Validators.required],
+        password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
         confirmPassword: ['',[Validators.required,this.equals(this.password)]]
         //confirmPassword: ['',[this.matchValidator]]
       });

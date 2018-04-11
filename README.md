@@ -36,16 +36,16 @@
 - [x] #92 (iOS/Android) Chat Room Title Change
 - [x] #93 (iOS/Android) Remove Block Function
 - [ ] #94 (iOS/Android) MY Trades With Him Tab
-- [ ] #95 (iOS/Android) Chat Room Image Upload
-- [ ] #96 (iOS/Android) Alert Component CSS Clean Up
+- [x] #95 (iOS/Android) Chat Room Image Upload
+- [x] #96 (iOS/Android) Alert Component CSS Clean Up
 - [ ] #97 (iOS/Android) Dismiss Alert On Activation
-- [ ] #98 (iOS/Android) Implement GO button in keyboard (Alert)
+- [x] #98 (iOS/Android) Implement GO button in keyboard (Alert)
 - [x] #102 (iOS/Android) Simulteanoues Touch Triggers App Crash
 - [x] #104 (iOS/Android) Add fee for order info for advertisers
 - [ ] #105 (iOS/Android) FEATURE: Soft Logout with 6 PIN
 - [x] #106 (iOS/Android) Disable Copy Paste in Password Field
 - [ ] #107 (iOS/Android) Data Retention of Previous User
-- [ ] #111 (iOS/Android) Alert Validation in Input
+- [x] #111 (iOS/Android) Alert Validation in Input
 - [ ] #112 (iOS) removeView ERROR on Run
 
 
