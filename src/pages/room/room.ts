@@ -65,6 +65,7 @@ export class RoomPage {
     public platform: Platform,
     private photoViewer: PhotoViewer
   ) {
+    this.events.unsubscribe('reloadtrade');
     this.user = userService.getCurrentUser();
     this.data.name = this.user.username;
     this.nickname = this.user.username;
