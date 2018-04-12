@@ -14,7 +14,6 @@ page-room {
     ion-icon {
       padding: 10px;
       font-size: 20px;
-      color: green;
     }
   }
   .chat-status {
@@ -77,7 +76,7 @@ page-room {
     }
     .left-bubble {
       position: relative;
-      background: #ffffff;
+      background: pink;
       border-top-right-radius: 0.4em;
       border-bottom-left-radius: 0.4em;
       border-bottom-right-radius: 0.4em;
