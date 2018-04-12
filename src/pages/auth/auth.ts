@@ -91,19 +91,6 @@ export class AuthPage {
             );
           });
   }
-
-
-  matchValidator = (control: FormControl): { [s: string]: boolean } => {
-    if (!control.value) {
-      return { required: true };
-    } else if (this.authForm.controls.password.value === control.value) {
-      return {};
-    } else {
-      return { required: true };
-    }
-  };
-
-
   authTypeChange() {
     if (this.authType === 'register') {
       this.authForm.addControl('username', new FormControl());
@@ -117,11 +104,10 @@ export class AuthPage {
       });
     }else{
       this.authForm = this.fb.group({
-        username :['', Validators.required],
-        email: ['', [Validators.required,this.emailValidator]],
-        password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+        username :['',Validators.compose([Validators.required, Validators.minLength(6),Validators.maxLength(18)])],
+        email: ['', Validators.compose([Validators.required,this.emailValidator])],
+        password: ['', Validators.compose([Validators.required, Validators.minLength(10),Validators.maxLength(128)])],
         confirmPassword: ['',[Validators.required,this.equals(this.password)]]
-        //confirmPassword: ['',[this.matchValidator]]
       });
     }
   }
@@ -130,7 +116,7 @@ export class AuthPage {
     if (!control.value) {
       return { required: true }
     } else if (!EMAIL_REGEXP.test(control.value)) {
-      return { error: true, email: true };
+      return {  email: false ,required : false};
     }
   };
   equals(fieldName: string){
@@ -140,7 +126,6 @@ export class AuthPage {
         if (!control.parent) {
             return null;
         }
-        // INITIALIZING THE VALIDATOR.
         if (!fcfirst) {
             //INITIALIZING FormControl first
             fcfirst = control;
@@ -188,11 +173,11 @@ export class AuthPage {
           } else {
             console.log("Login ...." + this.navCtrl.parent);
             loading.dismiss().then(()=>{
-              if(this.navCtrl.parent != null){
-                console.log(">>>>"+ this.navCtrl.parent)
-                this.navCtrl.parent.previousTab(false)
-                this.navCtrl.parent.select(0);
-              }
+              // if(this.navCtrl.parent != null){
+              //   console.log(">>>>"+ this.navCtrl.parent)
+              //   this.navCtrl.parent.previousTab(false)
+              //   this.navCtrl.parent.select(0);
+              // }
               this.appCtrl.getRootNav().setRoot(TabsPage);
               loading = null;
             }).catch(e=> console.log(e));
@@ -210,19 +195,6 @@ export class AuthPage {
           this.isSubmitting = false;
         }
       );
-    
-    
-    // }else{
-    //   let toast = this.toastCtrl.create({
-    //     message: 'Wrong type',
-    //     duration: 3000,
-    //   });
-    //   toast.onDidDismiss(() => {
-    //     console.log('Dismissed toast');
-    //   });
-    //   toast.present();
-    // }
-
   }
 
   private displayTabs() {
@@ -275,6 +247,5 @@ export class AuthPage {
       }
     }, error => console.error(error));
   }
-
 }
 
