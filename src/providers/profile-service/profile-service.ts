@@ -4,7 +4,7 @@ import { Profile } from '../../models/profile.model';
 import { environment } from '../../../environments/environment';
 import { UserServiceProvider } from '../user-service/user-service';
 import { ApiServiceProvider } from '../api-service/api-service';
-import { Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 /*
   Generated class for the ProfileServiceProvider provider.
 
@@ -24,7 +24,7 @@ export class ProfileServiceProvider {
     console.log('Hello ProfileServiceProvider Provider');
   }
 
-  public getProfile(username) : Observable<Profile>{
+  public getProfile(username): Observable<Profile> {
     let URL = `${this.profileURL}?username=${username}`;
     return this.apiService.get(URL);
   }
@@ -40,9 +40,8 @@ export class ProfileServiceProvider {
     let URL = `${this.profileURL}/tradepassword?username=${username}`;
     return this.apiService.patch(URL, { tradePrd: tradepassword });
   }
-  public sendComment(username, goodCount) {
-    let URL = `${this.profileURL}/comment?username=${username}`;
-    return this.apiService.patch(URL, { good: goodCount });
+  public sendRating(username, ratings) {
+    let URL = `${this.profileURL}/ratings?username=${username}`;
+    return this.apiService.patch(URL, ratings);
   }
-
 }

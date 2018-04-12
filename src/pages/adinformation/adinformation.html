@@ -32,7 +32,7 @@
         <span>{{'Trades' | translate}}</span>
       </div>
       <div ion-col>
-        <h4>{{user.goodCount}}</h4>
+        <h4>{{user.ratings}}</h4>
         <span>{{'Good' | translate}}</span>
       </div>
       <div ion-col>
@@ -71,7 +71,7 @@
 <ion-footer [ngSwitch]="ismine">
   <div *ngSwitchCase="true"></div>
   <ion-toolbar *ngSwitchCase="false">
-  <!-- <ion-toolbar *ngSwitchDefault> -->
+    <!-- <ion-toolbar *ngSwitchDefault> -->
     <button ion-button [disabled]="disabled" full (tap)="makeorder()">{{tradetype.type | translate}}</button>
   </ion-toolbar>
 </ion-footer>
