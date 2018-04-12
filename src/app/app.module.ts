@@ -120,6 +120,7 @@ export function createTranslateLoader(http: HttpClient) {
     RoomPageModule,
     PaymentPrdPageModule,
     IonicStorageModule.forRoot(),
+    ScrollingHeaderModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -179,6 +179,7 @@ export class AuthPage {
               //   this.navCtrl.parent.select(0);
               // }
               this.appCtrl.getRootNav().setRoot(TabsPage);
+              loading = null;
             }).catch(e=> console.log(e));
           }
         },
