@@ -33,19 +33,36 @@
     <form [formGroup]="authForm" (ngSubmit)="submitForm()" >
       <!-- <fieldset [disabled]="isSubmitting" > -->
         <ion-list>
-          <ion-item *ngIf="authType == 'register'" >
+          <ion-item *ngIf="authType == 'register'">
             <ion-label stacked>Username</ion-label>
             <ion-input formControlName="username" type="text"></ion-input>
           </ion-item>
-          <ion-item >
+          <ion-item *ngIf="authType == 'register' && authForm.controls.username.hasError('required') && authForm.controls.username.touched">
+            <p>Sorry, field username is required!</p>
+          </ion-item>
+          <ion-item *ngIf="authType == 'register' && authForm.controls.password.hasError('minlength') && authForm.controls.password.touched">
+            <p>Sorry, username length is 8-20</p>
+          </ion-item>
+          <ion-item>
             <ion-label stacked>Email</ion-label>
             <ion-input formControlName="email" type="email"></ion-input>
           </ion-item>
-          <ion-item >
+          <ion-item *ngIf="authForm.controls.email.hasError('required') && authForm.controls.email.touched">
+            <p>Sorry, field email is required!</p>
+          </ion-item>
+          <!-- <ion-item *ngIf="authForm.controls.email.dirty && authForm.controls.email.touched">
+            <p>Sorry, field email is not invalid!</p>
+          </ion-item> -->
+          <ion-item>
             <ion-label stacked>Password</ion-label>
             <ion-input formControlName="password" type="password"></ion-input>
           </ion-item>
-
+          <ion-item *ngIf="authForm.controls.password.hasError('required') && authForm.controls.password.touched">
+            <p>Sorry, field password is required!</p>
+          </ion-item>
+          <ion-item *ngIf="authForm.controls.password.hasError('minlength') && authForm.controls.password.touched">
+            <p>Sorry, minimum password length is 10-128</p>
+          </ion-item>    
           <ion-item *ngIf=" authType === 'register' " >
             <ion-label stacked>Confirm Password</ion-label>
             <ion-input formControlName="confirmPassword" type="password"></ion-input>

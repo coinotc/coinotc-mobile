@@ -5,9 +5,10 @@ import { ProfileServiceProvider } from '../../providers/profile-service/profile-
 import { Observable } from 'rxjs/Observable';
 import { Profile } from '../../models/profile.model';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
-import { advertisement} from '../../models/advertisement'
+import { advertisement } from '../../models/advertisement';
 import { RoomPage } from '../room/room';
 import { AdinformationPage } from '../adinformation/adinformation';
+import { OrderServiceProvider } from '../../providers/order-service/order-service';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -21,17 +22,17 @@ import { AdinformationPage } from '../adinformation/adinformation';
   templateUrl: 'profile.html'
 })
 export class ProfilePage {
-  value = "ad";
+  value = 'ad';
   placeholderPicture = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515005723652&di=a1ebb7c0a1b6bfede1ff5ebc057ed073&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D822b27e7b8fb43160e12723948cd2c56%2F6c224f4a20a44623b6b1e24e9222720e0cf3d7a7.jpg';
   //private profile: Observable<Profile>;
-  model = new Profile(null, null, '',null,null);
+  model = new Profile(null, null, null, null, null);
   rate;
   profileUser;
   currentUserName;
   followStatus;
-  visible
-  private ad:advertisement[];
-  private trade:advertisement[];
+  private ad: advertisement[];
+  private trade: advertisement[];
+  visible;
   followingCount;
   followerCount;
   constructor(
@@ -40,39 +41,50 @@ export class ProfilePage {
     private userService: UserServiceProvider,
     private profileService: ProfileServiceProvider,
     private ev: Events,
-    private advertisementService:AdvertisementServiceProvider
+    private advertisementService: AdvertisementServiceProvider,
+    public orderService: OrderServiceProvider
   ) {
-    
     this.profileUser = navParams.data;
-    this.currentUserName = this.userService.getCurrentUser().username;
-    
+    this.currentUserName = this.userService.getCurrentUser().username;    
     this.onSegment();
   }
   onDetail(order, trader) {
-    this.navCtrl.push(RoomPage, { order:order, trader:trader , type:"order"});
+    this.navCtrl.push(RoomPage, {
+      order: order,
+      trader: trader,
+      type: 'order'
+    });
   }
   adinformation(information) {
-    if(information.type == 1){
-    this.navCtrl.push(AdinformationPage, { information: information, tradetype: { type: 'Buy', crypto: information.crypto } })
-    }else{
-    this.navCtrl.push(AdinformationPage, { information: information, tradetype: { type: 'Sell', crypto: information.crypto } })
+    if (information.type == 1) {
+      this.navCtrl.push(AdinformationPage, {
+        information: information,
+        tradetype: { type: 'Buy', crypto: information.crypto }
+      });
+    } else {
+      this.navCtrl.push(AdinformationPage, {
+        information: information,
+        tradetype: { type: 'Sell', crypto: information.crypto }
+      });
     }
   }
-  
+
   follow() {
     
     let a = this.userService.getCurrentUser().followers;
     let b = this.userService.getCurrentUser().following;
     if (this.followStatus == 'follow') {
       b.push(this.profileUser);
-      a.push(this.currentUserName)
+      a.push(this.currentUserName);
     } else {
       b.splice(
         this.userService.getCurrentUser().following.indexOf(this.profileUser),
         1
       );
       a.splice(
-        this.userService.getCurrentUser().following.indexOf(this.currentUserName),
+        this.userService
+          .getCurrentUser()
+          .following.indexOf(this.currentUserName),
         1
       );
     }
@@ -98,24 +110,34 @@ export class ProfilePage {
       this.visible = false;
     }
     this.profileService.getProfile(this.profileUser).subscribe(result => {
-      this.model = result[0];
+      this.model.followers = result[0].followers;
+      this.model.following = result[0].following;
       this.followerCount = this.model.followers.length;
       this.followingCount = this.model.following.length;
-      if (this.model.orderCount == 0) {
-        this.rate = 0;
-      } else {
-        this.rate = this.model.goodCount / this.model.orderCount;
-      }
+      // if (this.model.orderCount == 0) {
+      //   this.rate = 0;
+      // } else {
+      //   this.rate = this.model.goodCount / this.model.orderCount;
+      // }
     });
+    console.log(this.model.goodCount)
     switch (this.value) {
       case 'ad':
+        this.orderService.getMyTrade(this.profileUser).subscribe(result=>{
+          this.model.orderCount = result
+        });
         this.advertisementService.getMyadvertisement(this.profileUser,true).subscribe((result) => {
           this.ad = result;
-        }); break;
+        });
+        break;
       case 'trade':
+        this.orderService.getTradeWithHim(this.profileUser,this.currentUserName).subscribe(result=>{
+          this.model.orderCount = result
+        });
         this.advertisementService.getMyadvertisement(this.profileUser,true).subscribe(result => {
           this.trade = result;
-        }); break;
+        }); 
+        break;
     }
-  } 
+  }
 }

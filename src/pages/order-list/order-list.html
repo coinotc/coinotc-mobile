@@ -12,10 +12,10 @@
   </ion-navbar>
   <ion-toolbar>
     <ion-segment [(ngModel)]="segments">
-      <ion-segment-button value="Active" (tap)="onSegment()">
+      <ion-segment-button value="Active" (click)="onSegment()">
         {{'Active' | translate}}
       </ion-segment-button>
-      <ion-segment-button value="Finished" (tap)="onSegment()">
+      <ion-segment-button value="Finished" (click)="onSegment()">
         {{'Finished' | translate}}
       </ion-segment-button>
       <!-- <ion-segment-button value="ActiveBuy" (tap)="onSegment()">

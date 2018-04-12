@@ -13,21 +13,41 @@ import { User } from '../../models/user.model';
 @IonicPage()
 @Component({
   selector: 'page-bind-phone',
-  templateUrl: 'bind-phone.html',
+  templateUrl: 'bind-phone.html'
 })
 export class BindPhonePage {
   private user;
-  model = new User('','','','','',null,null,'','',null,null,null,null, null,null,null);
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private userService:UserServiceProvider) {
-      this.user = this.userService.getCurrentUser();
-      this.model.phone = this.user.phone;
+  model = new User(
+    '',
+    '',
+    '',
+    '',
+    '',
+    null,
+    null,
+    '',
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  );
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private userService: UserServiceProvider
+  ) {
+    this.user = this.userService.getCurrentUser();
+    this.model.phone = this.user.phone;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BindPhonePage');
   }
-  submit(){
+  submit() {
     this.user.phone = this.model.phone;
     this.userService.update(this.user).subscribe();
   }

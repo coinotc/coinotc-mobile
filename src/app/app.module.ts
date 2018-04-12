@@ -1,4 +1,9 @@
-import { NgModule, ErrorHandler, ModuleWithProviders, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  NgModule,
+  ErrorHandler,
+  ModuleWithProviders,
+  CUSTOM_ELEMENTS_SCHEMA
+} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -53,16 +58,16 @@ import { ComplainPage } from '../pages/complain/complain';
 import { AdvertisementsPage } from '../pages/advertisements/advertisements';
 import { TrustedPage } from '../pages/trusted/trusted';
 import { ScrollingHeaderModule } from 'ionic-scrolling-header';
-import { ElasticHeaderModule } from 'ionic2-elastic-header/dist'
+import { ElasticHeaderModule } from 'ionic2-elastic-header/dist';
 import { Network } from '@ionic-native/network';
 import { EditAdvertisementPage } from '../pages/edit-advertisement/edit-advertisement';
-import { GoogleAuthPage } from '../pages/google-auth/google-auth'; 
+import { GoogleAuthPage } from '../pages/google-auth/google-auth';
 import { GaBackupKeyPage } from '../pages/ga-backup-key/ga-backup-key';
 import { GoogleAuthServiceProvider } from '../providers/google-auth-service/google-auth-service';
 import { GaEnterKeyPage } from '../pages/ga-enter-key/ga-enter-key';
-import { EmojiProvider } from '../providers/emoji-service/emoji-service';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
-
+import { Ionic2RatingModule } from 'ionic2-rating';
+import { ReactiveFormsModule } from '@angular/forms';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -115,6 +120,7 @@ export function createTranslateLoader(http: HttpClient) {
     RoomPageModule,
     PaymentPrdPageModule,
     IonicStorageModule.forRoot(),
+    ScrollingHeaderModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -124,7 +130,9 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     AdinformationPageModule,
     ElasticHeaderModule,
-    ScrollingHeaderModule
+    ScrollingHeaderModule,
+    Ionic2RatingModule,
+    ReactiveFormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -179,9 +187,8 @@ export function createTranslateLoader(http: HttpClient) {
     FCM,
     Network,
     GoogleAuthServiceProvider,
-    EmojiProvider,
     PhotoViewer
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {}
