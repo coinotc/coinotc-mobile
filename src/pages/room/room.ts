@@ -109,7 +109,7 @@ export class RoomPage {
         this.chats = snapshotToArray(resp);
         setTimeout(() => {
           if (this.offStatus === false) {
-            //this.content.scrollToBottom(300);
+            this.content.scrollToBottom(300);
           }
         }, 450);
       });
