@@ -68,7 +68,7 @@ export class PopoverPage {
   fiatcopy: string;
   isClear: boolean = true;
   isSolid: boolean = true;
-  
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -121,7 +121,7 @@ export class TradePage {
     this.showheader = false;
     this.hideheader = true;
   }
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.currentuser = this.userservice.getCurrentUser().username;
     this.doRefresh();
   }
@@ -145,6 +145,10 @@ export class TradePage {
     }
   }
   adinformation(information, ismine) {
+    this.events.subscribe('reloadtrade', () => {
+      this.doRefresh();
+      this.events.unsubscribe('reloadtrade');
+    })
     if (ismine) {
       this.appCtrl.getRootNav().push(AdinformationPage, {
         information: information,
@@ -177,8 +181,8 @@ export class TradePage {
     this.content.resize();
   }
   profile(owner) {
-    if(owner != this.currentuser)
-    this.appCtrl.getRootNav().push(ProfilePage,owner);
+    if (owner != this.currentuser)
+      this.appCtrl.getRootNav().push(ProfilePage, owner);
   }
   addbuyad() {
     this.appCtrl.getRootNav().push(AddadvertisementPage, {
