@@ -25,7 +25,7 @@ export class AdvertisementServiceProvider {
   }
 
   public getadvertisementvisible(id) {
-    let url = `${this.advertisement}/${id}`
+    let url = `${this.advertisement}/getvisible/${id}`
     return this.apiService.get(url);
   }
 
