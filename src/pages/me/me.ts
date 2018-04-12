@@ -13,7 +13,7 @@ import { Errors } from '../../models/errors.model';
 import { ProfilePage } from '../profile/profile';
 import { SettingsPage } from '../settings/settings';
 import { ComplainPage } from '../complain/complain';
-import { AdvertisementsPage } from  '../advertisements/advertisements';
+import { AdvertisementsPage } from '../advertisements/advertisements';
 import { TrustedPage } from '../trusted/trusted';
 import { TradePage } from '../trade/trade';
 import { GoogleAuthPage } from '../google-auth/google-auth';
@@ -35,7 +35,7 @@ export class MePage {
   private currentuser;
   isSubmitting = false;
   enableNotifications = true;
-  model = new Profile(null, null, '',null,null);
+  model = new Profile(null, null, null, null, null);
   followingCount;
   followerCount;
   user = {
@@ -50,24 +50,24 @@ export class MePage {
     public userService: UserServiceProvider,
     public jwtService: JwtServiceProvider,
     public toastCtrl: ToastController,
-    public appCtrl:App,
-    public profileService:ProfileServiceProvider
+    public appCtrl: App,
+    public profileService: ProfileServiceProvider
   ) {
     this.currentuser = this.userService.getCurrentUser();
     this.user.name = this.currentuser.username;
-    this.doRefresh()
+    this.doRefresh();
     this.user.email = this.currentuser.email;
   }
   ionViewWillEnter() {
     this.doRefresh();
   }
-  doRefresh(){
-    this.profileService.getProfile(this.user.name).subscribe(result=>{
+  doRefresh() {
+    this.profileService.getProfile(this.user.name).subscribe(result => {
       this.model = result[0];
-      console.log(this.model)
+      console.log(this.model);
       this.followerCount = this.model.followers.length;
       this.followingCount = this.model.following.length;
-    })
+    });
   }
   advertisementsTapped() {
     this.appCtrl.getRootNav().push(AdvertisementsPage);
@@ -78,7 +78,7 @@ export class MePage {
   settingsTapped() {
     this.appCtrl.getRootNav().push(SettingsPage);
   }
-  googleAuth(){
+  googleAuth() {
     this.appCtrl.getRootNav().push(GoogleAuthPage);
   }
   // updateProfileImage() {
@@ -109,7 +109,7 @@ export class MePage {
           });
         }
         let nav = this.appCtrl.getActiveNavs();
-        nav[0].setRoot(AuthPage) // end if
+        nav[0].setRoot(AuthPage); // end if
       },
       (errors: Errors) => {
         for (let field in errors.errors) {

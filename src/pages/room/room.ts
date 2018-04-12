@@ -378,7 +378,11 @@ export class RoomPage {
   }
 
   onComment() {
-    console.log(this.rate);
+    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+      let ratings = result[0].ratings;
+      ratings.push(this.rate);
+      console.log(ratings);
+    });
     // this.orderInfo.finished = 0;
     // this.userService.update(this.user).subscribe();
     // this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
@@ -415,6 +419,11 @@ export class RoomPage {
             this.navCtrl.pop();
           });
       });
+    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+      let ratings = result[0].ratings;
+      ratings.push(this.rate);
+      this.profileServiceProvider.sendRating(this.trader, ratings).subscribe();
+    });
   }
 
   onProfile(trader) {

@@ -33,7 +33,8 @@ export class AdinformationPage {
   information: advertisement;
   title: string;
   tradetype: { type: String; crypto: String };
-  user: { orderCount: number; goodCount: number };
+  //user: { orderCount: number; goodCount: number };
+  user: { orderCount: number };
   ismine;
   range;
   loading;
@@ -68,17 +69,17 @@ export class AdinformationPage {
     this.information = navParams.data.information;
     this.ismine = navParams.data.tradetype.ismine;
     console.log(navParams.data);
-    this.profileservice.getProfile(this.information.owner).subscribe(result => {
-      console.log(result);
-      this.user = result[0];
-      if (this.user.orderCount) {
-        this.range = Math.trunc(
-          this.user.goodCount / this.user.orderCount * 100
-        );
-      } else {
-        this.range = 0;
-      }
-    });
+    // this.profileservice.getProfile(this.information.owner).subscribe(result => {
+    //   console.log(result);
+    //   this.user = result[0];
+    //   if (this.user.orderCount) {
+    //     this.range = Math.trunc(
+    //       this.user.goodCount / this.user.orderCount * 100
+    //     );
+    //   } else {
+    //     this.range = 0;
+    //   }
+    // });
     this.orderinformation.price = this.information.price;
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...',
