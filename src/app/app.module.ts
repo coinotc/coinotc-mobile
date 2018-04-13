@@ -67,7 +67,7 @@ import { GoogleAuthServiceProvider } from '../providers/google-auth-service/goog
 import { GaEnterKeyPage } from '../pages/ga-enter-key/ga-enter-key';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Ionic2RatingModule } from 'ionic2-rating';
-
+import { ReactiveFormsModule } from '@angular/forms';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -120,6 +120,7 @@ export function createTranslateLoader(http: HttpClient) {
     RoomPageModule,
     PaymentPrdPageModule,
     IonicStorageModule.forRoot(),
+    ScrollingHeaderModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -130,7 +131,8 @@ export function createTranslateLoader(http: HttpClient) {
     AdinformationPageModule,
     ElasticHeaderModule,
     ScrollingHeaderModule,
-    Ionic2RatingModule
+    Ionic2RatingModule,
+    ReactiveFormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

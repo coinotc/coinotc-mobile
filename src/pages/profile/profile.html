@@ -18,14 +18,16 @@
         <text-avatar [text]="profileUser" item-left></text-avatar>
       <h2>{{profileUser}}</h2>
     </ion-item>      
-    <ion-note *ngIf="currentUserName !== profileUser" item-end>
-        <button ion-button (tap)="follow()" >{{followStatus}}</button>
-     </ion-note>
+        <button ion-button clear  (click)="follow()" >
+          <ion-icon 
+            [name]="visible ? 'ios-thumbs-up-outline' :'ios-thumbs-up'">
+          </ion-icon>
+        </button>
     <ion-item>
       <ion-grid>
         <ion-row>
           <ion-col> 
-            <h2 >{{model.orderCount}}</h2>
+            <h2>{{model.orderCount}}</h2>
             <p>Trades</p>
           </ion-col>
           <ion-col>
@@ -50,16 +52,16 @@
   </ion-list>
   <ion-toolbar>
     <ion-segment [(ngModel)]="value">
-      <ion-segment-button value="ad" (tap)="onSegment()">
+      <ion-segment-button value="ad" (click)="onSegment()">
         His Ad
       </ion-segment-button>
-      <ion-segment-button value="trade" (tap)="onSegment()">
+      <ion-segment-button value="trade" (click)="onSegment()">
         My trades with him
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 
-  <ion-list>
+  <ion-list *ngIf="model">
     <div [ngSwitch]="value">
       <ion-list *ngSwitchCase="'ad'">
         <ion-item *ngFor="let advertisement of ad" (tap)="adinformation(advertisement)">

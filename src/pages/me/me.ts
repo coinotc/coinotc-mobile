@@ -19,6 +19,7 @@ import { TradePage } from '../trade/trade';
 import { GoogleAuthPage } from '../google-auth/google-auth';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { Profile } from '../../models/profile.model';
+import { OrderServiceProvider } from '../../providers/order-service/order-service';
 /**
  * Generated class for the MePage page.
  *
@@ -51,7 +52,8 @@ export class MePage {
     public jwtService: JwtServiceProvider,
     public toastCtrl: ToastController,
     public appCtrl: App,
-    public profileService: ProfileServiceProvider
+    public profileService: ProfileServiceProvider,
+    public orderService:OrderServiceProvider
   ) {
     this.currentuser = this.userService.getCurrentUser();
     this.user.name = this.currentuser.username;
@@ -68,6 +70,9 @@ export class MePage {
       this.followerCount = this.model.followers.length;
       this.followingCount = this.model.following.length;
     });
+    this.orderService.getMyTrade(this.user.name).subscribe(result=>{
+      this.model.orderCount = result;
+    })
   }
   advertisementsTapped() {
     this.appCtrl.getRootNav().push(AdvertisementsPage);

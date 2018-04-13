@@ -65,6 +65,7 @@ export class RoomPage {
     public platform: Platform,
     private photoViewer: PhotoViewer
   ) {
+    this.events.unsubscribe('reloadtrade');
     this.user = userService.getCurrentUser();
     this.data.name = this.user.username;
     this.nickname = this.user.username;
@@ -109,7 +110,7 @@ export class RoomPage {
         this.chats = snapshotToArray(resp);
         setTimeout(() => {
           if (this.offStatus === false) {
-            //this.content.scrollToBottom(300);
+            this.content.scrollToBottom(300);
           }
         }, 450);
       });
