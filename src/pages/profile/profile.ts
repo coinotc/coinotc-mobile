@@ -120,7 +120,7 @@ export class ProfilePage {
       //   this.rate = this.model.goodCount / this.model.orderCount;
       // }
     });
-    console.log(this.model.goodCount)
+    //console.log(this.model.goodCount)
     switch (this.value) {
       case 'ad':
         this.orderService.getMyTrade(this.profileUser).subscribe(result=>{

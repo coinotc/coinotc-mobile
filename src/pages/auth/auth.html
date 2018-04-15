@@ -38,34 +38,40 @@
             <ion-input formControlName="username" type="text"></ion-input>
           </ion-item>
           <ion-item *ngIf="authType == 'register' && authForm.controls.username.hasError('required') && authForm.controls.username.touched">
-            <p>Sorry, field username is required!</p>
+            <ion-label style="color:red">Username is required.</ion-label>
           </ion-item>
-          <ion-item *ngIf="authType == 'register' && authForm.controls.password.hasError('minlength') && authForm.controls.password.touched">
-            <p>Sorry, username length is 8-20</p>
+          <ion-item *ngIf="authType == 'register' && authForm.controls.username.hasError('minlength') && authForm.controls.username.touched">
+            <ion-label style="color:red">Please enter username between 8 and 20.</ion-label>
           </ion-item>
           <ion-item>
             <ion-label stacked>Email</ion-label>
-            <ion-input formControlName="email" type="email"></ion-input>
+            <ion-input formControlName="email" type="text"></ion-input>
           </ion-item>
           <ion-item *ngIf="authForm.controls.email.hasError('required') && authForm.controls.email.touched">
-            <p>Sorry, field email is required!</p>
+            <ion-label style="color:red">Email is required.</ion-label>
           </ion-item>
-          <!-- <ion-item *ngIf="authForm.controls.email.dirty && authForm.controls.email.touched">
-            <p>Sorry, field email is not invalid!</p>
-          </ion-item> -->
+          <ion-item *ngIf="authForm.controls.email.hasError('email') && authForm.controls.email.touched">
+            <ion-label style="color:red">Invalid email address.</ion-label>
+          </ion-item>
           <ion-item>
             <ion-label stacked>Password</ion-label>
             <ion-input formControlName="password" type="password"></ion-input>
           </ion-item>
           <ion-item *ngIf="authForm.controls.password.hasError('required') && authForm.controls.password.touched">
-            <p>Sorry, field password is required!</p>
+            <ion-label style="color:red">Password is required.</ion-label>
           </ion-item>
-          <ion-item *ngIf="authForm.controls.password.hasError('minlength') && authForm.controls.password.touched">
-            <p>Sorry, minimum password length is 10-128</p>
-          </ion-item>    
+          <ion-item *ngIf="authForm.controls.password.hasError('pattern') && authForm.controls.password.touched">
+            <ion-label style="color:red">Invalid password. <br>- Password must include special characters (!@#$%^&*). <br>- Alphanumeric and both uppercase & lowercase. <br>- Minimum password length is 12 characters long</ion-label>
+          </ion-item>     
           <ion-item *ngIf=" authType === 'register' " >
             <ion-label stacked>Confirm Password</ion-label>
-            <ion-input formControlName="confirmPassword" type="password"></ion-input>
+            <ion-input formControlName="confirmPassword" [disabled]="!authForm.controls.password.valid" type="password"></ion-input> 
+          </ion-item>
+          <ion-item *ngIf="authType == 'register' && authForm.controls.confirmPassword.hasError('required') && authForm.controls.confirmPassword.touched">
+            <ion-label style="color:red">Confirm password is required.</ion-label>
+          </ion-item>
+          <ion-item *ngIf="authType === 'register' && authForm.controls.confirmPassword.touched && authForm.controls.confirmPassword.hasError('isValid') && authForm.controls.password.valid">
+            <ion-label style="color:red">Confirm password does not match the password.</ion-label>
           </ion-item>
         </ion-list>
         <div padding>

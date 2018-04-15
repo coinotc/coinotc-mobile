@@ -21,6 +21,8 @@ import { PincodePage } from '../pincode/pincode'
 import { FCM, NotificationData } from '@ionic-native/fcm';
 import { Platform } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+
 /**
  * Generated class for the AuthPage page.
  *
@@ -41,9 +43,11 @@ export class AuthPage {
   isModal: boolean; // show close button only in a modal
   networkStatusIndicator: Number = 0;
   password = 'password';
+  
   onlineToast: any;
   offlineToast: any;
-  
+  private PASSWORD_PATTERN = '^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{12,}$';
+
   constructor(
     public navCtrl: NavController,
     private viewCtrl: ViewController,
@@ -58,10 +62,11 @@ export class AuthPage {
     public appCtrl:App
   ) {
     // use FormBuilder to create a form group
-      this.authForm = this.fb.group({
-        email: ['', Validators.required],
-        password: ['', Validators.required]
-      });
+    //
+    this.authForm = this.fb.group({
+      email: ['', Validators.compose([Validators.required, this.emailValidator])],
+      password: ['', Validators.compose([Validators.required, Validators.pattern(this.PASSWORD_PATTERN)])]
+    });
     this.isModal = !!params.get('isModal');
     this.platform.ready().then(() => {
             this.fcm
@@ -99,56 +104,52 @@ export class AuthPage {
     }
     if(this.authType === 'login'){
       this.authForm = this.fb.group({
-        email: ['', Validators.required],
-        password: ['', Validators.required]
+        email: ['', Validators.compose([Validators.required, this.emailValidator])],
+        password: ['', Validators.required, Validators.pattern(this.PASSWORD_PATTERN)]
       });
     }else{
+      let passwordControl = new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PASSWORD_PATTERN)]));
+      let confirmPasswordControl = new FormControl('', Validators.compose([Validators.required, this.equalTo(passwordControl)]));
       this.authForm = this.fb.group({
         username :['',Validators.compose([Validators.required, Validators.minLength(6),Validators.maxLength(18)])],
-        email: ['', Validators.compose([Validators.required,this.emailValidator])],
-        password: ['', Validators.compose([Validators.required, Validators.minLength(10),Validators.maxLength(128)])],
-        confirmPassword: ['',[Validators.required,this.equals(this.password)]]
+        email: ['', Validators.compose([Validators.required, this.emailValidator])],
+        password: passwordControl,
+        confirmPassword: confirmPasswordControl
       });
     }
   }
+
   emailValidator = (control: FormControl): { [s: string]: boolean } => {
     const EMAIL_REGEXP = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
     if (!control.value) {
       return { required: true }
     } else if (!EMAIL_REGEXP.test(control.value)) {
-      return {  email: false ,required : false};
+      return {  email: true ,required : false};
     }
   };
-  equals(fieldName: string){
-    let fcfirst: FormControl;
-    let fcSecond: FormControl;
-    return function matchValidator(control: FormControl) {
-        if (!control.parent) {
-            return null;
-        }
-        if (!fcfirst) {
-            //INITIALIZING FormControl first
-            fcfirst = control;
-            fcSecond = control.parent.get("password") as FormControl;
-            //FormControl Second
-            if (!fcSecond) {
-                throw new Error('matchValidator(): Second control is not found in the parent group!');
-            }
-            fcSecond.valueChanges.subscribe(() => {
-                fcfirst.updateValueAndValidity();
-            });
-        }
-        if (!fcSecond) {
-            return null;
-        }
-        if (fcSecond.value !== fcfirst.value) {
-            return {
-                matchOther: true
-            };
-        }
+
+  equalTo(equalControl: AbstractControl): ValidatorFn {
+    let subscribe = false;
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!subscribe) {
+        subscribe = true;
+        equalControl.valueChanges.subscribe(() => {
+          control.updateValueAndValidity();
+        });
+      }
+      let input = control.value;
+      console.log(input);
+      console.log("equalControl.value" + equalControl.value);
+      let isValid=control.root.value[equalControl.value]==input;
+      console.log('isValid> ' + isValid);
+      if(!isValid){
+        console.log('>>>>');
+        return { isValid: true, required : false }
+      }else{
         return null;
-    }
-}
+      }
+    };
+  }
   
   submitForm() {
     let loading = this.loadingCtrl.create({
@@ -248,4 +249,3 @@ export class AuthPage {
     }, error => console.error(error));
   }
 }
-
