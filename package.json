@@ -1,8 +1,8 @@
 {
-  "name": "coinotc-kitchensink",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "name": "coinotc-mobile",
+  "version": "0.0.3",
+  "author": "Nimbus-LLC",
+  "homepage": "https://coinotc.market/",
   "private": true,
   "nodemonConfig": {
     "ignore": [
@@ -38,6 +38,8 @@
     "@ionic/storage": "2.1.3",
     "@ngx-translate/core": "^9.0.2",
     "@ngx-translate/http-loader": "^2.0.1",
+    "angularfire2": "^5.0.0-rc.6.0",
+    "firebase": "^4.12.1",
     "avatar-initials": "^3.0.1",
     "body-parser": "~1.18.2",
     "com-sarriaroman-photoviewer": "^1.1.16",
@@ -59,7 +61,6 @@
     "encodeurl": "^1.0.1",
     "escape-html": "^1.0.3",
     "express": "~4.15.5",
-    "firebase": "4.8.0",
     "font-awesome": "4.7.0",
     "identicon.js": "^2.3.2",
     "ion": "0.9.14",
@@ -79,6 +80,7 @@
     "morgan": "~1.9.0",
     "ng-avatar": "^4.0.4",
     "parseurl": "^1.3.2",
+    "promise-polyfill": "^7.1.2",
     "rxjs": "5.5.2",
     "serve-favicon": "~2.4.5",
     "sw-toolbox": "3.6.0",

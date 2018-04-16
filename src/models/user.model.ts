@@ -15,6 +15,7 @@ export class User {
     public nativeCurrency: string,
     public deviceToken: string,
     public followers: Array<string>,
-    public ratings: Array<number>
+    public ratings: Array<number>,
+    public active : boolean
   ) {}
 }

@@ -14,9 +14,9 @@
 
 - [x] #52 (iOS/Android) ERROR: cordova not available.
 - [x] #53 (iOS/Android) Double Tab selection on Me Tab after Logout. 
-- [ ] #54 (iOS/Android) Form Validation Prompts for Register & Log In
-- [ ] #55 (iOS/Android) Password Validation Policy 
-- [ ] #56 (iOS/Android) Trade Password 6-PIN Validation & Encryption
+- [x] #54 (iOS/Android) Form Validation Prompts for Register & Log In
+- [x] #55 (iOS/Android) Password Validation Policy 
+- [x] #56 (iOS/Android) Trade Password 6-PIN Validation & Encryption
 - [x] #58 (iOS/Android) Profile => Advertisement Page w/o details
 - [ ] #59 (iOS/Android) FEATURE: Forget Password
 - [x] #78 (iOS/Android) Order List not refreshed when new order is made
@@ -29,8 +29,8 @@
 - [x] #85 (iOS/Android) Implement Slug for complain ID
 - [x] #86 (iOS/Android) Implement GO button in keyboard (Chat)
 - [x] #87 (iOS/Android) Add other Order Status 
-- [ ] #88 (iOS/Android) Change rating flow
-- [ ] #89 (iOS/Android) Change rating system to Stars
+- [x] #88 (iOS/Android) Change rating flow
+- [x] #89 (iOS/Android) Change rating system to Stars
 - [x] #90 (iOS/Android) Change order info from card to list
 - [x] #91 (iOS/Android) order not pushed to finished after done
 - [x] #92 (iOS/Android) Chat Room Title Change
@@ -38,7 +38,7 @@
 - [ ] #94 (iOS/Android) MY Trades With Him Tab
 - [x] #95 (iOS/Android) Chat Room Image Upload
 - [x] #96 (iOS/Android) Alert Component CSS Clean Up
-- [ ] #97 (iOS/Android) Dismiss Alert On Activation
+- [x] #97 (iOS/Android) Dismiss Alert On Activation
 - [x] #98 (iOS/Android) Implement GO button in keyboard (Alert)
 - [x] #102 (iOS/Android) Simulteanoues Touch Triggers App Crash
 - [x] #104 (iOS/Android) Add fee for order info for advertisers
@@ -96,6 +96,8 @@ This will minify your app’s code as Ionic’s source and also remove any debug
 keytool -genkey -v -keystore coinotc-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias coinotc-alias
 
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore coinotc-release-key.jks ./platforms/android/build/outputs/apk/android-release-unsigned.apk coinotc-alias
+
+rm -rf ./platforms/android/build/outputs/apk/coinotc-release.apk
 
 zipalign -v 4 ./platforms/android/build/outputs/apk/android-release-unsigned.apk ./platforms/android/build/outputs/apk/coinotc-release.apk
 

@@ -30,6 +30,12 @@
             <ion-item>
                 <ion-input text-center formControlName="newPrice" type="number" [(ngModel)]="price" placeholder="Input the number you want to set"></ion-input>
             </ion-item>
+            <ion-item *ngIf="newAlertForm.controls.newPrice.hasError('required') && newAlertForm.controls.newPrice.touched">
+                <ion-label style="color:red">Please name a price.</ion-label>
+            </ion-item>
+            <ion-item *ngIf="newAlertForm.controls.newPrice.hasError('newPrice') && newAlertForm.controls.newPrice.touched">
+                <ion-label style="color:red">Only allowed two decimal values in price.</ion-label>
+            </ion-item>
             <ion-item>
                 <p text-center>{{'NewAlertTips' | translate}}</p>
             </ion-item>

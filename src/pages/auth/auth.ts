@@ -12,15 +12,18 @@ import {
   FormBuilder,
   FormGroup,
   FormControl,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../../pages/tabs/tabs';
-import { PincodePage } from '../pincode/pincode'
+import { PincodePage } from '../pincode/pincode';
 import { FCM, NotificationData } from '@ionic-native/fcm';
 import { Platform } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { SendMailPage } from '../send-mail/send-mail'
 /**
  * Generated class for the AuthPage page.
  *
@@ -41,55 +44,67 @@ export class AuthPage {
   isModal: boolean; // show close button only in a modal
   networkStatusIndicator: Number = 0;
   password = 'password';
+
   onlineToast: any;
   offlineToast: any;
-  
+  private PASSWORD_PATTERN = '^(?=.*d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{12,}$';
+
   constructor(
     public navCtrl: NavController,
     private viewCtrl: ViewController,
     private toastCtrl: ToastController,
     private userService: UserServiceProvider,
+    private profileServiceProvider: ProfileServiceProvider,
     private params: NavParams,
     private fb: FormBuilder,
     private fcm: FCM,
     private platform: Platform,
     private network: Network,
     private loadingCtrl: LoadingController,
-    public appCtrl:App
+    public appCtrl: App
   ) {
     // use FormBuilder to create a form group
-      this.authForm = this.fb.group({
-        email: ['', Validators.required],
-        password: ['', Validators.required]
-      });
+    this.authForm = this.fb.group({
+      email: [
+        '',
+        Validators.compose([Validators.required, this.emailValidator])
+      ],
+      password: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(this.PASSWORD_PATTERN)
+        ])
+      ]
+    });
     this.isModal = !!params.get('isModal');
     this.platform.ready().then(() => {
-            this.fcm
-              .getToken()
-              .then((token: string) => {
-                console.log('The token to use is: ', token);
-                this.deviceToken = token;
-              })
-              .catch(error => {
-                console.error(error);
-              });
-            this.fcm.onTokenRefresh().subscribe(token => {
-              console.log(token);
-              this.deviceToken = token;
-             });
-            this.fcm.onNotification().subscribe(
-              (data: NotificationData) => {
-                if (data.wasTapped) {
-                  console.log('Received in background', JSON.stringify(data));
-                } else {
-                  console.log('Received in foreground', JSON.stringify(data));
-                }
-              },
-              error => {
-                console.error('Error in notification', error);
-              }
-            );
-          });
+      this.fcm
+        .getToken()
+        .then((token: string) => {
+          console.log('The token to use is: ', token);
+          this.deviceToken = token;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+      this.fcm.onTokenRefresh().subscribe(token => {
+        console.log(token);
+        this.deviceToken = token;
+      });
+      this.fcm.onNotification().subscribe(
+        (data: NotificationData) => {
+          if (data.wasTapped) {
+            console.log('Received in background', JSON.stringify(data));
+          } else {
+            console.log('Received in foreground', JSON.stringify(data));
+          }
+        },
+        error => {
+          console.error('Error in notification', error);
+        }
+      );
+    });
   }
   authTypeChange() {
     if (this.authType === 'register') {
@@ -97,97 +112,130 @@ export class AuthPage {
     } else {
       this.authForm.removeControl('username');
     }
-    if(this.authType === 'login'){
+    if (this.authType === 'login') {
+      console.log("Login ....");
       this.authForm = this.fb.group({
-        email: ['', Validators.required],
-        password: ['', Validators.required]
+        email: [
+          '',
+          Validators.compose([Validators.required, this.emailValidator])
+        ],
+        password: [
+          '',
+          Validators.compose([Validators.required,
+          Validators.pattern(this.PASSWORD_PATTERN)])
+        ]
       });
-    }else{
+    } else {
+      let passwordControl = new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(this.PASSWORD_PATTERN)
+        ])
+      );
+      let confirmPasswordControl = new FormControl(
+        '',
+        Validators.compose([Validators.required, this.equalTo(passwordControl)])
+      );
       this.authForm = this.fb.group({
-        username :['',Validators.compose([Validators.required, Validators.minLength(6),Validators.maxLength(18)])],
-        email: ['', Validators.compose([Validators.required,this.emailValidator])],
-        password: ['', Validators.compose([Validators.required, Validators.minLength(10),Validators.maxLength(128)])],
-        confirmPassword: ['',[Validators.required,this.equals(this.password)]]
+        username: [
+          '',
+          Validators.compose([
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(18)
+          ])
+        ],
+        email: [
+          '',
+          Validators.compose([Validators.required, this.emailValidator])
+        ],
+        password: passwordControl,
+        confirmPassword: confirmPasswordControl
       });
     }
   }
+
   emailValidator = (control: FormControl): { [s: string]: boolean } => {
     const EMAIL_REGEXP = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
     if (!control.value) {
-      return { required: true }
+      return { required: true };
     } else if (!EMAIL_REGEXP.test(control.value)) {
-      return {  email: false ,required : false};
+      return { email: true, required: false };
     }
   };
-  equals(fieldName: string){
-    let fcfirst: FormControl;
-    let fcSecond: FormControl;
-    return function matchValidator(control: FormControl) {
-        if (!control.parent) {
-            return null;
-        }
-        if (!fcfirst) {
-            //INITIALIZING FormControl first
-            fcfirst = control;
-            fcSecond = control.parent.get("password") as FormControl;
-            //FormControl Second
-            if (!fcSecond) {
-                throw new Error('matchValidator(): Second control is not found in the parent group!');
-            }
-            fcSecond.valueChanges.subscribe(() => {
-                fcfirst.updateValueAndValidity();
-            });
-        }
-        if (!fcSecond) {
-            return null;
-        }
-        if (fcSecond.value !== fcfirst.value) {
-            return {
-                matchOther: true
-            };
-        }
+
+  equalTo(equalControl: AbstractControl): ValidatorFn {
+    let subscribe = false;
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!subscribe) {
+        subscribe = true;
+        equalControl.valueChanges.subscribe(() => {
+          control.updateValueAndValidity();
+        });
+      }
+      let input = control.value;
+      console.log(input);
+      console.log('equalControl.value' + equalControl.value);
+      let isValid = equalControl.value == input;
+      console.log('isValid> ' + isValid);
+      if (!isValid) {
+        console.log('>>>>');
+        return { isValid: true, required: false };
+      } else {
         return null;
-    }
-}
-  
+      }
+    };
+  }
+
   submitForm() {
     let loading = this.loadingCtrl.create({
-        spinner: 'circles',
-        content: 'loading...',
-        duration: 3000
-
+      spinner: 'circles',
+      content: 'loading...',
+      duration: 3000
     });
     loading.present();
     console.log(this.deviceToken);
     this.isSubmitting = true;
     const credentials = this.authForm.value;
+    
     this.userService
       .attemptAuth(this.authType, credentials, this.deviceToken)
       .subscribe(
         user => {
-          console.log("subscribe user!!!");
+          console.log(user.active)
+          if(user.active==false)
+          this.navCtrl.push(SendMailPage)
+          else{
+          console.log('subscribe user!!!');
           if (this.isModal) this.viewCtrl.dismiss();
           this.displayTabs();
           if (this.authType === 'register') {
             this.appCtrl.getRootNav().setRoot(PincodePage);
           } else {
-            console.log("Login ...." + this.navCtrl.parent);
-            loading.dismiss().then(()=>{
-              // if(this.navCtrl.parent != null){
-              //   console.log(">>>>"+ this.navCtrl.parent)
-              //   this.navCtrl.parent.previousTab(false)
-              //   this.navCtrl.parent.select(0);
-              // }
-              this.appCtrl.getRootNav().setRoot(TabsPage);
-              loading = null;
-            }).catch(e=> console.log(e));
+            console.log('Login ....' + this.navCtrl.parent);
+            loading
+              .dismiss()
+              .then(() => {
+                this.appCtrl.getRootNav().setRoot(TabsPage);
+                loading = null;
+                let updater = this.userService.getCurrentUser().username;
+                console.log(updater);
+                this.profileServiceProvider
+                  .updateDeviceToken(updater, this.deviceToken)
+                  .subscribe(result => {
+                    console.log('...update deviceToken successfully...');
+                  });
+              })
+              .catch(e => console.log(e));
           }
+        }
         },
         (errors: Errors) => {
           for (let field in errors.errors) {
             this.toastCtrl
               .create({
-                message: `${field} ${errors.errors[field]}`,
+                message: `${field} ${errors.errors[field]['message']}`,
                 duration: 3000
               })
               .present();
@@ -211,41 +259,48 @@ export class AuthPage {
     this.viewCtrl.dismiss();
   }
 
-  displayOnlineNetworkUpdate(connectionState: string){
+  displayOnlineNetworkUpdate(connectionState: string) {
     let networkType = this.network.type;
     this.networkStatusIndicator = 2;
     //this.offlineToast.dismiss();
     this.onlineToast = this.toastCtrl
-        .create({
-          message: `You are now ${connectionState} via ${networkType}`,
-          duration: 3000
-        }).present();
+      .create({
+        message: `You are now ${connectionState} via ${networkType}`,
+        duration: 3000
+      })
+      .present();
   }
 
-  displayOfflineNetworkUpdate(connectionState: string){
+  displayOfflineNetworkUpdate(connectionState: string) {
     this.networkStatusIndicator = 1;
     //this.onlineToast.dismiss();
     this.offlineToast = this.toastCtrl
-        .create({
-          message: `You are now offline`,
-          showCloseButton: true
-        }).present();
+      .create({
+        message: `You are now offline`,
+        showCloseButton: true
+      })
+      .present();
   }
 
   ionViewDidEnter() {
-    this.network.onConnect().subscribe(data => {
-      console.log(data);
-      if(this.networkStatusIndicator != 2){
-        this.displayOnlineNetworkUpdate(data.type);
-      }
-    }, error => console.error(error));
-   
-    this.network.onDisconnect().subscribe(data => {
-      console.log(data);
-      if(this.networkStatusIndicator != 1){
-        this.displayOfflineNetworkUpdate(data.type);
-      }
-    }, error => console.error(error));
+    this.network.onConnect().subscribe(
+      data => {
+        console.log(data);
+        if (this.networkStatusIndicator != 2) {
+          this.displayOnlineNetworkUpdate(data.type);
+        }
+      },
+      error => console.error(error)
+    );
+
+    this.network.onDisconnect().subscribe(
+      data => {
+        console.log(data);
+        if (this.networkStatusIndicator != 1) {
+          this.displayOfflineNetworkUpdate(data.type);
+        }
+      },
+      error => console.error(error)
+    );
   }
 }
-
