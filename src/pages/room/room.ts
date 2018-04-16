@@ -110,7 +110,7 @@ export class RoomPage {
     let loading = this.loadingCtrl.create({
       spinner: 'circles',
       content: 'loading...',
-      duration: 3000
+      duration: 4500
     });
     loading.present();
     var start = new Date().getTime();
@@ -137,7 +137,7 @@ export class RoomPage {
   }
 
   sendMessage() {
-    if(this.data.message != ''){
+    if(this.data.message.trim() != ''){
         let newData = firebase
         .database()
         .ref('chatrooms/' + this.roomkey + '/chats')
@@ -201,7 +201,7 @@ export class RoomPage {
           // imageData is either a base64 encoded string or a file URI
           // If it's base64:
           const filename = Math.floor(Date.now() / 1000);
-          const filenameStr = `chat/${this.roomkey}_${filename}.jpg`;
+          const filenameStr = `chat/${this.roomkey}_${filename}.jpeg`;
           console.log(filenameStr);
           this.base64Image = 'data:image/jpeg;base64,' + imageData;
           this.storage.ref(filenameStr).putString(this.base64Image, 'data_url').then((snapshot)=>{
@@ -252,7 +252,7 @@ export class RoomPage {
           // imageData is either a base64 encoded string or a file URI
           // If it's base64:
           const filename = Math.floor(Date.now() / 1000);
-          const filenameStr = `chat/${this.roomkey}_${filename}.jpg`;
+          const filenameStr = `chat/${this.roomkey}_${filename}.jpeg`;
           this.base64Image = 'data:image/jpeg;base64,' + imageData;
           this.storage.ref(filenameStr).putString(this.base64Image, 'data_url').then((snapshot)=>{
             console.log("SNAPSHOT " + snapshot);
