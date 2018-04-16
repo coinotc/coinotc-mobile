@@ -37,7 +37,8 @@ export class UserServiceProvider {
       null,
       null,
       null,
-      null
+      null,
+      false
     )
   );
   public currentUser = this.currentUserSubject
@@ -155,9 +156,12 @@ export class UserServiceProvider {
       return data;
     });
   }
-
+  public changeRandonString(username){
+    let URL ='/users/randomstring'
+    return this.apiService.patch(URL, { username:username });
+  }
   public getTradepassword(username) {
-    let tradePrdURL = environment.api_url + '/users/tradepassword';
+    let tradePrdURL = '/users/tradepassword';
     let URL = `${tradePrdURL}?username=${username}`;
     return this.apiService.get(URL);
   }

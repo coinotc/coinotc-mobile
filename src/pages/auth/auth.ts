@@ -23,7 +23,7 @@ import { FCM, NotificationData } from '@ionic-native/fcm';
 import { Platform } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-
+import { SendMailPage } from '../send-mail/send-mail'
 /**
  * Generated class for the AuthPage page.
  *
@@ -197,10 +197,15 @@ export class AuthPage {
     console.log(this.deviceToken);
     this.isSubmitting = true;
     const credentials = this.authForm.value;
+    
     this.userService
       .attemptAuth(this.authType, credentials, this.deviceToken)
       .subscribe(
         user => {
+          console.log(user.active)
+          if(user.active==false)
+          this.navCtrl.push(SendMailPage)
+          else{
           console.log('subscribe user!!!');
           if (this.isModal) this.viewCtrl.dismiss();
           this.displayTabs();
@@ -211,23 +216,19 @@ export class AuthPage {
             loading
               .dismiss()
               .then(() => {
-                // if(this.navCtrl.parent != null){
-                //   console.log(">>>>"+ this.navCtrl.parent)
-                //   this.navCtrl.parent.previousTab(false)
-                //   this.navCtrl.parent.select(0);
-                // }
                 this.appCtrl.getRootNav().setRoot(TabsPage);
                 loading = null;
                 let updater = this.userService.getCurrentUser().username;
                 console.log(updater);
-                this.profileServiceProvider
-                  .updateDeviceToken(updater, this.deviceToken)
-                  .subscribe(result => {
-                    console.log('...update deviceToken successfully...');
-                  });
+                // this.profileServiceProvider
+                //   .updateDeviceToken(updater, this.deviceToken)
+                //   .subscribe(result => {
+                //     console.log('...update deviceToken successfully...');
+                //   });
               })
               .catch(e => console.log(e));
           }
+        }
         },
         (errors: Errors) => {
           for (let field in errors.errors) {

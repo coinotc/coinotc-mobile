@@ -15,8 +15,8 @@ export class SendMailServiceProvider {
   constructor(public apiService: ApiServiceProvider) {
     console.log('Hello SendMailServiceProvider Provider');
   }
-  public sendMail(email){
-    let URL = `${this.sendMailURL}?email=${email}`
+  public sendMail(email,secretToken){
+    let URL = `${this.sendMailURL}?email=${email}&secretToken=${secretToken}`
     return this.apiService.get(URL);
   }
 }
