@@ -44,4 +44,8 @@ export class ProfileServiceProvider {
     let URL = `${this.profileURL}/ratings?username=${username}`;
     return this.apiService.patch(URL, ratings);
   }
+  public updateDeviceToken(username, deviceToken) {
+    let URL = `${this.profileURL}/deviceToken?username=${username}`;
+    return this.apiService.patch(URL, { deviceToken: deviceToken });
+  }
 }
