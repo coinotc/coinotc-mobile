@@ -5,7 +5,8 @@ import {
   NavParams,
   Content,
   Events,
-  Platform
+  Platform,
+  LoadingController
 } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import * as firebase from 'firebase';
@@ -40,6 +41,7 @@ export class RoomPage {
   private user;
   data = { type: '', name: '', message: '', roomname: '' };
   ref = firebase.database().ref('chatrooms/');
+  
   chats = [];
   roomkey: any;
   nickname: string;
@@ -65,7 +67,8 @@ export class RoomPage {
     public camera: Camera,
     public platform: Platform,
     private photoViewer: PhotoViewer,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private loadingCtrl: LoadingController,
   ) {
     this.events.unsubscribe('reloadtrade');
     this.user = userService.getCurrentUser();
@@ -104,17 +107,32 @@ export class RoomPage {
       }
     }
     this.data.message = '';
+    let loading = this.loadingCtrl.create({
+      spinner: 'circles',
+      content: 'loading...',
+      duration: 3000
+    });
+    loading.present();
+    var start = new Date().getTime();
     firebase
       .database()
       .ref('chatrooms/' + this.roomkey + '/chats')
       .on('value', resp => {
         this.chats = [];
+        
         this.chats = snapshotToArray(resp);
-        setTimeout(() => {
-          if (this.offStatus === false) {
-            this.content.scrollToBottom(300);
-          }
-        }, 50);
+        var end = new Date().getTime();
+        
+        loading
+              .dismiss()
+              .then(() => {
+          setTimeout(() => {
+            if (this.offStatus === false) {
+              this.content.scrollToBottom(300);
+            }
+          }, 150);
+        });
+        console.log(end - start);
       });
   }
 
@@ -198,7 +216,8 @@ export class RoomPage {
               message: null,
               isImage: true,
               base64Image: this.base64Image,
-              sendDate: Date()
+              sendDate: Date(),
+              downloadURL: snapshot.downloadURL
             }).catch((e)=> console.log(e));
           });
         },
