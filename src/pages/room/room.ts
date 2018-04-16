@@ -19,6 +19,7 @@ import { AlertServiceProvider } from '../../providers/alert-service/alert-servic
 import { OrderListPage } from '../order-list/order-list';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 /**
  * Generated class for the RoomPage page.
@@ -63,7 +64,8 @@ export class RoomPage {
     private events: Events,
     public camera: Camera,
     public platform: Platform,
-    private photoViewer: PhotoViewer
+    private photoViewer: PhotoViewer,
+    private storage: AngularFireStorage
   ) {
     this.events.unsubscribe('reloadtrade');
     this.user = userService.getCurrentUser();
@@ -112,23 +114,25 @@ export class RoomPage {
           if (this.offStatus === false) {
             this.content.scrollToBottom(300);
           }
-        }, 450);
+        }, 50);
       });
   }
 
   sendMessage() {
-    let newData = firebase
-      .database()
-      .ref('chatrooms/' + this.roomkey + '/chats')
-      .push();
-    newData.set({
-      type: this.data.type,
-      user: this.data.name,
-      message: this.data.message,
-      sendDate: Date()
-    });
-    this.data.message = '';
-    this.scrollToBottom();
+    if(this.data.message != ''){
+        let newData = firebase
+        .database()
+        .ref('chatrooms/' + this.roomkey + '/chats')
+        .push();
+      newData.set({
+        type: this.data.type,
+        user: this.data.name,
+        message: this.data.message,
+        sendDate: Date()
+      });
+      this.data.message = '';
+      //this.scrollToBottom();
+    }
   }
 
   scrollToBottom() {
@@ -178,18 +182,24 @@ export class RoomPage {
         imageData => {
           // imageData is either a base64 encoded string or a file URI
           // If it's base64:
+          const filename = Math.floor(Date.now() / 1000);
+          const filenameStr = `chat/${this.roomkey}_${filename}.jpg`;
+          console.log(filenameStr);
           this.base64Image = 'data:image/jpeg;base64,' + imageData;
-          let newData = firebase
-            .database()
-            .ref('chatrooms/' + this.roomkey + '/chats')
-            .push();
-          newData.set({
-            type: this.data.type,
-            user: this.data.name,
-            message: null,
-            isImage: true,
-            base64Image: this.base64Image,
-            sendDate: Date()
+          this.storage.ref(filenameStr).putString(this.base64Image, 'data_url').then((snapshot)=>{
+            console.log("SNAPSHOT ---> ");
+            let newData = firebase
+              .database()
+              .ref('chatrooms/' + this.roomkey + '/chats')
+              .push();
+            newData.set({
+              type: this.data.type,
+              user: this.data.name,
+              message: null,
+              isImage: true,
+              base64Image: this.base64Image,
+              sendDate: Date()
+            }).catch((e)=> console.log(e));
           });
         },
         err => {
@@ -199,11 +209,12 @@ export class RoomPage {
     }
   }
 
-  viewAttachedImage(image) {
+  viewAttachedImage(chat) {
     // we need to store to the fire storage then keep the url.
-    this.photoViewer.show(
-      'https://tribzap2it.files.wordpress.com/2016/05/the-flash-thecw.jpg'
-    );
+    console.log("Preview image > " + chat.downloadURL);
+    if(chat.downloadURL){
+      this.photoViewer.show(chat.downloadURL);
+    }
   }
 
   takePhoto() {
@@ -221,19 +232,25 @@ export class RoomPage {
         imageData => {
           // imageData is either a base64 encoded string or a file URI
           // If it's base64:
+          const filename = Math.floor(Date.now() / 1000);
+          const filenameStr = `chat/${this.roomkey}_${filename}.jpg`;
           this.base64Image = 'data:image/jpeg;base64,' + imageData;
-          let newData = firebase
-            .database()
-            .ref('chatrooms/' + this.roomkey + '/chats')
-            .push();
-          newData.set({
-            type: this.data.type,
-            user: this.data.name,
-            message: null,
-            isImage: true,
-            base64Image: this.base64Image,
-            sendDate: Date()
-          });
+          this.storage.ref(filenameStr).putString(this.base64Image, 'data_url').then((snapshot)=>{
+            console.log("SNAPSHOT " + snapshot);
+            let newData = firebase
+              .database()
+              .ref('chatrooms/' + this.roomkey + '/chats')
+              .push();
+            newData.set({
+              type: this.data.type,
+              user: this.data.name,
+              message: null,
+              isImage: true,
+              base64Image: this.base64Image,
+              sendDate: Date(),
+              downloadURL: snapshot.downloadURL
+            });
+          }).catch((e)=> console.log(e));
         },
         err => {
           console.log('Error taking photo', JSON.stringify(err));
