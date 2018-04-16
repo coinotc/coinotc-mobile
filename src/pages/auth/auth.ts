@@ -44,7 +44,7 @@ export class AuthPage {
   isModal: boolean; // show close button only in a modal
   networkStatusIndicator: Number = 0;
   password = 'password';
-  
+
   onlineToast: any;
   offlineToast: any;
   private PASSWORD_PATTERN = '^(?=.*d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{12,}$';
@@ -65,8 +65,17 @@ export class AuthPage {
   ) {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
-      email: ['', Validators.compose([Validators.required, this.emailValidator])],
-      password: ['', Validators.compose([Validators.required, Validators.pattern(this.PASSWORD_PATTERN)])]
+      email: [
+        '',
+        Validators.compose([Validators.required, this.emailValidator])
+      ],
+      password: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(this.PASSWORD_PATTERN)
+        ])
+      ]
     });
     this.isModal = !!params.get('isModal');
     this.platform.ready().then(() => {
@@ -105,15 +114,41 @@ export class AuthPage {
     }
     if (this.authType === 'login') {
       this.authForm = this.fb.group({
-        email: ['', Validators.compose([Validators.required, this.emailValidator])],
-        password: ['', Validators.required, Validators.pattern(this.PASSWORD_PATTERN)]
+        email: [
+          '',
+          Validators.compose([Validators.required, this.emailValidator])
+        ],
+        password: [
+          '',
+          Validators.required,
+          Validators.pattern(this.PASSWORD_PATTERN)
+        ]
       });
-    }else{
-      let passwordControl = new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PASSWORD_PATTERN)]));
-      let confirmPasswordControl = new FormControl('', Validators.compose([Validators.required, this.equalTo(passwordControl)]));
+    } else {
+      let passwordControl = new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(this.PASSWORD_PATTERN)
+        ])
+      );
+      let confirmPasswordControl = new FormControl(
+        '',
+        Validators.compose([Validators.required, this.equalTo(passwordControl)])
+      );
       this.authForm = this.fb.group({
-        username :['',Validators.compose([Validators.required, Validators.minLength(6),Validators.maxLength(18)])],
-        email: ['', Validators.compose([Validators.required, this.emailValidator])],
+        username: [
+          '',
+          Validators.compose([
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(18)
+          ])
+        ],
+        email: [
+          '',
+          Validators.compose([Validators.required, this.emailValidator])
+        ],
         password: passwordControl,
         confirmPassword: confirmPasswordControl
       });
@@ -125,7 +160,7 @@ export class AuthPage {
     if (!control.value) {
       return { required: true };
     } else if (!EMAIL_REGEXP.test(control.value)) {
-      return {  email: true ,required : false};
+      return { email: true, required: false };
     }
   };
 
@@ -140,18 +175,18 @@ export class AuthPage {
       }
       let input = control.value;
       console.log(input);
-      console.log("equalControl.value" + equalControl.value);
-      let isValid=equalControl.value==input;
+      console.log('equalControl.value' + equalControl.value);
+      let isValid = equalControl.value == input;
       console.log('isValid> ' + isValid);
-      if(!isValid){
+      if (!isValid) {
         console.log('>>>>');
-        return { isValid: true, required : false }
-      }else{
+        return { isValid: true, required: false };
+      } else {
         return null;
       }
     };
   }
-  
+
   submitForm() {
     let loading = this.loadingCtrl.create({
       spinner: 'circles',
@@ -173,12 +208,6 @@ export class AuthPage {
             this.appCtrl.getRootNav().setRoot(PincodePage);
           } else {
             console.log('Login ....' + this.navCtrl.parent);
-            let updater = this.userService.getCurrentUser().username;
-            this.profileServiceProvider
-              .updateDeviceToken(updater, this.deviceToken)
-              .subscribe(result => {
-                console.log('...update deviceToken successfully...');
-              });
             loading
               .dismiss()
               .then(() => {
@@ -189,6 +218,13 @@ export class AuthPage {
                 // }
                 this.appCtrl.getRootNav().setRoot(TabsPage);
                 loading = null;
+                let updater = this.userService.getCurrentUser().username;
+                console.log(updater);
+                this.profileServiceProvider
+                  .updateDeviceToken(updater, this.deviceToken)
+                  .subscribe(result => {
+                    console.log('...update deviceToken successfully...');
+                  });
               })
               .catch(e => console.log(e));
           }
