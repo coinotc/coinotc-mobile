@@ -97,6 +97,8 @@ keytool -genkey -v -keystore coinotc-release-key.jks -keyalg RSA -keysize 2048 -
 
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore coinotc-release-key.jks ./platforms/android/build/outputs/apk/android-release-unsigned.apk coinotc-alias
 
+rm -rf ./platforms/android/build/outputs/apk/coinotc-release.apk
+
 zipalign -v 4 ./platforms/android/build/outputs/apk/android-release-unsigned.apk ./platforms/android/build/outputs/apk/coinotc-release.apk
 
 apksigner verify ./platforms/android/build/outputs/apk/coinotc-release.apk
