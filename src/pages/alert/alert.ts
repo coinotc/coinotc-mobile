@@ -197,7 +197,7 @@ export class AddAlertPage {
     if (!control.value) {
       return { required: true };
     } else if (!PRICE_REGEXP.test(control.value)) {
-      return { error: true, email: true };
+      return { error: true, newPrice: true };
     }
   };
 
