@@ -95,7 +95,7 @@
             <span class="msg-date">{{chat.sendDate | date:'short'}}</span>
             <p *ngIf="chat.message != null" text-wrap>{{chat.message}}</p>
             <ion-thumbnail *ngIf="chat.isImage" (tap)="viewAttachedImage(chat)">
-              <img src="{{chat.base64Image}}">
+              <img src="{{chat.downloadURL}}">
             </ion-thumbnail>
           </div>
         </div>
@@ -105,7 +105,7 @@
             <span class="msg-date">{{chat.sendDate | date:'short'}}</span>
             <p *ngIf="chat.message != null" text-wrap>{{chat.message}}</p>
             <ion-thumbnail *ngIf="chat.isImage" (tap)="viewAttachedImage(chat)">
-              <img *ngIf="chat.isImage" src="{{chat.base64Image}}">
+              <img *ngIf="chat.isImage" src="{{chat.downloadURL}}">
             </ion-thumbnail>
           </div>
         </div>

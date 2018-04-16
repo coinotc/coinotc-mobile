@@ -21,6 +21,7 @@ import { OrderListPage } from '../order-list/order-list';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { AngularFireStorage } from 'angularfire2/storage';
+import { Observable } from 'rxjs';
 
 /**
  * Generated class for the RoomPage page.
@@ -55,7 +56,7 @@ export class RoomPage {
   base64Image: string;
   rate;
   rateStatus;
-
+  
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -110,18 +111,16 @@ export class RoomPage {
     let loading = this.loadingCtrl.create({
       spinner: 'circles',
       content: 'loading...',
-      duration: 4500
+      duration: 3500
     });
     loading.present();
     var start = new Date().getTime();
     firebase
       .database()
-      .ref('chatrooms/' + this.roomkey + '/chats')
+      .ref('chatrooms/' + this.roomkey + '/chats').limitToLast(10)
       .on('value', resp => {
         this.chats = [];
-        
         this.chats = snapshotToArray(resp);
-        var end = new Date().getTime();
         
         loading
               .dismiss()
@@ -132,6 +131,7 @@ export class RoomPage {
             }
           }, 150);
         });
+        var end = new Date().getTime();
         console.log(end - start);
       });
   }
@@ -215,7 +215,7 @@ export class RoomPage {
               user: this.data.name,
               message: null,
               isImage: true,
-              base64Image: this.base64Image,
+              //base64Image: this.base64Image,
               sendDate: Date(),
               downloadURL: snapshot.downloadURL
             }).catch((e)=> console.log(e));
@@ -265,7 +265,7 @@ export class RoomPage {
               user: this.data.name,
               message: null,
               isImage: true,
-              base64Image: this.base64Image,
+              //base64Image: this.base64Image,
               sendDate: Date(),
               downloadURL: snapshot.downloadURL
             });
