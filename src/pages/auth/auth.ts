@@ -47,7 +47,7 @@ export class AuthPage {
 
   onlineToast: any;
   offlineToast: any;
-  private PASSWORD_PATTERN = '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{12,}$';
+  private PASSWORD_PATTERN = '^(?=.*d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{12,}$';
 
   constructor(
     public navCtrl: NavController,
@@ -113,6 +113,7 @@ export class AuthPage {
       this.authForm.removeControl('username');
     }
     if (this.authType === 'login') {
+      console.log("Login ....");
       this.authForm = this.fb.group({
         email: [
           '',
@@ -120,8 +121,8 @@ export class AuthPage {
         ],
         password: [
           '',
-          Validators.required,
-          Validators.pattern(this.PASSWORD_PATTERN)
+          Validators.compose([Validators.required,
+          Validators.pattern(this.PASSWORD_PATTERN)])
         ]
       });
     } else {
@@ -234,7 +235,7 @@ export class AuthPage {
           for (let field in errors.errors) {
             this.toastCtrl
               .create({
-                message: `${field} ${errors.errors[field]}`,
+                message: `${field} ${errors.errors[field]['message']}`,
                 duration: 3000
               })
               .present();
