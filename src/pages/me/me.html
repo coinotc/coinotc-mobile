@@ -8,50 +8,50 @@
   <ion-list *ngIf="currentuser.username != ''" no-lines>
     <ion-list-header>
       <ion-item>
-        <text-avatar [text]="user.name"  item-left></text-avatar>
+        <text-avatar [text]="user.name" item-left></text-avatar>
         <p class="username">{{user.name}}</p>
-        <p>{{user.email}}</p>    
-      </ion-item>      
-    <ion-item>
-      <ion-grid>
-        <ion-row>
-          <ion-col> 
-            <h2>{{model.orderCount}}</h2>
-            <p>Trades</p>
-          </ion-col>
-          <ion-col>
-            <h2>{{followingCount}}</h2>
-            <p>Following</p>
-          </ion-col>
-          <ion-col>
-            <h2>{{followerCount}}</h2>
-            <p>Followers</p>
-          </ion-col>
-          <ion-col>
-            <h2>0</h2>
-            <p>Rating</p>
-          </ion-col>
-          <ion-col>
-            <h2>0</h2>
-            <p>Volume</p>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
+        <p>{{user.email}}</p>
+      </ion-item>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h2>{{model.orderCount}}</h2>
+              <p>Trades</p>
+            </ion-col>
+            <ion-col>
+              <h2>{{followingCount}}</h2>
+              <p>Following</p>
+            </ion-col>
+            <ion-col>
+              <h2>{{followerCount}}</h2>
+              <p>Followers</p>
+            </ion-col>
+            <ion-col>
+              <h2>0</h2>
+              <p>Rating</p>
+            </ion-col>
+            <ion-col>
+              <h2>0</h2>
+              <p>Volume</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
     </ion-list-header>
   </ion-list>
 
   <ion-list no-border *ngIf="currentuser.username != ''">
     <button ion-item (tap)="advertisementsTapped()">
-      <ion-icon name="images"  item-start ></ion-icon>
+      <ion-icon name="images" item-start></ion-icon>
       Advertisements
     </button>
-    <button ion-item  (tap)="trustedTapped()">
+    <button ion-item (tap)="trustedTapped()">
       <ion-icon name="contacts" item-start></ion-icon>
       Follow
     </button>
 
-    <button ion-item (tap)="settingsTapped()">
+    <!-- <button ion-item (tap)="settingsTapped()">
       <ion-icon name="settings" item-start></ion-icon>
       Settings
     </button>
@@ -64,7 +64,7 @@
     <button ion-item (tap)="googleAuth()">
       <ion-icon name="logo-google" item-start></ion-icon>
       Google Authenticator
-    </button>
+    </button> -->
 
     <button ion-item (tap)="logout()">
       <ion-icon name="power" item-start></ion-icon>
@@ -72,10 +72,10 @@
     </button>
   </ion-list>
   <ion-list *ngIf="currentuser.username != ''">
-      <button ion-item>
-        <i class="fal fa-code-commit"></i>
-        0.03 beta
-      </button>
+    <button ion-item>
+      <i class="fal fa-code-commit"></i>
+      0.03 beta
+    </button>
   </ion-list>
-  
+
 </ion-content>
