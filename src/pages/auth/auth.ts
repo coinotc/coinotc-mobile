@@ -221,11 +221,11 @@ export class AuthPage {
                 loading = null;
                 let updater = this.userService.getCurrentUser().username;
                 console.log(updater);
-                // this.profileServiceProvider
-                //   .updateDeviceToken(updater, this.deviceToken)
-                //   .subscribe(result => {
-                //     console.log('...update deviceToken successfully...');
-                //   });
+                this.profileServiceProvider
+                  .updateDeviceToken(updater, this.deviceToken)
+                  .subscribe(result => {
+                    console.log('...update deviceToken successfully...');
+                  });
               })
               .catch(e => console.log(e));
           }
