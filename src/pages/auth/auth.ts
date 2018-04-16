@@ -140,7 +140,7 @@ export class AuthPage {
       let input = control.value;
       console.log(input);
       console.log("equalControl.value" + equalControl.value);
-      let isValid=control.root.value[equalControl.value]==input;
+      let isValid=equalControl.value==input;
       console.log('isValid> ' + isValid);
       if(!isValid){
         console.log('>>>>');
