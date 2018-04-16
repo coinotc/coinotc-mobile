@@ -33,7 +33,8 @@ export class BindPhonePage {
     null,
     null,
     null,
-    null
+    null,
+    false
   );
   constructor(
     public navCtrl: NavController,

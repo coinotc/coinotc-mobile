@@ -40,7 +40,8 @@ export class PaymentPrdPage {
     '',
     '',
     [],
-    []
+    [],
+    false
   );
   constructor(
     public navCtrl: NavController,

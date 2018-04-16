@@ -7,6 +7,7 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { SendMailServiceProvider } from '../../providers/send-mail-service/send-mail-service';
 import { MePage } from '../me/me';
+import { AuthPage } from '../auth/auth';
 /**
  * Generated class for the ConfirmPincodePage page.
  *
@@ -51,10 +52,13 @@ export class ConfirmPincodePage {
           this.comfirmcode = code;
           if(this.password == this.comfirmcode){
             this.password = JSON.parse(JSON.stringify(this.password))
-            this.profileService.settradepassword(this.currentUserName, this.password).subscribe();
-            if(!this.type){
-              this.sendMailService.sendMail(this.userService.getCurrentUser().email).subscribe()
-            }
+            this.profileService.settradepassword(this.currentUserName, this.password).subscribe(result=>{
+              if(!this.type)
+              this.sendMailService.sendMail(result.email,result.secretToken).subscribe()
+            });
+            if(!this.type)
+            this.navCtrl.setRoot(AuthPage);
+            else
             this.navCtrl.setRoot(TabsPage);
           }else{
             let toast = this.toastCtrl.create({
