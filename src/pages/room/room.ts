@@ -122,15 +122,12 @@ export class RoomPage {
         this.chats = [];
         this.chats = snapshotToArray(resp);
         
-        loading
-              .dismiss()
-              .then(() => {
-          setTimeout(() => {
-            if (this.offStatus === false) {
-              this.content.scrollToBottom(300);
-            }
-          }, 150);
-        });
+        setTimeout(() => {
+          if (this.offStatus === false) {
+            loading.dismiss();
+            this.content.scrollToBottom(300);
+          }
+        }, 500);
         var end = new Date().getTime();
         console.log(end - start);
       });
@@ -198,6 +195,12 @@ export class RoomPage {
     if (this.platform.is('cordova')) {
       this.camera.getPicture(options).then(
         imageData => {
+          let loading = this.loadingCtrl.create({
+            spinner: 'circles',
+            content: 'Uploading...',
+            duration: 3500
+          });
+          loading.present();
           // imageData is either a base64 encoded string or a file URI
           // If it's base64:
           const filename = Math.floor(Date.now() / 1000);
@@ -206,19 +209,25 @@ export class RoomPage {
           this.base64Image = 'data:image/jpeg;base64,' + imageData;
           this.storage.ref(filenameStr).putString(this.base64Image, 'data_url').then((snapshot)=>{
             console.log("SNAPSHOT ---> ");
-            let newData = firebase
-              .database()
-              .ref('chatrooms/' + this.roomkey + '/chats')
-              .push();
-            newData.set({
-              type: this.data.type,
-              user: this.data.name,
-              message: null,
-              isImage: true,
-              //base64Image: this.base64Image,
-              sendDate: Date(),
-              downloadURL: snapshot.downloadURL
-            }).catch((e)=> console.log(e));
+            
+            loading
+              .dismiss()
+              .then(() => {
+                let newData = firebase
+                  .database()
+                  .ref('chatrooms/' + this.roomkey + '/chats')
+                  .push();
+                newData.set({
+                  type: this.data.type,
+                  user: this.data.name,
+                  message: null,
+                  isImage: true,
+                  //base64Image: this.base64Image,
+                  sendDate: Date(),
+                  downloadURL: snapshot.downloadURL
+                }).catch((e)=> console.log(e));
+            });
+            
           });
         },
         err => {
@@ -249,6 +258,12 @@ export class RoomPage {
     if (this.platform.is('cordova')) {
       this.camera.getPicture(options).then(
         imageData => {
+          let loading = this.loadingCtrl.create({
+            spinner: 'circles',
+            content: 'Uploading...',
+            duration: 3500
+          });
+          loading.present();
           // imageData is either a base64 encoded string or a file URI
           // If it's base64:
           const filename = Math.floor(Date.now() / 1000);
@@ -256,19 +271,25 @@ export class RoomPage {
           this.base64Image = 'data:image/jpeg;base64,' + imageData;
           this.storage.ref(filenameStr).putString(this.base64Image, 'data_url').then((snapshot)=>{
             console.log("SNAPSHOT " + snapshot);
-            let newData = firebase
-              .database()
-              .ref('chatrooms/' + this.roomkey + '/chats')
-              .push();
-            newData.set({
-              type: this.data.type,
-              user: this.data.name,
-              message: null,
-              isImage: true,
-              //base64Image: this.base64Image,
-              sendDate: Date(),
-              downloadURL: snapshot.downloadURL
-            });
+            
+            loading
+              .dismiss()
+              .then(() => {
+                let newData = firebase
+                  .database()
+                  .ref('chatrooms/' + this.roomkey + '/chats')
+                  .push();
+                newData.set({
+                  type: this.data.type,
+                  user: this.data.name,
+                  message: null,
+                  isImage: true,
+                  //base64Image: this.base64Image,
+                  sendDate: Date(),
+                  downloadURL: snapshot.downloadURL
+                });
+              });
+            
           }).catch((e)=> console.log(e));
         },
         err => {
