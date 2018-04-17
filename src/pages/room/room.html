@@ -20,7 +20,10 @@
 
     <ion-buttons end>
       <button ion-button (tap)="complain()" *ngIf="finished == false" icon-only>
-        <ion-icon name="notifications" color="danger">ss</ion-icon>
+        <ion-icon name="notifications" color="danger"></ion-icon>
+      </button>
+      <button ion-button (tap)="openModal()"  icon-only>
+        <ion-icon name="information-circle"></ion-icon>
       </button>
       <button ion-button clear icon-only item-right (tap)="attachImage()" icon-only>
         <ion-icon name="attach"></ion-icon>
@@ -33,12 +36,12 @@
 
 
 <ion-content overflow-scroll="true">
+  
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingText="Pulldown to Refresh" refreshingSpinner="circles" refreshingText="Fetch chat history...">
         </ion-refresher-content>
       </ion-refresher>
-
-  <div ion-item ion-fixed *ngIf="type == 'order'">
+<!-- <div ion-item ion-fixed *ngIf="type == 'order'">
 
     <ion-list [ngSwitch]="switched">
 
@@ -85,7 +88,7 @@
       <button ion-button round (tap)="onWallet()">{{'Wallet' | translate}}</button>
     </div>
 
-  </div>
+  </div> -->
 
   <ion-list no-lines [virtualScroll]="chatsObservable$ | async" [approxItemHeight]="'88px'">
     <ion-item *virtualItem="let chat">

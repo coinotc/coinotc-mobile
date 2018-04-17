@@ -6,7 +6,9 @@ import {
   Content,
   Events,
   Platform,
-  LoadingController
+  LoadingController,
+  ModalController,
+  ViewController
 } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import * as firebase from 'firebase';
@@ -29,165 +31,98 @@ import { Observable } from 'rxjs';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+@Component({template:`
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Description
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (tap)="dismiss()">
+        <span ion-text color="primary">Cancel</span>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="orderInfo">
 
-@IonicPage()
-@Component({
-  selector: 'page-room',
-  templateUrl: 'room.html'
-})
-export class RoomPage {
-  @ViewChild(Content) content: Content;
-  @ViewChild('chat_input') messageInput: ElementRef;
-  private orderInfo;
-  private user;
-  data = { type: '', name: '', message: '', roomname: '' };
-  ref = firebase.database().ref('chatrooms/');
-  
-  chats = [];
-  roomkey: any;
-  nickname: string;
-  offStatus: boolean = false;
-  switched = false;
+
+<ion-list>
+
+  <ion-item>
+    <span text-capitalize>{{orderInfo.crypto | lowercase}}</span>
+    <span style="float:right">{{("orderStatus." + orderInfo.finished)| translate}}</span>
+  </ion-item>
+
+  <ion-item>
+    {{'OrderID' | translate}}:
+    <span style="float:right">{{orderInfo._id}}</span>
+    <br> {{'Amount' | translate}}
+    <span style="float:right">{{orderInfo.fiat}} {{orderInfo.amount}}</span>
+    <br> {{'Quantity' | translate}}
+    <span style="float:right">{{orderInfo.quantity}} {{orderInfo.crypto}}</span>
+    <br> {{'Price' | translate}}
+    <span style="float:right">{{orderInfo.price | number : '1.2-2'}} {{orderInfo.fiat}}/{{orderInfo.crypto}}</span>
+    <span *ngIf="orderInfo.owner == user.username">
+      <br>{{'Fee' | translate}}</span>
+    <span *ngIf="orderInfo.owner == user.username" style="float:right">{{0.07 * orderInfo.quantity}} {{orderInfo.crypto}}</span>
+    <br> {{'Buyer' | translate}}:{{orderInfo.buyer}}
+    <span style="float:right">{{'Seller' | translate}}:{{orderInfo.seller}}</span>
+    <br> {{'Message' | translate}}:
+    <span style="float:right">{{orderInfo.message}}</span>
+
+    <div align=center>
+      <div *ngIf="orderInfo.finished == 1 || orderInfo.finished ==2">
+        <button ion-button large round *ngIf="user.username == orderInfo.seller" [disabled]="orderInfo.finished !== 2" (tap)="onFinished()">{{'Approve' | translate}}</button>
+        <button ion-button large round *ngIf="user.username == orderInfo.buyer" (tap)="onInformed()">{{'Inform' | translate}}</button>
+      </div>
+      <div *ngIf="orderInfo.finished == 3 && (this.user.username == this.orderInfo.buyer && this.orderInfo.buyerRating == null || this.user.username == this.orderInfo.seller && this.orderInfo.sellerRating == null)">
+        <rating [(ngModel)]="rate" readOnly="false" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
+          nullable="false" (ngModelChange)="onComment()">
+        </rating>
+        <button ion-button round (tap)="onRating()">Confirm Rating</button>
+      </div>
+    </div>
+  </ion-item>
+
+</ion-list>
+
+<div align=center>
+  <button ion-button round (tap)="onProfile(trader)">{{'Trader' | translate}}</button>
+  <button ion-button round (tap)="onWallet()">{{'Wallet' | translate}}</button>
+</div>
+
+</ion-content>`})
+export class ModalContentPage {
+  orderInfo;
   trader;
-  average;
-  notification = new Notification('', null);
-  type;
-  finished;
-  base64Image: string;
-  rate;
+  user;
   rateStatus;
-  itemPerPage: number = 10;
-  chatsObservable$: any;
+  notification = new Notification('', null);
+  average;
+  rate;
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private userService: UserServiceProvider,
+    public userService: UserServiceProvider,
     private orderServiceProvider: OrderServiceProvider,
     private profileServiceProvider: ProfileServiceProvider,
     private alertServiceProvider: AlertServiceProvider,
-    private events: Events,
-    public camera: Camera,
     public platform: Platform,
-    private photoViewer: PhotoViewer,
-    private storage: AngularFireStorage,
-    private loadingCtrl: LoadingController,
+    public params: NavParams,
+    public viewCtrl: ViewController,
+    public navCtrl: NavController,
+    private events: Events
+  
   ) {
-    this.events.unsubscribe('reloadtrade');
-    this.user = userService.getCurrentUser();
-    this.data.name = this.user.username;
-    this.nickname = this.user.username;
-    this.type = navParams.data.type;
-    this.data.type = 'message';
-    if (this.type == 'order') {
-      this.trader = navParams.data.trader;
-      console.log(this.trader);
-      this.orderInfo = navParams.data.order;
-      this.finished = this.orderInfo.finished;
-      this.data.roomname = navParams.data.order._id;
-      this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
-        this.notification.to = result[0].deviceToken;
-        this.notification.notification = {
-          title: `Your Order with ${this.trader} has progress !`,
-          body: `Order ID : ${this.orderInfo._id}`,
-          icon: 'fcm_push_icon',
-          sound: 'default',
-          click_action: 'FCM_PLUGIN_ACTIVITY'
-        };
-      });
-      if (navParams.data.roomkey == null) {
-        this.roomkey = navParams.data.order.roomkey;
-      } else {
-        this.roomkey = navParams.data.roomkey;
-      }
-    } else {
-      this.data.roomname = navParams.data.complain;
-      this.finished = true;
-      if (navParams.data.complain.roomkey == null) {
-        this.roomkey = navParams.data.complain.roomkey;
-      } else {
-        this.roomkey = navParams.data.roomkey;
-      }
-    }
-    this.data.message = '';
-    let loading = this.loadingCtrl.create({
-      spinner: 'circles',
-      content: 'loading...',
-      duration: 3500
-    });
-    loading.present();
-    var start = new Date().getTime();
-    firebase
-      .database()
-      .ref('chatrooms/' + this.roomkey + '/chats').limitToLast(this.itemPerPage)
-      .on('value', resp => {
-        this.chats = [];
-        this.chats = snapshotToArray(resp);
-        this.chatsObservable$ = Observable.of(this.chats);
-        setTimeout(() => {
-          if (this.offStatus === false) {
-            loading.dismiss();
-            this.content.scrollToBottom(300);
-          }
-        }, 500);
-        var end = new Date().getTime();
-        console.log(end - start);
-      });
+   this.orderInfo = this.params.data.orderInfo;
+   this.trader = this.params.data.trader;
+   this.user = userService.getCurrentUser();
+   
+
+   console.log(this.orderInfo)
   }
 
-  doRefresh(refresher?) {
-    var start = new Date().getTime();
-    this.itemPerPage = this.itemPerPage + 10;
-    firebase
-    .database()
-    .ref('chatrooms/' + this.roomkey + '/chats').limitToLast(this.itemPerPage)
-    .on('value', resp => {
-      this.chats = [];
-      this.chats = snapshotToArray(resp);
-      
-      setTimeout(() => {
-        if (this.offStatus === false) {
-          this.content.scrollToTop(300);
-          if (refresher) {
-            refresher.complete();
-          }
-        }
-      }, 500);
-      var end = new Date().getTime();
-      console.log(end - start);
-    });
-  }
-
-  sendMessage() {
-    if(this.data.message.trim() != ''){
-        let newData = firebase
-        .database()
-        .ref('chatrooms/' + this.roomkey + '/chats')
-        .push();
-      newData.set({
-        type: this.data.type,
-        user: this.data.name,
-        message: this.data.message,
-        sendDate: Date()
-      });
-      this.data.message = '';
-      //this.scrollToBottom();
-    }
-  }
-
-  scrollToBottom() {
-    setTimeout(() => {
-      if (this.content.scrollToBottom) {
-        this.content.scrollToBottom();
-      }
-    }, 400);
-  }
-
-  complain() {
-    this.navCtrl.push(ComplainInformationPage, this.orderInfo);
-  }
-
-  onSwitch() {
+  onRefresh() {
     this.orderServiceProvider
       .getSpecificOrder(this.orderInfo._id)
       .subscribe(result => {
@@ -204,124 +139,6 @@ export class RoomPage {
           this.rateStatus = false;
         }
       });
-    this.switched = !this.switched;
-  }
-
-  attachImage() {
-    console.log('attached image ....');
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-    };
-
-    if (this.platform.is('cordova')) {
-      this.camera.getPicture(options).then(
-        imageData => {
-          let loading = this.loadingCtrl.create({
-            spinner: 'circles',
-            content: 'Uploading...',
-            duration: 3500
-          });
-          loading.present();
-          // imageData is either a base64 encoded string or a file URI
-          // If it's base64:
-          const filename = Math.floor(Date.now() / 1000);
-          const filenameStr = `chat/${this.roomkey}_${filename}.jpeg`;
-          console.log(filenameStr);
-          this.base64Image = 'data:image/jpeg;base64,' + imageData;
-          this.storage.ref(filenameStr).putString(this.base64Image, 'data_url').then((snapshot)=>{
-            console.log("SNAPSHOT ---> ");
-            
-            loading
-              .dismiss()
-              .then(() => {
-                let newData = firebase
-                  .database()
-                  .ref('chatrooms/' + this.roomkey + '/chats')
-                  .push();
-                newData.set({
-                  type: this.data.type,
-                  user: this.data.name,
-                  message: null,
-                  isImage: true,
-                  //base64Image: this.base64Image,
-                  sendDate: Date(),
-                  downloadURL: snapshot.downloadURL
-                }).catch((e)=> console.log(e));
-            });
-            
-          });
-        },
-        err => {
-          console.log('Error taking photo', JSON.stringify(err));
-        }
-      );
-    }
-  }
-
-  viewAttachedImage(chat) {
-    // we need to store to the fire storage then keep the url.
-    console.log("Preview image > " + chat.downloadURL);
-    if(chat.downloadURL){
-      this.photoViewer.show(chat.downloadURL);
-    }
-  }
-
-  takePhoto() {
-    console.log('take photo ....');
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.CAMERA
-    };
-
-    if (this.platform.is('cordova')) {
-      this.camera.getPicture(options).then(
-        imageData => {
-          let loading = this.loadingCtrl.create({
-            spinner: 'circles',
-            content: 'Uploading...',
-            duration: 3500
-          });
-          loading.present();
-          // imageData is either a base64 encoded string or a file URI
-          // If it's base64:
-          const filename = Math.floor(Date.now() / 1000);
-          const filenameStr = `chat/${this.roomkey}_${filename}.jpeg`;
-          this.base64Image = 'data:image/jpeg;base64,' + imageData;
-          this.storage.ref(filenameStr).putString(this.base64Image, 'data_url').then((snapshot)=>{
-            console.log("SNAPSHOT " + snapshot);
-            
-            loading
-              .dismiss()
-              .then(() => {
-                let newData = firebase
-                  .database()
-                  .ref('chatrooms/' + this.roomkey + '/chats')
-                  .push();
-                newData.set({
-                  type: this.data.type,
-                  user: this.data.name,
-                  message: null,
-                  isImage: true,
-                  //base64Image: this.base64Image,
-                  sendDate: Date(),
-                  downloadURL: snapshot.downloadURL
-                });
-              });
-            
-          }).catch((e)=> console.log(e));
-        },
-        err => {
-          console.log('Error taking photo', JSON.stringify(err));
-        }
-      );
-    }
   }
 
   onInformed() {
@@ -454,31 +271,6 @@ export class RoomPage {
       });
   }
 
-  onFocus() {
-    if (this.messageInput && this.messageInput.nativeElement) {
-      this.messageInput.nativeElement.focus();
-    }
-  }
-
-  onComment() {
-    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
-      let ratings = result[0].ratings;
-      ratings.push(this.rate);
-      console.log(ratings);
-    });
-    // this.orderInfo.finished = 0;
-    // this.userService.update(this.user).subscribe();
-    // this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
-    //   let goodCount = result[0].goodCount;
-    //   goodCount++;
-    //   this.profileServiceProvider
-    //     .sendComment(this.trader, goodCount)
-    //     .subscribe();
-    // });
-    // this.events.publish('reloadList');
-    // this.navCtrl.pop();
-  }
-
   onRating() {
     this.orderServiceProvider
       .getSpecificOrder(this.orderInfo._id)
@@ -508,26 +300,344 @@ export class RoomPage {
       this.profileServiceProvider.sendRating(this.trader, ratings).subscribe();
     });
   }
+  onWallet() {
+    this.navCtrl.push(WalletPage);
+  }
+
+  ionViewDidLeave() {
+    this.events.unsubscribe('reloadList');
+  }
 
   onProfile(trader) {
     console.log(trader);
     this.navCtrl.push(ProfilePage, trader);
   }
 
-  onWallet() {
-    this.navCtrl.push(WalletPage);
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+}
+@IonicPage()
+@Component({
+  selector: 'page-room',
+  templateUrl: 'room.html'
+})
+
+export class RoomPage {
+  @ViewChild(Content) content: Content;
+  @ViewChild('chat_input') messageInput: ElementRef;
+  private orderInfo;
+  private user;
+  data = { type: '', name: '', message: '', roomname: '' };
+  ref = firebase.database().ref('chatrooms/');
+  
+  chats = [];
+  roomkey: any;
+  nickname: string;
+  offStatus: boolean = false;
+  switched = false;
+  trader;
+  average;
+  notification = new Notification('', null);
+  type;
+  finished;
+  base64Image: string;
+  rate;
+  rateStatus;
+  itemPerPage: number = 10;
+  chatsObservable$: any;
+
+  constructor(
+    
+    public navParams: NavParams,
+    private userService: UserServiceProvider,
+    private orderServiceProvider: OrderServiceProvider,
+    private profileServiceProvider: ProfileServiceProvider,
+    private alertServiceProvider: AlertServiceProvider,
+    public navCtrl: NavController,
+    private events: Events,
+    public camera: Camera,
+    public platform: Platform,
+    private photoViewer: PhotoViewer,
+    private storage: AngularFireStorage,
+    private loadingCtrl: LoadingController,
+    public modalCtrl: ModalController
+  ) {
+    this.events.unsubscribe('reloadtrade');
+    this.user = userService.getCurrentUser();
+    this.data.name = this.user.username;
+    this.nickname = this.user.username;
+    this.type = navParams.data.type;
+    this.data.type = 'message';
+    if (this.type == 'order') {
+      this.trader = navParams.data.trader;
+      console.log(this.trader);
+      this.orderInfo = navParams.data.order;
+      this.finished = this.orderInfo.finished;
+      this.data.roomname = navParams.data.order._id;
+      this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+        this.notification.to = result[0].deviceToken;
+        this.notification.notification = {
+          title: `Your Order with ${this.trader} has progress !`,
+          body: `Order ID : ${this.orderInfo._id}`,
+          icon: 'fcm_push_icon',
+          sound: 'default',
+          click_action: 'FCM_PLUGIN_ACTIVITY'
+        };
+      });
+      if (navParams.data.roomkey == null) {
+        this.roomkey = navParams.data.order.roomkey;
+      } else {
+        this.roomkey = navParams.data.roomkey;
+      }
+    } else {
+      this.data.roomname = navParams.data.complain;
+      this.finished = true;
+      if (navParams.data.complain.roomkey == null) {
+        this.roomkey = navParams.data.complain.roomkey;
+      } else {
+        this.roomkey = navParams.data.roomkey;
+      }
+    }
+    this.data.message = '';
+    let loading = this.loadingCtrl.create({
+      spinner: 'circles',
+      content: 'loading...',
+      duration: 3500
+    });
+    loading.present();
+    var start = new Date().getTime();
+    firebase
+      .database()
+      .ref('chatrooms/' + this.roomkey + '/chats').limitToLast(this.itemPerPage)
+      .on('value', resp => {
+        this.chats = [];
+        this.chats = snapshotToArray(resp);
+        this.chatsObservable$ = Observable.of(this.chats);
+        setTimeout(() => {
+          if (this.offStatus === false) {
+            loading.dismiss();
+            this.content.scrollToBottom(300);
+          }
+        }, 500);
+        var end = new Date().getTime();
+        console.log(end - start);
+      });
   }
 
-  onExit() {
-    this.user.orderCount = this.user.orderCount + 1;
-    this.userService.update(this.user).subscribe();
-    this.events.publish('reloadList');
-    this.navCtrl.pop();
+  doRefresh(refresher?) {
+    var start = new Date().getTime();
+    this.itemPerPage = this.itemPerPage + 10;
+    firebase
+    .database()
+    .ref('chatrooms/' + this.roomkey + '/chats').limitToLast(this.itemPerPage)
+    .on('value', resp => {
+      this.chats = [];
+      this.chats = snapshotToArray(resp);
+      
+      setTimeout(() => {
+        if (this.offStatus === false) {
+          this.content.scrollToTop(300);
+          if (refresher) {
+            refresher.complete();
+          }
+        }
+      }, 500);
+      var end = new Date().getTime();
+      console.log(end - start);
+    });
   }
 
+  sendMessage() {
+    if(this.data.message.trim() != ''){
+        let newData = firebase
+        .database()
+        .ref('chatrooms/' + this.roomkey + '/chats')
+        .push();
+      newData.set({
+        type: this.data.type,
+        user: this.data.name,
+        message: this.data.message,
+        sendDate: Date()
+      });
+      this.data.message = '';
+      //this.scrollToBottom();
+    }
+  }
+
+  scrollToBottom() {
+    setTimeout(() => {
+      if (this.content.scrollToBottom) {
+        this.content.scrollToBottom();
+      }
+    }, 400);
+  }
+
+  complain() {
+    this.navCtrl.push(ComplainInformationPage, this.orderInfo);
+  }
+
+  attachImage() {
+    console.log('attached image ....');
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    };
+
+    if (this.platform.is('cordova')) {
+      this.camera.getPicture(options).then(
+        imageData => {
+          let loading = this.loadingCtrl.create({
+            spinner: 'circles',
+            content: 'Uploading...',
+            duration: 3500
+          });
+          loading.present();
+          // imageData is either a base64 encoded string or a file URI
+          // If it's base64:
+          const filename = Math.floor(Date.now() / 1000);
+          const filenameStr = `chat/${this.roomkey}_${filename}.jpeg`;
+          console.log(filenameStr);
+          this.base64Image = 'data:image/jpeg;base64,' + imageData;
+          this.storage.ref(filenameStr).putString(this.base64Image, 'data_url').then((snapshot)=>{
+            console.log("SNAPSHOT ---> ");
+            
+            loading
+              .dismiss()
+              .then(() => {
+                let newData = firebase
+                  .database()
+                  .ref('chatrooms/' + this.roomkey + '/chats')
+                  .push();
+                newData.set({
+                  type: this.data.type,
+                  user: this.data.name,
+                  message: null,
+                  isImage: true,
+                  //base64Image: this.base64Image,
+                  sendDate: Date(),
+                  downloadURL: snapshot.downloadURL
+                }).catch((e)=> console.log(e));
+            });
+            
+          });
+        },
+        err => {
+          console.log('Error taking photo', JSON.stringify(err));
+        }
+      );
+    }
+  }
+
+  viewAttachedImage(chat) {
+    // we need to store to the fire storage then keep the url.
+    console.log("Preview image > " + chat.downloadURL);
+    if(chat.downloadURL){
+      this.photoViewer.show(chat.downloadURL);
+    }
+  }
+
+  takePhoto() {
+    console.log('take photo ....');
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.CAMERA
+    };
+
+    if (this.platform.is('cordova')) {
+      this.camera.getPicture(options).then(
+        imageData => {
+          let loading = this.loadingCtrl.create({
+            spinner: 'circles',
+            content: 'Uploading...',
+            duration: 3500
+          });
+          loading.present();
+          // imageData is either a base64 encoded string or a file URI
+          // If it's base64:
+          const filename = Math.floor(Date.now() / 1000);
+          const filenameStr = `chat/${this.roomkey}_${filename}.jpeg`;
+          this.base64Image = 'data:image/jpeg;base64,' + imageData;
+          this.storage.ref(filenameStr).putString(this.base64Image, 'data_url').then((snapshot)=>{
+            console.log("SNAPSHOT " + snapshot);
+            
+            loading
+              .dismiss()
+              .then(() => {
+                let newData = firebase
+                  .database()
+                  .ref('chatrooms/' + this.roomkey + '/chats')
+                  .push();
+                newData.set({
+                  type: this.data.type,
+                  user: this.data.name,
+                  message: null,
+                  isImage: true,
+                  //base64Image: this.base64Image,
+                  sendDate: Date(),
+                  downloadURL: snapshot.downloadURL
+                });
+              });
+            
+          }).catch((e)=> console.log(e));
+        },
+        err => {
+          console.log('Error taking photo', JSON.stringify(err));
+        }
+      );
+    }
+  }
+
+  onFocus() {
+    if (this.messageInput && this.messageInput.nativeElement) {
+      this.messageInput.nativeElement.focus();
+    }
+  }
+
+  onComment() {
+    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+      let ratings = result[0].ratings;
+      ratings.push(this.rate);
+      console.log(ratings);
+    });
+    // this.orderInfo.finished = 0;
+    // this.userService.update(this.user).subscribe();
+    // this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+    //   let goodCount = result[0].goodCount;
+    //   goodCount++;
+    //   this.profileServiceProvider
+    //     .sendComment(this.trader, goodCount)
+    //     .subscribe();
+    // });
+    // this.events.publish('reloadList');
+    // this.navCtrl.pop();
+  }
+
+ 
+
+
+ 
   ionViewDidLeave() {
     this.events.unsubscribe('reloadList');
   }
+
+  openModal() {
+    console.log("HELLOOOOOOOBITCHHHHHHHHHH"+ this.navParams.data.order + this.navParams.data.trader)
+    let modal = this.modalCtrl.create(ModalContentPage, {
+      orderInfo: this.navParams.data.order,
+      trader: this.navParams.data.trader,
+      type: 'order'
+    });
+    modal.present();
+  }
+
+  
 }
 
 export const snapshotToArray = snapshot => {
