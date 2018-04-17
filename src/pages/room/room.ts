@@ -344,7 +344,9 @@ export class RoomPage {
   base64Image: string;
   rate;
   rateStatus;
-  
+  itemPerPage: number = 10;
+  chatsObservable$: any;
+
   constructor(
     
     public navParams: NavParams,
@@ -407,11 +409,11 @@ export class RoomPage {
     var start = new Date().getTime();
     firebase
       .database()
-      .ref('chatrooms/' + this.roomkey + '/chats').limitToLast(10)
+      .ref('chatrooms/' + this.roomkey + '/chats').limitToLast(this.itemPerPage)
       .on('value', resp => {
         this.chats = [];
         this.chats = snapshotToArray(resp);
-        
+        this.chatsObservable$ = Observable.of(this.chats);
         setTimeout(() => {
           if (this.offStatus === false) {
             loading.dismiss();
@@ -421,6 +423,29 @@ export class RoomPage {
         var end = new Date().getTime();
         console.log(end - start);
       });
+  }
+
+  doRefresh(refresher?) {
+    var start = new Date().getTime();
+    this.itemPerPage = this.itemPerPage + 10;
+    firebase
+    .database()
+    .ref('chatrooms/' + this.roomkey + '/chats').limitToLast(this.itemPerPage)
+    .on('value', resp => {
+      this.chats = [];
+      this.chats = snapshotToArray(resp);
+      
+      setTimeout(() => {
+        if (this.offStatus === false) {
+          this.content.scrollToTop(300);
+          if (refresher) {
+            refresher.complete();
+          }
+        }
+      }, 500);
+      var end = new Date().getTime();
+      console.log(end - start);
+    });
   }
 
   sendMessage() {
