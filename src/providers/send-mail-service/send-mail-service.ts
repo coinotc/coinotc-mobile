@@ -17,6 +17,6 @@ export class SendMailServiceProvider {
   }
   public sendMail(email,secretToken){
     let URL = `${this.sendMailURL}?email=${email}&secretToken=${secretToken}`
-    return this.apiService.get(URL);
+    return this.apiService.post(URL,{type:1});
   }
 }

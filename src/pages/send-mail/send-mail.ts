@@ -22,12 +22,12 @@ export class SendMailPage {
 ) {
   }
   sendMail(){
-    console.log(this.userService.getCurrentUser())
-    this.userService.changeRandonString(this.userService.getCurrentUser().username).subscribe(result=>{
-      console.log(result.secretToken)
-      console.log(result.email)
-      this.sendMailService.sendMail(result.email,result.secretToken).subscribe();
-    })
+    // console.log(this.userService.getCurrentUser())
+    // this.userService.changeRandonString(this.userService.getCurrentUser().username).subscribe(result=>{
+    //   console.log(result.secretToken)
+    //   console.log(result.email)
+    //   this.sendMailService.sendMail(result.email,result.secretToken).subscribe();
+    // })
     
   }
   ionViewDidLoad() {
