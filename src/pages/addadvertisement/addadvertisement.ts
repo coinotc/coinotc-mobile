@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { advertisement } from '../../models/advertisement';
@@ -71,9 +67,12 @@ export class AddadvertisementPage {
         min_price: [null, [Validators.min(0), Validators.required]],
         max_price: [null, [Validators.min(0), Validators.required]],
         payment: ['', Validators.required],
-        limit: [null, [Validators.min(15), Validators.max(60), Validators.required]],
+        limit: [
+          null,
+          [Validators.min(15), Validators.max(60), Validators.required]
+        ],
         message: ['', Validators.required]
-      })
+      });
     } else {
       this.adform = this.fb.group({
         crypto: [this.model.crypto, Validators.required],
@@ -86,7 +85,7 @@ export class AddadvertisementPage {
         payment: ['', Validators.required],
         limit: [null, [Validators.min(15), Validators.max(60)]],
         message: ['', Validators.required]
-      })
+      });
     }
   }
   notbelowmax() {
@@ -103,37 +102,51 @@ export class AddadvertisementPage {
   getcryptoprice() {
     switch (this.model.fiat) {
       case 'SGD':
-        this.adservice.getprice(this.model.crypto, 'SGD').subscribe(result => {
-          this.cryptoprice = Number(result[0].price_sgd);
-          this.changerange();
-        }, error => this.changerange(error));
+        this.adservice.getprice(this.model.crypto, 'SGD').subscribe(
+          result => {
+            this.cryptoprice = Number(result[0].price_sgd);
+            this.changerange();
+          },
+          error => this.changerange(error)
+        );
         break;
       case 'CNY':
-        this.adservice.getprice(this.model.crypto, 'CNY').subscribe(result => {
-          this.cryptoprice = Number(result[0].price_cny);
-          this.changerange();
-        }, error => this.changerange(error));
+        this.adservice.getprice(this.model.crypto, 'CNY').subscribe(
+          result => {
+            this.cryptoprice = Number(result[0].price_cny);
+            this.changerange();
+          },
+          error => this.changerange(error)
+        );
         break;
       case 'USD':
-        this.adservice.getprice(this.model.crypto, 'USD').subscribe(result => {
-          this.cryptoprice = Number(result[0].price_usd);
-          this.changerange();
-        }, error => this.changerange(error));
+        this.adservice.getprice(this.model.crypto, 'USD').subscribe(
+          result => {
+            this.cryptoprice = Number(result[0].price_usd);
+            this.changerange();
+          },
+          error => this.changerange(error)
+        );
         break;
       case 'KRW':
-        this.adservice.getprice(this.model.crypto, 'KRW').subscribe(result => {
-          this.cryptoprice = Number(result[0].price_krw);
-          this.changerange();
-        }, error => this.changerange(error));
+        this.adservice.getprice(this.model.crypto, 'KRW').subscribe(
+          result => {
+            this.cryptoprice = Number(result[0].price_krw);
+            this.changerange();
+          },
+          error => this.changerange(error)
+        );
         break;
     }
   }
   changerange(error?) {
     if (error) {
-      this,this.notgetprice = true;
+      this, (this.notgetprice = true);
     } else {
       this.notgetprice = false;
-      this.model.price = Number((this.cryptoprice * (100 + this.rangepercent) / 100).toFixed(4));
+      this.model.price = Number(
+        (this.cryptoprice * (100 + this.rangepercent) / 100).toFixed(4)
+      );
     }
   }
   ionViewDidLoad() {

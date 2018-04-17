@@ -61,9 +61,24 @@
       <ion-label>{{'MinLimit' | translate}}</ion-label>
       <ion-input type="number" min="0" text-right [(ngModel)]="model.min_price" formControlName="min_price" (ngModelChange)="notbelowmax()"></ion-input>
     </ion-item>
+    <ion-item *ngIf="adform.controls.min_price.hasError('required') && adform.controls.min_price.touched">
+      <ion-label style="color:red">Min_Price is required.</ion-label>
+    </ion-item>
+    <ion-item *ngIf="adform.controls.min_price.hasError('min')&& adform.controls.min_price.touched">
+      <ion-label style="color:red">Cannot be negative.</ion-label>
+    </ion-item>
     <ion-item>
       <ion-label>{{'MaxLimit' | translate}}</ion-label>
       <ion-input type="number" min="0" text-right [(ngModel)]="model.max_price" formControlName="max_price" (ngModelChange)="notbelowmax()"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="adform.controls.max_price.hasError('required') && adform.controls.max_price.touched">
+      <ion-label style="color:red">Max_Price is required.</ion-label>
+    </ion-item>
+    <ion-item *ngIf="adform.controls.max_price.hasError('min') && adform.controls.max_price.touched">
+      <ion-label style="color:red">Cannot be negative.</ion-label>
+    </ion-item>
+    <ion-item *ngIf="belowmax && adform.controls.max_price.touched">
+      <ion-label style="color:red">Max_price needs to be bigger than Min_price.</ion-label>
     </ion-item>
     <ion-item>
       <ion-label>{{'Payment' | translate}}</ion-label>
@@ -78,9 +93,25 @@
       <ion-label>{{'PaymentWindow' | translate}}</ion-label>
       <ion-input type="number" min="15" max="60" placeholder="{{'minutes' | translate}}" text-right [(ngModel)]="model.limit" formControlName="limit"></ion-input>
     </ion-item>
+    <ion-item *ngIf="adform.controls.limit.hasError('required') && adform.controls.limit.touched">
+      <ion-label style="color:red">Time limit is required.</ion-label>
+    </ion-item>
+    <ion-item *ngIf="adform.controls.limit.hasError('min') && adform.controls.limit.touched">
+      <ion-label style="color:red">Time limit has to above 15.</ion-label>
+    </ion-item>
+    <ion-item *ngIf="adform.controls.limit.hasError('max') && adform.controls.limit.touched">
+      <ion-label style="color:red">Time limit has to below 60.</ion-label>
+    </ion-item>
     <ion-textarea [(ngModel)]="model.message" placeholder="{{'AdvertisementMessage' | translate}}" formControlName="message"></ion-textarea>
-    <ion-item text-center *ngSwitchCase="'Buy'"><button ion-button round (tap)="addbuyad()" large [disabled]="!adform.valid || belowmax || notgetprice">{{'Publish' | translate}}</button></ion-item>
-    <ion-item text-center *ngSwitchCase="'Sell'"><button ion-button round (tap)="addsellad()" large [disabled]="!adform.valid || belowmax || notgetprice">{{'Publish' | translate}}</button></ion-item>
+    <ion-item *ngIf="adform.controls.message.hasError('required') && adform.controls.message.touched">
+      <ion-label style="color:red">Message is required.</ion-label>
+    </ion-item>
+    <ion-item text-center *ngSwitchCase="'Buy'">
+      <button ion-button round (tap)="addbuyad()" large [disabled]="!adform.valid || belowmax || notgetprice">{{'Publish' | translate}}</button>
+    </ion-item>
+    <ion-item text-center *ngSwitchCase="'Sell'">
+      <button ion-button round (tap)="addsellad()" large [disabled]="!adform.valid || belowmax || notgetprice">{{'Publish' | translate}}</button>
+    </ion-item>
   </ion-list>
   <div *ngSwitchDefault>
     error
