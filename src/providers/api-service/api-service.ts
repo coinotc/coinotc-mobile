@@ -91,7 +91,7 @@ export class ApiServiceProvider {
   
   postFCM(path: string, body: Object = {}): Observable<any> {
     return this.http.post(
-      `${this.API_URL}${path}`,
+      `${path}`,
       JSON.stringify(body),
       { headers: this.setHeadersFCM() }
     )
