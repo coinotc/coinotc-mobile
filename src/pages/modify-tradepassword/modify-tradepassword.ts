@@ -4,6 +4,7 @@ import { PincodeController } from  'ionic2-pincode-input/dist/pincode';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { PincodePage } from '../pincode/pincode';
 import { MePage } from '../me/me';
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the ModifyTradepasswordPage page.
@@ -42,7 +43,7 @@ export class ModifyTradepasswordPage {
       {
         if(status === 'cancel'){
           //this.navCtrl.setRoot(MePage);
-          this.navCtrl.setRoot(MePage)
+          this.navCtrl.setRoot(TabsPage)
         }else{
           this.code = code;
           //if(this.code.toString.length == 6 ){

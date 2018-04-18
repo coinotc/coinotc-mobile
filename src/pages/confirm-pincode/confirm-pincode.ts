@@ -47,7 +47,7 @@ export class ConfirmPincodePage {
         {
           if(this.type){
             if(status === 'cancel')
-              this.navCtrl.setRoot(MePage)
+              this.navCtrl.setRoot(TabsPage)
           }else{
           this.comfirmcode = code;
           if(this.password == this.comfirmcode){
