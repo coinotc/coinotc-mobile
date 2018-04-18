@@ -106,7 +106,7 @@ export class UserServiceProvider {
       );
     });
   }
-
+  
   attemptAuth(type, credentials, deviceToken): Observable<User> {
     let route = type === 'login' ? '/login' : '';
     return this.apiService
@@ -155,6 +155,10 @@ export class UserServiceProvider {
         );
       return data;
     });
+  }
+  public changePassword(password){
+    let URL = '/users/changePassword'
+    return this.apiService.patch(URL,{password:password})
   }
   public changeRandonString(username){
     let URL ='/users/randomstring'
