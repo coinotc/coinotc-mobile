@@ -53,13 +53,22 @@ export class ConfirmPincodePage {
           if(this.password == this.comfirmcode){
             this.password = JSON.parse(JSON.stringify(this.password))
             this.profileService.settradepassword(this.currentUserName, this.password).subscribe(result=>{
-              if(!this.type)
-              this.sendMailService.sendMail(result.email,result.secretToken).subscribe()
+              if(!this.type){
+                this.sendMailService.sendMail(result.email,result.secretToken).subscribe();
+              }
             });
-            if(!this.type)
-            this.navCtrl.setRoot(AuthPage);
-            else
-            this.navCtrl.setRoot(TabsPage);
+            if(!this.type){
+              this.toastCtrl
+              .create({
+                message: `Account successfully created. \n Kindly check email for confirmation.`,
+                duration: 3000
+              })
+              .present();
+              this.navCtrl.setRoot(AuthPage);
+            }
+            else{
+              this.navCtrl.setRoot(TabsPage);
+            }
           }else{
             let toast = this.toastCtrl.create({
               message: 'Wrong type',

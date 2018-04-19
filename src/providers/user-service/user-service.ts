@@ -4,7 +4,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiServiceProvider } from '../api-service/api-service';
 import { JwtServiceProvider } from '../jwt-service/jwt-service';
 import { User } from '../../models/user.model';
@@ -51,8 +50,7 @@ export class UserServiceProvider {
   constructor(
     private apiService: ApiServiceProvider,
     private jwtService: JwtServiceProvider,
-    private storage: Storage,
-    public http: HttpClient
+    private storage: Storage  
   ) {
     console.log('UserServiceProvider Provider');
   }
@@ -156,19 +154,23 @@ export class UserServiceProvider {
       return data;
     });
   }
+  
   public changePassword(password){
     let URL = '/users/changePassword'
-    return this.apiService.patch(URL,{password:password})
+    return this.apiService.post(URL,{password:password})
   }
+  
   public changeRandonString(username){
     let URL ='/users/randomstring'
     return this.apiService.patch(URL, { username:username });
   }
+  
   public getTradepassword(username) {
     let tradePrdURL = '/users/tradepassword';
     let URL = `${tradePrdURL}?username=${username}`;
     return this.apiService.get(URL);
   }
+  
   public get2faSecret(username) {
     return this.apiService.get(`/2fa?username=${username}`);
   }

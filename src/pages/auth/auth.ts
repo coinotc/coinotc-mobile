@@ -106,6 +106,7 @@ export class AuthPage {
       );
     });
   }
+
   authTypeChange() {
     if (this.authType === 'register') {
       this.authForm.addControl('username', new FormControl());
@@ -233,12 +234,19 @@ export class AuthPage {
         },
         (errors: Errors) => {
           for (let field in errors.errors) {
-            this.toastCtrl
+            if(typeof field !== 'undefined'){
+              console.log(field);
+              let errorMessage = errors.errors[field]['message'];
+              if(typeof errors.errors[field]['message'] === 'undefined'){
+                errorMessage = errors.errors[field];
+              }
+              this.toastCtrl
               .create({
-                message: `${field} ${errors.errors[field]['message']}`,
+                message: `${field} ${errorMessage}`,
                 duration: 3000
               })
               .present();
+            }
           }
           this.isSubmitting = false;
         }
