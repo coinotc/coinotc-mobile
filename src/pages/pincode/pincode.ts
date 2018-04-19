@@ -17,6 +17,8 @@ import { MePage } from '../me/me';
 })
 export class PincodePage {
   private type;
+  private user;
+  private deviceToken;
   code:Number;
     constructor(
       public navCtrl: NavController,
@@ -24,6 +26,8 @@ export class PincodePage {
       public navParams:NavParams
     ) {//change tradePrd
         this.type = this.navParams.data.type;
+        this.user = this.navParams.data.user;
+        this.deviceToken = this.navParams.data.deviceToken;
         console.log(this.type)
           let pinCode =  this.pincodeCtrl.create({
             title:'Pincode',
@@ -42,7 +46,7 @@ export class PincodePage {
                   this.navCtrl.setRoot(ConfirmPincodePage,{code:this.code,type:this.type});
                 }
               }else{
-                this.navCtrl.setRoot(ConfirmPincodePage,{code:this.code});
+                this.navCtrl.setRoot(ConfirmPincodePage,{code:this.code,user: this.user,deviceToken: this.deviceToken});
               }
           })
           
