@@ -21,10 +21,12 @@ import { AuthPage } from '../auth/auth';
   templateUrl: 'confirm-pincode.html',
 })
 export class ConfirmPincodePage {
-  currentUserName;
+  //currentUserName;
   comfirmcode:Number;
   password:Number;
   private type;
+  private user;
+  private deviceToken;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public pincodeCtrl: PincodeController,    
     private userService: UserServiceProvider,
@@ -33,8 +35,10 @@ export class ConfirmPincodePage {
     private sendMailService:SendMailServiceProvider
   ) {
       this.type = this.navParams.data.type;
+      this.user = this.navParams.data.user;
+      this.deviceToken = this.navParams.data.deviceToken;
       console.log(this.type)
-      this.currentUserName = this.userService.getCurrentUser().username
+      //this.currentUserName = this.userService.getCurrentUser().username
       this.password = navParams.data.code
       let pinCode =  this.pincodeCtrl.create({
         title:'Pincode',
@@ -52,11 +56,14 @@ export class ConfirmPincodePage {
           this.comfirmcode = code;
           if(this.password == this.comfirmcode){
             this.password = JSON.parse(JSON.stringify(this.password))
-            this.profileService.settradepassword(this.currentUserName, this.password).subscribe(result=>{
-              if(!this.type){
-                this.sendMailService.sendMail(result.email,result.secretToken).subscribe();
-              }
-            });
+            // this.profileService.settradepassword(this.currentUserName, this.password).subscribe(result=>{
+            //   if(!this.type){
+            //     this.sendMailService.sendMail(result.email,result.secretToken).subscribe();
+            //   }
+            // });
+            this.userService.signUp(this.user,this.deviceToken,this.password).subscribe(user=>{
+             console.log(user)
+            })
             if(!this.type){
               this.toastCtrl
               .create({

@@ -188,7 +188,6 @@ export class AuthPage {
       }
     };
   }
-
   submitForm() {
     let loading = this.loadingCtrl.create({
       spinner: 'circles',
@@ -199,9 +198,9 @@ export class AuthPage {
     console.log(this.deviceToken);
     this.isSubmitting = true;
     const credentials = this.authForm.value;
-    
-    this.userService
-      .attemptAuth(this.authType, credentials, this.deviceToken)
+    if(this.authType == "login"){
+      this.userService
+      .attemptAuth("login", credentials, this.deviceToken)
       .subscribe(
         user => {
           console.log(user.active)
@@ -211,25 +210,21 @@ export class AuthPage {
           console.log('subscribe user!!!');
           if (this.isModal) this.viewCtrl.dismiss();
           this.displayTabs();
-          if (this.authType === 'register') {
-            this.appCtrl.getRootNav().setRoot(PincodePage);
-          } else {
-            console.log('Login ....' + this.navCtrl.parent);
-            loading
-              .dismiss()
-              .then(() => {
-                this.appCtrl.getRootNav().setRoot(TabsPage);
-                loading = null;
-                let updater = this.userService.getCurrentUser().username;
-                console.log(updater);
-                this.profileServiceProvider
-                  .updateDeviceToken(updater, this.deviceToken)
-                  .subscribe(result => {
-                    console.log('...update deviceToken successfully...');
-                  });
-              })
-              .catch(e => console.log(e));
-          }
+          console.log('Login ....' + this.navCtrl.parent);
+          loading
+            .dismiss()
+            .then(() => {
+              this.appCtrl.getRootNav().setRoot(TabsPage);
+              loading = null;
+              let updater = this.userService.getCurrentUser().username;
+              console.log(updater);
+              this.profileServiceProvider
+                .updateDeviceToken(updater, this.deviceToken)
+                .subscribe(result => {
+                  console.log('...update deviceToken successfully...');
+                });
+            })
+            .catch(e => console.log(e));
         }
         },
         (errors: Errors) => {
@@ -251,7 +246,86 @@ export class AuthPage {
           this.isSubmitting = false;
         }
       );
+    }
+    else{
+      this.userService.checkUser(credentials).subscribe(result=>{
+        console.log(result)
+        if(result != 0){
+          this.toastCtrl
+              .create({
+                message: "email or username have been taken",
+                duration: 3000
+              })
+              .present();
+        }else{
+          this.appCtrl.getRootNav().setRoot(PincodePage,{user: credentials,deviceToken: this.deviceToken});
+        }
+      })
+    }
   }
+  // submitForm() {
+  //   let loading = this.loadingCtrl.create({
+  //     spinner: 'circles',
+  //     content: 'loading...',
+  //     duration: 3000
+  //   });
+  //   loading.present();
+  //   console.log(this.deviceToken);
+  //   this.isSubmitting = true;
+  //   const credentials = this.authForm.value;
+    
+  //   this.userService
+  //     .attemptAuth(this.authType, credentials, this.deviceToken)
+  //     .subscribe(
+  //       user => {
+  //         console.log(user.active)
+  //         if(user.active==false)
+  //         this.navCtrl.push(SendMailPage)
+  //         else{
+  //         console.log('subscribe user!!!');
+  //         if (this.isModal) this.viewCtrl.dismiss();
+  //         this.displayTabs();
+  //         if (this.authType === 'register') {
+  //           this.appCtrl.getRootNav().setRoot(PincodePage);
+  //         } else {
+  //           console.log('Login ....' + this.navCtrl.parent);
+  //           loading
+  //             .dismiss()
+  //             .then(() => {
+  //               this.appCtrl.getRootNav().setRoot(TabsPage);
+  //               loading = null;
+  //               let updater = this.userService.getCurrentUser().username;
+  //               console.log(updater);
+  //               this.profileServiceProvider
+  //                 .updateDeviceToken(updater, this.deviceToken)
+  //                 .subscribe(result => {
+  //                   console.log('...update deviceToken successfully...');
+  //                 });
+  //             })
+  //             .catch(e => console.log(e));
+  //         }
+  //       }
+  //       },
+  //       (errors: Errors) => {
+  //         for (let field in errors.errors) {
+  //           if(typeof field !== 'undefined'){
+  //             console.log(field);
+  //             let errorMessage = errors.errors[field]['message'];
+  //             if(typeof errors.errors[field]['message'] === 'undefined'){
+  //               errorMessage = errors.errors[field];
+  //             }
+  //             this.toastCtrl
+  //             .create({
+  //               message: `${field} ${errorMessage}`,
+  //               duration: 3000
+  //             })
+  //             .present();
+  //           }
+  //         }
+  //         this.isSubmitting = false;
+  //       }
+  //     );
+  // }
 
   private displayTabs() {
     let tabs = document.querySelectorAll('.tabbar.show-tabbar');
