@@ -21,10 +21,12 @@ import { AuthPage } from '../auth/auth';
   templateUrl: 'confirm-pincode.html',
 })
 export class ConfirmPincodePage {
-  currentUserName;
+  //currentUserName;
   comfirmcode:Number;
   password:Number;
   private type;
+  private user;
+  private deviceToken;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public pincodeCtrl: PincodeController,    
     private userService: UserServiceProvider,
@@ -33,8 +35,10 @@ export class ConfirmPincodePage {
     private sendMailService:SendMailServiceProvider
   ) {
       this.type = this.navParams.data.type;
+      this.user = this.navParams.data.user;
+      this.deviceToken = this.navParams.data.deviceToken;
       console.log(this.type)
-      this.currentUserName = this.userService.getCurrentUser().username
+      //this.currentUserName = this.userService.getCurrentUser().username
       this.password = navParams.data.code
       let pinCode =  this.pincodeCtrl.create({
         title:'Pincode',
@@ -45,21 +49,37 @@ export class ConfirmPincodePage {
       pinCode.present();
       pinCode.onDidDismiss( (code,status) => 
         {
-          if(this.type){
-            if(status === 'cancel')
+          if(this.type && status == 'cancel'){
               this.navCtrl.setRoot(TabsPage)
           }else{
           this.comfirmcode = code;
           if(this.password == this.comfirmcode){
             this.password = JSON.parse(JSON.stringify(this.password))
-            this.profileService.settradepassword(this.currentUserName, this.password).subscribe(result=>{
-              if(!this.type)
-              this.sendMailService.sendMail(result.email,result.secretToken).subscribe()
-            });
-            if(!this.type)
-            this.navCtrl.setRoot(AuthPage);
-            else
-            this.navCtrl.setRoot(TabsPage);
+            if(this.type){
+              console.log(this.comfirmcode)
+              console.log(this.type)
+              this.profileService.settradepassword(this.userService.getCurrentUser().username,this.password).
+              subscribe(result=>{
+                this.toastCtrl
+               .create({
+                 message: `TradePassword have been changed`,
+                 duration: 3000
+               })
+               .present();
+               this.navCtrl.setRoot(TabsPage);
+              })
+            }else{
+              this.userService.signUp(this.user,this.deviceToken,this.password).subscribe(user=>{
+                console.log(user)
+               })
+               this.toastCtrl
+               .create({
+                 message: `Account successfully created. \n Kindly check email for confirmation.`,
+                 duration: 3000
+               })
+               .present();
+               this.navCtrl.setRoot(AuthPage);
+            }
           }else{
             let toast = this.toastCtrl.create({
               message: 'Wrong type',
@@ -69,7 +89,11 @@ export class ConfirmPincodePage {
               console.log('Dismissed toast');
             });
             toast.present();
+            if(this.type){
+            this.navCtrl.setRoot(PincodePage,{type:this.type});
+            }else{
             this.navCtrl.setRoot(PincodePage);
+            }
           }
         }
       })

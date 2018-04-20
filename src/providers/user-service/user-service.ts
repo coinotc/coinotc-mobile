@@ -4,7 +4,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiServiceProvider } from '../api-service/api-service';
 import { JwtServiceProvider } from '../jwt-service/jwt-service';
 import { User } from '../../models/user.model';
@@ -41,6 +40,7 @@ export class UserServiceProvider {
       false
     )
   );
+  
   public currentUser = this.currentUserSubject
     .asObservable()
     .distinctUntilChanged();
@@ -51,8 +51,7 @@ export class UserServiceProvider {
   constructor(
     private apiService: ApiServiceProvider,
     private jwtService: JwtServiceProvider,
-    private storage: Storage,
-    public http: HttpClient
+    private storage: Storage  
   ) {
     console.log('UserServiceProvider Provider');
   }
@@ -156,9 +155,22 @@ export class UserServiceProvider {
       return data;
     });
   }
+  public signUp(credentials, deviceToken,tradepassword): Observable<User> {
+    return this.apiService
+      .post('/users', { user: credentials, deviceToken: deviceToken ,tradepassword: tradepassword})
+      .map(data => {
+        console.log('----> setAuth');
+        this.setAuth(data.user);
+        return data;
+      });
+  }
   public changePassword(password){
     let URL = '/users/changePassword'
-    return this.apiService.patch(URL,{password:password})
+    return this.apiService.post(URL,{password:password})
+  }
+  public checkUser(credentials):Observable<number>{
+    let URL = '/users/checkUser'
+    return this.apiService.post(URL,{user:credentials});
   }
   public changeRandonString(username){
     let URL ='/users/randomstring'
@@ -169,6 +181,7 @@ export class UserServiceProvider {
     let URL = `${tradePrdURL}?username=${username}&tradepassword=${tradepassword}`;
     return this.apiService.get(URL);
   }
+  
   public get2faSecret(username) {
     return this.apiService.get(`/2fa?username=${username}`);
   }
