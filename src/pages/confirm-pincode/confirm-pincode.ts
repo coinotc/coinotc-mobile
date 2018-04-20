@@ -49,32 +49,36 @@ export class ConfirmPincodePage {
       pinCode.present();
       pinCode.onDidDismiss( (code,status) => 
         {
-          if(this.type){
-            if(status === 'cancel')
+          if(this.type && status == 'cancel'){
               this.navCtrl.setRoot(TabsPage)
           }else{
           this.comfirmcode = code;
           if(this.password == this.comfirmcode){
             this.password = JSON.parse(JSON.stringify(this.password))
-            // this.profileService.settradepassword(this.currentUserName, this.password).subscribe(result=>{
-            //   if(!this.type){
-            //     this.sendMailService.sendMail(result.email,result.secretToken).subscribe();
-            //   }
-            // });
-            this.userService.signUp(this.user,this.deviceToken,this.password).subscribe(user=>{
-             console.log(user)
-            })
-            if(!this.type){
-              this.toastCtrl
-              .create({
-                message: `Account successfully created. \n Kindly check email for confirmation.`,
-                duration: 3000
+            if(this.type){
+              console.log(this.comfirmcode)
+              console.log(this.type)
+              this.profileService.settradepassword(this.userService.getCurrentUser().username,this.password).
+              subscribe(result=>{
+                this.toastCtrl
+               .create({
+                 message: `TradePassword have been changed`,
+                 duration: 3000
+               })
+               .present();
+               this.navCtrl.setRoot(TabsPage);
               })
-              .present();
-              this.navCtrl.setRoot(AuthPage);
-            }
-            else{
-              this.navCtrl.setRoot(TabsPage);
+            }else{
+              this.userService.signUp(this.user,this.deviceToken,this.password).subscribe(user=>{
+                console.log(user)
+               })
+               this.toastCtrl
+               .create({
+                 message: `Account successfully created. \n Kindly check email for confirmation.`,
+                 duration: 3000
+               })
+               .present();
+               this.navCtrl.setRoot(AuthPage);
             }
           }else{
             let toast = this.toastCtrl.create({
@@ -85,7 +89,11 @@ export class ConfirmPincodePage {
               console.log('Dismissed toast');
             });
             toast.present();
+            if(this.type){
+            this.navCtrl.setRoot(PincodePage,{type:this.type});
+            }else{
             this.navCtrl.setRoot(PincodePage);
+            }
           }
         }
       })

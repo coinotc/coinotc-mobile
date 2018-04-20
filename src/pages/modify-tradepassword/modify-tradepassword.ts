@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
 import { PincodeController } from  'ionic2-pincode-input/dist/pincode';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { PincodePage } from '../pincode/pincode';
@@ -25,12 +25,13 @@ export class ModifyTradepasswordPage {
   private pinCode;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public pincodeCtrl: PincodeController,
+    private toastCtrl: ToastController,
     private userService: UserServiceProvider) {
      
-    this.user = userService.getTradepassword(this.userService.getCurrentUser().username).subscribe( result =>{
-      this.tradePrd = JSON.parse(JSON.stringify(result));
-      this.tradePrd = this.tradePrd[0].tradePrd;
-    })
+    // this.user = userService.getTradepassword(this.userService.getCurrentUser().username).subscribe( result =>{
+    //   this.tradePrd = JSON.parse(JSON.stringify(result));
+    //   this.tradePrd = this.tradePrd[0].tradePrd;
+    // })
       this.pinCode =  this.pincodeCtrl.create({
       title:'Pincode',
       hideForgotPassword:true,
@@ -47,13 +48,23 @@ export class ModifyTradepasswordPage {
         }else{
           this.code = code;
           //if(this.code.toString.length == 6 ){
-          console.log(this.tradePrd)
-          if(this.code == this.tradePrd){
-            console.log(11111111111)
-            this.navCtrl.push(PincodePage,{type:"change tradePrd"})
-          }else if(this.code != this.tradePrd){
-            this.navCtrl.setRoot(this.navCtrl.getActive().component)
-          }
+          this.userService.getTradepassword(this.userService.getCurrentUser().username,this.code).
+          subscribe(result=>{
+            console.log(result)
+            if(result){
+              this.navCtrl.push(PincodePage,{type:"change tradePrd"})
+            }else{
+              this.toastCtrl
+               .create({
+                 message: `TradePassword is wrong. Please try again.`,
+                 duration: 3000
+               })
+               .present();
+              this.navCtrl.setRoot(this.navCtrl.getActive().component)
+            }
+          })
+          //console.log(this.tradePrd)
+          
         }
     })
   }
