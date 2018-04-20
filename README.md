@@ -85,6 +85,12 @@ ionic cordova run android --livereload-host --livereload -c
 
 # Production Builds (ANDROID)
 To run or build your app for production, run
+
+```
+ionic cordova plugin add cordova-plugin-ionic-webview
+ionic cordova plugin remove cordova-plugin-wkwebview-engine
+```
+
 ```
 ionic cordova run android --release
 # or
@@ -103,4 +109,10 @@ zipalign -v 4 ./platforms/android/build/outputs/apk/android-release-unsigned.apk
 
 apksigner verify ./platforms/android/build/outputs/apk/coinotc-release.apk
 
+```
+
+# Production Builds (IOS)
+```
+ionic cordova plugin add cordova-plugin-wkwebview-engine
+ionic cordova plugin remove cordova-plugin-ionic-webview
 ```
