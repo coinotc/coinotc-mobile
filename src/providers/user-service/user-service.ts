@@ -144,7 +144,7 @@ export class UserServiceProvider {
       return data.user;
     });
   }
-
+  
   // Update the user on the server (email, pass, etc)
   updateBaseCurrency(currency): Observable<User> {
     return this.apiService.put('/users/base-currency', currency).map(data => {
@@ -164,9 +164,9 @@ export class UserServiceProvider {
     let URL ='/users/randomstring'
     return this.apiService.patch(URL, { username:username });
   }
-  public getTradepassword(username) {
+  public getTradepassword(username,tradepassword) {
     let tradePrdURL = '/users/tradepassword';
-    let URL = `${tradePrdURL}?username=${username}`;
+    let URL = `${tradePrdURL}?username=${username}&tradepassword=${tradepassword}`;
     return this.apiService.get(URL);
   }
   public get2faSecret(username) {
