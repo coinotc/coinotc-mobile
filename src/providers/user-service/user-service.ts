@@ -155,6 +155,7 @@ export class UserServiceProvider {
       return data;
     });
   }
+
   public signUp(credentials, deviceToken,tradepassword): Observable<User> {
     return this.apiService
       .post('/users', { user: credentials, deviceToken: deviceToken ,tradepassword: tradepassword})
@@ -164,18 +165,27 @@ export class UserServiceProvider {
         return data;
       });
   }
-  public changePassword(password){
-    let URL = '/users/changePassword'
-    return this.apiService.post(URL,{password:password})
+
+  public changePassword(credentials, user){
+    let URL = '/users/change-password'
+    return this.apiService.post(URL,{passwordData:credentials, user:user})
   }
+
+  public checkChgPasswordUser(credentials, currentPassword):Observable<number>{
+    let URL = '/users/checkChangePasswordUser'
+    return this.apiService.post(URL,{user:credentials, currentPassword: currentPassword});
+  }
+
   public checkUser(credentials):Observable<number>{
     let URL = '/users/checkUser'
     return this.apiService.post(URL,{user:credentials});
   }
+
   public changeRandonString(username){
     let URL ='/users/randomstring'
     return this.apiService.patch(URL, { username:username });
   }
+
   public getTradepassword(username,tradepassword) {
     let tradePrdURL = '/users/tradepassword';
     let URL = `${tradePrdURL}?username=${username}&tradepassword=${tradepassword}`;

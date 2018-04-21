@@ -6,7 +6,7 @@ import { CurrenciesServiceProvider } from '../../providers/currencies/currencies
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { BindEmailPage } from '../bind-email/bind-email';
 import { BindPhonePage } from '../bind-phone/bind-phone';
-import { ModifyPrdPage } from '../modify-prd/modify-prd';
+import { ModifyPasswordPage } from '../modify-password/modify-password';
 import { RealNameVerifiedPage } from '../real-name-verified/real-name-verified'
 import { ModifyTradepasswordPage } from '../modify-tradepassword/modify-tradepassword'
 
@@ -71,7 +71,7 @@ export class SettingsPage {
   }
   
   passwordTapped() {
-    this.navCtrl.push(ModifyPrdPage);
+    this.navCtrl.push(ModifyPasswordPage);
   }
 
   setBaseCurrency(){

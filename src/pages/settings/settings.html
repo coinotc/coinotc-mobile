@@ -49,7 +49,7 @@
     <ion-item>
       <ion-icon name='logo-bitcoin' item-start></ion-icon>
       <ion-label>Native Currency</ion-label>
-      <ion-select [(ngModel)]="baseCurrency" (ngModelChange)="setBaseCurrency()">
+      <ion-select [(ngModel)]="baseCurrency" (ngModelChange)="setBaseCurrency()" [selectedText]="baseCurrency">
         <ion-option *ngFor="let currency of currencies" [value]="currency.currenciesCode">{{currency.currenciesDesc}} ({{currency.currenciesCode}})</ion-option>
       </ion-select>
     </ion-item>

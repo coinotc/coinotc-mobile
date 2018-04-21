@@ -44,6 +44,8 @@ export class AuthPage {
   isModal: boolean; // show close button only in a modal
   networkStatusIndicator: Number = 0;
   password = 'password';
+  password_type = 'password';
+  confirm_password_type = 'password';
 
   onlineToast: any;
   offlineToast: any;
@@ -188,7 +190,11 @@ export class AuthPage {
       }
     };
   }
+
   submitForm() {
+    this.password_type = "password";
+    this.confirm_password_type = "password";
+    
     let loading = this.loadingCtrl.create({
       spinner: 'circles',
       content: 'loading...',
@@ -263,6 +269,18 @@ export class AuthPage {
       })
     }
   }
+
+  togglePasswordMode() {
+    console.log('toggle >>>> password ');
+    this.password_type = this.password_type === 'text' ? 'password' : 'text';
+  }
+
+  toggleConfirmPasswordMode() {
+    console.log('toggle >>>> confirm password');
+    this.confirm_password_type = this.confirm_password_type === 'text' ? 'password' : 'text';
+  }
+
+
   // submitForm() {
   //   let loading = this.loadingCtrl.create({
   //     spinner: 'circles',

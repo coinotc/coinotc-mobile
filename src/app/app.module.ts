@@ -41,7 +41,7 @@ import { AlertServiceProvider } from '../providers/alert-service/alert-service';
 import { MePageModule } from '../pages/me/me.module';
 import { BindEmailPage } from '../pages/bind-email/bind-email';
 import { BindPhonePage } from '../pages/bind-phone/bind-phone';
-import { ModifyPrdPage } from '../pages/modify-prd/modify-prd';
+import { ModifyPasswordPageModule } from '../pages/modify-password/modify-password.module';
 import { RealNameVerifiedPage } from '../pages/real-name-verified/real-name-verified';
 import { PincodeInputModule } from 'ionic2-pincode-input';
 import { PincodePage } from '../pages/pincode/pincode';
@@ -94,7 +94,6 @@ export function createTranslateLoader(http: HttpClient) {
     FaIconComponent,
     BindEmailPage,
     BindPhonePage,
-    ModifyPrdPage,
     RealNameVerifiedPage,
     PincodePage,
     ConfirmPincodePage,
@@ -141,7 +140,8 @@ export function createTranslateLoader(http: HttpClient) {
     Ionic2RatingModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseconfig),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    ModifyPasswordPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -155,7 +155,6 @@ export function createTranslateLoader(http: HttpClient) {
     AddAlertPage,
     BindEmailPage,
     BindPhonePage,
-    ModifyPrdPage,
     RealNameVerifiedPage,
     PincodePage,
     ConfirmPincodePage,

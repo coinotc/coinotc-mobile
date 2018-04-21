@@ -75,7 +75,7 @@ export class ConfirmPincodePage {
                this.toastCtrl
                .create({
                  message: `Account successfully created. \n Kindly check email for confirmation.`,
-                 duration: 3000
+                 duration: 4500
                })
                .present();
                this.navCtrl.setRoot(AuthPage);
