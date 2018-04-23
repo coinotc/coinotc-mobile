@@ -51,7 +51,6 @@ import { ModifyTradepasswordPage } from '../pages/modify-tradepassword/modify-tr
 import { SettingsPage } from '../pages/settings/settings';
 import { ComplainInformationPage } from '../pages/complain-information/complain-information';
 import { TwoFactorAuthPage } from '../pages/two-factor-auth/two-factor-auth';
-import { SendMailServiceProvider } from '../providers/send-mail-service/send-mail-service';
 import { Camera } from '@ionic-native/camera';
 import { FCM } from '@ionic-native/fcm';
 import { ComplainPage } from '../pages/complain/complain';
@@ -72,7 +71,9 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { firebaseconfig }  from '../../environments/firebase-config'; 
 import { SendMailPage } from '../pages/send-mail/send-mail'; 
-import {ModalContentPage} from '../pages/room/room'
+import { ModalContentPage } from '../pages/room/room';
+import { ForgetPasswordPage} from '../pages/forget-password/forget-password';
+import { ForgetVerifySixPinPage } from '../pages/forget-verify-six-pin/forget-verify-six-pin'
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -111,7 +112,9 @@ export function createTranslateLoader(http: HttpClient) {
     GaBackupKeyPage,
     GaEnterKeyPage,
     SendMailPage,
-    ModalContentPage
+    ModalContentPage,
+    ForgetPasswordPage,
+    ForgetVerifySixPinPage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -172,7 +175,9 @@ export function createTranslateLoader(http: HttpClient) {
     GaBackupKeyPage,
     GaEnterKeyPage,
     SendMailPage,
-    ModalContentPage
+    ModalContentPage,
+    ForgetPasswordPage,
+    ForgetVerifySixPinPage
   ],
   providers: [
     StatusBar,
@@ -192,7 +197,6 @@ export function createTranslateLoader(http: HttpClient) {
     CryptowalletProvider,
     CurrenciesServiceProvider,
     AlertServiceProvider,
-    SendMailServiceProvider,
     Camera,
     FCM,
     Network,

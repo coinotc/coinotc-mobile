@@ -180,7 +180,10 @@ export class UserServiceProvider {
     let URL = '/users/checkUser'
     return this.apiService.post(URL,{user:credentials});
   }
-
+  public forgetPassword(credentials){
+    let URL = '/users/forgetPassword'
+    return this.apiService.post(URL,{email:credentials});
+  }
   public changeRandonString(username){
     let URL ='/users/randomstring'
     return this.apiService.patch(URL, { username:username });
