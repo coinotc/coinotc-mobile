@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage,NavController,NavParams,ViewController,ToastController,LoadingController,App} from 'ionic-angular';
-import { FormBuilder,FormGroup,FormControl,Validators} from '@angular/forms';
+import { IonicPage, NavController, NavParams, ViewController, ToastController, LoadingController, App } from 'ionic-angular';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { ForgetVerifySixPinPage } from '../forget-verify-six-pin/forget-verify-six-pin'
 /**
@@ -16,12 +16,12 @@ import { ForgetVerifySixPinPage } from '../forget-verify-six-pin/forget-verify-s
   templateUrl: 'forget-password.html',
 })
 export class ForgetPasswordPage {
-  forgetPasswordForm:FormGroup;
-  constructor(public navCtrl: NavController, 
+  forgetPasswordForm: FormGroup;
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private fb: FormBuilder,
     private loadingCtrl: LoadingController,
-    private userService:UserServiceProvider,
+    private userService: UserServiceProvider,
     private toastCtrl: ToastController
   ) {
     this.forgetPasswordForm = this.fb.group({
@@ -39,7 +39,7 @@ export class ForgetPasswordPage {
       return { email: true, required: false };
     }
   };
-  submitForm(){
+  submitForm() {
     let loading = this.loadingCtrl.create({
       spinner: 'circles',
       content: 'loading...',
@@ -47,14 +47,24 @@ export class ForgetPasswordPage {
     });
     loading.present();
     const credentials = this.forgetPasswordForm.value;
-    this.userService.forgetPassword(credentials).subscribe(result=>{
-      this.toastCtrl
-        .create({
-          message: `Please check your email`,
-          duration: 4500
-        })
-        .present();
-        this.navCtrl.push(ForgetVerifySixPinPage)
+    console.log(credentials)
+    this.userService.forgetPassword(credentials).subscribe(result => {
+      if (result == null) {
+        this.toastCtrl
+          .create({
+            message: `Your account is not exsit`,
+            duration: 4500
+          })
+          .present();
+      } else {
+        this.toastCtrl
+          .create({
+            message: `Please check your email`,
+            duration: 4500
+          })
+          .present();
+        this.navCtrl.setRoot(ForgetVerifySixPinPage, credentials)
+      }
     })
   }
   ionViewDidLoad() {

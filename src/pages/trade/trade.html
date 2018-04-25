@@ -22,12 +22,12 @@
 <ion-content fullscreen>
 
   <ion-slides style="height:20% ">
-    <ion-slide>
-      <img src="https://i.ytimg.com/vi/eUxQnXunpmA/maxresdefault.jpg">
+    <ion-slide   *ngFor="let banner of banners">
+      <img src={{banner.imgURL}}>
     </ion-slide>
-    <ion-slide>
+    <!-- <ion-slide>
       <img src="https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg" alt="">
-    </ion-slide>
+    </ion-slide> -->
 
 
   </ion-slides>

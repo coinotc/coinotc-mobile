@@ -74,6 +74,9 @@ import { SendMailPage } from '../pages/send-mail/send-mail';
 import { ModalContentPage } from '../pages/room/room';
 import { ForgetPasswordPage} from '../pages/forget-password/forget-password';
 import { ForgetVerifySixPinPage } from '../pages/forget-verify-six-pin/forget-verify-six-pin'
+import { BannerControlProvider } from '../providers/banner-control/banner-control';
+import { SetNewPasswordPage } from '../pages/set-new-password/set-new-password';
+
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -114,7 +117,8 @@ export function createTranslateLoader(http: HttpClient) {
     SendMailPage,
     ModalContentPage,
     ForgetPasswordPage,
-    ForgetVerifySixPinPage
+    ForgetVerifySixPinPage,
+    SetNewPasswordPage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -177,7 +181,8 @@ export function createTranslateLoader(http: HttpClient) {
     SendMailPage,
     ModalContentPage,
     ForgetPasswordPage,
-    ForgetVerifySixPinPage
+    ForgetVerifySixPinPage,
+    SetNewPasswordPage
   ],
   providers: [
     StatusBar,
@@ -201,7 +206,8 @@ export function createTranslateLoader(http: HttpClient) {
     FCM,
     Network,
     GoogleAuthServiceProvider,
-    PhotoViewer
+    PhotoViewer,
+    BannerControlProvider
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
