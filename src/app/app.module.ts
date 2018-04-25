@@ -72,7 +72,9 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { firebaseconfig }  from '../../environments/firebase-config'; 
 import { SendMailPage } from '../pages/send-mail/send-mail'; 
-import {ModalContentPage} from '../pages/room/room'
+import {ModalContentPage} from '../pages/room/room';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
+
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -141,7 +143,8 @@ export function createTranslateLoader(http: HttpClient) {
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseconfig),
     AngularFireStorageModule,
-    ModifyPasswordPageModule
+    ModifyPasswordPageModule,
+    IonicImageViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
