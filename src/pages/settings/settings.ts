@@ -9,6 +9,7 @@ import { BindPhonePage } from '../bind-phone/bind-phone';
 import { ModifyPasswordPage } from '../modify-password/modify-password';
 import { RealNameVerifiedPage } from '../real-name-verified/real-name-verified'
 import { ModifyTradepasswordPage } from '../modify-tradepassword/modify-tradepassword'
+import { ForgetTradePasswordTextPage } from '../forget-trade-password-text/forget-trade-password-text';
 
 /**
  * Generated class for the SettingsPage page.
@@ -57,7 +58,9 @@ export class SettingsPage {
   realNameTapped() {
     this.navCtrl.push(RealNameVerifiedPage);
   }
-  
+  forgetTradePassword(){
+    this.navCtrl.push(ForgetTradePasswordTextPage);
+  }
   paymentPrdTapped() {
     this.navCtrl.setRoot(ModifyTradepasswordPage);
   }

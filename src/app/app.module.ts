@@ -76,6 +76,11 @@ import { ForgetPasswordPage} from '../pages/forget-password/forget-password';
 import { ForgetVerifySixPinPage } from '../pages/forget-verify-six-pin/forget-verify-six-pin'
 import { BannerControlProvider } from '../providers/banner-control/banner-control';
 import { SetNewPasswordPage } from '../pages/set-new-password/set-new-password';
+import { ForgetTradePasswordTextPage } from '../pages/forget-trade-password-text/forget-trade-password-text';
+import { ConfirmTradePasswordCodePage } from '../pages/confirm-trade-password-code/confirm-trade-password-code';
+import { ResetTradePasswordPage } from '../pages/reset-trade-password/reset-trade-password';
+import { ConfirmResetTradePasswordPage } from '../pages/confirm-reset-trade-password/confirm-reset-trade-password';
+
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
@@ -118,7 +123,11 @@ export function createTranslateLoader(http: HttpClient) {
     ModalContentPage,
     ForgetPasswordPage,
     ForgetVerifySixPinPage,
-    SetNewPasswordPage
+    SetNewPasswordPage,
+    ForgetTradePasswordTextPage,
+    ConfirmTradePasswordCodePage,
+    ResetTradePasswordPage,
+    ConfirmResetTradePasswordPage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -182,7 +191,11 @@ export function createTranslateLoader(http: HttpClient) {
     ModalContentPage,
     ForgetPasswordPage,
     ForgetVerifySixPinPage,
-    SetNewPasswordPage
+    SetNewPasswordPage,
+    ForgetTradePasswordTextPage,
+    ConfirmTradePasswordCodePage,
+    ResetTradePasswordPage,
+    ConfirmResetTradePasswordPage
   ],
   providers: [
     StatusBar,

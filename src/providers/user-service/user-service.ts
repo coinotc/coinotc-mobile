@@ -188,6 +188,10 @@ export class UserServiceProvider {
     let URL = '/users/forgetVerifySixPin';
     return this.apiService.post(URL,{email:email,code:code})
   }
+  public confirmTradePasswordCode(email,code){
+    let URL = '/users/confirmTradePasswordCode';
+    return this.apiService.post(URL,{email:email,code:code})
+  }
   public changeRandonString(username){
     let URL ='/users/randomstring'
     return this.apiService.patch(URL, { username:username });
@@ -201,7 +205,10 @@ export class UserServiceProvider {
     let URL = `${tradePrdURL}?username=${username}&tradepassword=${tradepassword}`;
     return this.apiService.get(URL);
   }
-  
+  public forgetTradePassword(email){
+    let URL = '/users/forgetTradePassword'
+    return this.apiService.post(URL,{email : email});
+  }
   public get2faSecret(username) {
     return this.apiService.get(`/2fa?username=${username}`);
   }
