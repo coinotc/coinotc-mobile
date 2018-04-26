@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ToastController, LoadingController, App } from 'ionic-angular';
 import { PincodeController } from 'ionic2-pincode-input/dist/pincode';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { TabsPage } from '../tabs/tabs';
 import { AuthPage } from '../auth/auth';
 import { SetNewPasswordPage } from '../set-new-password/set-new-password';
 /**

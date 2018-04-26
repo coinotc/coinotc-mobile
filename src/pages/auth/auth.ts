@@ -51,6 +51,7 @@ export class AuthPage {
   onlineToast: any;
   offlineToast: any;
   private PASSWORD_PATTERN = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{12,}$/;
+
   constructor(
     public navCtrl: NavController,
     private viewCtrl: ViewController,
@@ -264,7 +265,7 @@ export class AuthPage {
               })
               .present();
         }else{
-          this.appCtrl.getRootNav().setRoot(PincodePage,{user: credentials,deviceToken: this.deviceToken});
+          this.navCtrl.setRoot(PincodePage,{user: credentials,deviceToken: this.deviceToken});
         }
       })
     }
