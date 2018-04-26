@@ -5,7 +5,6 @@ import { TabsPage } from '../tabs/tabs';
 import { PincodePage } from '../pincode/pincode';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
-import { SendMailServiceProvider } from '../../providers/send-mail-service/send-mail-service';
 import { MePage } from '../me/me';
 import { AuthPage } from '../auth/auth';
 /**
@@ -31,9 +30,8 @@ export class ConfirmPincodePage {
     public pincodeCtrl: PincodeController,    
     private userService: UserServiceProvider,
     private profileService: ProfileServiceProvider,
-    private toastCtrl: ToastController,
-    private sendMailService:SendMailServiceProvider
-  ) {
+    private toastCtrl: ToastController
+    ) {
       this.type = this.navParams.data.type;
       this.user = this.navParams.data.user;
       this.deviceToken = this.navParams.data.deviceToken;

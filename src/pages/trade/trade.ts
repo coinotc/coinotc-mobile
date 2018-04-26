@@ -8,6 +8,8 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { AdinformationPage } from '../adinformation/adinformation';
 import { PopoverController, Events } from 'ionic-angular';
 import { ProfilePage } from '../profile/profile';
+import { BannerControlProvider } from '../../providers/banner-control/banner-control';
+import { banner } from '../../models/banner-control';
 /**
  * Generated class for the TradePage page.
  *
@@ -107,6 +109,7 @@ export class TradePage {
   country: string = 'singapore';
   fiat: string = 'USD';
   currentuser;
+  banners;
   private list: advertisement[];
   constructor(
     public popoverCtrl: PopoverController,
@@ -117,9 +120,17 @@ export class TradePage {
     public events: Events,
     public userservice: UserServiceProvider,
     public renderer: Renderer,
-    public myElement: ElementRef) {
+    public myElement: ElementRef,
+    public bannerControl :BannerControlProvider
+  ) {
+    
     this.showheader = false;
     this.hideheader = true;
+    console.log("hello")
+      this.bannerControl.getBanner().subscribe(result =>{
+      this.banners = result;
+      console.log(this.banners)
+    })
   }
   ionViewDidEnter() {
     this.currentuser = this.userservice.getCurrentUser().username;
@@ -240,5 +251,9 @@ export class TradePage {
       }
       this.slideHeaderPrevious = this.ionScroll.scrollTop - this.start;
     });
+    // this.bannerControl.getBanner().subscribe(result =>{
+    //   this.banners = result;
+    //   console.log(this.banners)
+    // })
   }
 }
