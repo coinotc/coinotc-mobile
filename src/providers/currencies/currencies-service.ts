@@ -16,6 +16,8 @@ export class CurrenciesServiceProvider {
   }
 
   getCurrencies() {
-    return this.apiService.getExternal('../assets/data/currencies.json');
+    // /android_asset/www/assets/data/
+    // ./assets/data/currencies.json
+    return this.apiService.getExternal('./assets/data/currencies.json');
   }
 }
