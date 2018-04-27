@@ -16,6 +16,6 @@ export class CurrenciesServiceProvider {
   }
 
   getCurrencies() {
-    return this.apiService.getExternal('../assets/data/currencies.json');
+    return this.apiService.getExternal('./assets/data/currencies.json');
   }
 }

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="market.coinotc.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="market.coinotc.app" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>CoinOTC-SG</name>
     <description>CoinOTC Singapore.</description>
     <author email="bunnyppl@hotmail.com" href="https://coinotc.market/">CoinOTC Development Team</author>
@@ -96,12 +96,7 @@
         <string>need photo library access to save pictures there</string>
     </edit-config>
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.19" />
-    <allow-navigation href="http://localhost:8080/*" />
-    <feature name="CDVWKWebViewEngine">
-        <param name="ios-package" value="CDVWKWebViewEngine" />
-    </feature>
-    <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
-    <plugin name="cordova-plugin-wkwebview-engine" spec="^1.1.4" />
+    <allow-navigation href="*" />
     <engine name="ios" spec="4.5.4" />
     <engine name="browser" spec="5.0.3" />
     <engine name="android" spec="6.3.0" />
