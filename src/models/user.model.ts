@@ -16,7 +16,7 @@ export class User {
     public active : boolean,
     public verifyStatus:number,
     public passport:string,
-    public firstNamr:string,
+    public firstName:string,
     public lastName:string,
     public gender:string,
     public country:string
