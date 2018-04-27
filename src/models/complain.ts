@@ -7,7 +7,8 @@ export class complain{
         public content: string,
         public status:number,
         public message:Array<any>,
-        public title:string
+        public title:string,
+        public createDate:Date
     ){
     }
 }

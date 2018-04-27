@@ -22,7 +22,7 @@ export class ComplainServiceProvider {
     return this.apiService.post(URL, complain);
   }
   public getComplains(username) : Observable<complain[]>{
-    let url = `${this.complainURL}?complainant=${username}`;
+    let url = `${this.complainURL}?username=${username}`;
     return this.apiService.get(url);
   }
   public addRoomKey(roomkey,complainId){

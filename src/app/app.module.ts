@@ -35,12 +35,9 @@ import { AvatarService } from 'ng-avatar';
 import { ComplainServiceProvider } from '../providers/complain-service/complain-service';
 import { CryptowalletProvider } from '../providers/cryptowallet/cryptowallet';
 import { CurrenciesServiceProvider } from '../providers/currencies/currencies-service';
-import { PaymentPrdPageModule } from '../pages/payment-prd/payment-prd.module';
 import { FaIconComponent } from '../components/fa-icon/fa-icon.component';
 import { AlertServiceProvider } from '../providers/alert-service/alert-service';
 import { MePageModule } from '../pages/me/me.module';
-import { BindEmailPage } from '../pages/bind-email/bind-email';
-import { BindPhonePage } from '../pages/bind-phone/bind-phone';
 import { ModifyPasswordPageModule } from '../pages/modify-password/modify-password.module';
 import { RealNameVerifiedPage } from '../pages/real-name-verified/real-name-verified';
 import { PincodeInputModule } from 'ionic2-pincode-input';
@@ -80,7 +77,7 @@ import { ForgetTradePasswordTextPage } from '../pages/forget-trade-password-text
 import { ConfirmTradePasswordCodePage } from '../pages/confirm-trade-password-code/confirm-trade-password-code';
 import { ResetTradePasswordPage } from '../pages/reset-trade-password/reset-trade-password';
 import { ConfirmResetTradePasswordPage } from '../pages/confirm-reset-trade-password/confirm-reset-trade-password';
-
+import { CustomerSupportPage } from '../pages/customer-support/customer-support';
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
@@ -101,8 +98,6 @@ export function createTranslateLoader(http: HttpClient) {
     AlertPage,
     AddAlertPage,
     FaIconComponent,
-    BindEmailPage,
-    BindPhonePage,
     RealNameVerifiedPage,
     PincodePage,
     ConfirmPincodePage,
@@ -127,7 +122,8 @@ export function createTranslateLoader(http: HttpClient) {
     ForgetTradePasswordTextPage,
     ConfirmTradePasswordCodePage,
     ResetTradePasswordPage,
-    ConfirmResetTradePasswordPage
+    ConfirmResetTradePasswordPage,
+    CustomerSupportPage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -140,7 +136,6 @@ export function createTranslateLoader(http: HttpClient) {
     PincodeInputModule,
     MePageModule,
     RoomPageModule,
-    PaymentPrdPageModule,
     IonicStorageModule.forRoot(),
     ScrollingHeaderModule,
     TranslateModule.forRoot({
@@ -169,8 +164,6 @@ export function createTranslateLoader(http: HttpClient) {
     OrderListPage,
     AlertPage,
     AddAlertPage,
-    BindEmailPage,
-    BindPhonePage,
     RealNameVerifiedPage,
     PincodePage,
     ConfirmPincodePage,
@@ -195,7 +188,8 @@ export function createTranslateLoader(http: HttpClient) {
     ForgetTradePasswordTextPage,
     ConfirmTradePasswordCodePage,
     ResetTradePasswordPage,
-    ConfirmResetTradePasswordPage
+    ConfirmResetTradePasswordPage,
+    CustomerSupportPage
   ],
   providers: [
     StatusBar,
