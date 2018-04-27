@@ -22,22 +22,25 @@ export class UserServiceProvider {
   private currentUserSubject = new BehaviorSubject<User>(
     new User(
       '',
-      '',
-      '',
-      '',
-      '',
-      null,
-      null,
-      '',
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      false
+    '',
+    '',
+    '',
+    '',
+    0,
+    0,
+    null,
+    null,
+    '',
+    '',
+    null,
+    null,
+    false,
+    0,
+    '',
+    '',
+    '',
+    '',
+    ''
     )
   );
   

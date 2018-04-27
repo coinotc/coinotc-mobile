@@ -28,7 +28,7 @@ export class ComplainInformationPage {
   username;
   // complainUser;
   // Complainant;
-  model = new complain('','','','Order','',0,null,'');
+  model = new complain('','','','Order','',0,null,'',null);
   constructor(public navCtrl: NavController, public navParams: NavParams,
   private userService:UserServiceProvider,
   private fb: FormBuilder,
