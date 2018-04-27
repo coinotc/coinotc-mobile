@@ -19,6 +19,6 @@ export class User {
     public firstNamr:string,
     public lastName:string,
     public gender:string,
-    public contry:string
+    public country:string
   ) {}
 }
