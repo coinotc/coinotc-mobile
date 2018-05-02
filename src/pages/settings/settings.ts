@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams , App ,ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams , App ,ToastController ,AlertController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
 import { CurrenciesServiceProvider } from '../../providers/currencies/currencies-service';
@@ -11,6 +11,7 @@ import { ForgetTradePasswordTextPage } from '../forget-trade-password-text/forge
 import { AuthPage } from '../auth/auth';
 import { Errors } from '../../models/errors.model';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
+import { NetworkInterface } from '@ionic-native/network-interface';
 /**
  * Generated class for the SettingsPage page.
  *
@@ -36,7 +37,9 @@ export class SettingsPage {
     public jwtService: JwtServiceProvider,
     public appCtrl: App,
     public toastCtrl: ToastController,
-    public userService: UserServiceProvider) {
+    public userService: UserServiceProvider,
+    private alertCtrl: AlertController,
+    private networkInterface: NetworkInterface) {
     this.initializeCurrencies();
   }
 
@@ -61,7 +64,22 @@ export class SettingsPage {
   }
 
   realNameTapped() {
-    this.navCtrl.push(RealNameVerifiedPage);
+    let ip =  this.networkInterface.getWiFiIPAddress();
+    //this.navCtrl.push(RealNameVerifiedPage);
+    console.log(ip)
+    let alert = this.alertCtrl.create({
+      title: 'Low battery',
+      subTitle: `${ip}`,
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        handler: data => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    alert.present();
+
   }
   forgetTradePassword() {
     this.navCtrl.push(ForgetTradePasswordTextPage);
