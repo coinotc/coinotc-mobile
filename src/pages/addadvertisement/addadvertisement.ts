@@ -86,6 +86,7 @@ export class AddadvertisementPage {
         country: [this.model.country, Validators.required],
         fiat: [this.model.fiat, Validators.required],
         rangepercent: [null, Validators.required],
+        cryptoprice: [null, Validators.required],
         price: [null, [Validators.min(0)]],
         min_price: [null, [Validators.min(0), Validators.required]],
         max_price: [null, [Validators.min(0), Validators.required]],
