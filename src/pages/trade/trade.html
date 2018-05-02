@@ -28,7 +28,7 @@
 <ion-content fullscreen>
 
   <ion-slides style="height:20% ">
-    <ion-slide   *ngFor="let banner of banners">
+    <ion-slide *ngFor="let banner of banners">
       <img src={{banner.imgURL}}>
     </ion-slide>
     <!-- <ion-slide>
@@ -73,11 +73,10 @@
   <ion-list>
     <ion-item *ngFor="let item of list">
       <text-avatar [text]="item.owner" (tap)="profile(item.owner)" item-left></text-avatar>
-      <h2>{{item.owner}}</h2>
+      <h2>{{item.owner}}&nbsp;<i [class]="item.country" *ngIf="country == 'global'"></i></h2>
       <p>{{'payment.'+item.payment | translate}}</p>
       <div item-right text-right>
         <h5 style="color:#02cb66">
-          <i [class]="item.country" *ngIf="country == 'global'"></i>&nbsp;
           {{item.price | number : '1.2-2'}}&nbsp;{{'fiat.'+item.fiat | translate}}
         </h5>
         <button ion-button [ngClass]="item.crypto" round (tap)="adinformation(item,true)" *ngIf="item.owner === currentuser">view my advertisement</button>
