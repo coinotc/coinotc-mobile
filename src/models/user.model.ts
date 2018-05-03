@@ -8,7 +8,7 @@ export class User {
     public orderCount: number,
     public phone: number,
     public following: Array<string>,
-    public block: Array<string>,
+    public block: boolean,
     public nativeCurrency: string,
     public deviceToken: string,
     public followers: Array<string>,

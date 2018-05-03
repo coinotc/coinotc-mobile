@@ -40,8 +40,9 @@ export class SettingsPage {
     this.initializeCurrencies();
   }
 
-  initializeCurrencies() {
-    this.currencyService.getCurrencies().subscribe(currencies => {
+  initializeCurrencies(){
+    this.currencyService.getCurrencies().subscribe(currencies=>{
+      console.log("currencies ==> " + currencies);
       let currenciesCode = _.keys(currencies);
       let currenciesDesc = _.values(currencies);
       let currenciesArr = [];
@@ -87,8 +88,9 @@ export class SettingsPage {
             tabs[key].style.display = 'none';
           });
         }
-        let nav = this.appCtrl.getActiveNavs();
-        nav[0].setRoot(AuthPage); // end if
+        //let nav = this.appCtrl.getActiveNavs();
+        //nav[0].setRoot(AuthPage); // end if
+        this.navCtrl.setRoot(AuthPage);
       },
       (errors: Errors) => {
         for (let field in errors.errors) {
