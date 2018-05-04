@@ -43,13 +43,21 @@ export class SettingsPage implements OnInit{
   {
     this.initializeCurrencies();
     this.storage.ready().then(() => this.storage.get('nativeCurrency') as Promise<string>).then(value => {
-      console.log(value['currency']);
-      this.baseCurrency = value['currency'];
+      if(value != null){
+        console.log(value['currency']);
+        this.baseCurrency = value['currency'];
+      }else{
+        this.baseCurrency = 'USD';
+      }
     });
     
     this.storage.ready().then(() => this.storage.get('preferLanguage') as Promise<string>).then(value => {
-      let langObj = JSON.parse(JSON.stringify(value));
-      this.language = langObj.language;
+      if(value != null){
+        let langObj = JSON.parse(JSON.stringify(value));
+        this.language = langObj.language;
+      }else{
+        this.language = 'en';
+      }
     });
   }
 
