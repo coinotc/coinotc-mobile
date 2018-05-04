@@ -147,11 +147,14 @@ export class UserServiceProvider {
   // Update the user on the server (email, pass, etc)
   updateBaseCurrency(currency): Observable<User> {
     return this.apiService.put('/users/base-currency', currency).map(data => {
-      this.storage
-        .ready()
-        .then(
-          () => this.storage.set('nativeCurrency', currency) as Promise<void>
-        );
+      this.storage.ready().then(() => this.storage.set('nativeCurrency', currency) as Promise<void>);
+      return data;
+    });
+  }
+
+  updateLanguage(language): Observable<User> {
+    return this.apiService.put('/users/language', language).map(data => {
+      this.storage.ready().then(() => this.storage.set('preferLanguage', language) as Promise<void>);
       return data;
     });
   }

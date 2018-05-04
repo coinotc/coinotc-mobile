@@ -222,6 +222,7 @@ export class AuthPage {
             .then(() => {
               this.appCtrl.getRootNav().setRoot(TabsPage);
               loading = null;
+              console.log(this.userService.getCurrentUser());
               let updater = this.userService.getCurrentUser().username;
               console.log(updater);
               this.profileServiceProvider

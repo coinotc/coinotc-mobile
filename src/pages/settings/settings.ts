@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
@@ -9,6 +9,7 @@ import { BindPhonePage } from '../bind-phone/bind-phone';
 import { ModifyPasswordPage } from '../modify-password/modify-password';
 import { RealNameVerifiedPage } from '../real-name-verified/real-name-verified'
 import { ModifyTradepasswordPage } from '../modify-tradepassword/modify-tradepassword'
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the SettingsPage page.
@@ -22,16 +23,33 @@ import { ModifyTradepasswordPage } from '../modify-tradepassword/modify-tradepas
   selector: 'page-settings',
   templateUrl: 'settings.html',
 })
-export class SettingsPage {
+export class SettingsPage implements OnInit{
   currencies: any[];
   language: any;
   languages = [{ label: 'English', value: 'en' }, { label: '中文', value: 'cn' }];
   baseCurrency: any;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-    public translate: TranslateService, public currencyService: CurrenciesServiceProvider,
-    public userService: UserServiceProvider) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public translate: TranslateService, 
+    public currencyService: CurrenciesServiceProvider,
+    public userService: UserServiceProvider,
+    private storage: Storage) 
+  {
     this.initializeCurrencies();
+    this.storage.ready().then(() => this.storage.get('nativeCurrency') as Promise<string>).then(value => {
+      console.log(value['currency']);
+      this.baseCurrency = value['currency'];
+    });
+    
+    this.storage.ready().then(() => this.storage.get('preferLanguage') as Promise<string>).then(value => {
+      let langObj = JSON.parse(JSON.stringify(value));
+      this.language = langObj.language;
+    });
+  }
+
+  ngOnInit() {
+    console.log('ngOnInit');
   }
   
   initializeCurrencies(){
@@ -52,7 +70,13 @@ export class SettingsPage {
     });
   }
   switchLanguage() {
-    this.translate.use(this.language);
+    let preferLanguage = {
+      language: this.language
+    }
+    this.userService.updateLanguage(preferLanguage).subscribe(result => {
+      console.log(result);
+      this.translate.use(this.language);
+    }); 
   }
   
   realNameTapped() {
