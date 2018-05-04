@@ -27,8 +27,9 @@ export class MyApp {
       let langObj = JSON.parse(JSON.stringify(value));
       if(!langObj){
         translate.setDefaultLang(langObj.language);
+      }else{
+        translate.setDefaultLang('en');
       }
-      translate.setDefaultLang('en');
     });
     
     firebase.initializeApp(firebaseconfig);
