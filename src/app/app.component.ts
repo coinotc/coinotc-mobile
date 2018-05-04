@@ -24,8 +24,8 @@ export class MyApp {
     private storage: Storage
   ) {
     this.storage.ready().then(() => this.storage.get('preferLanguage') as Promise<string>).then(value => {
-      let langObj = JSON.parse(JSON.stringify(value));
-      if(!langObj){
+      if(value != null){
+        let langObj = JSON.parse(JSON.stringify(value));
         translate.setDefaultLang(langObj.language);
       }else{
         translate.setDefaultLang('en');
