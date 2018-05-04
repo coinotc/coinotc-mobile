@@ -25,7 +25,10 @@ export class MyApp {
   ) {
     this.storage.ready().then(() => this.storage.get('preferLanguage') as Promise<string>).then(value => {
       let langObj = JSON.parse(JSON.stringify(value));
-      translate.setDefaultLang(langObj.language);
+      if(!langObj){
+        translate.setDefaultLang(langObj.language);
+      }
+      translate.setDefaultLang('en');
     });
     
     firebase.initializeApp(firebaseconfig);
