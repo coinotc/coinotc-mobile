@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams , App ,ToastController ,AlertController } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams , App ,ToastController , AlertController} from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
 import { CurrenciesServiceProvider } from '../../providers/currencies/currencies-service';
@@ -12,6 +12,8 @@ import { AuthPage } from '../auth/auth';
 import { Errors } from '../../models/errors.model';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
 import { NetworkInterface } from '@ionic-native/network-interface';
+import { Storage } from '@ionic/storage';
+
 /**
  * Generated class for the SettingsPage page.
  *
@@ -24,7 +26,7 @@ import { NetworkInterface } from '@ionic-native/network-interface';
   selector: 'page-settings',
   templateUrl: 'settings.html',
 })
-export class SettingsPage {
+export class SettingsPage implements OnInit{
   currencies: any[];
   language: any;
   languages = [{ label: 'English', value: 'en' }, { label: '中文', value: 'cn' }];
@@ -39,8 +41,31 @@ export class SettingsPage {
     public toastCtrl: ToastController,
     public userService: UserServiceProvider,
     private alertCtrl: AlertController,
-    private networkInterface: NetworkInterface) {
+    private networkInterface: NetworkInterface,
+    private storage: Storage) 
+  {
     this.initializeCurrencies();
+    this.storage.ready().then(() => this.storage.get('nativeCurrency') as Promise<string>).then(value => {
+      if(value != null){
+        console.log(value['currency']);
+        this.baseCurrency = value['currency'];
+      }else{
+        this.baseCurrency = 'USD';
+      }
+    });
+    
+    this.storage.ready().then(() => this.storage.get('preferLanguage') as Promise<string>).then(value => {
+      if(value != null){
+        let langObj = JSON.parse(JSON.stringify(value));
+        this.language = langObj.language;
+      }else{
+        this.language = 'en';
+      }
+    });
+  }
+
+  ngOnInit() {
+    console.log('ngOnInit');
   }
 
   initializeCurrencies() {
@@ -60,7 +85,14 @@ export class SettingsPage {
     });
   }
   switchLanguage() {
-    this.translate.use(this.language);
+    console.log(this.language);
+    let preferLanguage = {
+      language: this.language
+    }
+    this.userService.updateLanguage(preferLanguage).subscribe(result => {
+      console.log(result);
+      this.translate.use(this.language);
+    });
   }
 
   realNameTapped() {
