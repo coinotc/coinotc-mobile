@@ -33,6 +33,7 @@
     "@ionic-native/core": "4.4.0",
     "@ionic-native/fcm": "^4.5.3",
     "@ionic-native/network": "^4.6.0",
+    "@ionic-native/network-interface": "^4.7.0",
     "@ionic-native/photo-viewer": "^4.7.0",
     "@ionic-native/splash-screen": "4.4.0",
     "@ionic-native/status-bar": "4.4.0",

@@ -20,9 +20,12 @@
         <h2>{{complain.username}}</h2>
         <p>{{complain.type}}</p>
         <div item-right text-right>
-          <h5 style="color:#02cb66">{{complain.status}}</h5>
+          <h5 style="color:#02cb66">{{complain.status == 0 ? "NOT SUBMITTED" :
+          (complain.status == 2 ? "Pending Approval" :
+          (complain.status == 3 ? "Resubmission Needed" : "Approved"))}}</h5>
         </div>
       </ion-item>
     </ion-item-sliding>
   </ion-list>
 </ion-content>
+

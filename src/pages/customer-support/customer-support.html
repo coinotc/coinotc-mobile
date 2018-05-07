@@ -7,12 +7,58 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>customerSupport</ion-title>
+    <ion-title>HELP</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content >
+  <ion-card>
+    <ion-card-header>
+      Title:{{complain.title}}
+    </ion-card-header>
+    <ion-card-content>
+      Content:
+      <br>{{complain.content}}
+    </ion-card-content>
+    <button ion-button full (tap)="changeStatus()" style="text-align:center" color="danger">
+      Close
+    </button>
+  </ion-card>
+  
+  <ion-list no-lines *ngFor="let chat of complain.message">
+    <ion-item >
+        <div class="chat-message" text-right *ngIf="chat.role === 'user'">
+          <div class="right-bubble">
+            <span class="msg-name">Me</span>
+            <span class="msg-date">{{chat.date | date:'short'}}</span>
+            <p *ngIf="chat.content != null" text-wrap>{{chat.content}}</p>
+          </div>
+        </div>
+        <div class="chat-message" text-left *ngIf="chat.role !== 'user'">
+          <div class="left-bubble">
+            <span class="msg-name">admin</span>
+            <span class="msg-date">{{chat.date | date:'short'}}</span>
+            <p *ngIf="chat.content != null" text-wrap>{{chat.content}}</p>
+          </div>
+        </div>
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  
+    <ion-grid>
+      <ion-row>
+        <ion-col col-10>
+          <ion-input type="text" placeholder="Type a message"  [(ngModel)]="leaveMess" name="message"></ion-input>
+        </ion-col>
+        <ion-col col-2 style="text-align: end;">
+          <button ion-button clear icon-only item-right [disabled]="!leaveMess" (click)=" onPost() ">
+            <ion-icon name="paper-plane"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-footer>
