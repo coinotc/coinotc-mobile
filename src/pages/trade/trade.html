@@ -73,10 +73,10 @@
   <ion-list>
     <ion-item *ngFor="let item of list">
       <text-avatar [text]="item.owner" (tap)="profile(item.owner)" item-left></text-avatar>
-      <h2>{{item.owner}}&nbsp;
-        <i [class]="item.country" *ngIf="country == 'global'"></i>
-      </h2>
-      <p>{{'payment.'+item.payment | translate}}</p>
+      <h2>{{item.owner}}</h2>
+      <!-- <h3>{{gettrade(item.owner)}}</h3> -->
+      <i [class]="item.country" *ngIf="country == 'global'"></i>
+      <i *ngFor="let class of item.payment" [class]="class"></i>
       <div item-right text-right>
         <h5 style="color:#02cb66">
           {{item.price | number : '1.2-2'}}&nbsp;{{'fiat.'+item.fiat | translate}}

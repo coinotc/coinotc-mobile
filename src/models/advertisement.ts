@@ -8,7 +8,7 @@ export class advertisement{
         public price: number,
         public min_price: number,
         public max_price: number,
-        public payment: string,
+        public payment: Array<string>,
         public limit: number,
         public message: string,
         public type: number
