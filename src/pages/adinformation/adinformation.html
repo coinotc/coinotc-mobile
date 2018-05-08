@@ -21,7 +21,7 @@
       <p>{{'limit' | translate}}:{{information.min_price}}-{{information.max_price}} {{'fiat.'+information.fiat | translate}}</p>
       <div item-right text-right>
         <h4>{{information.price}} {{'fiat.'+information.fiat | translate}}</h4>
-        <span>{{'payment.'+information.payment | translate}}</span>
+        <i *ngFor="let class of information.payment" [class]="class"></i>
       </div>
     </ion-item>
   </ion-card>

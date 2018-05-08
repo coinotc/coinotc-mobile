@@ -8,6 +8,7 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { AdinformationPage } from '../adinformation/adinformation';
 import { PopoverController, Events } from 'ionic-angular';
 import { ProfilePage } from '../profile/profile';
+import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { BannerControlProvider } from '../../providers/banner-control/banner-control';
 import { banner } from '../../models/banner-control';
 /**
@@ -145,13 +146,14 @@ export class TradePage {
     public userservice: UserServiceProvider,
     public renderer: Renderer,
     public myElement: ElementRef,
-    public bannerControl :BannerControlProvider
+    public bannerControl: BannerControlProvider,
+    public ProfileService: ProfileServiceProvider
   ) {
-    
+
     this.showheader = false;
     this.hideheader = true;
     console.log("hello")
-      this.bannerControl.getBanner().subscribe(result =>{
+    this.bannerControl.getBanner().subscribe(result => {
       this.banners = result;
       console.log(this.banners)
     })
@@ -216,9 +218,14 @@ export class TradePage {
     console.log('ionViewDidLoad TradePage');
     this.content.resize();
   }
+  // gettrade(owner) {
+  //   // return this.ProfileService.getProfile(owner);
+  //   console.log(owner);
+  // }
   profile(owner) {
-    if (owner != this.currentuser)
+    if (owner != this.currentuser) {
       this.appCtrl.getRootNav().push(ProfilePage, owner);
+    }
   }
   addbuyad() {
     this.events.subscribe('reloadtrade', () => {

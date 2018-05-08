@@ -32,7 +32,7 @@ export class AddadvertisementPage {
     null,
     null,
     null,
-    '',
+    [],
     null,
     '',
     null

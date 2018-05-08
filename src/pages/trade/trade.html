@@ -9,7 +9,7 @@
     <!--<img float-left src="assets/imgs/logo_1.svg" style="margin-left: 3%;">-->
     <button clear float-left ion-button icon-only (tap)="presentcountryPopover($event)">
       <!--<i class="fas fa-filter fa-2x"></i>-->
-      <i class="flag-global" *ngIf="country == 'global'"></i>
+      <i class="flag-global" style="background-color: rgba(248, 248, 248, 0.5); border-radius: 2rem;" *ngIf="country == 'global'"></i>
       <i class="flag-china" *ngIf="country == 'china'"></i>
       <i class="flag-korea" *ngIf="country == 'korea'"></i>
       <i class="flag-usa" *ngIf="country == 'usa'"></i>
@@ -17,7 +17,7 @@
     </button>
     <button clear float-right ion-button icon-only (tap)="presentfiatPopover($event)">
       <!--<i class="fas fa-filter fa-2x"></i>-->
-      <i class="fa fa-filter fa-2x" aria-hidden="true"></i>
+      <i class="fa fa-filter fa-2x" style="background-color: rgba(248, 248, 248, 0.5); border-radius: 2rem;" aria-hidden="true"></i>
     </button>
   </ion-toolbar>
 
@@ -73,8 +73,10 @@
   <ion-list>
     <ion-item *ngFor="let item of list">
       <text-avatar [text]="item.owner" (tap)="profile(item.owner)" item-left></text-avatar>
-      <h2>{{item.owner}}&nbsp;<i [class]="item.country" *ngIf="country == 'global'"></i></h2>
-      <p>{{'payment.'+item.payment | translate}}</p>
+      <h2>{{item.owner}}</h2>
+      <!-- <h3>{{gettrade(item.owner)}}</h3> -->
+      <i [class]="item.country" *ngIf="country == 'global'"></i>
+      <i *ngFor="let class of item.payment" [class]="class"></i>
       <div item-right text-right>
         <h5 style="color:#02cb66">
           {{item.price | number : '1.2-2'}}&nbsp;{{'fiat.'+item.fiat | translate}}

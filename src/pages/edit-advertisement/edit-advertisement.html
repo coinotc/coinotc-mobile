@@ -67,7 +67,7 @@
     </ion-item>
     <ion-item>
       <ion-label>{{'Payment'}}</ion-label>
-      <ion-select item-right [(ngModel)]="information.payment" formControlName="payment">
+      <ion-select item-right [(ngModel)]="information.payment" multiple="true" formControlName="payment">
         <ion-option value="paypal">paypal</ion-option>
         <ion-option value="bank">bank</ion-option>
         <ion-option value="alipay">alipay</ion-option>
