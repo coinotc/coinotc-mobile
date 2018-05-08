@@ -3,8 +3,8 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { GoogleAuthServiceProvider } from '../../providers/google-auth-service/google-auth-service';
 import { TabsPage } from '../tabs/tabs';
-/** 
- * Generated class for the GoogleAuthInputPage page.
+/**
+ * Generated class for the UnbindGoogleAuthPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,10 +12,10 @@ import { TabsPage } from '../tabs/tabs';
 
 @IonicPage()
 @Component({
-  selector: 'page-google-auth-input',
-  templateUrl: 'google-auth-input.html',
+  selector: 'page-unbind-google-auth',
+  templateUrl: 'unbind-google-auth.html',
 })
-export class GoogleAuthInputPage {
+export class UnbindGoogleAuthPage {
   googleAuthForm: FormGroup;
   password_type = 'password';
   private PASSWORD_PATTERN = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{12,}$/;
@@ -37,20 +37,21 @@ export class GoogleAuthInputPage {
     this.password_type = this.password_type === 'text' ? 'password' : 'text';
   }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GoogleAuthInputPage');
+    console.log('ionViewDidLoad UnbindGoogleAuthPage');
   }
   submitForm() {
+
     let credentials = this.googleAuthForm.value;
     console.log(credentials)
-    this.googleAuthService.sendSixCode(credentials).subscribe(result => {
+    this.googleAuthService.unbind(credentials).subscribe(result => {
       console.log(result)
       if (result == 0) {
         this.toastCtrl
-        .create({
-          message: "Success",
-          duration: 3000
-        })
-        .present();
+          .create({
+            message: "Unbind Success",
+            duration: 3000
+          })
+          .present();
         this.navCtrl.push(TabsPage);
       }
       else if (result == 1) {

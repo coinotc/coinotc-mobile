@@ -19,4 +19,14 @@ export class GoogleAuthServiceProvider {
     let url = `/2fa?username=${username}`;
     return this.apiService.get(url);
   }
+  public sendSixCode(credentials){
+    let url = "/2fa?username";
+    console.log(credentials)
+    return this.apiService.post(url,{credentials:credentials});
+  }
+  public unbind(credentials){
+    let url = "/2fa?username";
+    console.log(credentials)
+    return this.apiService.patch(url,{credentials:credentials});
+  }
 }

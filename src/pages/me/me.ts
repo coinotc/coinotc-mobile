@@ -18,6 +18,7 @@ import { GoogleAuthPage } from '../google-auth/google-auth';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { Profile } from '../../models/profile.model';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
+import { UnbindGoogleAuthPage } from '../unbind-google-auth/unbind-google-auth';
 /**
  * Generated class for the MePage page.
  *
@@ -80,18 +81,15 @@ export class MePage {
     this.appCtrl.getRootNav().push(SettingsPage);
   }
   googleAuth() {
-    this.appCtrl.getRootNav().push(GoogleAuthPage);
+    this.profileService.getProfile(this.user.name).subscribe(result=>{
+      //console.log(result[0].tfa.effective)
+      if(result[0].tfa.effective)
+      this.appCtrl.getRootNav().push(UnbindGoogleAuthPage);
+      else
+      this.appCtrl.getRootNav().push(GoogleAuthPage);
+    })
+    //this.appCtrl.getRootNav().push(GoogleAuthPage);
   }
-  // updateProfileImage() {
-  //   if (this.userService.getCurrentUser().username == '') {
-  //     this.navCtrl.push(AuthPage);
-  //   } else {
-  //     this.appCtrl.getRootNav().push(
-  //       ProfilePage,
-  //       this.userService.getCurrentUser().username
-  //     );
-  //   }
-  // }
   complain() {
     this.appCtrl.getRootNav().push(ComplainPage);
   }
