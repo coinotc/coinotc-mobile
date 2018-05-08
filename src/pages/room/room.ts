@@ -78,7 +78,7 @@ import { ImageViewerController } from 'ionic-img-viewer';
       </div>
       <div *ngIf="orderInfo.finished == 3 && (this.user.username == this.orderInfo.buyer && this.orderInfo.buyerRating == null || this.user.username == this.orderInfo.seller && this.orderInfo.sellerRating == null)">
         <rating [(ngModel)]="rate" readOnly="false" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
-          nullable="false" (ngModelChange)="onComment()">
+          nullable="false">
         </rating>
         <button ion-button round (tap)="onRating()">Confirm Rating</button>
       </div>
