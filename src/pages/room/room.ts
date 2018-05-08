@@ -183,7 +183,7 @@ export class ModalContentPage {
     this.alertServiceProvider
       .onNotification(this.notification)
       .subscribe(result => {
-        console.log(JSON.stringify(result));
+        console.log(result);
       });
     //Send push notification to above alerts
     this.orderServiceProvider
@@ -247,7 +247,6 @@ export class ModalContentPage {
             this.average
           )
           .subscribe(result => {
-            console.log(result);
             for (let i = 0; i < result.length; i++) {
               let triggerAlert = new Notification('', null);
               this.profileServiceProvider
@@ -619,25 +618,6 @@ export class RoomPage {
     if (this.messageInput && this.messageInput.nativeElement) {
       this.messageInput.nativeElement.focus();
     }
-  }
-
-  onComment() {
-    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
-      let ratings = result[0].ratings;
-      ratings.push(this.rate);
-      console.log(ratings);
-    });
-    // this.orderInfo.finished = 0;
-    // this.userService.update(this.user).subscribe();
-    // this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
-    //   let goodCount = result[0].goodCount;
-    //   goodCount++;
-    //   this.profileServiceProvider
-    //     .sendComment(this.trader, goodCount)
-    //     .subscribe();
-    // });
-    // this.events.publish('reloadList');
-    // this.navCtrl.pop();
   }
 
   ionViewDidLeave() {
