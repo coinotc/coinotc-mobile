@@ -60,7 +60,7 @@ export class GoogleAuthInputPage {
             duration: 3000
           })
           .present();
-      } else {
+      } else if (result == 2) {
         this.toastCtrl
           .create({
             message: "Login Password is not correct",
