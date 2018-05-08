@@ -36,7 +36,13 @@ export class ComplainPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ComplainPage');
   }
-
+  ionViewWillEnter() {
+    if(this.user.username){
+      this.complainService.getComplains(this.user.username).subscribe((result) => {
+        this.complains = result;
+      });
+    }
+  }
 }
 
 // mmap

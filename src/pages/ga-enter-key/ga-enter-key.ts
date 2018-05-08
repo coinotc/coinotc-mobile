@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams , App } from 'ionic-angular';
 import { FormBuilder,FormGroup,FormControl,Validators, } from '@angular/forms';
+import { GoogleAuthInputPage } from '../google-auth-input/google-auth-input';
 
 /**
  * Generated class for the GaEnterKeyPage page.
@@ -36,6 +37,6 @@ export class GaEnterKeyPage {
     console.log('ionViewDidLoad GaEnterKeyPage');
   }
   submitForm(){
-    this.appCtrl.getRootNav().push()
+    this.navCtrl.push(GoogleAuthInputPage)
   }
 }

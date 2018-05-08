@@ -43,6 +43,9 @@
           <ion-item *ngIf="authType == 'register' && authForm.controls.username.hasError('minlength') && authForm.controls.username.touched">
             <ion-label style="color:red">Please enter username between 8 and 20.</ion-label>
           </ion-item>
+          <ion-item *ngIf="authType == 'register' && authForm.controls.username.hasError('pattern') && authForm.controls.username.touched">
+            <ion-label style="color:red">Username cannot use special characters.</ion-label>
+          </ion-item>
           <ion-item>
             <ion-label stacked>Email</ion-label>
             <ion-input formControlName="email" autocapitalize="none" type="text"></ion-input>

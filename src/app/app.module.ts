@@ -78,7 +78,9 @@ import { ConfirmTradePasswordCodePage } from '../pages/confirm-trade-password-co
 import { ResetTradePasswordPage } from '../pages/reset-trade-password/reset-trade-password';
 import { ConfirmResetTradePasswordPage } from '../pages/confirm-reset-trade-password/confirm-reset-trade-password';
 import { CustomerSupportPage } from '../pages/customer-support/customer-support';
-
+import { NetworkInterface } from '@ionic-native/network-interface';
+import { GoogleAuthInputPage } from '../pages/google-auth-input/google-auth-input';
+import { UnbindGoogleAuthPage } from '../pages/unbind-google-auth/unbind-google-auth';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -124,7 +126,9 @@ export function createTranslateLoader(http: HttpClient) {
     ConfirmTradePasswordCodePage,
     ResetTradePasswordPage,
     ConfirmResetTradePasswordPage,
-    CustomerSupportPage
+    CustomerSupportPage,
+    GoogleAuthInputPage,
+    UnbindGoogleAuthPage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -191,7 +195,9 @@ export function createTranslateLoader(http: HttpClient) {
     ConfirmTradePasswordCodePage,
     ResetTradePasswordPage,
     ConfirmResetTradePasswordPage,
-    CustomerSupportPage
+    CustomerSupportPage,
+    GoogleAuthInputPage,
+    UnbindGoogleAuthPage
   ],
   providers: [
     StatusBar,
@@ -216,7 +222,8 @@ export function createTranslateLoader(http: HttpClient) {
     Network,
     GoogleAuthServiceProvider,
     PhotoViewer,
-    BannerControlProvider
+    BannerControlProvider,
+    NetworkInterface
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

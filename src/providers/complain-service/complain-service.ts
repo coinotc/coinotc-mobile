@@ -25,6 +25,14 @@ export class ComplainServiceProvider {
     let url = `${this.complainURL}?username=${username}`;
     return this.apiService.get(url);
   }
+  public changeStatus(id, status) {
+    let url = `/complain/changeStatus`;
+    return this.apiService.patch(url, { id: id, status: status });
+  }
+  public patchnewMessage(id,message){
+    let url = `/complain/updateMessage`;
+    return this.apiService.patch(url,{id:id,message:message});
+  }
   public addRoomKey(roomkey,complainId){
     let URL = `${this.complainURL}/roomkey?complainId=${complainId}`;
     return this.apiService.patch(URL, {roomkey:roomkey});

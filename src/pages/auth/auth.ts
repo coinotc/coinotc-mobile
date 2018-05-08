@@ -147,7 +147,8 @@ export class AuthPage {
           Validators.compose([
             Validators.required,
             Validators.minLength(6),
-            Validators.maxLength(18)
+            Validators.maxLength(18),
+            Validators.pattern(/^[a-zA-Z0-9]+$/)
           ])
         ],
         email: [

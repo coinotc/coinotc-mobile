@@ -55,22 +55,22 @@
       <ion-icon name="settings" item-start></ion-icon>
       Settings
     </button>
-    
+
     <button ion-item (tap)="complain()">
       <ion-icon name="text" item-start></ion-icon>
       Support
     </button>
-<!-- <button ion-item (tap)="googleAuth()">
+    <button ion-item (tap)="googleAuth()">
       <ion-icon name="logo-google" item-start></ion-icon>
       Google Authenticator
-    </button> -->
+    </button>
 
 
   </ion-list>
   <ion-list *ngIf="currentuser.username != ''">
     <button ion-item>
       <i class="fal fa-code-commit"></i>
-      0.03 beta
+      v0.03 beta
     </button>
   </ion-list>
 
