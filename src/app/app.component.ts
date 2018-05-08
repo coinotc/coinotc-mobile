@@ -52,7 +52,7 @@ export class MyApp {
   }
 
   private subscribeToData(): void {
-    this.timerSubscription = Observable.timer(5000).subscribe(() =>
+    this.timerSubscription = Observable.timer(3000).subscribe(() =>
       this.refreshData()
     );
   }
@@ -63,7 +63,7 @@ export class MyApp {
       if (result.length) {
         for (let i = 0; i < result.length; i++) {
           this.localNotifications.schedule({
-            id: result[i].username,
+            id: Math.random() * 100000,
             text: result[i].message,
             sound: null
           });
@@ -77,6 +77,10 @@ export class MyApp {
       }
       this.subscribeToData();
     });
+  }
+
+  ionViewWillEnter() {
+    this.refreshData();
   }
 
   ngOnInit() {

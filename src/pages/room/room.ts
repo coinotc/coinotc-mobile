@@ -24,6 +24,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { Observable } from 'rxjs';
 import { ImageViewerController } from 'ionic-img-viewer';
+import { AnonymousSubscription } from 'rxjs/Subscription';
 
 /**
  * Generated class for the RoomPage page.
@@ -31,7 +32,8 @@ import { ImageViewerController } from 'ionic-img-viewer';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-@Component({template:`
+@Component({
+  template: `
 <ion-header>
   <ion-toolbar>
     <ion-title>
@@ -74,7 +76,7 @@ import { ImageViewerController } from 'ionic-img-viewer';
     <div align=center>
       <div *ngIf="orderInfo.finished == 1 || orderInfo.finished ==2">
         <button ion-button large round *ngIf="user.username == orderInfo.seller" [disabled]="orderInfo.finished !== 2" (tap)="onFinished()">{{'Approve' | translate}}</button>
-        <button ion-button large round *ngIf="user.username == orderInfo.buyer" (tap)="onInformed()">{{'Inform' | translate}}</button>
+        <button ion-button large round *ngIf="user.username == orderInfo.buyer" [disabled]="orderInfo.finished !== 1" (tap)="onInformed()">{{'Inform' | translate}}</button>
       </div>
       <div *ngIf="orderInfo.finished == 3 && (this.user.username == this.orderInfo.buyer && this.orderInfo.buyerRating == null || this.user.username == this.orderInfo.seller && this.orderInfo.sellerRating == null)">
         <rating [(ngModel)]="rate" readOnly="false" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
@@ -92,8 +94,10 @@ import { ImageViewerController } from 'ionic-img-viewer';
   <button ion-button round (tap)="onWallet()">{{'Wallet' | translate}}</button>
 </div>
 
-</ion-content>`})
+</ion-content>`
+})
 export class ModalContentPage {
+  private timerSubscription: AnonymousSubscription;
   orderInfo;
   trader;
   user;
@@ -101,7 +105,7 @@ export class ModalContentPage {
   notification = new Notification('', null);
   average;
   rate;
-  
+
   constructor(
     public userService: UserServiceProvider,
     private orderServiceProvider: OrderServiceProvider,
@@ -116,8 +120,8 @@ export class ModalContentPage {
     this.orderInfo = this.params.data.orderInfo;
     this.trader = this.params.data.trader;
     this.user = userService.getCurrentUser();
-    
-   console.log(this.orderInfo)
+
+    console.log(this.orderInfo);
   }
 
   onRefresh() {
@@ -136,7 +140,17 @@ export class ModalContentPage {
         ) {
           this.rateStatus = false;
         }
+        if (this.orderInfo.finished == 1 || this.orderInfo.finished == 2) {
+          this.subscribeToData();
+          console.log('>>>>>>>>>>><<<<<<<<<<<');
+        }
       });
+  }
+
+  private subscribeToData(): void {
+    this.timerSubscription = Observable.timer(3000).subscribe(() =>
+      this.onRefresh()
+    );
   }
 
   onInformed() {
@@ -302,6 +316,10 @@ export class ModalContentPage {
     this.navCtrl.push(WalletPage);
   }
 
+  ionViewDidEnter() {
+    this.onRefresh();
+  }
+
   ionViewDidLeave() {
     this.events.unsubscribe('reloadList');
   }
@@ -320,7 +338,6 @@ export class ModalContentPage {
   selector: 'page-room',
   templateUrl: 'room.html'
 })
-
 export class RoomPage {
   @ViewChild(Content) content: Content;
   @ViewChild('chat_input') messageInput: ElementRef;
@@ -328,7 +345,7 @@ export class RoomPage {
   private user;
   data = { type: '', name: '', message: '', roomname: '' };
   ref = firebase.database().ref('chatrooms/');
-  
+
   chats = [];
   roomkey: any;
   nickname: string;
@@ -347,7 +364,6 @@ export class RoomPage {
   private _imageViewerCtrl: ImageViewerController;
 
   constructor(
-    
     public navParams: NavParams,
     private userService: UserServiceProvider,
     private orderServiceProvider: OrderServiceProvider,
@@ -409,7 +425,8 @@ export class RoomPage {
     var start = new Date().getTime();
     firebase
       .database()
-      .ref('chatrooms/' + this.roomkey + '/chats').limitToLast(this.itemPerPage)
+      .ref('chatrooms/' + this.roomkey + '/chats')
+      .limitToLast(this.itemPerPage)
       .on('value', resp => {
         this.chats = [];
         this.chats = snapshotToArray(resp);
@@ -429,28 +446,29 @@ export class RoomPage {
     var start = new Date().getTime();
     this.itemPerPage = this.itemPerPage + 10;
     firebase
-    .database()
-    .ref('chatrooms/' + this.roomkey + '/chats').limitToLast(this.itemPerPage)
-    .on('value', resp => {
-      this.chats = [];
-      this.chats = snapshotToArray(resp);
-      
-      setTimeout(() => {
-        if (this.offStatus === false) {
-          this.content.scrollToTop(300);
-          if (refresher) {
-            refresher.complete();
+      .database()
+      .ref('chatrooms/' + this.roomkey + '/chats')
+      .limitToLast(this.itemPerPage)
+      .on('value', resp => {
+        this.chats = [];
+        this.chats = snapshotToArray(resp);
+
+        setTimeout(() => {
+          if (this.offStatus === false) {
+            this.content.scrollToTop(300);
+            if (refresher) {
+              refresher.complete();
+            }
           }
-        }
-      }, 500);
-      var end = new Date().getTime();
-      console.log(end - start);
-    });
+        }, 500);
+        var end = new Date().getTime();
+        console.log(end - start);
+      });
   }
 
   sendMessage() {
-    if(this.data.message.trim() != ''){
-        let newData = firebase
+    if (this.data.message.trim() != '') {
+      let newData = firebase
         .database()
         .ref('chatrooms/' + this.roomkey + '/chats')
         .push();
@@ -474,7 +492,7 @@ export class RoomPage {
   }
 
   complain() {
-    console.log(this.orderInfo)
+    console.log(this.orderInfo);
     this.navCtrl.push(ComplainInformationPage, this.orderInfo);
   }
 
@@ -503,28 +521,30 @@ export class RoomPage {
           const filenameStr = `chat/${this.roomkey}_${filename}.jpeg`;
           console.log(filenameStr);
           this.base64Image = 'data:image/jpeg;base64,' + imageData;
-          this.storage.ref(filenameStr).putString(this.base64Image, 'data_url').then((snapshot)=>{
-            console.log("SNAPSHOT ---> ");
-            
-            loading
-              .dismiss()
-              .then(() => {
+          this.storage
+            .ref(filenameStr)
+            .putString(this.base64Image, 'data_url')
+            .then(snapshot => {
+              console.log('SNAPSHOT ---> ');
+
+              loading.dismiss().then(() => {
                 let newData = firebase
                   .database()
                   .ref('chatrooms/' + this.roomkey + '/chats')
                   .push();
-                newData.set({
-                  type: this.data.type,
-                  user: this.data.name,
-                  message: null,
-                  isImage: true,
-                  //base64Image: this.base64Image,
-                  sendDate: Date(),
-                  downloadURL: snapshot.downloadURL
-                }).catch((e)=> console.log(e));
+                newData
+                  .set({
+                    type: this.data.type,
+                    user: this.data.name,
+                    message: null,
+                    isImage: true,
+                    //base64Image: this.base64Image,
+                    sendDate: Date(),
+                    downloadURL: snapshot.downloadURL
+                  })
+                  .catch(e => console.log(e));
+              });
             });
-            
-          });
         },
         err => {
           console.log('Error taking photo', JSON.stringify(err));
@@ -535,7 +555,7 @@ export class RoomPage {
 
   viewAttachedImage(chatImage) {
     // we need to store to the fire storage then keep the url.
-    console.log("Preview image > " + chatImage);
+    console.log('Preview image > ' + chatImage);
     const imageViewer = this._imageViewerCtrl.create(chatImage);
     imageViewer.present();
   }
@@ -564,12 +584,13 @@ export class RoomPage {
           const filename = Math.floor(Date.now() / 1000);
           const filenameStr = `chat/${this.roomkey}_${filename}.jpeg`;
           this.base64Image = 'data:image/jpeg;base64,' + imageData;
-          this.storage.ref(filenameStr).putString(this.base64Image, 'data_url').then((snapshot)=>{
-            console.log("SNAPSHOT " + snapshot);
-            
-            loading
-              .dismiss()
-              .then(() => {
+          this.storage
+            .ref(filenameStr)
+            .putString(this.base64Image, 'data_url')
+            .then(snapshot => {
+              console.log('SNAPSHOT ' + snapshot);
+
+              loading.dismiss().then(() => {
                 let newData = firebase
                   .database()
                   .ref('chatrooms/' + this.roomkey + '/chats')
@@ -584,8 +605,8 @@ export class RoomPage {
                   downloadURL: snapshot.downloadURL
                 });
               });
-            
-          }).catch((e)=> console.log(e));
+            })
+            .catch(e => console.log(e));
         },
         err => {
           console.log('Error taking photo', JSON.stringify(err));
@@ -619,16 +640,16 @@ export class RoomPage {
     // this.navCtrl.pop();
   }
 
- 
-
-
- 
   ionViewDidLeave() {
     this.events.unsubscribe('reloadList');
   }
 
   openModal() {
-    console.log("HELLOOOOOOOBITCHHHHHHHHHH"+ this.navParams.data.order + this.navParams.data.trader)
+    console.log(
+      'HELLOOOOOOOBITCHHHHHHHHHH' +
+        this.navParams.data.order +
+        this.navParams.data.trader
+    );
     let modal = this.modalCtrl.create(ModalContentPage, {
       orderInfo: this.navParams.data.order,
       trader: this.navParams.data.trader,
