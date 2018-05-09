@@ -13,7 +13,6 @@ import { Errors } from '../../models/errors.model';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
 import { NetworkInterface } from '@ionic-native/network-interface';
 import { Storage } from '@ionic/storage';
-
 /**
  * Generated class for the SettingsPage page.
  *
@@ -94,14 +93,19 @@ export class SettingsPage implements OnInit{
       this.translate.use(this.language);
     });
   }
-
+  
   realNameTapped() {
-    let ip =  this.networkInterface.getWiFiIPAddress();
-    //this.navCtrl.push(RealNameVerifiedPage);
-    console.log(ip)
+    // this.ip = this.networkInterface.getWiFiIPAddress().then(function(result) {
+    //   console.log(typeof(result)+"101");
+    //   console.log(result.toString+"102")
+    //   return result;
+    // });
+    // //this.navCtrl.push(RealNameVerifiedPage);
+    // console.log(this.ip + "103")
+    
     let alert = this.alertCtrl.create({
       title: 'Low battery',
-      subTitle: `${ip}`,
+      subTitle: "   ",
       buttons: [{
         text: 'Cancel',
         role: 'cancel',
