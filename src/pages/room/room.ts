@@ -34,7 +34,7 @@ import { AnonymousSubscription } from 'rxjs/Subscription';
  */
 @Component({
   template: `
-<ion-header>
+  <ion-header>
   <ion-toolbar>
     <ion-title>
       Description
@@ -48,53 +48,60 @@ import { AnonymousSubscription } from 'rxjs/Subscription';
 </ion-header>
 <ion-content *ngIf="orderInfo">
 
+  <ion-list>
 
-<ion-list>
+    <ion-item>
+      <span text-capitalize>{{orderInfo.crypto | lowercase}}</span>
+      <span style="float:right">{{("orderStatus." + orderInfo.finished)| translate}}</span>
+    </ion-item>
 
-  <ion-item>
-    <span text-capitalize>{{orderInfo.crypto | lowercase}}</span>
-    <span style="float:right">{{("orderStatus." + orderInfo.finished)| translate}}</span>
-  </ion-item>
-
-  <ion-item>
-    {{'OrderID' | translate}}:
-    <span style="float:right">{{orderInfo._id}}</span>
-    <br> {{'Amount' | translate}}
-    <span style="float:right">{{orderInfo.fiat}} {{orderInfo.amount}}</span>
-    <br> {{'Quantity' | translate}}
-    <span style="float:right">{{orderInfo.quantity}} {{orderInfo.crypto}}</span>
-    <br> {{'Price' | translate}}
-    <span style="float:right">{{orderInfo.price | number : '1.2-2'}} {{orderInfo.fiat}}/{{orderInfo.crypto}}</span>
-    <span *ngIf="orderInfo.owner == user.username">
-      <br>{{'Fee' | translate}}</span>
-    <span *ngIf="orderInfo.owner == user.username" style="float:right">{{0.07 * orderInfo.quantity}} {{orderInfo.crypto}}</span>
-    <br> {{'Buyer' | translate}}:{{orderInfo.buyer}}
-    <span style="float:right">{{'Seller' | translate}}:{{orderInfo.seller}}</span>
-    <br> {{'Message' | translate}}:
-    <span style="float:right">{{orderInfo.message}}</span>
-
-    <div align=center>
-      <div *ngIf="orderInfo.finished == 1 || orderInfo.finished ==2">
-        <button ion-button large round *ngIf="user.username == orderInfo.seller" [disabled]="orderInfo.finished !== 2" (tap)="onFinished()">{{'Approve' | translate}}</button>
-        <button ion-button large round *ngIf="user.username == orderInfo.buyer" [disabled]="orderInfo.finished !== 1" (tap)="onInformed()">{{'Inform' | translate}}</button>
+    <ion-item>
+      {{'OrderID' | translate}}:
+      <span style="float:right">{{orderInfo._id}}</span>
+    </ion-item>
+    <ion-item>
+      {{'Amount' | translate}}
+      <span style="float:right">{{orderInfo.fiat}} {{orderInfo.amount}}</span>
+    </ion-item>
+    <ion-item>{{'Quantity' | translate}}
+      <span style="float:right">{{orderInfo.quantity}} {{orderInfo.crypto}}</span>
+    </ion-item>
+    <ion-item>{{'Price' | translate}}
+      <span style="float:right">{{orderInfo.price | number : '1.2-2'}} {{orderInfo.fiat}}/{{orderInfo.crypto}}</span>
+    </ion-item>
+    <ion-item *ngIf="orderInfo.owner == user.username">{{'Fee' | translate}}
+      <span style="float:right">{{0.07 * orderInfo.quantity}} {{orderInfo.crypto}}</span>
+    </ion-item>
+    <ion-item>{{'Buyer' | translate}}:{{orderInfo.buyer}}
+      <span style="float:right">{{'Seller' | translate}}:{{orderInfo.seller}}</span>
+    </ion-item>
+    <ion-item>{{'Message' | translate}}:
+      <span style="float:right">{{orderInfo.message}}</span>
+    </ion-item>
+    <ion-item>
+      <div align=center>
+        <div *ngIf="orderInfo.finished == 1 || orderInfo.finished ==2">
+          <button ion-button large round full *ngIf="user.username == orderInfo.seller" [disabled]="orderInfo.finished !== 2" (tap)="onFinished()">{{'Approve' | translate}}</button>
+          <button ion-button large round full *ngIf="user.username == orderInfo.buyer" [disabled]="orderInfo.finished !== 1" (tap)="onInformed()">{{'Inform' | translate}}</button>
+        </div>
+        <div *ngIf="orderInfo.finished == 3 && (this.user.username == this.orderInfo.buyer && this.orderInfo.buyerRating == null || this.user.username == this.orderInfo.seller && this.orderInfo.sellerRating == null)">
+          <rating [(ngModel)]="rate" readOnly="false" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
+            nullable="false">
+          </rating>
+          <button ion-button large round full (tap)="onRating()">Confirm Rating</button>
+        </div>
       </div>
-      <div *ngIf="orderInfo.finished == 3 && (this.user.username == this.orderInfo.buyer && this.orderInfo.buyerRating == null || this.user.username == this.orderInfo.seller && this.orderInfo.sellerRating == null)">
-        <rating [(ngModel)]="rate" readOnly="false" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
-          nullable="false">
-        </rating>
-        <button ion-button round (tap)="onRating()">Confirm Rating</button>
-      </div>
-    </div>
-  </ion-item>
+    </ion-item>
 
-</ion-list>
+  </ion-list>
 
-<div align=center>
-  <button ion-button round (tap)="onProfile(trader)">{{'Trader' | translate}}</button>
-  <button ion-button round (tap)="onWallet()">{{'Wallet' | translate}}</button>
-</div>
+  <div align=center>
+    <button ion-button round (tap)="onProfile(trader)">{{'Trader' | translate}}</button>
+    <button ion-button round (tap)="onWallet()">{{'Wallet' | translate}}</button>
+  </div>
 
-</ion-content>`
+</ion-content>
+  `
 })
 export class ModalContentPage {
   private timerSubscription: AnonymousSubscription;
