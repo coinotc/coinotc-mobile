@@ -81,6 +81,7 @@ import { CustomerSupportPage } from '../pages/customer-support/customer-support'
 import { NetworkInterface } from '@ionic-native/network-interface';
 import { GoogleAuthInputPage } from '../pages/google-auth-input/google-auth-input';
 import { UnbindGoogleAuthPage } from '../pages/unbind-google-auth/unbind-google-auth';
+import { GetIpProvider } from '../providers/get-ip/get-ip';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -223,7 +224,8 @@ export function createTranslateLoader(http: HttpClient) {
     GoogleAuthServiceProvider,
     PhotoViewer,
     BannerControlProvider,
-    NetworkInterface
+    NetworkInterface,
+    GetIpProvider
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

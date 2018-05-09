@@ -19,6 +19,7 @@ export class User {
     public firstName:string,
     public lastName:string,
     public gender:string,
-    public country:string
+    public country:string,
+    public ip:Array<any>
   ) {}
 }
