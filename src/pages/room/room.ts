@@ -21,9 +21,10 @@ import { ProfileServiceProvider } from '../../providers/profile-service/profile-
 import { AlertServiceProvider } from '../../providers/alert-service/alert-service';
 import { OrderListPage } from '../order-list/order-list';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { Observable } from 'rxjs';
+import { ImageViewerController } from 'ionic-img-viewer';
+import { AnonymousSubscription } from 'rxjs/Subscription';
 
 /**
  * Generated class for the RoomPage page.
@@ -31,8 +32,9 @@ import { Observable } from 'rxjs';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-@Component({template:`
-<ion-header>
+@Component({
+  template: `
+  <ion-header>
   <ion-toolbar>
     <ion-title>
       Description
@@ -46,54 +48,63 @@ import { Observable } from 'rxjs';
 </ion-header>
 <ion-content *ngIf="orderInfo">
 
+  <ion-list>
 
-<ion-list>
+    <ion-item>
+      <span text-capitalize>{{orderInfo.crypto | lowercase}}</span>
+      <span style="float:right">{{("orderStatus." + orderInfo.finished)| translate}}</span>
+    </ion-item>
 
-  <ion-item>
-    <span text-capitalize>{{orderInfo.crypto | lowercase}}</span>
-    <span style="float:right">{{("orderStatus." + orderInfo.finished)| translate}}</span>
-  </ion-item>
-
-  <ion-item>
-    {{'OrderID' | translate}}:
-    <span style="float:right">{{orderInfo._id}}</span>
-    <br> {{'Amount' | translate}}
-    <span style="float:right">{{orderInfo.fiat}} {{orderInfo.amount}}</span>
-    <br> {{'Quantity' | translate}}
-    <span style="float:right">{{orderInfo.quantity}} {{orderInfo.crypto}}</span>
-    <br> {{'Price' | translate}}
-    <span style="float:right">{{orderInfo.price | number : '1.2-2'}} {{orderInfo.fiat}}/{{orderInfo.crypto}}</span>
-    <span *ngIf="orderInfo.owner == user.username">
-      <br>{{'Fee' | translate}}</span>
-    <span *ngIf="orderInfo.owner == user.username" style="float:right">{{0.07 * orderInfo.quantity}} {{orderInfo.crypto}}</span>
-    <br> {{'Buyer' | translate}}:{{orderInfo.buyer}}
-    <span style="float:right">{{'Seller' | translate}}:{{orderInfo.seller}}</span>
-    <br> {{'Message' | translate}}:
-    <span style="float:right">{{orderInfo.message}}</span>
-
-    <div align=center>
-      <div *ngIf="orderInfo.finished == 1 || orderInfo.finished ==2">
-        <button ion-button large round *ngIf="user.username == orderInfo.seller" [disabled]="orderInfo.finished !== 2" (tap)="onFinished()">{{'Approve' | translate}}</button>
-        <button ion-button large round *ngIf="user.username == orderInfo.buyer" (tap)="onInformed()">{{'Inform' | translate}}</button>
+    <ion-item>
+      {{'OrderID' | translate}}:
+      <span style="float:right">{{orderInfo._id}}</span>
+    </ion-item>
+    <ion-item>
+      {{'Amount' | translate}}
+      <span style="float:right">{{orderInfo.fiat}} {{orderInfo.amount}}</span>
+    </ion-item>
+    <ion-item>{{'Quantity' | translate}}
+      <span style="float:right">{{orderInfo.quantity}} {{orderInfo.crypto}}</span>
+    </ion-item>
+    <ion-item>{{'Price' | translate}}
+      <span style="float:right">{{orderInfo.price | number : '1.2-2'}} {{orderInfo.fiat}}/{{orderInfo.crypto}}</span>
+    </ion-item>
+    <ion-item *ngIf="orderInfo.owner == user.username">{{'Fee' | translate}}
+      <span style="float:right">{{0.07 * orderInfo.quantity}} {{orderInfo.crypto}}</span>
+    </ion-item>
+    <ion-item>{{'Buyer' | translate}}:{{orderInfo.buyer}}
+      <span style="float:right">{{'Seller' | translate}}:{{orderInfo.seller}}</span>
+    </ion-item>
+    <ion-item>{{'Message' | translate}}:
+      <span style="float:right">{{orderInfo.message}}</span>
+    </ion-item>
+    <ion-item>
+      <div align=center>
+        <div *ngIf="orderInfo.finished == 1 || orderInfo.finished ==2">
+          <button ion-button large round full *ngIf="user.username == orderInfo.seller" [disabled]="orderInfo.finished !== 2" (tap)="onFinished()">{{'Approve' | translate}}</button>
+          <button ion-button large round full *ngIf="user.username == orderInfo.buyer" [disabled]="orderInfo.finished !== 1" (tap)="onInformed()">{{'Inform' | translate}}</button>
+        </div>
+        <div *ngIf="orderInfo.finished == 3 && (this.user.username == this.orderInfo.buyer && this.orderInfo.buyerRating == null || this.user.username == this.orderInfo.seller && this.orderInfo.sellerRating == null)">
+          <rating [(ngModel)]="rate" readOnly="false" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
+            nullable="false">
+          </rating>
+          <button ion-button large round full (tap)="onRating()">Confirm Rating</button>
+        </div>
       </div>
-      <div *ngIf="orderInfo.finished == 3 && (this.user.username == this.orderInfo.buyer && this.orderInfo.buyerRating == null || this.user.username == this.orderInfo.seller && this.orderInfo.sellerRating == null)">
-        <rating [(ngModel)]="rate" readOnly="false" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
-          nullable="false" (ngModelChange)="onComment()">
-        </rating>
-        <button ion-button round (tap)="onRating()">Confirm Rating</button>
-      </div>
-    </div>
-  </ion-item>
+    </ion-item>
 
-</ion-list>
+  </ion-list>
 
-<div align=center>
-  <button ion-button round (tap)="onProfile(trader)">{{'Trader' | translate}}</button>
-  <button ion-button round (tap)="onWallet()">{{'Wallet' | translate}}</button>
-</div>
+  <div align=center>
+    <button ion-button round (tap)="onProfile(trader)">{{'Trader' | translate}}</button>
+    <button ion-button round (tap)="onWallet()">{{'Wallet' | translate}}</button>
+  </div>
 
-</ion-content>`})
+</ion-content>
+  `
+})
 export class ModalContentPage {
+  private timerSubscription: AnonymousSubscription;
   orderInfo;
   trader;
   user;
@@ -112,14 +123,12 @@ export class ModalContentPage {
     public viewCtrl: ViewController,
     public navCtrl: NavController,
     private events: Events
-  
   ) {
-   this.orderInfo = this.params.data.orderInfo;
-   this.trader = this.params.data.trader;
-   this.user = userService.getCurrentUser();
-   
+    this.orderInfo = this.params.data.orderInfo;
+    this.trader = this.params.data.trader;
+    this.user = userService.getCurrentUser();
 
-   console.log(this.orderInfo)
+    console.log(this.orderInfo);
   }
 
   onRefresh() {
@@ -138,7 +147,17 @@ export class ModalContentPage {
         ) {
           this.rateStatus = false;
         }
+        if (this.orderInfo.finished == 1 || this.orderInfo.finished == 2) {
+          this.subscribeToData();
+          console.log('>>>>>>>>>>><<<<<<<<<<<');
+        }
       });
+  }
+
+  private subscribeToData(): void {
+    this.timerSubscription = Observable.timer(3000).subscribe(() =>
+      this.onRefresh()
+    );
   }
 
   onInformed() {
@@ -171,7 +190,7 @@ export class ModalContentPage {
     this.alertServiceProvider
       .onNotification(this.notification)
       .subscribe(result => {
-        console.log(JSON.stringify(result));
+        console.log(result);
       });
     //Send push notification to above alerts
     this.orderServiceProvider
@@ -235,7 +254,6 @@ export class ModalContentPage {
             this.average
           )
           .subscribe(result => {
-            console.log(result);
             for (let i = 0; i < result.length; i++) {
               let triggerAlert = new Notification('', null);
               this.profileServiceProvider
@@ -304,6 +322,10 @@ export class ModalContentPage {
     this.navCtrl.push(WalletPage);
   }
 
+  ionViewDidEnter() {
+    this.onRefresh();
+  }
+
   ionViewDidLeave() {
     this.events.unsubscribe('reloadList');
   }
@@ -322,7 +344,6 @@ export class ModalContentPage {
   selector: 'page-room',
   templateUrl: 'room.html'
 })
-
 export class RoomPage {
   @ViewChild(Content) content: Content;
   @ViewChild('chat_input') messageInput: ElementRef;
@@ -330,7 +351,7 @@ export class RoomPage {
   private user;
   data = { type: '', name: '', message: '', roomname: '' };
   ref = firebase.database().ref('chatrooms/');
-  
+
   chats = [];
   roomkey: any;
   nickname: string;
@@ -346,9 +367,9 @@ export class RoomPage {
   rateStatus;
   itemPerPage: number = 10;
   chatsObservable$: any;
+  private _imageViewerCtrl: ImageViewerController;
 
   constructor(
-    
     public navParams: NavParams,
     private userService: UserServiceProvider,
     private orderServiceProvider: OrderServiceProvider,
@@ -358,12 +379,13 @@ export class RoomPage {
     private events: Events,
     public camera: Camera,
     public platform: Platform,
-    private photoViewer: PhotoViewer,
     private storage: AngularFireStorage,
     private loadingCtrl: LoadingController,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private imageViewerCtrl: ImageViewerController
   ) {
     this.events.unsubscribe('reloadtrade');
+    this._imageViewerCtrl = imageViewerCtrl;
     this.user = userService.getCurrentUser();
     this.data.name = this.user.username;
     this.nickname = this.user.username;
@@ -409,7 +431,8 @@ export class RoomPage {
     var start = new Date().getTime();
     firebase
       .database()
-      .ref('chatrooms/' + this.roomkey + '/chats').limitToLast(this.itemPerPage)
+      .ref('chatrooms/' + this.roomkey + '/chats')
+      .limitToLast(this.itemPerPage)
       .on('value', resp => {
         this.chats = [];
         this.chats = snapshotToArray(resp);
@@ -429,28 +452,29 @@ export class RoomPage {
     var start = new Date().getTime();
     this.itemPerPage = this.itemPerPage + 10;
     firebase
-    .database()
-    .ref('chatrooms/' + this.roomkey + '/chats').limitToLast(this.itemPerPage)
-    .on('value', resp => {
-      this.chats = [];
-      this.chats = snapshotToArray(resp);
-      
-      setTimeout(() => {
-        if (this.offStatus === false) {
-          this.content.scrollToTop(300);
-          if (refresher) {
-            refresher.complete();
+      .database()
+      .ref('chatrooms/' + this.roomkey + '/chats')
+      .limitToLast(this.itemPerPage)
+      .on('value', resp => {
+        this.chats = [];
+        this.chats = snapshotToArray(resp);
+
+        setTimeout(() => {
+          if (this.offStatus === false) {
+            this.content.scrollToTop(300);
+            if (refresher) {
+              refresher.complete();
+            }
           }
-        }
-      }, 500);
-      var end = new Date().getTime();
-      console.log(end - start);
-    });
+        }, 500);
+        var end = new Date().getTime();
+        console.log(end - start);
+      });
   }
 
   sendMessage() {
-    if(this.data.message.trim() != ''){
-        let newData = firebase
+    if (this.data.message.trim() != '') {
+      let newData = firebase
         .database()
         .ref('chatrooms/' + this.roomkey + '/chats')
         .push();
@@ -474,7 +498,7 @@ export class RoomPage {
   }
 
   complain() {
-    console.log(this.orderInfo)
+    console.log(this.orderInfo);
     this.navCtrl.push(ComplainInformationPage, this.orderInfo);
   }
 
@@ -503,28 +527,30 @@ export class RoomPage {
           const filenameStr = `chat/${this.roomkey}_${filename}.jpeg`;
           console.log(filenameStr);
           this.base64Image = 'data:image/jpeg;base64,' + imageData;
-          this.storage.ref(filenameStr).putString(this.base64Image, 'data_url').then((snapshot)=>{
-            console.log("SNAPSHOT ---> ");
-            
-            loading
-              .dismiss()
-              .then(() => {
+          this.storage
+            .ref(filenameStr)
+            .putString(this.base64Image, 'data_url')
+            .then(snapshot => {
+              console.log('SNAPSHOT ---> ');
+
+              loading.dismiss().then(() => {
                 let newData = firebase
                   .database()
                   .ref('chatrooms/' + this.roomkey + '/chats')
                   .push();
-                newData.set({
-                  type: this.data.type,
-                  user: this.data.name,
-                  message: null,
-                  isImage: true,
-                  //base64Image: this.base64Image,
-                  sendDate: Date(),
-                  downloadURL: snapshot.downloadURL
-                }).catch((e)=> console.log(e));
+                newData
+                  .set({
+                    type: this.data.type,
+                    user: this.data.name,
+                    message: null,
+                    isImage: true,
+                    //base64Image: this.base64Image,
+                    sendDate: Date(),
+                    downloadURL: snapshot.downloadURL
+                  })
+                  .catch(e => console.log(e));
+              });
             });
-            
-          });
         },
         err => {
           console.log('Error taking photo', JSON.stringify(err));
@@ -533,12 +559,11 @@ export class RoomPage {
     }
   }
 
-  viewAttachedImage(chat) {
+  viewAttachedImage(chatImage) {
     // we need to store to the fire storage then keep the url.
-    console.log("Preview image > " + chat.downloadURL);
-    if(chat.downloadURL){
-      this.photoViewer.show(chat.downloadURL);
-    }
+    console.log('Preview image > ' + chatImage);
+    const imageViewer = this._imageViewerCtrl.create(chatImage);
+    imageViewer.present();
   }
 
   takePhoto() {
@@ -565,12 +590,13 @@ export class RoomPage {
           const filename = Math.floor(Date.now() / 1000);
           const filenameStr = `chat/${this.roomkey}_${filename}.jpeg`;
           this.base64Image = 'data:image/jpeg;base64,' + imageData;
-          this.storage.ref(filenameStr).putString(this.base64Image, 'data_url').then((snapshot)=>{
-            console.log("SNAPSHOT " + snapshot);
-            
-            loading
-              .dismiss()
-              .then(() => {
+          this.storage
+            .ref(filenameStr)
+            .putString(this.base64Image, 'data_url')
+            .then(snapshot => {
+              console.log('SNAPSHOT ' + snapshot);
+
+              loading.dismiss().then(() => {
                 let newData = firebase
                   .database()
                   .ref('chatrooms/' + this.roomkey + '/chats')
@@ -585,8 +611,8 @@ export class RoomPage {
                   downloadURL: snapshot.downloadURL
                 });
               });
-            
-          }).catch((e)=> console.log(e));
+            })
+            .catch(e => console.log(e));
         },
         err => {
           console.log('Error taking photo', JSON.stringify(err));
@@ -601,35 +627,11 @@ export class RoomPage {
     }
   }
 
-  onComment() {
-    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
-      let ratings = result[0].ratings;
-      ratings.push(this.rate);
-      console.log(ratings);
-    });
-    // this.orderInfo.finished = 0;
-    // this.userService.update(this.user).subscribe();
-    // this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
-    //   let goodCount = result[0].goodCount;
-    //   goodCount++;
-    //   this.profileServiceProvider
-    //     .sendComment(this.trader, goodCount)
-    //     .subscribe();
-    // });
-    // this.events.publish('reloadList');
-    // this.navCtrl.pop();
-  }
-
- 
-
-
- 
   ionViewDidLeave() {
     this.events.unsubscribe('reloadList');
   }
 
   openModal() {
-    console.log( this.navParams.data.order + this.navParams.data.trader)
     let modal = this.modalCtrl.create(ModalContentPage, {
       orderInfo: this.navParams.data.order,
       trader: this.navParams.data.trader,

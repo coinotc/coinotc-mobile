@@ -17,7 +17,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AuthPageModule } from '../pages/auth/auth.module';
 import { WalletPage } from '../pages/wallet/wallet';
-import { TradePage, countryPopoverPage, fiatPopoverPage } from '../pages/trade/trade';
+import {
+  TradePage,
+  countryPopoverPage,
+  fiatPopoverPage
+} from '../pages/trade/trade';
 import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement';
 import { OrderListPage } from '../pages/order-list/order-list';
 import { AlertPage, AddAlertPage } from '../pages/alert/alert';
@@ -66,11 +70,11 @@ import { Ionic2RatingModule } from 'ionic2-rating';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireStorageModule } from 'angularfire2/storage';
-import { firebaseconfig }  from '../../environments/firebase-config'; 
-import { SendMailPage } from '../pages/send-mail/send-mail'; 
+import { firebaseconfig } from '../../environments/firebase-config';
+import { SendMailPage } from '../pages/send-mail/send-mail';
 import { ModalContentPage } from '../pages/room/room';
-import { ForgetPasswordPage} from '../pages/forget-password/forget-password';
-import { ForgetVerifySixPinPage } from '../pages/forget-verify-six-pin/forget-verify-six-pin'
+import { ForgetPasswordPage } from '../pages/forget-password/forget-password';
+import { ForgetVerifySixPinPage } from '../pages/forget-verify-six-pin/forget-verify-six-pin';
 import { BannerControlProvider } from '../providers/banner-control/banner-control';
 import { SetNewPasswordPage } from '../pages/set-new-password/set-new-password';
 import { ForgetTradePasswordTextPage } from '../pages/forget-trade-password-text/forget-trade-password-text';
@@ -78,6 +82,8 @@ import { ConfirmTradePasswordCodePage } from '../pages/confirm-trade-password-co
 import { ResetTradePasswordPage } from '../pages/reset-trade-password/reset-trade-password';
 import { ConfirmResetTradePasswordPage } from '../pages/confirm-reset-trade-password/confirm-reset-trade-password';
 import { CustomerSupportPage } from '../pages/customer-support/customer-support';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { NotificationServiceProvider } from '../providers/notification-service/notification-service';
 import { NetworkInterface } from '@ionic-native/network-interface';
 import { GoogleAuthInputPage } from '../pages/google-auth-input/google-auth-input';
 import { UnbindGoogleAuthPage } from '../pages/unbind-google-auth/unbind-google-auth';
@@ -224,6 +230,8 @@ export function createTranslateLoader(http: HttpClient) {
     GoogleAuthServiceProvider,
     PhotoViewer,
     BannerControlProvider,
+    LocalNotifications,
+    NotificationServiceProvider
     NetworkInterface,
     GetIpProvider
   ],

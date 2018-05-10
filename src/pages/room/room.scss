@@ -1,8 +1,16 @@
 page-room {
   ion-content {
-    background: #56CCF2;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #56ccf2; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to left,
+      #2f80ed,
+      #56ccf2
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to left,
+      #2f80ed,
+      #56ccf2
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background-size: cover;
     height: 100%;
     overflow: hidden;
@@ -107,6 +115,19 @@ page-room {
       border-top: 0;
       margin-top: -13.5px;
       margin-left: -27px;
+    }
+  }
+}
+ul {
+  padding: 0px;
+
+  &.rating li {
+    padding: 5px 10px !important;
+    background: none;
+    color: #ffb400;
+
+    ion-icon {
+      font-size: 30px;
     }
   }
 }

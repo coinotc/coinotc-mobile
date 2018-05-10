@@ -83,8 +83,9 @@ export class SettingsPage implements OnInit {
     console.log('ngOnInit');
   }
 
-  initializeCurrencies() {
-    this.currencyService.getCurrencies().subscribe(currencies => {
+  initializeCurrencies(){
+    this.currencyService.getCurrencies().subscribe(currencies=>{
+      console.log("currencies ==> " + currencies);
       let currenciesCode = _.keys(currencies);
       let currenciesDesc = _.values(currencies);
       let currenciesArr = [];
