@@ -57,7 +57,6 @@ import { FCM } from '@ionic-native/fcm';
 import { ComplainPage } from '../pages/complain/complain';
 import { AdvertisementsPage } from '../pages/advertisements/advertisements';
 import { TrustedPage } from '../pages/trusted/trusted';
-import { ScrollingHeaderModule } from 'ionic-scrolling-header';
 import { ElasticHeaderModule } from 'ionic2-elastic-header/dist';
 import { Network } from '@ionic-native/network';
 import { EditAdvertisementPage } from '../pages/edit-advertisement/edit-advertisement';
@@ -84,7 +83,6 @@ import { ConfirmResetTradePasswordPage } from '../pages/confirm-reset-trade-pass
 import { CustomerSupportPage } from '../pages/customer-support/customer-support';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { NotificationServiceProvider } from '../providers/notification-service/notification-service';
-import { NetworkInterface } from '@ionic-native/network-interface';
 import { GoogleAuthInputPage } from '../pages/google-auth-input/google-auth-input';
 import { UnbindGoogleAuthPage } from '../pages/unbind-google-auth/unbind-google-auth';
 import { GetIpProvider } from '../providers/get-ip/get-ip';
@@ -149,7 +147,6 @@ export function createTranslateLoader(http: HttpClient) {
     MePageModule,
     RoomPageModule,
     IonicStorageModule.forRoot(),
-    ScrollingHeaderModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -159,7 +156,6 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     AdinformationPageModule,
     ElasticHeaderModule,
-    ScrollingHeaderModule,
     Ionic2RatingModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseconfig),
@@ -231,10 +227,9 @@ export function createTranslateLoader(http: HttpClient) {
     PhotoViewer,
     BannerControlProvider,
     LocalNotifications,
-    NotificationServiceProvider
-    NetworkInterface,
+    NotificationServiceProvider,
     GetIpProvider
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule {}
+export class AppModule { }

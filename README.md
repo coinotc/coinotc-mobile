@@ -1,3 +1,5 @@
+##angularfire2 fix
+replace angularfire2 node_module folder with this https://github.com/angular/angularfire2/files/1977627/dist.zip
 
 #### Legend
 - [ ] Yet To Be Done
@@ -8,19 +10,19 @@
 
 ---------------------
 
-### Issue Checklist 
+### Issue Checklist
 
 ---------------------
 
 - [x] #52 (iOS/Android) ERROR: cordova not available.
-- [x] #53 (iOS/Android) Double Tab selection on Me Tab after Logout. 
+- [x] #53 (iOS/Android) Double Tab selection on Me Tab after Logout.
 - [x] #54 (iOS/Android) Form Validation Prompts for Register & Log In
-- [x] #55 (iOS/Android) Password Validation Policy 
+- [x] #55 (iOS/Android) Password Validation Policy
 - [x] #56 (iOS/Android) Trade Password 6-PIN Validation & Encryption
 - [x] #58 (iOS/Android) Profile => Advertisement Page w/o details
 - [ ] #59 (iOS/Android) FEATURE: Forget Password
 - [x] #78 (iOS/Android) Order List not refreshed when new order is made
-- [ ] #79 (iOS/Android) In-App Badge Notifications 
+- [ ] #79 (iOS/Android) In-App Badge Notifications
 - [ ] #80 (iOS/Android) Chat Bubble covered by Order Information
 - [x] #81 (iOS/Android) Tab Component is visible in Chat
 - [x] #82 (iOS/Android) Add Currency symbols to fiat & crypto values
@@ -28,7 +30,7 @@
 - [x] #84 (iOS/Android) Clean Up Complain Page
 - [x] #85 (iOS/Android) Implement Slug for complain ID
 - [x] #86 (iOS/Android) Implement GO button in keyboard (Chat)
-- [x] #87 (iOS/Android) Add other Order Status 
+- [x] #87 (iOS/Android) Add other Order Status
 - [x] #88 (iOS/Android) Change rating flow
 - [x] #89 (iOS/Android) Change rating system to Stars
 - [x] #90 (iOS/Android) Change order info from card to list
@@ -55,7 +57,7 @@
 ```html
 <meta http-equiv="Content-Security-Policy" content="font-src 'self' data:; img-src * data:; default-src gap://ready file://* *; script-src 'self' 'unsafe-inline' 'unsafe-eval' * ; style-src 'self' 'unsafe-inline' *">
 ```
-* Terminal run 
+* Terminal run
 ```
 ionic cordova run android --livereload-host --livereload -c
 ```

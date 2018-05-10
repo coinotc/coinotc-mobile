@@ -38,6 +38,7 @@ export class RealNameVerifiedPage {
     '',
     '',
     '',
+    '',
     null
   );
   constructor(
