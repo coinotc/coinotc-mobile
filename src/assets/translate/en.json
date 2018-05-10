@@ -68,7 +68,7 @@
     "2": "Pending Crypto",
     "3": "Pending Rating"
   },
-  "limit": "Interval",
+  "limit": "Limit",
   "MinLimit": "Min Limit",
   "MaxLimit": "Max Limit",
   "Payment": "Payment",

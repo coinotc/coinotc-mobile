@@ -54,7 +54,7 @@ import { ComplainPage } from '../pages/complain/complain';
 import { AdvertisementsPage } from '../pages/advertisements/advertisements';
 import { TrustedPage } from '../pages/trusted/trusted';
 import { ScrollingHeaderModule } from 'ionic-scrolling-header';
-import { ElasticHeaderModule } from 'ionic2-elastic-header/dist';
+import { IonAffixModule } from 'ion-affix';
 import { Network } from '@ionic-native/network';
 import { EditAdvertisementPage } from '../pages/edit-advertisement/edit-advertisement';
 import { GoogleAuthPage } from '../pages/google-auth/google-auth';
@@ -66,10 +66,10 @@ import { Ionic2RatingModule } from 'ionic2-rating';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireStorageModule } from 'angularfire2/storage';
-import { firebaseconfig }  from '../../environments/firebase-config'; 
-import { SendMailPage } from '../pages/send-mail/send-mail'; 
+import { firebaseconfig } from '../../environments/firebase-config';
+import { SendMailPage } from '../pages/send-mail/send-mail';
 import { ModalContentPage } from '../pages/room/room';
-import { ForgetPasswordPage} from '../pages/forget-password/forget-password';
+import { ForgetPasswordPage } from '../pages/forget-password/forget-password';
 import { ForgetVerifySixPinPage } from '../pages/forget-verify-six-pin/forget-verify-six-pin'
 import { BannerControlProvider } from '../providers/banner-control/banner-control';
 import { SetNewPasswordPage } from '../pages/set-new-password/set-new-password';
@@ -151,13 +151,12 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     AdinformationPageModule,
-    ElasticHeaderModule,
-    ScrollingHeaderModule,
     Ionic2RatingModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseconfig),
     AngularFireStorageModule,
-    ModifyPasswordPageModule
+    ModifyPasswordPageModule,
+    IonAffixModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -227,4 +226,4 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule {}
+export class AppModule { }
