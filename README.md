@@ -1,5 +1,5 @@
 ##angularfire2 fix
-replace angularfire2 node_module folder with this https://github.com/angular/angularfire2/files/1977627/dist.zip
+add angularfire2 node_module folder with this https://github.com/angular/angularfire2/files/1977627/dist.zip
 
 #### Legend
 - [ ] Yet To Be Done
