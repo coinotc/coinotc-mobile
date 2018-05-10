@@ -156,7 +156,12 @@ export class UserServiceProvider {
       return data;
     });
   }
-
+  updateRegion(region): Observable<User> {
+    return this.apiService.put('/users/region', region).map(data => {
+      this.storage.ready().then(() => this.storage.set('nativeRegion', region) as Promise<void>);
+      return data;
+    });
+  }
   public signUp(credentials, deviceToken , tradepassword,ip): Observable<User> {
     return this.apiService
       .post('/users', { user: credentials, deviceToken: deviceToken ,tradepassword: tradepassword ,ip:ip})

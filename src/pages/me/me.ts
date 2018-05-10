@@ -37,6 +37,7 @@ export class MePage {
   model = new Profile(null, null, null, null, null);
   followingCount;
   followerCount;
+  rating = 0
   user = {
     name: 'Default user',
     email: '',
@@ -48,9 +49,9 @@ export class MePage {
     public navParams: NavParams,
     public userService: UserServiceProvider,
     public toastCtrl: ToastController,
-    public appCtrl:App,
+    public appCtrl: App,
     public profileService: ProfileServiceProvider,
-    public orderService:OrderServiceProvider
+    public orderService: OrderServiceProvider
   ) {
     this.currentuser = this.userService.getCurrentUser();
     this.user.name = this.currentuser.username;
@@ -62,12 +63,21 @@ export class MePage {
   }
   doRefresh() {
     this.profileService.getProfile(this.user.name).subscribe(result => {
+      
+      console.log(result[0].ratings+"111111111111111111111");
+      if (!(result[0].ratings.length == 0)) {
+        for (var _i = 0; _i < result[0].rating.length; _i++) {
+          var num = result[0].rating[_i]
+          console.log(num);
+          this.rating = this.rating + num;
+        }
+        this.rating = this.rating / result[0].ratings.length;
+      }
       this.model = result[0];
-      console.log(this.model);
       this.followerCount = this.model.followers.length;
       this.followingCount = this.model.following.length;
     });
-    this.orderService.getMyTrade(this.user.name).subscribe(result=>{
+    this.orderService.getMyTrade(this.user.name).subscribe(result => {
       this.model.orderCount = result;
     })
   }
@@ -81,12 +91,12 @@ export class MePage {
     this.appCtrl.getRootNav().push(SettingsPage);
   }
   googleAuth() {
-    this.profileService.getProfile(this.user.name).subscribe(result=>{
+    this.profileService.getProfile(this.user.name).subscribe(result => {
       //console.log(result[0].tfa.effective)
-      if(result[0].tfa.effective)
-      this.appCtrl.getRootNav().push(UnbindGoogleAuthPage);
+      if (result[0].tfa.effective)
+        this.appCtrl.getRootNav().push(UnbindGoogleAuthPage);
       else
-      this.appCtrl.getRootNav().push(GoogleAuthPage);
+        this.appCtrl.getRootNav().push(GoogleAuthPage);
     })
     //this.appCtrl.getRootNav().push(GoogleAuthPage);
   }
