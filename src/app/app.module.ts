@@ -86,6 +86,7 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
 import { GoogleAuthInputPage } from '../pages/google-auth-input/google-auth-input';
 import { UnbindGoogleAuthPage } from '../pages/unbind-google-auth/unbind-google-auth';
 import { GetIpProvider } from '../providers/get-ip/get-ip';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -160,7 +161,8 @@ export function createTranslateLoader(http: HttpClient) {
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseconfig),
     AngularFireStorageModule,
-    ModifyPasswordPageModule
+    ModifyPasswordPageModule,
+    IonicImageViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -228,8 +230,9 @@ export function createTranslateLoader(http: HttpClient) {
     BannerControlProvider,
     LocalNotifications,
     NotificationServiceProvider,
-    GetIpProvider
+    GetIpProvider,
+    IonicImageViewerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {}
