@@ -31,7 +31,7 @@ export class EditAdvertisementPage {
     null,
     null,
     null,
-    '',
+    [],
     null,
     '',
     null

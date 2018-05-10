@@ -632,11 +632,6 @@ export class RoomPage {
   }
 
   openModal() {
-    console.log(
-      'HELLOOOOOOOBITCHHHHHHHHHH' +
-        this.navParams.data.order +
-        this.navParams.data.trader
-    );
     let modal = this.modalCtrl.create(ModalContentPage, {
       orderInfo: this.navParams.data.order,
       trader: this.navParams.data.trader,

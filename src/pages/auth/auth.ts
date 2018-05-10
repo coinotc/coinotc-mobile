@@ -25,6 +25,7 @@ import { Network } from '@ionic-native/network';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { SendMailPage } from '../send-mail/send-mail';
 import { ForgetPasswordPage } from '../forget-password/forget-password';
+import { GetIpProvider } from '../../providers/get-ip/get-ip';
 /**
  * Generated class for the AuthPage page.
  *
@@ -47,7 +48,6 @@ export class AuthPage {
   password = 'password';
   password_type = 'password';
   confirm_password_type = 'password';
-
   onlineToast: any;
   offlineToast: any;
   private PASSWORD_PATTERN = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{12,}$/;
@@ -64,7 +64,8 @@ export class AuthPage {
     private platform: Platform,
     private network: Network,
     private loadingCtrl: LoadingController,
-    public appCtrl: App
+    public appCtrl: App,
+    public getIpService: GetIpProvider
   ) {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
@@ -147,7 +148,8 @@ export class AuthPage {
           Validators.compose([
             Validators.required,
             Validators.minLength(6),
-            Validators.maxLength(18)
+            Validators.maxLength(18),
+            Validators.pattern(/^[a-zA-Z0-9]+$/)
           ])
         ],
         email: [
@@ -195,7 +197,7 @@ export class AuthPage {
   submitForm() {
     this.password_type = "password";
     this.confirm_password_type = "password";
-    
+
     let loading = this.loadingCtrl.create({
       spinner: 'circles',
       content: 'loading...',
@@ -205,67 +207,71 @@ export class AuthPage {
     console.log(this.deviceToken);
     this.isSubmitting = true;
     const credentials = this.authForm.value;
-    if(this.authType == "login"){
-      this.userService
-      .attemptAuth("login", credentials, this.deviceToken)
-      .subscribe(
-        user => {
-          console.log(user.active)
-          if(user.active==false)
-          this.navCtrl.push(SendMailPage)
-          else{
-          console.log('subscribe user!!!');
-          if (this.isModal) this.viewCtrl.dismiss();
-          this.displayTabs();
-          console.log('Login ....' + this.navCtrl.parent);
-          loading
-            .dismiss()
-            .then(() => {
-              this.appCtrl.getRootNav().setRoot(TabsPage);
-              loading = null;
-              let updater = this.userService.getCurrentUser().username;
-              console.log(updater);
-              this.profileServiceProvider
-                .updateDeviceToken(updater, this.deviceToken)
-                .subscribe(result => {
-                  console.log('...update deviceToken successfully...');
-                });
-            })
-            .catch(e => console.log(e));
-        }
-        },
-        (errors: Errors) => {
-          for (let field in errors.errors) {
-            if(typeof field !== 'undefined'){
-              console.log(field);
-              let errorMessage = errors.errors[field]['message'];
-              if(typeof errors.errors[field]['message'] === 'undefined'){
-                errorMessage = errors.errors[field];
+    if (this.authType == "login") {
+      this.getIpService.getIP().subscribe(ip => {
+        this.userService
+          .login(credentials , ip)
+          .subscribe(
+            user => {
+              console.log(user.active)
+              if (user.active == false)
+                this.navCtrl.push(SendMailPage)
+              else {
+                console.log('subscribe user!!!');
+                if (this.isModal) this.viewCtrl.dismiss();
+                this.displayTabs();
+                console.log('Login ....' + this.navCtrl.parent);
+                loading
+                  .dismiss()
+                  .then(() => {
+                    this.appCtrl.getRootNav().setRoot(TabsPage);
+                    loading = null;
+                    let updater = this.userService.getCurrentUser().username;
+                    console.log(updater);
+                    this.profileServiceProvider
+                      .updateDeviceToken(updater, this.deviceToken)
+                      .subscribe(result => {
+                        console.log('...update deviceToken successfully...');
+                      });
+                  })
+                  .catch(e => console.log(e));
               }
-              this.toastCtrl
-              .create({
-                message: `${field} ${errorMessage}`,
-                duration: 3000
-              })
-              .present();
+            },
+            (errors: Errors) => {
+              for (let field in errors.errors) {
+                if (typeof field !== 'undefined') {
+                  console.log(field);
+                  let errorMessage = errors.errors[field]['message'];
+                  if (typeof errors.errors[field]['message'] === 'undefined') {
+                    errorMessage = errors.errors[field];
+                  }
+                  this.toastCtrl
+                    .create({
+                      message: `${field} ${errorMessage}`,
+                      duration: 3000
+                    })
+                    .present();
+                }
+              }
+              this.isSubmitting = false;
             }
-          }
-          this.isSubmitting = false;
-        }
-      );
+          );
+      })
     }
-    else{
-      this.userService.checkUser(credentials).subscribe(result=>{
+    else {
+      this.userService.checkUser(credentials).subscribe(result => {
         console.log(result)
-        if(result != 0){
+        if (result != 0) {
           this.toastCtrl
-              .create({
-                message: "email or username have been taken",
-                duration: 3000
-              })
-              .present();
-        }else{
-          this.navCtrl.setRoot(PincodePage,{user: credentials,deviceToken: this.deviceToken});
+            .create({
+              message: "email or username have been taken",
+              duration: 3000
+            })
+            .present();
+        } else {
+          this.getIpService.getIP().subscribe(result => {
+            this.navCtrl.setRoot(PincodePage, { user: credentials, deviceToken: this.deviceToken, ip: result });
+          })
         }
       })
     }
@@ -281,7 +287,7 @@ export class AuthPage {
     this.confirm_password_type = this.confirm_password_type === 'text' ? 'password' : 'text';
   }
 
-  forgetPassword(){
+  forgetPassword() {
     this.navCtrl.push(ForgetPasswordPage);
   }
 

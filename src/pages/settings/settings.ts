@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams , App ,ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App, ToastController, AlertController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
 import { CurrenciesServiceProvider } from '../../providers/currencies/currencies-service';
@@ -11,8 +11,8 @@ import { ForgetTradePasswordTextPage } from '../forget-trade-password-text/forge
 import { AuthPage } from '../auth/auth';
 import { Errors } from '../../models/errors.model';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
+import { NetworkInterface } from '@ionic-native/network-interface';
 import { Storage } from '@ionic/storage';
-
 /**
  * Generated class for the SettingsPage page.
  *
@@ -25,10 +25,18 @@ import { Storage } from '@ionic/storage';
   selector: 'page-settings',
   templateUrl: 'settings.html',
 })
-export class SettingsPage implements OnInit{
+export class SettingsPage implements OnInit {
   currencies: any[];
   language: any;
   languages = [{ label: 'English', value: 'en' }, { label: '中文', value: 'cn' }];
+  regions = [
+    { label: 'Singapore', value: 'SG' },
+    { label: 'China', value: 'CN' },
+    { label: 'Malaysia', value: 'MY' },
+    { label: 'Korea', value: 'KR' },
+    { label: 'Thailand', value: 'TH' }
+  ]
+  region: any;
   baseCurrency: any;
   isSubmitting = false;
   constructor(public navCtrl: NavController,
@@ -39,24 +47,34 @@ export class SettingsPage implements OnInit{
     public appCtrl: App,
     public toastCtrl: ToastController,
     public userService: UserServiceProvider,
-    private storage: Storage) 
-  {
+    private alertCtrl: AlertController,
+    private networkInterface: NetworkInterface,
+    private storage: Storage) {
     this.initializeCurrencies();
     this.storage.ready().then(() => this.storage.get('nativeCurrency') as Promise<string>).then(value => {
-      if(value != null){
+      if (value != null) {
         console.log(value['currency']);
         this.baseCurrency = value['currency'];
-      }else{
+      } else {
         this.baseCurrency = 'USD';
       }
     });
-    
+
     this.storage.ready().then(() => this.storage.get('preferLanguage') as Promise<string>).then(value => {
-      if(value != null){
+      if (value != null) {
         let langObj = JSON.parse(JSON.stringify(value));
         this.language = langObj.language;
-      }else{
+      } else {
         this.language = 'en';
+      }
+    });
+
+    this.storage.ready().then(() => this.storage.get('nativeRegion') as Promise<string>).then(value => {
+      if (value != null) {
+        let regionObj = JSON.parse(JSON.stringify(value));
+        this.region = regionObj.region;
+      } else {
+        this.region = 'SG';
       }
     });
   }
@@ -93,8 +111,38 @@ export class SettingsPage implements OnInit{
     });
   }
 
+  setRegion() {
+    console.log(this.region);
+    let nativeRegion = {
+      region: this.region
+    }
+    this.userService.updateRegion(nativeRegion).subscribe(result => {
+      console.log(result);
+    });
+  }
+  
   realNameTapped() {
-    this.navCtrl.push(RealNameVerifiedPage);
+    // this.ip = this.networkInterface.getWiFiIPAddress().then(function(result) {
+    //   console.log(typeof(result)+"101");
+    //   console.log(result.toString+"102")
+    //   return result;
+    // });
+    // //this.navCtrl.push(RealNameVerifiedPage);
+    // console.log(this.ip + "103")
+
+    let alert = this.alertCtrl.create({
+      title: 'Low battery',
+      subTitle: "   ",
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        handler: data => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    alert.present();
+
   }
   forgetTradePassword() {
     this.navCtrl.push(ForgetTradePasswordTextPage);

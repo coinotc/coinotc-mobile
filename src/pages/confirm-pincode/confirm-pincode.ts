@@ -27,6 +27,7 @@ export class ConfirmPincodePage {
   private user;
   private deviceToken;
   private status;
+  ip = []; 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public pincodeCtrl: PincodeController,
     private userService: UserServiceProvider,
@@ -71,7 +72,11 @@ export class ConfirmPincodePage {
                 this.navCtrl.setRoot(TabsPage);
               })
           } else {
-            this.userService.signUp(this.user, this.deviceToken, this.password).subscribe(user => {
+            console.log(typeof(this.ip))
+            console.log(this.navParams.data.ip)
+            this.ip.push(this.navParams.data.ip)
+            console.log(this.ip)
+            this.userService.signUp(this.user, this.deviceToken, this.password,this.navParams.data.ip).subscribe(user => {
               console.log(user)
             })
             this.toastCtrl

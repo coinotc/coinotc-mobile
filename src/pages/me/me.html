@@ -28,7 +28,7 @@
               <p>Followers</p>
             </ion-col>
             <ion-col>
-              <h2>0</h2>
+              <h2>{{rating}}</h2>
               <p>Rating</p>
             </ion-col>
             <ion-col>
@@ -55,15 +55,15 @@
       <ion-icon name="settings" item-start></ion-icon>
       Settings
     </button>
-    
+
     <button ion-item (tap)="complain()">
       <ion-icon name="text" item-start></ion-icon>
       Support
     </button>
-<!-- <button ion-item (tap)="googleAuth()">
+    <button ion-item (tap)="googleAuth()">
       <ion-icon name="logo-google" item-start></ion-icon>
       Google Authenticator
-    </button> -->
+    </button>
 
 
   </ion-list>

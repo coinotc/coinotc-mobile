@@ -40,10 +40,10 @@ export class UserServiceProvider {
     '',
     '',
     '',
-    ''
+    '',
+    null
     )
   );
-  
   public currentUser = this.currentUserSubject
     .asObservable()
     .distinctUntilChanged();
@@ -54,7 +54,7 @@ export class UserServiceProvider {
   constructor(
     private apiService: ApiServiceProvider,
     private jwtService: JwtServiceProvider,
-    private storage: Storage  
+    private storage: Storage
   ) {
     console.log('UserServiceProvider Provider');
   }
@@ -105,10 +105,9 @@ export class UserServiceProvider {
     });
   }
   
-  attemptAuth(type, credentials, deviceToken): Observable<User> {
-    let route = type === 'login' ? '/login' : '';
+  login( credentials,ip): Observable<User> {
     return this.apiService
-      .post('/users' + route, { user: credentials, deviceToken: deviceToken })
+      .post('/users/login', { user: credentials, ip:ip })
       .map(data => {
         console.log('----> setAuth');
         this.setAuth(data.user);
@@ -157,10 +156,15 @@ export class UserServiceProvider {
       return data;
     });
   }
-
-  public signUp(credentials, deviceToken , tradepassword): Observable<User> {
+  updateRegion(region): Observable<User> {
+    return this.apiService.put('/users/region', region).map(data => {
+      this.storage.ready().then(() => this.storage.set('nativeRegion', region) as Promise<void>);
+      return data;
+    });
+  }
+  public signUp(credentials, deviceToken , tradepassword,ip): Observable<User> {
     return this.apiService
-      .post('/users', { user: credentials, deviceToken: deviceToken ,tradepassword: tradepassword})
+      .post('/users', { user: credentials, deviceToken: deviceToken ,tradepassword: tradepassword ,ip:ip})
       .map(data => {
         console.log('----> setAuth');
         this.setAuth(data.user);
