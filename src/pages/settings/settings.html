@@ -57,7 +57,7 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-icon name='logo-bitcoin' item-start></ion-icon>
+      <ion-icon name='md-locate' item-start></ion-icon>
       <ion-label>Region</ion-label>
       <ion-select [(ngModel)]="region" (ngModelChange)="setRegion()" [selectedText]="region">
         <ion-option *ngFor="let region of regions" [value]="region.value">{{region.label}}</ion-option>
