@@ -89,7 +89,7 @@ export class ConfirmPincodePage {
           }
         } else {
           let toast = this.toastCtrl.create({
-            message: 'Wrong type',
+            message: 'The entered PIN Code doesnt match the previous entered PIN Code.',
             duration: 3000,
           });
           toast.onDidDismiss(() => {

@@ -99,11 +99,13 @@ export class SetNewPasswordPage {
     })
     this.navCtrl.setRoot(AuthPage)
   }
-  cancel(){
-    this.navCtrl.setRoot(AuthPage)
-  }
+  // cancel(){
+  //   this.navCtrl.setRoot(AuthPage)
+  // }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SetNewPasswordPage');
   }
-
+  goBackToAuth(){
+    this.navCtrl.setRoot(AuthPage)
+  }
 }
