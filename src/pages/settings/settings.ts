@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams , App ,ToastController , AlertController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App, ToastController, AlertController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
 import { CurrenciesServiceProvider } from '../../providers/currencies/currencies-service';
@@ -13,7 +13,6 @@ import { Errors } from '../../models/errors.model';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
 import { NetworkInterface } from '@ionic-native/network-interface';
 import { Storage } from '@ionic/storage';
-
 /**
  * Generated class for the SettingsPage page.
  *
@@ -26,10 +25,19 @@ import { Storage } from '@ionic/storage';
   selector: 'page-settings',
   templateUrl: 'settings.html',
 })
-export class SettingsPage implements OnInit{
+export class SettingsPage implements OnInit {
   currencies: any[];
   language: any;
   languages = [{ label: 'English', value: 'en' }, { label: '中文', value: 'cn' }];
+  regions = [
+    { label: 'Global', value: 'global' },
+    { label: 'Singapore', value: 'singapore' },
+    { label: 'China', value: 'china' },
+    { label: 'Malaysia', value: 'malaysia' },
+    { label: 'Korea', value: 'korea' },
+    { label: 'Thailand', value: 'thailand' }
+  ]
+  region: any;
   baseCurrency: any;
   isSubmitting = false;
   constructor(public navCtrl: NavController,
@@ -42,24 +50,32 @@ export class SettingsPage implements OnInit{
     public userService: UserServiceProvider,
     private alertCtrl: AlertController,
     private networkInterface: NetworkInterface,
-    private storage: Storage) 
-  {
+    private storage: Storage) {
     this.initializeCurrencies();
     this.storage.ready().then(() => this.storage.get('nativeCurrency') as Promise<string>).then(value => {
-      if(value != null){
+      if (value != null) {
         console.log(value['currency']);
         this.baseCurrency = value['currency'];
-      }else{
+      } else {
         this.baseCurrency = 'USD';
       }
     });
-    
+
     this.storage.ready().then(() => this.storage.get('preferLanguage') as Promise<string>).then(value => {
-      if(value != null){
+      if (value != null) {
         let langObj = JSON.parse(JSON.stringify(value));
         this.language = langObj.language;
-      }else{
+      } else {
         this.language = 'en';
+      }
+    });
+
+    this.storage.ready().then(() => this.storage.get('nativeRegion') as Promise<string>).then(value => {
+      if (value != null) {
+        let regionObj = JSON.parse(JSON.stringify(value));
+        this.region = regionObj.region;
+      } else {
+        this.region = 'singapore';
       }
     });
   }
@@ -68,8 +84,9 @@ export class SettingsPage implements OnInit{
     console.log('ngOnInit');
   }
 
-  initializeCurrencies() {
-    this.currencyService.getCurrencies().subscribe(currencies => {
+  initializeCurrencies(){
+    this.currencyService.getCurrencies().subscribe(currencies=>{
+      console.log("currencies ==> " + currencies);
       let currenciesCode = _.keys(currencies);
       let currenciesDesc = _.values(currencies);
       let currenciesArr = [];
@@ -95,13 +112,28 @@ export class SettingsPage implements OnInit{
     });
   }
 
+  setRegion() {
+    console.log(this.region);
+    let nativeRegion = {
+      region: this.region
+    }
+    this.userService.updateRegion(nativeRegion).subscribe(result => {
+      console.log(result);
+    });
+  }
+  
   realNameTapped() {
-    let ip =  this.networkInterface.getWiFiIPAddress();
-    //this.navCtrl.push(RealNameVerifiedPage);
-    console.log(ip)
+    // this.ip = this.networkInterface.getWiFiIPAddress().then(function(result) {
+    //   console.log(typeof(result)+"101");
+    //   console.log(result.toString+"102")
+    //   return result;
+    // });
+    // //this.navCtrl.push(RealNameVerifiedPage);
+    // console.log(this.ip + "103")
+
     let alert = this.alertCtrl.create({
       title: 'Low battery',
-      subTitle: `${ip}`,
+      subTitle: "   ",
       buttons: [{
         text: 'Cancel',
         role: 'cancel',

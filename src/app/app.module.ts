@@ -17,7 +17,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AuthPageModule } from '../pages/auth/auth.module';
 import { WalletPage } from '../pages/wallet/wallet';
-import { TradePage, countryPopoverPage, fiatPopoverPage } from '../pages/trade/trade';
+import {
+  TradePage,
+  fiatPopoverPage
+} from '../pages/trade/trade';
 import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement';
 import { OrderListPage } from '../pages/order-list/order-list';
 import { AlertPage, AddAlertPage } from '../pages/alert/alert';
@@ -53,8 +56,6 @@ import { FCM } from '@ionic-native/fcm';
 import { ComplainPage } from '../pages/complain/complain';
 import { AdvertisementsPage } from '../pages/advertisements/advertisements';
 import { TrustedPage } from '../pages/trusted/trusted';
-import { ScrollingHeaderModule } from 'ionic-scrolling-header';
-import { IonAffixModule } from 'ion-affix';
 import { Network } from '@ionic-native/network';
 import { EditAdvertisementPage } from '../pages/edit-advertisement/edit-advertisement';
 import { GoogleAuthPage } from '../pages/google-auth/google-auth';
@@ -70,7 +71,7 @@ import { firebaseconfig } from '../../environments/firebase-config';
 import { SendMailPage } from '../pages/send-mail/send-mail';
 import { ModalContentPage } from '../pages/room/room';
 import { ForgetPasswordPage } from '../pages/forget-password/forget-password';
-import { ForgetVerifySixPinPage } from '../pages/forget-verify-six-pin/forget-verify-six-pin'
+import { ForgetVerifySixPinPage } from '../pages/forget-verify-six-pin/forget-verify-six-pin';
 import { BannerControlProvider } from '../providers/banner-control/banner-control';
 import { SetNewPasswordPage } from '../pages/set-new-password/set-new-password';
 import { ForgetTradePasswordTextPage } from '../pages/forget-trade-password-text/forget-trade-password-text';
@@ -78,9 +79,12 @@ import { ConfirmTradePasswordCodePage } from '../pages/confirm-trade-password-co
 import { ResetTradePasswordPage } from '../pages/reset-trade-password/reset-trade-password';
 import { ConfirmResetTradePasswordPage } from '../pages/confirm-reset-trade-password/confirm-reset-trade-password';
 import { CustomerSupportPage } from '../pages/customer-support/customer-support';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { NotificationServiceProvider } from '../providers/notification-service/notification-service';
 import { NetworkInterface } from '@ionic-native/network-interface';
 import { GoogleAuthInputPage } from '../pages/google-auth-input/google-auth-input';
 import { UnbindGoogleAuthPage } from '../pages/unbind-google-auth/unbind-google-auth';
+import { GetIpProvider } from '../providers/get-ip/get-ip';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -110,7 +114,6 @@ export function createTranslateLoader(http: HttpClient) {
     ComplainPage,
     AdvertisementsPage,
     TrustedPage,
-    countryPopoverPage,
     fiatPopoverPage,
     EditAdvertisementPage,
     TwoFactorAuthPage,
@@ -142,7 +145,6 @@ export function createTranslateLoader(http: HttpClient) {
     MePageModule,
     RoomPageModule,
     IonicStorageModule.forRoot(),
-    ScrollingHeaderModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -156,7 +158,6 @@ export function createTranslateLoader(http: HttpClient) {
     AngularFireModule.initializeApp(firebaseconfig),
     AngularFireStorageModule,
     ModifyPasswordPageModule,
-    IonAffixModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -178,7 +179,6 @@ export function createTranslateLoader(http: HttpClient) {
     ComplainPage,
     AdvertisementsPage,
     TrustedPage,
-    countryPopoverPage,
     fiatPopoverPage,
     EditAdvertisementPage,
     TwoFactorAuthPage,
@@ -222,7 +222,10 @@ export function createTranslateLoader(http: HttpClient) {
     GoogleAuthServiceProvider,
     PhotoViewer,
     BannerControlProvider,
-    NetworkInterface
+    LocalNotifications,
+    NotificationServiceProvider,
+    NetworkInterface,
+    GetIpProvider
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

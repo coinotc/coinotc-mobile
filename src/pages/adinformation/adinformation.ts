@@ -64,7 +64,7 @@ export class AdinformationPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public events:Events,
+    public events: Events,
     private toastCtrl: ToastController,
     public userservice: UserServiceProvider,
     public loadingCtrl: LoadingController,
@@ -143,17 +143,27 @@ export class AdinformationPage {
             type: 'order'
           });
           //this.navCtrl.push(OrderWindowPage, { order: result, trader: owner });
+        }, error => {
+          let toast = this.toastCtrl.create({
+            message: error.error,
+            duration: 2000
+          });
+          toast.onDidDismiss(() => {
+            this.navCtrl.pop();
+            this.loading.dismiss();
+          });
+          toast.present();
         });
       } else {
         let toast = this.toastCtrl.create({
           message: `this advertisement is closed`,
-          duration: 3000
+          duration: 2000
         });
         toast.onDidDismiss(() => {
-           this.navCtrl.pop();
-           this.loading.dismiss();
-           this.events.publish('reloadtrade');
-          });
+          this.navCtrl.pop();
+          this.loading.dismiss();
+          this.events.publish('reloadtrade');
+        });
         toast.present();
       }
     })

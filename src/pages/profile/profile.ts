@@ -35,6 +35,7 @@ export class ProfilePage {
   visible;
   followingCount;
   followerCount;
+  rating = 0;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -113,6 +114,14 @@ export class ProfilePage {
       this.model.following = result[0].following;
       this.followerCount = this.model.followers.length;
       this.followingCount = this.model.following.length;
+      if (!(result[0].ratings.length == 0)) {
+        for (var _i = 0; _i < result[0].ratings.length; _i++) {
+          var num = result[0].rating[_i]
+          console.log(num);
+          this.rating = this.rating + num;
+        }
+        this.rating = this.rating / result[0].ratings.length;
+      }
       // if (this.model.orderCount == 0) {
       //   this.rate = 0;
       // } else {

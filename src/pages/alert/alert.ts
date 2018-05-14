@@ -134,8 +134,8 @@ export class AlertPage {
     }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AlertPage');
+  ionViewWillEnter() {
+    this.doRefresh();
   }
 }
 
