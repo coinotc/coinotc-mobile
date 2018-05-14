@@ -19,7 +19,6 @@ import { AuthPageModule } from '../pages/auth/auth.module';
 import { WalletPage } from '../pages/wallet/wallet';
 import {
   TradePage,
-  countryPopoverPage,
   fiatPopoverPage
 } from '../pages/trade/trade';
 import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement';
@@ -57,7 +56,6 @@ import { FCM } from '@ionic-native/fcm';
 import { ComplainPage } from '../pages/complain/complain';
 import { AdvertisementsPage } from '../pages/advertisements/advertisements';
 import { TrustedPage } from '../pages/trusted/trusted';
-import { ElasticHeaderModule } from 'ionic2-elastic-header/dist';
 import { Network } from '@ionic-native/network';
 import { EditAdvertisementPage } from '../pages/edit-advertisement/edit-advertisement';
 import { GoogleAuthPage } from '../pages/google-auth/google-auth';
@@ -116,7 +114,6 @@ export function createTranslateLoader(http: HttpClient) {
     ComplainPage,
     AdvertisementsPage,
     TrustedPage,
-    countryPopoverPage,
     fiatPopoverPage,
     EditAdvertisementPage,
     TwoFactorAuthPage,
@@ -156,7 +153,6 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     AdinformationPageModule,
-    ElasticHeaderModule,
     Ionic2RatingModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseconfig),
@@ -184,7 +180,6 @@ export function createTranslateLoader(http: HttpClient) {
     ComplainPage,
     AdvertisementsPage,
     TrustedPage,
-    countryPopoverPage,
     fiatPopoverPage,
     EditAdvertisementPage,
     TwoFactorAuthPage,
@@ -235,4 +230,4 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule {}
+export class AppModule { }

@@ -29,11 +29,12 @@ export class SettingsPage implements OnInit {
   language: any;
   languages = [{ label: 'English', value: 'en' }, { label: '中文', value: 'cn' }];
   regions = [
-    { label: 'Singapore', value: 'SG' },
-    { label: 'China', value: 'CN' },
-    { label: 'Malaysia', value: 'MY' },
-    { label: 'Korea', value: 'KR' },
-    { label: 'Thailand', value: 'TH' }
+    { label: 'Global', value: 'global' },
+    { label: 'Singapore', value: 'singapore' },
+    { label: 'China', value: 'china' },
+    { label: 'Malaysia', value: 'malaysia' },
+    { label: 'Korea', value: 'korea' },
+    { label: 'Thailand', value: 'thailand' }
   ]
   region: any;
   baseCurrency: any;
@@ -72,7 +73,7 @@ export class SettingsPage implements OnInit {
         let regionObj = JSON.parse(JSON.stringify(value));
         this.region = regionObj.region;
       } else {
-        this.region = 'SG';
+        this.region = 'singapore';
       }
     });
   }
