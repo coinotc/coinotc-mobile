@@ -4,10 +4,10 @@
   </ion-navbar>
   <ion-toolbar>
     <ion-segment [(ngModel)]="value">
-      <ion-segment-button value="Active" (tap)="onSegment()">
+      <ion-segment-button value="Active" (tap)="onSegment('Active')">
         Active
       </ion-segment-button>
-      <ion-segment-button value="Disabled" (tap)="onSegment()">
+      <ion-segment-button value="Disabled" (tap)="onSegment('Disabled')">
         Disabled
       </ion-segment-button>
     </ion-segment>

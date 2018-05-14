@@ -22,20 +22,20 @@ export class ResetTradePasswordPage {
     public pincodeCtrl: PincodeController,
     public userService: UserServiceProvider,
     private toastCtrl: ToastController) {
-      let pinCode = this.pincodeCtrl.create({
-        title: 'Pincode',
-        hideForgotPassword: true,
-        hideCancelButton: false,
-        enableBackdropDismiss: false
-      });
-      pinCode.present();
-      pinCode.onDidDismiss((code, status) => {
-          if (status === 'cancel') {
-            this.navCtrl.setRoot(TabsPage);
-          } else {
-            this.navCtrl.setRoot(ConfirmResetTradePasswordPage, { code: code });
-          } 
-      })
+    let pinCode = this.pincodeCtrl.create({
+      title: 'Pincode',
+      hideForgotPassword: true,
+      hideCancelButton: false,
+      enableBackdropDismiss: false
+    });
+    pinCode.present();
+    pinCode.onDidDismiss((code, status) => {
+      if (status === 'cancel') {
+        this.navCtrl.setRoot(TabsPage);
+      } else {
+        this.navCtrl.setRoot(ConfirmResetTradePasswordPage, { code: code });
+      }
+    })
   }
 
   ionViewDidLoad() {

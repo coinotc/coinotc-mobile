@@ -37,7 +37,7 @@ export class PincodePage {
     let pinCode = this.pincodeCtrl.create({
       title: 'Pincode',
       hideForgotPassword: true,
-      hideCancelButton:this.status,
+      hideCancelButton: this.status,
       enableBackdropDismiss: false
     });
     pinCode.present();
@@ -50,9 +50,9 @@ export class PincodePage {
           this.navCtrl.setRoot(ConfirmPincodePage, { code: this.code, type: this.type });
         }
       } else {
-          console.log(this.navParams.data.ip)
-          this.navCtrl.setRoot(ConfirmPincodePage, 
-            { code: this.code, user: this.user, deviceToken: this.deviceToken , ip:this.navParams.data.ip});
+        console.log(this.navParams.data.ip)
+        this.navCtrl.setRoot(ConfirmPincodePage,
+          { code: this.code, user: this.user, deviceToken: this.deviceToken, ip: this.navParams.data.ip });
       }
     })
   }

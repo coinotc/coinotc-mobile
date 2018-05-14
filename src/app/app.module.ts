@@ -81,10 +81,10 @@ import { ConfirmResetTradePasswordPage } from '../pages/confirm-reset-trade-pass
 import { CustomerSupportPage } from '../pages/customer-support/customer-support';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { NotificationServiceProvider } from '../providers/notification-service/notification-service';
-import { NetworkInterface } from '@ionic-native/network-interface';
 import { GoogleAuthInputPage } from '../pages/google-auth-input/google-auth-input';
 import { UnbindGoogleAuthPage } from '../pages/unbind-google-auth/unbind-google-auth';
 import { GetIpProvider } from '../providers/get-ip/get-ip';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -158,6 +158,7 @@ export function createTranslateLoader(http: HttpClient) {
     AngularFireModule.initializeApp(firebaseconfig),
     AngularFireStorageModule,
     ModifyPasswordPageModule,
+    IonicImageViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -224,8 +225,8 @@ export function createTranslateLoader(http: HttpClient) {
     BannerControlProvider,
     LocalNotifications,
     NotificationServiceProvider,
-    NetworkInterface,
-    GetIpProvider
+    GetIpProvider,
+    IonicImageViewerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -27,7 +27,7 @@ export class ConfirmPincodePage {
   private user;
   private deviceToken;
   private status;
-  ip = []; 
+  ip = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public pincodeCtrl: PincodeController,
     private userService: UserServiceProvider,
@@ -72,11 +72,11 @@ export class ConfirmPincodePage {
                 this.navCtrl.setRoot(TabsPage);
               })
           } else {
-            console.log(typeof(this.ip))
+            console.log(typeof (this.ip))
             console.log(this.navParams.data.ip)
             this.ip.push(this.navParams.data.ip)
             console.log(this.ip)
-            this.userService.signUp(this.user, this.deviceToken, this.password,this.navParams.data.ip).subscribe(user => {
+            this.userService.signUp(this.user, this.deviceToken, this.password, this.navParams.data.ip).subscribe(user => {
               console.log(user)
             })
             this.toastCtrl
@@ -89,7 +89,7 @@ export class ConfirmPincodePage {
           }
         } else {
           let toast = this.toastCtrl.create({
-            message: 'Wrong type',
+            message: 'The entered PIN Code doesnt match the previous entered PIN Code.',
             duration: 3000,
           });
           toast.onDidDismiss(() => {
@@ -99,7 +99,7 @@ export class ConfirmPincodePage {
           if (this.type) {
             this.navCtrl.setRoot(PincodePage, { type: this.type });
           } else {
-            this.navCtrl.setRoot(PincodePage , {user: this.user, deviceToken: this.deviceToken });
+            this.navCtrl.setRoot(PincodePage, { user: this.user, deviceToken: this.deviceToken });
           }
         }
       }

@@ -11,7 +11,6 @@ import { ForgetTradePasswordTextPage } from '../forget-trade-password-text/forge
 import { AuthPage } from '../auth/auth';
 import { Errors } from '../../models/errors.model';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
-import { NetworkInterface } from '@ionic-native/network-interface';
 import { Storage } from '@ionic/storage';
 /**
  * Generated class for the SettingsPage page.
@@ -49,7 +48,6 @@ export class SettingsPage implements OnInit {
     public toastCtrl: ToastController,
     public userService: UserServiceProvider,
     private alertCtrl: AlertController,
-    private networkInterface: NetworkInterface,
     private storage: Storage) {
     this.initializeCurrencies();
     this.storage.ready().then(() => this.storage.get('nativeCurrency') as Promise<string>).then(value => {
@@ -84,8 +82,8 @@ export class SettingsPage implements OnInit {
     console.log('ngOnInit');
   }
 
-  initializeCurrencies(){
-    this.currencyService.getCurrencies().subscribe(currencies=>{
+  initializeCurrencies() {
+    this.currencyService.getCurrencies().subscribe(currencies => {
       console.log("currencies ==> " + currencies);
       let currenciesCode = _.keys(currencies);
       let currenciesDesc = _.values(currencies);
@@ -121,7 +119,7 @@ export class SettingsPage implements OnInit {
       console.log(result);
     });
   }
-  
+
   realNameTapped() {
     // this.ip = this.networkInterface.getWiFiIPAddress().then(function(result) {
     //   console.log(typeof(result)+"101");

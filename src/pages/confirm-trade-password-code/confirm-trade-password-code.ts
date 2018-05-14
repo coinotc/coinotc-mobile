@@ -24,38 +24,38 @@ export class ConfirmTradePasswordCodePage {
     public pincodeCtrl: PincodeController,
     public userService: UserServiceProvider,
     private toastCtrl: ToastController) {
-      this.email = this.userService.getCurrentUser().email;
-      this.pinCode = this.pincodeCtrl.create({
-        title: 'Pincode',
-        hideForgotPassword: true,
-        enableBackdropDismiss: false,
-        hideCancelButton: false,
-        cancelButtonText: "cancel"
-      });
-      this.pinCode.present();
-      this.pinCode.onDidDismiss((code, status) => {
-        if (status == "cancel")
-          this.navCtrl.setRoot(TabsPage);
-        else {
-          this.sixCode = parseInt(`${code}`);
-          console.log(this.sixCode)
-          console.log(code)
-          console.log(typeof (this.sixCode))
-          console.log(typeof (code))
-          this.userService.confirmTradePasswordCode(this.email, this.sixCode).subscribe(result => {
-            console.log(result)
-            this.toastCtrl
-              .create({
-                message: `${result}`,
-                duration: 4500
-              })
-              .present();
-            if (result == "success")
-              this.navCtrl.setRoot(ResetTradePasswordPage);
-            else this.navCtrl.setRoot(ConfirmTradePasswordCodePage);
-          })
-        }
-      })
+    this.email = this.userService.getCurrentUser().email;
+    this.pinCode = this.pincodeCtrl.create({
+      title: 'Pincode',
+      hideForgotPassword: true,
+      enableBackdropDismiss: false,
+      hideCancelButton: false,
+      cancelButtonText: "cancel"
+    });
+    this.pinCode.present();
+    this.pinCode.onDidDismiss((code, status) => {
+      if (status == "cancel")
+        this.navCtrl.setRoot(TabsPage);
+      else {
+        this.sixCode = parseInt(`${code}`);
+        console.log(this.sixCode)
+        console.log(code)
+        console.log(typeof (this.sixCode))
+        console.log(typeof (code))
+        this.userService.confirmTradePasswordCode(this.email, this.sixCode).subscribe(result => {
+          console.log(result)
+          this.toastCtrl
+            .create({
+              message: `${result}`,
+              duration: 4500
+            })
+            .present();
+          if (result == "success")
+            this.navCtrl.setRoot(ResetTradePasswordPage);
+          else this.navCtrl.setRoot(ConfirmTradePasswordCodePage);
+        })
+      }
+    })
   }
 
   ionViewDidLoad() {
