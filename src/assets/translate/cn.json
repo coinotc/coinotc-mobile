@@ -41,6 +41,15 @@
   "China": "中国",
   "USA": "美国",
   "Korea": "韩国",
+  "crypto": {
+    "BITCOIN":"BTC",
+    "ETHEREUM": "ETH",
+    "RIPPLE": "XRP",
+    "MONERO": "XMR",
+    "STELLAR": "XLM",
+    "CARDANO": "ADA",
+    "ZILLIQA":"ZIL"
+  },
   "fiat": {
     "fiat": "法币",
     "SGD": "新币",

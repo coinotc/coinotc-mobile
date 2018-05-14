@@ -5,17 +5,18 @@
   Ionic pages and navigation.
 -->
 <ion-header no-border>
-  <ion-toolbar transparent>
-    <button clear float-left ion-button icon-only (tap)="presentfilterPopover($event)">
-      <i class="fa fa-search fa-2x" style="background-color: rgba(248, 248, 248, 0.5); border-radius: 2rem;" aria-hidden="true"></i>
+  <ion-toolbar>
+    <button clear col-12 text-center ion-button icon-only (tap)="presentfilterPopover($event)" style="margin: 0px">
+      {{fiat}} - {{'crypto.' + crypto | translate}}
     </button>
-    <button *ngIf="buynsell == 'buy'" float-right clear ion-button icon-only (tap)="addbuyad()">
+    <!-- <button *ngIf="buynsell == 'buy'" float-right clear ion-button icon-only (tap)="addbuyad()">
       <i class="fa fa-plus fa-2x" style="background-color: rgba(248, 248, 248, 0.5); border-radius: 2rem;" aria-hidden="true"></i>
     </button>
     <button *ngIf="buynsell == 'sell'" float-right clear ion-button icon-only (tap)="addsellad()">
       <i class="fa fa-plus fa-2x" style="background-color: rgba(248, 248, 248, 0.5); border-radius: 2rem;" aria-hidden="true"></i>
-    </button>
-    <ion-navbar style="position: absolute; left: 3rem;" col-10>
+    </button> -->
+    <ion-navbar col-12 style="margin: 0px">
+      <!-- style="position: absolute; left: 3rem;"  -->
       <ion-title text-center>
         <ion-segment [(ngModel)]="buynsell" (ngModelChange)="doRefresh()">
           <ion-segment-button value="buy">{{'willing.wannaBuy' | translate}}</ion-segment-button>
@@ -27,15 +28,12 @@
 </ion-header>
 
 
-<ion-content fullscreen #content style="top: 50px;">
+<ion-content fullscreen #content style="top: 100px;">
   <!-- <input type="text" #country style="display:none" (ngModelChange)="change()">
   <input type="text" #fiat style="display:none" (ngModelChange)="change()"> -->
-  <ion-slides style="height:20%;">
-    <!-- <ion-slide *ngFor="let banner of banners">
+  <!-- <ion-slides style="height:20%;">
+    <ion-slide *ngFor="let banner of banners">
       <img src={{banner.imgURL}}>
-    </ion-slide> -->
-    <ion-slide>
-      <img src="https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg" alt="">
     </ion-slide>
     <ion-slide>
       <img src="https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg" alt="">
@@ -43,7 +41,10 @@
     <ion-slide>
       <img src="https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg" alt="">
     </ion-slide>
-  </ion-slides>
+    <ion-slide>
+      <img src="https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg" alt="">
+    </ion-slide>
+  </ion-slides> -->
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingText="pulldown to refresh" refreshingSpinner="circles" refreshingText="refreshing...">
     </ion-refresher-content>
@@ -67,7 +68,7 @@
     <ion-item *ngIf="list&&list.length != 0" style="height: 50px;"></ion-item>
     <ion-item *ngIf="list&&list.length == 0">
       <ion-label style="overflow: visible;">
-        Sorry啦,有錢也任性不了啦~
+        empty
       </ion-label>
     </ion-item>
   </ion-list>
