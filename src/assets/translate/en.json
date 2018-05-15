@@ -42,11 +42,13 @@
   "USA": "USA",
   "Korea": "Korea",
   "crypto": {
+    "BITCOIN":"BTC",
     "ETHEREUM": "ETH",
     "RIPPLE": "XRP",
     "MONERO": "XMR",
     "STELLAR": "XLM",
-    "CARDANO": "ADA"
+    "CARDANO": "ADA",
+    "ZILLIQA":"ZIL"
   },
   "alertCrypto": {
     "ETHEREUM": "eth",

@@ -21,59 +21,67 @@ import { Storage } from '@ionic/storage';
 
 @Component({
   template: `
-<ion-list style="margin: 0px 16px 0px;" inset no-lines>
-  <ion-list radio-group [(ngModel)]="fiatcopy">
+<ion-list style="margin: 0px 16px 0px;" inset no-lines ion-row>
+  <ion-list radio-group [(ngModel)]="fiatcopy" col-6>
     <ion-item-divider>
       Currency
     </ion-item-divider>
     <ion-item>
       <ion-label>SGD</ion-label>
-      <ion-radio value="SGD"></ion-radio>
+      <ion-radio value="SGD" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
       <ion-label>CNY</ion-label>
-      <ion-radio value="CNY"></ion-radio>
+      <ion-radio value="CNY" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
       <ion-label>USD</ion-label>
-      <ion-radio value="USD"></ion-radio>
+      <ion-radio value="USD" (click)="leave()"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>THB</ion-label>
+      <ion-radio value="THB" (click)="leave()"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>MYR</ion-label>
+      <ion-radio value="MYR" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
       <ion-label>KRW</ion-label>
-      <ion-radio value="KRW"></ion-radio>
+      <ion-radio value="KRW" (click)="leave()"></ion-radio>
     </ion-item>
   </ion-list>
-  <ion-list style="margin-bottom: 0px;" radio-group [(ngModel)]="crypto">
+  <ion-list style="margin-bottom: 0px;" radio-group [(ngModel)]="crypto" col-6>
     <ion-item-divider>
       Crypto
     </ion-item-divider>
     <ion-item>
       <ion-label>BITCOIN</ion-label>
-      <ion-radio value="BITCOIN"></ion-radio>
+      <ion-radio value="BITCOIN" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
       <ion-label>ETHEREUM</ion-label>
-      <ion-radio value="ETHEREUM"></ion-radio>
+      <ion-radio value="ETHEREUM" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
       <ion-label>RIPPLE</ion-label>
-      <ion-radio value="RIPPLE"></ion-radio>
+      <ion-radio value="RIPPLE" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
       <ion-label>MONERO</ion-label>
-      <ion-radio value="MONERO"></ion-radio>
+      <ion-radio value="MONERO" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
       <ion-label>STELLAR</ion-label>
-      <ion-radio value="STELLAR"></ion-radio>
+      <ion-radio value="STELLAR" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
       <ion-label>CARDANO</ion-label>
-      <ion-radio value="CARDANO"></ion-radio>
+      <ion-radio value="CARDANO" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
       <ion-label>ZILLIQA</ion-label>
-      <ion-radio value="ZILLIQA"></ion-radio>
+      <ion-radio value="ZILLIQA" (click)="leave()"></ion-radio>
     </ion-item>
   </ion-list>
   </ion-list>`
@@ -93,14 +101,11 @@ export class fiatPopoverPage {
     this.fiatcopy = this.navParams.data.fiat;
     this.crypto = this.navParams.data.crypto;
   }
+  leave() {
+    this.viewCtrl.dismiss({ crypto: this.crypto, fiat: this.fiatcopy })
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad PopoverPage');
-  }
-  ionViewDidLeave() {
-    this.events.publish('popoverDidLeave', {
-      crypto: this.crypto,
-      fiat: this.fiatcopy
-    });
   }
 }
 
@@ -245,40 +250,16 @@ export class TradePage {
     });
   }
   presentfilterPopover(myEvent) {
-    let popover = this.popoverCtrl.create(fiatPopoverPage, { fiat: this.fiat, crypto: this.crypto });
+    let popover = this.popoverCtrl.create(fiatPopoverPage, { fiat: this.fiat, crypto: this.crypto },{cssClass: 'contact-popover'});
     popover.present({ ev: myEvent });
-    popover.onWillDismiss(() => {
-      this.events.subscribe('popoverDidLeave', data => {
+    popover.onDidDismiss(data => {
+      if (data) {
         this.crypto = data.crypto;
         this.fiat = data.fiat;
         this.doRefresh();
-      });
-    });
-    popover.onDidDismiss(() => {
-      this.events.unsubscribe('popoverDidLeave');
-    });
+      }
+    })
   }
   ngOnInit() {
-    // // Ionic scroll element
-    // this.ionScroll = this.myElement.nativeElement.getElementsByClassName('scroll-content')[0];
-    // // On scroll function
-    // this.ionScroll.addEventListener("scroll", () => {
-    //   if (this.ionScroll.scrollTop - this.start > this.threshold) {
-    //     this.showheader = true;
-    //     this.hideheader = false;
-    //   } else {
-    //     this.showheader = false;
-    //     this.hideheader = true;
-    //   }
-    //   if (this.slideHeaderPrevious >= this.ionScroll.scrollTop - this.start) {
-    //     this.showheader = false;
-    //     this.hideheader = true;
-    //   }
-    //   this.slideHeaderPrevious = this.ionScroll.scrollTop - this.start;
-    // });
-    // // this.bannerControl.getBanner().subscribe(result =>{
-    // //   this.banners = result;
-    // //   console.log(this.banners)
-    // // })
   }
 }

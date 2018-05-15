@@ -139,7 +139,12 @@ page-trade {
             border-radius: 4px;
         }
     }
-    ion-list-header>div.item-inner>div.input-wrapper>ion-label{
-        margin:0px;
+    ion-list-header>div.item-inner>div.input-wrapper>ion-label {
+        margin: 0px;
+    }
+}
+.contact-popover{
+    .popover-wrapper>.popover-content {
+        width: 94%
     }
 }
