@@ -42,6 +42,7 @@ export class UserServiceProvider {
       '',
       '',
       '',
+      null,
       null
     )
   );
@@ -90,7 +91,7 @@ export class UserServiceProvider {
       this.isAuthenticatedSubject.next(true);
     });
   }
-
+ 
   purgeAuth() {
     // Remove JWT from localstorage
     this.jwtService.destroyToken().then(() => {
@@ -182,7 +183,10 @@ export class UserServiceProvider {
     let URL = '/users/checkChangePasswordUser'
     return this.apiService.post(URL, { user: credentials, currentPassword: currentPassword });
   }
-
+  changeOnlineStatus(status){
+    let URL = '/users/changeOnlineStatus'
+    return this.apiService.patch(URL, { onlineStatus: status });
+  }
   public checkUser(credentials): Observable<number> {
     let URL = '/users/checkUser'
     return this.apiService.post(URL, { user: credentials });

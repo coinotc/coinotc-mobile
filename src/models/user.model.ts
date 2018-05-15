@@ -21,6 +21,7 @@ export class User {
     public gender:string,
     public country:string,
     public nativeRegion:string,
-    public ip:Array<any>
+    public ip:Array<any>,
+    public online:boolean
   ) {}
 }

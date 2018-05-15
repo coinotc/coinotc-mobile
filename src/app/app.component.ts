@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { AuthPage } from '../pages/auth/auth';
+import { TabsPage } from '../pages/tabs/tabs'
 import * as firebase from 'firebase';
 import { firebaseconfig } from '../../environments/firebase-config';
 import { Storage } from '@ionic/storage';
@@ -12,6 +13,8 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { AnonymousSubscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Rx';
 import { NotificationServiceProvider } from '../providers/notification-service/notification-service';
+import { Subscription } from 'rxjs';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +22,8 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
 export class MyApp {
   private timerSubscription: AnonymousSubscription;
   rootPage: any = AuthPage;
-
+  private onResumeSubscription: Subscription;
+  private onPauseSubscription: Subscription;
   constructor(
     private userService: UserServiceProvider,
     private platform: Platform,
@@ -30,6 +34,20 @@ export class MyApp {
     private localNotifications: LocalNotifications,
     private storage: Storage
   ) {
+    this.onResumeSubscription = platform.resume.subscribe(() => {
+      console.log("there is resume")
+      console.log(this.userService.getCurrentUser().username)
+      if(this.userService.getCurrentUser().username !== undefined){
+        this.rootPage = TabsPage;
+        this.userService.changeOnlineStatus(true).subscribe()
+      }
+      // do something meaningful when the app is put in the foreground
+    });
+    this.onPauseSubscription = platform.pause.subscribe(() => {
+      console.log("there is pause")
+      if(this.userService.getCurrentUser().username !== undefined)
+        this.userService.changeOnlineStatus(false).subscribe()
+    });
     this.storage
       .ready()
       .then(() => this.storage.get('preferLanguage') as Promise<string>)
@@ -46,13 +64,13 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
+      //statusBar.styleDefault();
       splashScreen.hide();
     });
   }
 
   private subscribeToData(): void {
-    this.timerSubscription = Observable.timer(3000).subscribe(() =>
+    this.timerSubscription = Observable.timer(90000).subscribe(() =>
       this.refreshData()
     );
   }
@@ -82,7 +100,11 @@ export class MyApp {
   ionViewWillEnter() {
     this.refreshData();
   }
-
+  ngOnDestroy() {
+    // always unsubscribe your subscriptions to prevent leaks
+    // this.onResumeSubscription.unsubscribe();
+    // this.onPauseSubscription.unsubscribe();
+  }
   ngOnInit() {
     this.userService.populate();
     this.refreshData();

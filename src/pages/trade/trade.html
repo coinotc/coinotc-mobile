@@ -8,7 +8,7 @@
 
   <ion-navbar col-12 style="margin: 0px">
     <button clear col-12 text-center ion-button icon-only (tap)="presentfilterPopover($event)" Fstyle="margin: 0px">
-      <h4>{{fiat}} / {{'crypto.' + crypto | translate}}</h4><ion-icon name='arrow-dropdown'></ion-icon>
+      {{fiat}} / {{'crypto.' + crypto | translate}}<ion-icon name='arrow-dropdown'></ion-icon>
     </button>
     <!-- <button *ngIf="buynsell == 'buy'" float-right clear ion-button icon-only (tap)="addbuyad()">
       <i class="fa fa-plus fa-2x" style="background-color: rgba(248, 248, 248, 0.5); border-radius: 2rem;" aria-hidden="true"></i>
