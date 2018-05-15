@@ -5,9 +5,10 @@
   Ionic pages and navigation.
 -->
 <ion-header no-border>
-  <ion-toolbar>
-    <button clear col-12 text-center ion-button icon-only (tap)="presentfilterPopover($event)" style="margin: 0px">
-      {{fiat}} - {{'crypto.' + crypto | translate}}
+
+  <ion-navbar col-12 style="margin: 0px">
+    <button clear col-12 text-center ion-button icon-only (tap)="presentfilterPopover($event)" Fstyle="margin: 0px">
+      <h4>{{fiat}} / {{'crypto.' + crypto | translate}}</h4><ion-icon name='arrow-dropdown'></ion-icon>
     </button>
     <!-- <button *ngIf="buynsell == 'buy'" float-right clear ion-button icon-only (tap)="addbuyad()">
       <i class="fa fa-plus fa-2x" style="background-color: rgba(248, 248, 248, 0.5); border-radius: 2rem;" aria-hidden="true"></i>
@@ -15,16 +16,16 @@
     <button *ngIf="buynsell == 'sell'" float-right clear ion-button icon-only (tap)="addsellad()">
       <i class="fa fa-plus fa-2x" style="background-color: rgba(248, 248, 248, 0.5); border-radius: 2rem;" aria-hidden="true"></i>
     </button> -->
-    <ion-navbar col-12 style="margin: 0px">
-      <!-- style="position: absolute; left: 3rem;"  -->
-      <ion-title text-center>
-        <ion-segment [(ngModel)]="buynsell" (ngModelChange)="doRefresh()">
-          <ion-segment-button value="buy">{{'willing.wannaBuy' | translate}}</ion-segment-button>
-          <ion-segment-button value="sell">{{'willing.wannaSell' | translate}}</ion-segment-button>
-        </ion-segment>
-      </ion-title>
-    </ion-navbar>
-  </ion-toolbar>
+  </ion-navbar>
+  <!-- style="position: absolute; left: 3rem;"  -->
+  <!-- <ion-title text-center> -->
+  <ion-segment [(ngModel)]="buynsell" (ngModelChange)="doRefresh()">
+    <ion-segment-button value="buy">{{'willing.wannaBuy' | translate}}</ion-segment-button>
+    <ion-segment-button value="sell">{{'willing.wannaSell' | translate}}</ion-segment-button>
+  </ion-segment>
+  <!-- </ion-title> -->
+
+
 </ion-header>
 
 

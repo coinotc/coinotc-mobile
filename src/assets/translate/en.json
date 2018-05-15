@@ -14,8 +14,8 @@
   "Buy": "Buy",
   "Sell": "Sell",
   "willing": {
-    "wannaBuy": "Wanna Buy",
-    "wannaSell": "Wanna Sell"
+    "wannaBuy": "I Want To Buy",
+    "wannaSell": "I Want To Sell"
   },
   "trade": {
     "buy": "BUY",
