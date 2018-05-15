@@ -85,6 +85,7 @@ import { GoogleAuthInputPage } from '../pages/google-auth-input/google-auth-inpu
 import { UnbindGoogleAuthPage } from '../pages/unbind-google-auth/unbind-google-auth';
 import { GetIpProvider } from '../providers/get-ip/get-ip';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -131,7 +132,8 @@ export function createTranslateLoader(http: HttpClient) {
     ConfirmResetTradePasswordPage,
     CustomerSupportPage,
     GoogleAuthInputPage,
-    UnbindGoogleAuthPage
+    UnbindGoogleAuthPage,
+    TutorialPage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -197,7 +199,8 @@ export function createTranslateLoader(http: HttpClient) {
     ConfirmResetTradePasswordPage,
     CustomerSupportPage,
     GoogleAuthInputPage,
-    UnbindGoogleAuthPage
+    UnbindGoogleAuthPage,
+    TutorialPage
   ],
   providers: [
     StatusBar,
