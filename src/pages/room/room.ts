@@ -127,8 +127,16 @@ export class ModalContentPage {
     this.orderInfo = this.params.data.orderInfo;
     this.trader = this.params.data.trader;
     this.user = userService.getCurrentUser();
-
-    console.log(this.orderInfo);
+    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+      this.notification.to = result[0].deviceToken;
+      this.notification.notification = {
+        title: `Your Order with ${this.trader} has progress !`,
+        body: `Order ID : ${this.orderInfo._id}`,
+        icon: 'fcm_push_icon',
+        sound: 'default',
+        click_action: 'FCM_PLUGIN_ACTIVITY'
+      };
+    });
   }
 
   onRefresh() {
@@ -149,7 +157,6 @@ export class ModalContentPage {
         }
         if (this.orderInfo.finished == 1 || this.orderInfo.finished == 2) {
           this.subscribeToData();
-          console.log('>>>>>>>>>>><<<<<<<<<<<');
         }
       });
   }

@@ -34,7 +34,7 @@
   "Trader": "对方详情",
   "Completed": "交易完成",
   "SignIn": "登录账号",
-  "SignUp": "注册账号",
+  "Register": "注册账号",
   "SelectCurrency": "选择币种",
   "Country": "国家",
   "Singapore": "新加坡",
@@ -42,13 +42,13 @@
   "USA": "美国",
   "Korea": "韩国",
   "crypto": {
-    "BITCOIN":"BTC",
+    "BITCOIN": "BTC",
     "ETHEREUM": "ETH",
     "RIPPLE": "XRP",
     "MONERO": "XMR",
     "STELLAR": "XLM",
     "CARDANO": "ADA",
-    "ZILLIQA":"ZIL"
+    "ZILLIQA": "ZIL"
   },
   "fiat": {
     "fiat": "法币",
