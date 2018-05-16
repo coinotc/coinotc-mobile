@@ -9,6 +9,8 @@ import { advertisement } from '../../models/advertisement';
 import { RoomPage } from '../room/room';
 import { AdinformationPage } from '../adinformation/adinformation';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
+import { Notification } from '../../models/notification';
+import { AlertServiceProvider } from '../../providers/alert-service/alert-service';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -26,6 +28,7 @@ export class ProfilePage {
   placeholderPicture = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515005723652&di=a1ebb7c0a1b6bfede1ff5ebc057ed073&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D822b27e7b8fb43160e12723948cd2c56%2F6c224f4a20a44623b6b1e24e9222720e0cf3d7a7.jpg';
   //private profile: Observable<Profile>;
   model = new Profile(null, null, null, null, null);
+  notification = new Notification('', null, 'high');
   rate;
   profileUser;
   currentUserName;
@@ -43,11 +46,25 @@ export class ProfilePage {
     private profileService: ProfileServiceProvider,
     private ev: Events,
     private advertisementService: AdvertisementServiceProvider,
-    public orderService: OrderServiceProvider
+    public orderService: OrderServiceProvider,
+    private alertServiceProvider: AlertServiceProvider
   ) {
     this.profileUser = navParams.data;
+    console.log(this.profileUser);
     this.currentUserName = this.userService.getCurrentUser().username;
     this.onSegment();
+    console.log('SEE>>>>>' + this.currentUserName);
+
+    this.profileService.getProfile(this.profileUser).subscribe(result => {
+      this.notification.to = result[0].deviceToken;
+      this.notification.notification = {
+        // title: `Your Order with ${this.trader} has progress !`,
+        body: `${this.currentUserName} started following you.`,
+        icon: 'fcm_push_icon',
+        sound: 'default',
+        click_action: 'FCM_PLUGIN_ACTIVITY'
+      };
+    });
   }
   onDetail(order, trader) {
     this.navCtrl.push(RoomPage, {
@@ -93,6 +110,13 @@ export class ProfilePage {
     this.onSegment();
     // this.navCtrl.push(ProfilePage,
     //   this.profileUser)
+
+    //Send FCM to target
+    this.alertServiceProvider
+      .onNotification(this.notification)
+      .subscribe(result => {
+        console.log(JSON.stringify(result));
+      });
   }
 
   ionViewDidLoad() {

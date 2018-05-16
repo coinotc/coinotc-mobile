@@ -4,10 +4,8 @@
   "Alerts": "Alert",
   "Wallet": "Wallet",
   "Me": "Me",
-  "ActiveBuy": "Active Buy",
-  "ActiveSell": "Active Sell",
-  "FinishedBuy": "Finished Buy",
-  "FinishedSell": "Finished Sell",
+  "Active": "Active",
+  "Finished": "Finished",
   "OrderID": "Order ID",
   "Seller": "Seller",
   "Buyer": "Buyer",
@@ -29,12 +27,13 @@
   "Message": "Message",
   "Approve": "Approve",
   "Inform": "Inform",
+  "ConfirmRating": "Confirm Rating",
   "Good": "Good",
   "Bad": "Bad",
   "Trader": "Trader",
   "Completed": "Completed",
   "SignIn": "Sign In",
-  "SignUp": "Sign Up",
+  "Register": "Sign Up",
   "SelectCurrency": "Select Crypto",
   "Country": "Country",
   "Singapore": "Singapore",
@@ -42,13 +41,13 @@
   "USA": "USA",
   "Korea": "Korea",
   "crypto": {
-    "BITCOIN":"BTC",
+    "BITCOIN": "BTC",
     "ETHEREUM": "ETH",
     "RIPPLE": "XRP",
     "MONERO": "XMR",
     "STELLAR": "XLM",
     "CARDANO": "ADA",
-    "ZILLIQA":"ZIL"
+    "ZILLIQA": "ZIL"
   },
   "alertCrypto": {
     "ETHEREUM": "eth",
@@ -91,8 +90,9 @@
   "Trades": "Trades",
   "Rating": "Rating",
   "howMuchToBuy": "How much do you wanna buy",
-  "ComplainInformation": "Complain Information",
-  "Complainer": "Complainer",
+  "Complain": "Complain",
+  "Username": "Username",
+  "Title": "Title",
   "Type": "Type",
   "Content": "Content",
   "Submit": "Submit",
@@ -102,5 +102,7 @@
   "Below": "BELOW",
   "NewAlertTips":
     "Tips:The default value of showed price is the average price from recent orders.",
-  "CreateAlert": "Create Alert"
+  "CreateAlert": "Create Alert",
+  "Description": "Description",
+  "Cancel": "Cancel"
 }

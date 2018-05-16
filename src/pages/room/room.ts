@@ -37,11 +37,11 @@ import { AnonymousSubscription } from 'rxjs/Subscription';
   <ion-header>
   <ion-toolbar>
     <ion-title>
-      Description
+      {{'Description' | translate}}
     </ion-title>
     <ion-buttons start>
       <button ion-button (tap)="dismiss()">
-        <span ion-text color="primary">Cancel</span>
+        <span ion-text color="primary">{{'Cancel' | translate}}</span>
       </button>
     </ion-buttons>
   </ion-toolbar>
@@ -88,7 +88,7 @@ import { AnonymousSubscription } from 'rxjs/Subscription';
           <rating [(ngModel)]="rate" readOnly="false" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
             nullable="false">
           </rating>
-          <button ion-button large round full (tap)="onRating()">Confirm Rating</button>
+          <button ion-button large round full (tap)="onRating()">{{'ConfirmRating' | translate}}</button>
         </div>
       </div>
     </ion-item>
@@ -109,7 +109,7 @@ export class ModalContentPage {
   trader;
   user;
   rateStatus;
-  notification = new Notification('', null);
+  notification = new Notification('', null, 'high');
   average;
   rate;
 
@@ -127,8 +127,18 @@ export class ModalContentPage {
     this.orderInfo = this.params.data.orderInfo;
     this.trader = this.params.data.trader;
     this.user = userService.getCurrentUser();
-
-    console.log(this.orderInfo);
+    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+      console.log('>>>>>>>>>>>' + this.trader);
+      console.log(result);
+      this.notification.to = result[0].deviceToken;
+      this.notification.notification = {
+        title: `Your Order with ${this.trader} has progress !`,
+        body: `Order ID : ${this.orderInfo._id}`,
+        icon: 'fcm_push_icon',
+        sound: 'default',
+        click_action: 'FCM_PLUGIN_ACTIVITY'
+      };
+    });
   }
 
   onRefresh() {
@@ -149,7 +159,6 @@ export class ModalContentPage {
         }
         if (this.orderInfo.finished == 1 || this.orderInfo.finished == 2) {
           this.subscribeToData();
-          console.log('>>>>>>>>>>><<<<<<<<<<<');
         }
       });
   }
@@ -170,6 +179,7 @@ export class ModalContentPage {
         });
     });
     //Send push notification to trader
+    console.log(this.notification);
     this.alertServiceProvider
       .onNotification(this.notification)
       .subscribe(result => {
@@ -208,7 +218,7 @@ export class ModalContentPage {
           .subscribe(result => {
             console.log(result);
             for (let i = 0; i < result.length; i++) {
-              let triggerAlert = new Notification('', null);
+              let triggerAlert = new Notification('', null, 'high');
               this.profileServiceProvider
                 .getProfile(result[i].username)
                 .subscribe(result => {
@@ -255,7 +265,7 @@ export class ModalContentPage {
           )
           .subscribe(result => {
             for (let i = 0; i < result.length; i++) {
-              let triggerAlert = new Notification('', null);
+              let triggerAlert = new Notification('', null, 'high');
               this.profileServiceProvider
                 .getProfile(result[i].username)
                 .subscribe(result => {
@@ -359,7 +369,6 @@ export class RoomPage {
   switched = false;
   trader;
   average;
-  notification = new Notification('', null);
   type;
   finished;
   base64Image: string;
@@ -397,16 +406,6 @@ export class RoomPage {
       this.orderInfo = navParams.data.order;
       this.finished = this.orderInfo.finished;
       this.data.roomname = navParams.data.order._id;
-      this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
-        this.notification.to = result[0].deviceToken;
-        this.notification.notification = {
-          title: `Your Order with ${this.trader} has progress !`,
-          body: `Order ID : ${this.orderInfo._id}`,
-          icon: 'fcm_push_icon',
-          sound: 'default',
-          click_action: 'FCM_PLUGIN_ACTIVITY'
-        };
-      });
       if (navParams.data.roomkey == null) {
         this.roomkey = navParams.data.order.roomkey;
       } else {
