@@ -128,6 +128,8 @@ export class ModalContentPage {
     this.trader = this.params.data.trader;
     this.user = userService.getCurrentUser();
     this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+      console.log('>>>>>>>>>>>' + this.trader);
+      console.log(result);
       this.notification.to = result[0].deviceToken;
       this.notification.notification = {
         title: `Your Order with ${this.trader} has progress !`,
@@ -177,6 +179,7 @@ export class ModalContentPage {
         });
     });
     //Send push notification to trader
+    console.log(this.notification);
     this.alertServiceProvider
       .onNotification(this.notification)
       .subscribe(result => {
@@ -223,10 +226,10 @@ export class ModalContentPage {
                   triggerAlert.notification = {
                     title: `You may be willing to SELL ${
                       this.orderInfo.crypto
-                      } in ${this.orderInfo.fiat} now !`,
+                    } in ${this.orderInfo.fiat} now !`,
                     body: `The average price from recent trades is ${
                       this.average
-                      } ${this.orderInfo.fiat}`,
+                    } ${this.orderInfo.fiat}`,
                     sound: 'default',
                     click_action: 'FCM_PLUGIN_ACTIVITY',
                     icon: 'fcm_push_icon'
@@ -270,10 +273,10 @@ export class ModalContentPage {
                   triggerAlert.notification = {
                     title: `You may be willing to BUY ${
                       this.orderInfo.crypto
-                      } in ${this.orderInfo.fiat} now !`,
+                    } in ${this.orderInfo.fiat} now !`,
                     body: `The average price from recent trades is ${
                       this.average
-                      } ${this.orderInfo.fiat}`,
+                    } ${this.orderInfo.fiat}`,
                     sound: 'default',
                     click_action: 'FCM_PLUGIN_ACTIVITY',
                     icon: 'fcm_push_icon'
