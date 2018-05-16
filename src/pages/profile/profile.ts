@@ -110,17 +110,19 @@ export class ProfilePage {
       this.visible = false;
     }
     this.profileService.getProfile(this.profileUser).subscribe(result => {
-      this.model.followers = result[0].followers;
-      this.model.following = result[0].following;
-      this.followerCount = this.model.followers.length;
-      this.followingCount = this.model.following.length;
+      // this.model.followers = result[0].followers;
+      // this.model.following = result[0].following;
+      this.followerCount = result[0].followers.length;
+      this.followingCount = result[0].following.length;
       if (!(result[0].ratings.length == 0)) {
-        for (var _i = 0; _i < result[0].ratings.length; _i++) {
-          var num = result[0].rating[_i]
-          console.log(num);
-          this.rating = this.rating + num;
+        this.rating = 0
+        for (let _i:number = 0; _i < result[0].ratings.length; _i++) {
+          console.log(result[0])
+           let num = result[0].ratings[_i]
+           console.log(num);
+           this.rating = this.rating + num;
         }
-        this.rating = this.rating / result[0].ratings.length;
+         this.rating = this.rating / result[0].ratings.length;
       }
       // if (this.model.orderCount == 0) {
       //   this.rate = 0;
@@ -128,11 +130,13 @@ export class ProfilePage {
       //   this.rate = this.model.goodCount / this.model.orderCount;
       // }
     });
+    console.log(this.value)
     switch (this.value) {
       case 'ad':
-        this.orderService.getMyTrade(this.profileUser).subscribe(result => {
-          this.model.orderCount = result;
-        });
+      this.orderService.getMyTrade(this.profileUser).subscribe(result => {
+           //console.log(result+"111111111111")
+           this.model.orderCount = result; 
+         })
         this.advertisementService
           .getMyadvertisement(this.profileUser, true)
           .subscribe(result => {
@@ -143,12 +147,9 @@ export class ProfilePage {
         this.orderService
           .getTradeWithHim(this.profileUser, this.currentUserName)
           .subscribe(result => {
-            this.model.orderCount = result;
-          });
-        this.advertisementService
-          .getMyadvertisement(this.profileUser, true)
-          .subscribe(result => {
+            console.log(result)
             this.trade = result;
+            this.model.orderCount = result.length;
           });
         break;
     }
