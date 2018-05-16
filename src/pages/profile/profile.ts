@@ -10,6 +10,7 @@ import { RoomPage } from '../room/room';
 import { AdinformationPage } from '../adinformation/adinformation';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
 import { Notification } from '../../models/notification';
+import { AlertServiceProvider } from '../../providers/alert-service/alert-service';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -45,13 +46,14 @@ export class ProfilePage {
     private profileService: ProfileServiceProvider,
     private ev: Events,
     private advertisementService: AdvertisementServiceProvider,
-    public orderService: OrderServiceProvider
+    public orderService: OrderServiceProvider,
+    private alertServiceProvider: AlertServiceProvider
   ) {
     this.profileUser = navParams.data;
     console.log(this.profileUser);
     this.currentUserName = this.userService.getCurrentUser().username;
     this.onSegment();
-    console.log("SEE>>>>>" + this.currentUserName);
+    console.log('SEE>>>>>' + this.currentUserName);
 
     this.profileService.getProfile(this.profileUser).subscribe(result => {
       this.notification.to = result[0].deviceToken;
@@ -108,6 +110,13 @@ export class ProfilePage {
     this.onSegment();
     // this.navCtrl.push(ProfilePage,
     //   this.profileUser)
+
+    //Send FCM to target
+    this.alertServiceProvider
+      .onNotification(this.notification)
+      .subscribe(result => {
+        console.log(JSON.stringify(result));
+      });
   }
 
   ionViewDidLoad() {
@@ -131,7 +140,7 @@ export class ProfilePage {
       this.followingCount = this.model.following.length;
       if (!(result[0].ratings.length == 0)) {
         for (var _i = 0; _i < result[0].ratings.length; _i++) {
-          var num = result[0].rating[_i]
+          var num = result[0].rating[_i];
           console.log(num);
           this.rating = this.rating + num;
         }
