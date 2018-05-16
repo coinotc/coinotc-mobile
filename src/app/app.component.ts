@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { AuthPage } from '../pages/auth/auth';
-import { TabsPage } from '../pages/tabs/tabs'
+import { TabsPage } from '../pages/tabs/tabs';
 import * as firebase from 'firebase';
 import { firebaseconfig } from '../../environments/firebase-config';
 import { Storage } from '@ionic/storage';
@@ -35,18 +35,18 @@ export class MyApp {
     private storage: Storage
   ) {
     this.onResumeSubscription = platform.resume.subscribe(() => {
-      console.log("there is resume")
-      console.log(this.userService.getCurrentUser().username)
-      if(this.userService.getCurrentUser().username !== undefined){
+      console.log('there is resume');
+      console.log(this.userService.getCurrentUser().username);
+      if (this.userService.getCurrentUser().username !== undefined) {
         this.rootPage = TabsPage;
-        this.userService.changeOnlineStatus(true).subscribe()
+        this.userService.changeOnlineStatus(true).subscribe();
       }
       // do something meaningful when the app is put in the foreground
     });
     this.onPauseSubscription = platform.pause.subscribe(() => {
-      console.log("there is pause")
-      if(this.userService.getCurrentUser().username !== undefined)
-        this.userService.changeOnlineStatus(false).subscribe()
+      console.log('there is pause');
+      if (this.userService.getCurrentUser().username !== undefined)
+        this.userService.changeOnlineStatus(false).subscribe();
     });
     this.storage
       .ready()
@@ -69,37 +69,37 @@ export class MyApp {
     });
   }
 
-  private subscribeToData(): void {
-    this.timerSubscription = Observable.timer(90000).subscribe(() =>
-      this.refreshData()
-    );
-  }
+  // private subscribeToData(): void {
+  //   this.timerSubscription = Observable.timer(90000).subscribe(() =>
+  //     this.refreshData()
+  //   );
+  // }
 
-  private refreshData() {
-    let username = this.userService.getCurrentUser().username;
-    this.notificationService.getNotifications(username).subscribe(result => {
-      if (result.length) {
-        for (let i = 0; i < result.length; i++) {
-          this.localNotifications.schedule({
-            id: Math.random() * 100000,
-            text: result[i].message,
-            sound: null
-          });
-          let readID = result[i]._id;
-          this.notificationService
-            .deleteNotifications(readID)
-            .subscribe(result => {
-              console.log('Delete ID: ' + readID);
-            });
-        }
-      }
-      this.subscribeToData();
-    });
-  }
+  // private refreshData() {
+  //   let username = this.userService.getCurrentUser().username;
+  //   this.notificationService.getNotifications(username).subscribe(result => {
+  //     if (result.length) {
+  //       for (let i = 0; i < result.length; i++) {
+  //         this.localNotifications.schedule({
+  //           id: Math.random() * 100000,
+  //           text: result[i].message,
+  //           sound: null
+  //         });
+  //         let readID = result[i]._id;
+  //         this.notificationService
+  //           .deleteNotifications(readID)
+  //           .subscribe(result => {
+  //             console.log('Delete ID: ' + readID);
+  //           });
+  //       }
+  //     }
+  //     this.subscribeToData();
+  //   });
+  // }
 
-  ionViewWillEnter() {
-    this.refreshData();
-  }
+  // ionViewWillEnter() {
+  //   this.refreshData();
+  // }
   ngOnDestroy() {
     // always unsubscribe your subscriptions to prevent leaks
     // this.onResumeSubscription.unsubscribe();
@@ -107,6 +107,6 @@ export class MyApp {
   }
   ngOnInit() {
     this.userService.populate();
-    this.refreshData();
+    // this.refreshData();
   }
 }
