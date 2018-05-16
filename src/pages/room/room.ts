@@ -127,8 +127,16 @@ export class ModalContentPage {
     this.orderInfo = this.params.data.orderInfo;
     this.trader = this.params.data.trader;
     this.user = userService.getCurrentUser();
-
-    console.log(this.orderInfo);
+    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+      this.notification.to = result[0].deviceToken;
+      this.notification.notification = {
+        title: `Your Order with ${this.trader} has progress !`,
+        body: `Order ID : ${this.orderInfo._id}`,
+        icon: 'fcm_push_icon',
+        sound: 'default',
+        click_action: 'FCM_PLUGIN_ACTIVITY'
+      };
+    });
   }
 
   onRefresh() {
@@ -149,7 +157,6 @@ export class ModalContentPage {
         }
         if (this.orderInfo.finished == 1 || this.orderInfo.finished == 2) {
           this.subscribeToData();
-          console.log('>>>>>>>>>>><<<<<<<<<<<');
         }
       });
   }
@@ -359,7 +366,6 @@ export class RoomPage {
   switched = false;
   trader;
   average;
-  notification = new Notification('', null);
   type;
   finished;
   base64Image: string;
@@ -397,16 +403,6 @@ export class RoomPage {
       this.orderInfo = navParams.data.order;
       this.finished = this.orderInfo.finished;
       this.data.roomname = navParams.data.order._id;
-      this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
-        this.notification.to = result[0].deviceToken;
-        this.notification.notification = {
-          title: `Your Order with ${this.trader} has progress !`,
-          body: `Order ID : ${this.orderInfo._id}`,
-          icon: 'fcm_push_icon',
-          sound: 'default',
-          click_action: 'FCM_PLUGIN_ACTIVITY'
-        };
-      });
       if (navParams.data.roomkey == null) {
         this.roomkey = navParams.data.order.roomkey;
       } else {

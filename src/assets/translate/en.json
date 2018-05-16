@@ -34,7 +34,7 @@
   "Trader": "Trader",
   "Completed": "Completed",
   "SignIn": "Sign In",
-  "SignUp": "Sign Up",
+  "Register": "Sign Up",
   "SelectCurrency": "Select Crypto",
   "Country": "Country",
   "Singapore": "Singapore",
@@ -42,13 +42,13 @@
   "USA": "USA",
   "Korea": "Korea",
   "crypto": {
-    "BITCOIN":"BTC",
+    "BITCOIN": "BTC",
     "ETHEREUM": "ETH",
     "RIPPLE": "XRP",
     "MONERO": "XMR",
     "STELLAR": "XLM",
     "CARDANO": "ADA",
-    "ZILLIQA":"ZIL"
+    "ZILLIQA": "ZIL"
   },
   "alertCrypto": {
     "ETHEREUM": "eth",
