@@ -37,11 +37,11 @@ import { AnonymousSubscription } from 'rxjs/Subscription';
   <ion-header>
   <ion-toolbar>
     <ion-title>
-      Description
+      {{'Description' | translate}}
     </ion-title>
     <ion-buttons start>
       <button ion-button (tap)="dismiss()">
-        <span ion-text color="primary">Cancel</span>
+        <span ion-text color="primary">{{'Cancel' | translate}}</span>
       </button>
     </ion-buttons>
   </ion-toolbar>
@@ -88,7 +88,7 @@ import { AnonymousSubscription } from 'rxjs/Subscription';
           <rating [(ngModel)]="rate" readOnly="false" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
             nullable="false">
           </rating>
-          <button ion-button large round full (tap)="onRating()">Confirm Rating</button>
+          <button ion-button large round full (tap)="onRating()">{{'ConfirmRating' | translate}}</button>
         </div>
       </div>
     </ion-item>
