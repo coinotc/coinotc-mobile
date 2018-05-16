@@ -1,16 +1,6 @@
 page-room {
   ion-content {
-    background: #56ccf2; /* fallback for old browsers */
-    background: -webkit-linear-gradient(
-      to left,
-      #2f80ed,
-      #56ccf2
-    ); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(
-      to left,
-      #2f80ed,
-      #56ccf2
-    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-color: #f5f5f5;
     background-size: cover;
     height: 100%;
     overflow: hidden;
@@ -20,7 +10,8 @@ page-room {
     }
   }
   ion-footer {
-    background: white;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.11);
+    background-color: #fff;
     ion-icon {
       padding: 10px;
       font-size: 20px;
@@ -54,44 +45,74 @@ page-room {
     min-height: 40px;
     .right-bubble {
       position: relative;
-      background: #dcf8c6;
+      background: #387ef5;
       border-top-left-radius: 0.4em;
-      border-bottom-left-radius: 0.4em;
-      border-bottom-right-radius: 0.4em;
-      padding: 5px 10px 10px;
-      left: 15%;
-      span.msg-name {
-        font-size: 12px;
-        font-weight: bold;
-        color: green;
-      }
-      span.msg-date {
-        font-size: 10px;
-      }
-    }
-
-    .right-bubble:after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 0;
-      height: 0;
-      border: 27px solid transparent;
-      border-left-color: #dcf8c6;
-      border-right: 0;
-      border-top: 0;
-      margin-top: -13.5px;
-      margin-right: -27px;
-    }
-    .left-bubble {
-      position: relative;
-      background: white;
       border-top-right-radius: 0.4em;
       border-bottom-left-radius: 0.4em;
       border-bottom-right-radius: 0.4em;
-      padding: 5px 10px 10px;
-      left: 5%;
+      padding: 1px 10px 10px;
+      left: 23%;
+      span.msg-name {
+        font-size: 12px;
+        font-weight: bold;
+        color: #fff;
+      }
+      span.msg-date {
+        font-size: 10px;
+        color: #dfdfe6;
+      }
+    }
+    .right-bubble > p {
+      color: #fff;
+    }
+
+    .right-bubble .triangle {
+         background-color: #fff;
+          border-radius: 2px;
+          height: 8px;
+          width: 8px;
+          top: 12px;
+          display: block;
+          border-style: solid;
+          border-color: #ddd;
+          border-width: 1px;
+          -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+          position: absolute;
+          border-bottom-width: 0;
+          border-left-width: 0;
+          right: -5px;
+          background-color: #387ef5;
+
+    }
+
+    // .right-bubble:after {
+    //   content: '';
+    //   position: absolute;
+    //   right: 0;
+    //   top: 0;
+    //   width: 0;
+    //   height: 0;
+    //   border: 27px solid transparent;
+    //   border-left-color: #387ef5;
+    //   border-right: 0;
+    //   border-top: 0;
+    //   margin-top: -13.5px;
+    //   margin-right: -27px;
+    // }
+
+    .left-bubble {
+      border-style: solid;
+      border-color: #ddd;
+      border-width: 1px;
+      position: relative;
+      background: white;
+      border-top-right-radius: 0.4em;
+      border-top-left-radius: 0.4em;
+      border-bottom-left-radius: 0.4em;
+      border-bottom-right-radius: 0.4em;
+      padding: 1px 10px 10px;
+      left: 2%;
       span.msg-name {
         font-size: 12px;
         font-weight: bold;
@@ -99,23 +120,47 @@ page-room {
       }
       span.msg-date {
         font-size: 10px;
+        color: #888;
       }
     }
 
-    .left-bubble:after {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 0;
-      height: 0;
-      border: 27px solid transparent;
-      border-right-color: #ffffff;
-      border-left: 0;
-      border-top: 0;
-      margin-top: -13.5px;
-      margin-left: -27px;
+    .left-bubble > p {
+    color:#343434
     }
+
+    .left-bubble .triangle {
+         background-color: #fff;
+          border-radius: 2px;
+          height: 8px;
+          width: 8px;
+          top: 12px;
+          display: block;
+          border-style: solid;
+          border-color: #ddd;
+          border-width: 1px;
+          -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+          position: absolute;
+          border-top-width: 0;
+      border-right-width: 0;
+      left: -5px;
+
+    }
+
+    // .left-bubble:after {
+    //   content: '';
+    //   position: absolute;
+    //   left: 0;
+    //   top: 0;
+    //   width: 0;
+    //   height: 0;
+    //   border: 27px solid transparent;
+    //   border-right-color: #ffffff;
+    //   border-left: 0;
+    //   border-top: 0;
+    //   margin-top: -13.5px;
+    //   margin-left: -27px;
+    // }
   }
 }
 ul {
