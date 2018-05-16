@@ -64,18 +64,20 @@ export class MePage {
   doRefresh() {
     this.profileService.getProfile(this.user.name).subscribe(result => {
       
-      console.log(result[0].ratings+"111111111111111111111");
+      //console.log(result[0].ratings+"111111111111111111111");
       if (!(result[0].ratings.length == 0)) {
-        for (var _i = 0; _i < result[0].rating.length; _i++) {
-          var num = result[0].rating[_i]
-          console.log(num);
-          this.rating = this.rating + num;
+        this.rating = 0
+        for (let _i:number = 0; _i < result[0].ratings.length; _i++) {
+          console.log(result[0])
+           let num = result[0].ratings[_i]
+           console.log(num);
+           this.rating = this.rating + num;
         }
-        this.rating = this.rating / result[0].ratings.length;
+         this.rating = this.rating / result[0].ratings.length;
       }
-      this.model = result[0];
-      this.followerCount = this.model.followers.length;
-      this.followingCount = this.model.following.length;
+      //this.model = result[0];
+       this.followerCount = result[0].followers.length;
+       this.followingCount = result[0].following.length;
     });
     this.orderService.getMyTrade(this.user.name).subscribe(result => {
       this.model.orderCount = result;
