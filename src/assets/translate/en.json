@@ -39,6 +39,7 @@
   "SelectCurrency": "Select Crypto",
   "Country": "Country",
   "Singapore": "Singapore",
+  "Global": "Global",
   "China": "China",
   "USA": "USA",
   "Korea": "Korea",
@@ -129,5 +130,22 @@
     "Advertisements": "Advertisements",
     "Active": "Active",
     "Disabled": "Disabled"
+  },
+  "KYC": "KYC Verification",
+  "ChangeTradePassword": "ChangeTradePassword",
+  "ForgetTradePassword": "ForgetTradePassword",
+  "ChangePassword": "ChangePassword",
+  "SelectLanguage": "SelectLanguage",
+  "NativeCurrency": "NativeCurrency",
+  "Region": "Region",
+  "Logout": "Logout",
+  "ModifyTitle": "Please Enter The Old Password",
+  "SetTrdTitle": "Setting Trade Password",
+  "ConfirmTrdTitle": "Confirm Trade Password",
+  "ModifyPassword": {
+    "ModifyPassword": "Modify Password",
+    "Old": "Enter current password",
+    "New": "Please enter new Password",
+    "Confirm": "Please confirm new Password"
   }
 }
