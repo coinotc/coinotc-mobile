@@ -6,6 +6,7 @@
   "Me": "Me",
   "Active": "Active",
   "Finished": "Finished",
+  "Delete": "Delete",
   "OrderID": "Order ID",
   "Seller": "Seller",
   "Buyer": "Buyer",
@@ -23,6 +24,7 @@
   "Crypto": "Crypto",
   "Amount": "Amount",
   "Quantity": "Quantity",
+  "CryptoPrice": "Crypto Price",
   "Price": "Price",
   "Message": "Message",
   "Approve": "Approve",
@@ -40,6 +42,8 @@
   "China": "China",
   "USA": "USA",
   "Korea": "Korea",
+  "Malaysia": "Malaysia",
+  "Thailand": "Thailand",
   "crypto": {
     "BITCOIN": "BTC",
     "ETHEREUM": "ETH",
@@ -61,7 +65,9 @@
     "SGD": "SGD",
     "CNY": "CNY",
     "USD": "USD",
-    "KRW": "KRW"
+    "KRW": "KRW",
+    "THB": "THB",
+    "MYR": "MYR"
   },
   "orderStatus": {
     "0": "Complete",
@@ -89,12 +95,22 @@
   "minutes": "minutes",
   "Trades": "Trades",
   "Rating": "Rating",
+  "Following": "Following",
+  "Followers": "Followers",
+  "Volume": "Volume",
+  "HisAd": "His Ad",
+  "TradeWith": "My Trade With Him",
   "howMuchToBuy": "How much do you wanna buy",
   "Complain": "Complain",
   "Username": "Username",
+  "Email": "Email",
+  "Password": "Password",
+  "ConfirmPassword": "Confirm Password",
+  "ForgetPassword": "Forget you Password",
   "Title": "Title",
   "Type": "Type",
   "Content": "Content",
+  "Close": "Close",
   "Submit": "Submit",
   "AveragePriceIs": "Average Price Is",
   "NewPriceAlert": "New Price Alert",
@@ -104,5 +120,14 @@
     "Tips:The default value of showed price is the average price from recent orders.",
   "CreateAlert": "Create Alert",
   "Description": "Description",
-  "Cancel": "Cancel"
+  "Cancel": "Cancel",
+  "Follow": "Follow",
+  "Settings": "Settings",
+  "Support": "Support",
+  "GoogleAuthenticator": "Google Authenticator",
+  "Advertisements": {
+    "Advertisements": "Advertisements",
+    "Active": "Active",
+    "Disabled": "Disabled"
+  }
 }
