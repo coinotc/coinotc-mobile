@@ -38,6 +38,7 @@
   "Register": "注册账号",
   "SelectCurrency": "选择币种",
   "Country": "国家",
+  "Global": "全球",
   "Singapore": "新加坡",
   "China": "中国",
   "USA": "美国",
@@ -128,5 +129,22 @@
     "Advertisements": "所有广告",
     "Active": "可用",
     "Disabled": "不可用"
+  },
+  "KYC": "身份验证",
+  "ChangeTradePassword": "更换支付密码",
+  "ForgetTradePassword": "忘记支付密码",
+  "ChangePassword": "更换登录密码",
+  "SelectLanguage": "客户端语言",
+  "NativeCurrency": "法币选择",
+  "Region": "地区",
+  "Logout": "登出",
+  "ModifyTitle": "请输入旧密码",
+  "SetTrdTitle": "请设置支付密码",
+  "ConfirmTrdTitle": "确认支付密码",
+  "ModifyPassword": {
+    "ModifyPassword": "更换密码",
+    "Old": "输入旧密码",
+    "New": "输入新密码",
+    "Confirm": "确认新密码"
   }
 }
