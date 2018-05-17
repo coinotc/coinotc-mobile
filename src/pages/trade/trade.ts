@@ -24,36 +24,36 @@ import { Storage } from '@ionic/storage';
 <ion-list style="margin: 0px 16px 0px;" inset no-lines ion-row>
   <ion-list radio-group [(ngModel)]="fiatcopy" col-6>
     <ion-item-divider>
-      Currency
+      {{'Currency' | translate}}
     </ion-item-divider>
     <ion-item>
-      <ion-label>SGD</ion-label>
+      <ion-label>{{'fiat.SGD' | translate}}</ion-label>
       <ion-radio value="SGD" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
-      <ion-label>CNY</ion-label>
+      <ion-label>{{'fiat.CNY' | translate}}</ion-label>
       <ion-radio value="CNY" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
-      <ion-label>USD</ion-label>
+      <ion-label>{{'fiat.USD' | translate}}</ion-label>
       <ion-radio value="USD" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
-      <ion-label>THB</ion-label>
+      <ion-label>{{'fiat.THB' | translate}}</ion-label>
       <ion-radio value="THB" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
-      <ion-label>MYR</ion-label>
+      <ion-label>{{'fiat.MYR' | translate}}</ion-label>
       <ion-radio value="MYR" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
-      <ion-label>KRW</ion-label>
+      <ion-label>{{'fiat.KRW' | translate}}</ion-label>
       <ion-radio value="KRW" (click)="leave()"></ion-radio>
     </ion-item>
   </ion-list>
   <ion-list style="margin-bottom: 0px;" radio-group [(ngModel)]="crypto" col-6>
     <ion-item-divider>
-      Crypto
+      {{'Crypto' | translate}}
     </ion-item-divider>
     <ion-item>
       <ion-label>BITCOIN</ion-label>
@@ -102,7 +102,7 @@ export class fiatPopoverPage {
     this.crypto = this.navParams.data.crypto;
   }
   leave() {
-    this.viewCtrl.dismiss({ crypto: this.crypto, fiat: this.fiatcopy })
+    this.viewCtrl.dismiss({ crypto: this.crypto, fiat: this.fiatcopy });
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad PopoverPage');
@@ -147,26 +147,33 @@ export class TradePage {
     // this.hideheader = true;
     this.bannerControl.getBanner().subscribe(result => {
       this.banners = result;
-      console.log(this.banners)
-    })
+      console.log(this.banners);
+    });
   }
   ionViewDidEnter() {
     this.currentuser = this.userservice.getCurrentUser().username;
-    this.storage.get('nativeRegion').then(value => {
-      if (value) { this.country = value.region }
-      else { this.country = 'singapore' }
-    }).then(() => this.doRefresh());
-
-  }
-  doRefresh(refresher?) {
-    if (this.buynsell === "buy") {
-      this.adservice.getadvertisement(this.crypto, this.country, this.fiat, 1).subscribe(result => {
-        this.list = result;
-        console.log(this.list);
-        if (refresher) {
-          refresher.complete();
+    this.storage
+      .get('nativeRegion')
+      .then(value => {
+        if (value) {
+          this.country = value.region;
+        } else {
+          this.country = 'singapore';
         }
       })
+      .then(() => this.doRefresh());
+  }
+  doRefresh(refresher?) {
+    if (this.buynsell === 'buy') {
+      this.adservice
+        .getadvertisement(this.crypto, this.country, this.fiat, 1)
+        .subscribe(result => {
+          this.list = result;
+          console.log(this.list);
+          if (refresher) {
+            refresher.complete();
+          }
+        });
     } else {
       this.adservice
         .getadvertisement(this.crypto, this.country, this.fiat, 0)
@@ -182,7 +189,7 @@ export class TradePage {
     this.events.subscribe('reloadtrade', () => {
       this.doRefresh();
       this.events.unsubscribe('reloadtrade');
-    })
+    });
     if (ismine) {
       this.appCtrl.getRootNav().push(AdinformationPage, {
         information: information,
@@ -227,7 +234,7 @@ export class TradePage {
     this.events.subscribe('reloadtrade', () => {
       this.doRefresh();
       this.events.unsubscribe('reloadtrade');
-    })
+    });
     this.appCtrl.getRootNav().push(AddadvertisementPage, {
       type: 'Buy',
       title: 'publishBuy',
@@ -240,7 +247,7 @@ export class TradePage {
     this.events.subscribe('reloadtrade', () => {
       this.doRefresh();
       this.events.unsubscribe('reloadtrade');
-    })
+    });
     this.appCtrl.getRootNav().push(AddadvertisementPage, {
       type: 'Sell',
       title: 'publishSell',
@@ -250,7 +257,11 @@ export class TradePage {
     });
   }
   presentfilterPopover(myEvent) {
-    let popover = this.popoverCtrl.create(fiatPopoverPage, { fiat: this.fiat, crypto: this.crypto },{cssClass: 'contact-popover'});
+    let popover = this.popoverCtrl.create(
+      fiatPopoverPage,
+      { fiat: this.fiat, crypto: this.crypto },
+      { cssClass: 'contact-popover' }
+    );
     popover.present({ ev: myEvent });
     popover.onDidDismiss(data => {
       if (data) {
@@ -258,8 +269,7 @@ export class TradePage {
         this.fiat = data.fiat;
         this.doRefresh();
       }
-    })
+    });
   }
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }
