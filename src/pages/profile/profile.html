@@ -7,7 +7,9 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title><p>{{profileUser}}</p></ion-title>
+    <ion-title>
+      <p>{{profileUser}}</p>
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,36 +17,35 @@
 <ion-content class="list-avatar-page" *ngIf="model">
   <ion-list no-lines>
     <ion-item>
-        <text-avatar [text]="profileUser" item-left></text-avatar>
+      <text-avatar [text]="profileUser" item-left></text-avatar>
       <h2>{{profileUser}}</h2>
-    </ion-item>      
-        <button ion-button clear  (click)="follow()" >
-          <ion-icon 
-            [name]="visible ? 'ios-thumbs-up-outline' :'ios-thumbs-up'">
-          </ion-icon>
-        </button>
+    </ion-item>
+    <button ion-button clear (click)="follow()">
+      <ion-icon [name]="visible ? 'ios-thumbs-up-outline' :'ios-thumbs-up'">
+      </ion-icon>
+    </button>
     <ion-item>
       <ion-grid>
         <ion-row>
-          <ion-col> 
+          <ion-col>
             <h2>{{model.orderCount}}</h2>
-            <p>Trades</p>
+            <p>{{'Trades' | translate}}</p>
           </ion-col>
           <ion-col>
             <h2>{{followingCount}}</h2>
-            <p>Following</p>
+            <p>{{'Following' | translate}}</p>
           </ion-col>
           <ion-col>
             <h2>{{followerCount}}</h2>
-            <p>Followers</p>
+            <p>{{'Followers' | translate}}</p>
           </ion-col>
           <ion-col>
             <h2>{{rating}}</h2>
-            <p>Rating</p>
+            <p>{{'Rating' | translate}}</p>
           </ion-col>
           <ion-col>
             <h2>0</h2>
-            <p>Volume</p>
+            <p>{{'Volume' | translate}}</p>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -53,10 +54,10 @@
   <ion-toolbar>
     <ion-segment [(ngModel)]="value">
       <ion-segment-button value="ad" (click)="onSegment()">
-        His Ad
+        {{'HisAd' | translate}}
       </ion-segment-button>
       <ion-segment-button value="trade" (click)="onSegment()">
-        My trades with him
+        {{'TradeWith' | translate}}
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -74,7 +75,7 @@
         </ion-item>
       </ion-list>
       <ion-list *ngSwitchCase="'trade'">
-        <ion-item  *ngFor="let advertisement of trade"  (tap)="onDetail(advertisement,advertisement.owner)">
+        <ion-item *ngFor="let advertisement of trade" (tap)="onDetail(advertisement,advertisement.owner)">
           <text-avatar [text]="advertisement.owner" item-left></text-avatar>
           <h2>{{advertisement.owner}}</h2>
           <p>{{advertisement.payment}}</p>
