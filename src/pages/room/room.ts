@@ -226,10 +226,10 @@ export class ModalContentPage {
                   triggerAlert.notification = {
                     title: `You may be willing to SELL ${
                       this.orderInfo.crypto
-                    } in ${this.orderInfo.fiat} now !`,
+                      } in ${this.orderInfo.fiat} now !`,
                     body: `The average price from recent trades is ${
                       this.average
-                    } ${this.orderInfo.fiat}`,
+                      } ${this.orderInfo.fiat}`,
                     sound: 'default',
                     click_action: 'FCM_PLUGIN_ACTIVITY',
                     icon: 'fcm_push_icon'
@@ -273,10 +273,10 @@ export class ModalContentPage {
                   triggerAlert.notification = {
                     title: `You may be willing to BUY ${
                       this.orderInfo.crypto
-                    } in ${this.orderInfo.fiat} now !`,
+                      } in ${this.orderInfo.fiat} now !`,
                     body: `The average price from recent trades is ${
                       this.average
-                    } ${this.orderInfo.fiat}`,
+                      } ${this.orderInfo.fiat}`,
                     sound: 'default',
                     click_action: 'FCM_PLUGIN_ACTIVITY',
                     icon: 'fcm_push_icon'
@@ -439,7 +439,8 @@ export class RoomPage {
         setTimeout(() => {
           if (this.offStatus === false) {
             loading.dismiss();
-            this.content.scrollToBottom(300);
+            // this.content.scrollToBottom(300);
+            if (this.content._scroll) this.content.scrollToBottom(300);
           }
         }, 500);
         var end = new Date().getTime();
@@ -460,7 +461,7 @@ export class RoomPage {
 
         setTimeout(() => {
           if (this.offStatus === false) {
-            this.content.scrollToTop(300);
+            if (this.content._scroll) this.content.scrollToTop(300);
             if (refresher) {
               refresher.complete();
             }
