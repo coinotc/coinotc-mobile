@@ -67,7 +67,7 @@
         <ion-item *ngFor="let advertisement of ad" (tap)="adinformation(advertisement)">
           <text-avatar [text]="advertisement.owner" item-left></text-avatar>
           <h2>{{advertisement.owner}}</h2>
-          <p>{{advertisement.payment}}</p>
+          <i *ngFor="let class of advertisement.payment" [class]="class"></i>
           <div item-right text-right>
             <h5 style="color:#02cb66">{{advertisement.price| number : '1.2-2'}} {{+advertisement.fiat}}</h5>
           </div>
