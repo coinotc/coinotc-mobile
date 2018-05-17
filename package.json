@@ -43,6 +43,7 @@
     "@ngx-translate/http-loader": "^2.0.1",
     "angularfire2": "^5.0.0-rc.7",
     "avatar-initials": "^3.0.1",
+    "com-sarriaroman-photoviewer": "^1.1.16",
     "cookie-parser": "~1.4.3",
     "cordova-android": "6.3.0",
     "cordova-browser": "5.0.3",
@@ -95,7 +96,6 @@
   },
   "cordova": {
     "plugins": {
-      "cordova-plugin-ionic-webview": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-whitelist": {},
       "ionic-plugin-keyboard": {},
@@ -105,7 +105,8 @@
       "cordova-plugin-network-information": {},
       "cordova-plugin-local-notification": {},
       "cordova-plugin-device": {},
-      "com-sarriaroman-photoviewer": {}
+      "com-sarriaroman-photoviewer": {},
+      "cordova-plugin-ionic-webview": {}
     },
     "platforms": [
       "ios",

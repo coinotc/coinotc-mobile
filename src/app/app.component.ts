@@ -38,7 +38,7 @@ export class MyApp {
       console.log('there is resume');
       console.log(this.userService.getCurrentUser().username);
       if (this.userService.getCurrentUser().username !== undefined) {
-        this.rootPage = TabsPage;
+        //this.rootPage = TabsPage;
         this.userService.changeOnlineStatus(true).subscribe();
       }
       // do something meaningful when the app is put in the foreground
@@ -64,7 +64,7 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      //statusBar.styleDefault();
+      statusBar.styleDefault();
       splashScreen.hide();
     });
   }

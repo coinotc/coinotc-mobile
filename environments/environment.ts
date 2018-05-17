@@ -13,6 +13,7 @@ export const environment = {
   //api_url: 'http://192.168.50.243:3000/api'
   //api_url: 'http://192.168.1.47:4001/api'
   //api_url: 'http://192.168.50.196:3000/api'
+  //api_url: 'http://192.168.50.116:4001/api'
   //api_url: 'http://localhost:3000/api'
   //api_url: 'http://localhost:4001/api'
 };
