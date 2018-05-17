@@ -1,14 +1,14 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Trusted</ion-title>
+    <ion-title>{{'Follow' | translate}}</ion-title>
   </ion-navbar>
   <ion-toolbar>
     <ion-segment [(ngModel)]="value">
-      <ion-segment-button value="following"  (tap)="onSegment()">
-        Following
+      <ion-segment-button value="following" (tap)="onSegment()">
+        {{'Following' | translate}}
       </ion-segment-button>
       <ion-segment-button value="followers" (tap)="onSegment()">
-        Followers
+        {{'Followers' | translate}}
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -18,18 +18,18 @@
 <ion-content>
   <div [ngSwitch]="value">
     <ion-list *ngSwitchCase="'following'">
-        <ion-card *ngFor="let following of followings" >
-          <ion-item>
-            <text-avatar [text]="following" (tap)="profile(following)" item-left></text-avatar>
+      <ion-card *ngFor="let following of followings">
+        <ion-item>
+          <text-avatar [text]="following" (tap)="profile(following)" item-left></text-avatar>
 
-            <h2>{{following}}
-            </h2>
-          </ion-item>
+          <h2>{{following}}
+          </h2>
+        </ion-item>
 
-        </ion-card>
+      </ion-card>
     </ion-list>
     <ion-list *ngSwitchCase="'followers'">
-      <ion-card *ngFor="let follower of followers" >
+      <ion-card *ngFor="let follower of followers">
         <ion-item>
           <text-avatar [text]="follower" (tap)="profile(follower)" item-left></text-avatar>
 

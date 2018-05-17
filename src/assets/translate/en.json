@@ -6,6 +6,7 @@
   "Me": "Me",
   "Active": "Active",
   "Finished": "Finished",
+  "Delete": "Delete",
   "OrderID": "Order ID",
   "Seller": "Seller",
   "Buyer": "Buyer",
@@ -109,6 +110,7 @@
   "Title": "Title",
   "Type": "Type",
   "Content": "Content",
+  "Close": "Close",
   "Submit": "Submit",
   "AveragePriceIs": "Average Price Is",
   "NewPriceAlert": "New Price Alert",
@@ -118,5 +120,14 @@
     "Tips:The default value of showed price is the average price from recent orders.",
   "CreateAlert": "Create Alert",
   "Description": "Description",
-  "Cancel": "Cancel"
+  "Cancel": "Cancel",
+  "Follow": "Follow",
+  "Settings": "Settings",
+  "Support": "Support",
+  "GoogleAuthenticator": "Google Authenticator",
+  "Advertisements": {
+    "Advertisements": "Advertisements",
+    "Active": "Active",
+    "Disabled": "Disabled"
+  }
 }
