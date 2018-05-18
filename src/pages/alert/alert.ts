@@ -39,7 +39,7 @@ export class AlertPage {
   private alerts: Observable<any>;
   private user;
   private deviceToken;
-  notification = new Notification('', null, 'high');
+  notification = new Notification('', null, null, 'high');
   cryptosFAB: Object[] = [
     {
       value: 'ETHEREUM',
