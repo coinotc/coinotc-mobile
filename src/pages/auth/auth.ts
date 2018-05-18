@@ -101,7 +101,7 @@ export class AuthPage {
           if (data.wasTapped) {
             console.log('Received in background', JSON.stringify(data));
           } else {
-            console.log('Received in foreground', JSON.stringify(data));
+            console.log('Received in foreground son of a bitch', JSON.stringify(data));
           }
         },
         error => {
@@ -211,7 +211,7 @@ export class AuthPage {
     if (this.authType == "login") {
       this.getIpService.getIP().subscribe(ip => {
         this.userService
-          .login(credentials , ip)
+          .login(credentials, ip)
           .subscribe(
             user => {
               console.log(user.active)
