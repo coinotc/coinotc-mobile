@@ -103,7 +103,10 @@
     <ion-item *ngIf="adform.controls.limit.hasError('max') && adform.controls.limit.touched">
       <ion-label style="color:red">Time limit has to below 60.</ion-label>
     </ion-item>
-    <ion-textarea [(ngModel)]="model.message" placeholder="{{'AdvertisementMessage' | translate}}" formControlName="message"></ion-textarea>
+    <ion-item>
+      <ion-label>{{'AdvertisementMessage' | translate}}</ion-label>
+      <ion-textarea [(ngModel)]="model.message" formControlName="message"></ion-textarea>
+    </ion-item>
     <ion-item *ngIf="adform.controls.message.hasError('required') && adform.controls.message.touched">
       <ion-label style="color:red">Message is required.</ion-label>
     </ion-item>

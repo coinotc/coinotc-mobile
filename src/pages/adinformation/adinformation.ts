@@ -36,9 +36,8 @@ export class AdinformationPage {
   disabled = true;
   information;
   title: string;
-  tradetype: { type: String; crypto: String };
-  //user: { orderCount: number; goodCount: number };
-  user: { orderCount: number };
+  tradetype: { type: String, crypto: String };
+  user = { orderCount: null, rating: 0 };
   ismine;
   range;
   loading;
@@ -76,6 +75,22 @@ export class AdinformationPage {
     this.information = navParams.data.information;
     this.ismine = navParams.data.tradetype.ismine;
     console.log(navParams.data);
+    this.orderservice.getMyTrade(this.navParams.data.information.owner).subscribe(result => {
+      this.user.orderCount = result;
+    })
+    this.profileservice.getProfile(this.navParams.data.information.owner).subscribe(result => {
+      if (!(result[0].ratings.length == 0)) {
+        this.user.rating = 0
+        for (let _i: number = 0; _i < result[0].ratings.length; _i++) {
+          console.log(result[0])
+          let num = result[0].ratings[_i]
+          console.log(num);
+          this.user.rating = this.user.rating + num;
+        }
+        this.user.rating = this.user.rating / result[0].ratings.length;
+      }
+      console.log(this.user);
+    });
     // this.profileservice.getProfile(this.information.owner).subscribe(result => {
     //   console.log(result);
     //   this.user = result[0];
