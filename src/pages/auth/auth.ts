@@ -201,7 +201,8 @@ export class AuthPage {
     let loading = this.loadingCtrl.create({
       spinner: 'circles',
       content: 'loading...',
-      duration: 10000
+      duration: 3000,
+      dismissOnPageChange:true
     });
     loading.present();
     console.log(this.deviceToken);
@@ -238,6 +239,7 @@ export class AuthPage {
               }
             },
             (errors: Errors) => {
+              
               for (let field in errors.errors) {
                 if (typeof field !== 'undefined') {
                   console.log(field);
@@ -261,6 +263,7 @@ export class AuthPage {
     else {
       this.userService.checkUser(credentials).subscribe(result => {
         console.log(result)
+        
         if (result != 0) {
           this.toastCtrl
             .create({

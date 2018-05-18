@@ -79,12 +79,12 @@ export class ProfilePage {
     if (information.type == 1) {
       this.navCtrl.push(AdinformationPage, {
         information: information,
-        tradetype: { type: 'Buy', crypto: information.crypto }
+        tradetype: { type: 'Buy', crypto: information.crypto, ismine: false }
       });
     } else {
       this.navCtrl.push(AdinformationPage, {
         information: information,
-        tradetype: { type: 'Sell', crypto: information.crypto }
+        tradetype: { type: 'Sell', crypto: information.crypto, ismine: false }
       });
     }
   }
