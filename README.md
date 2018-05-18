@@ -115,6 +115,6 @@ apksigner verify ./platforms/android/build/outputs/apk/coinotc-release.apk
 
 # Production Builds (IOS)
 ```
-ionic cordova plugin add cordova-plugin-wkwebview-engine
-ionic cordova plugin remove cordova-plugin-ionic-webview
+ionic cordova plugin remove cordova-plugin-wkwebview-engine
+ionic cordova plugin add cordova-plugin-ionic-webview
 ```
