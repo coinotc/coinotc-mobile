@@ -52,6 +52,8 @@ export class UserServiceProvider {
 
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
+  private badges = new BehaviorSubject<number>(null);
+  castBadges = this.badges.asObservable();
 
   constructor(
     private apiService: ApiServiceProvider,
@@ -86,12 +88,16 @@ export class UserServiceProvider {
         currency: user.nativeCurrency
       };
 
-      this.storage.ready().then(() => this.storage.set('nativeCurrency', nativeCurry) as Promise<void>);
+      this.storage
+        .ready()
+        .then(
+          () => this.storage.set('nativeCurrency', nativeCurry) as Promise<void>
+        );
       // Set isAuthenticated to true
       this.isAuthenticatedSubject.next(true);
     });
   }
- 
+
   purgeAuth() {
     // Remove JWT from localstorage
     this.jwtService.destroyToken().then(() => {
@@ -101,8 +107,8 @@ export class UserServiceProvider {
       this.isAuthenticatedSubject.next(false);
       console.log(
         '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' +
-        this.getCurrentUser().username +
-        '<<<<<<<<<<<<<<<<<<'
+          this.getCurrentUser().username +
+          '<<<<<<<<<<<<<<<<<<'
       );
     });
   }
@@ -147,26 +153,41 @@ export class UserServiceProvider {
   // Update the user on the server (email, pass, etc)
   updateBaseCurrency(currency): Observable<User> {
     return this.apiService.put('/users/base-currency', currency).map(data => {
-      this.storage.ready().then(() => this.storage.set('nativeCurrency', currency) as Promise<void>);
+      this.storage
+        .ready()
+        .then(
+          () => this.storage.set('nativeCurrency', currency) as Promise<void>
+        );
       return data;
     });
   }
 
   updateLanguage(language): Observable<User> {
     return this.apiService.put('/users/language', language).map(data => {
-      this.storage.ready().then(() => this.storage.set('preferLanguage', language) as Promise<void>);
+      this.storage
+        .ready()
+        .then(
+          () => this.storage.set('preferLanguage', language) as Promise<void>
+        );
       return data;
     });
   }
   updateRegion(region): Observable<User> {
     return this.apiService.put('/users/region', region).map(data => {
-      this.storage.ready().then(() => this.storage.set('nativeRegion', region) as Promise<void>);
+      this.storage
+        .ready()
+        .then(() => this.storage.set('nativeRegion', region) as Promise<void>);
       return data;
     });
   }
   public signUp(credentials, deviceToken, tradepassword, ip): Observable<User> {
     return this.apiService
-      .post('/users', { user: credentials, deviceToken: deviceToken, tradepassword: tradepassword, ip: ip })
+      .post('/users', {
+        user: credentials,
+        deviceToken: deviceToken,
+        tradepassword: tradepassword,
+        ip: ip
+      })
       .map(data => {
         console.log('----> setAuth');
         this.setAuth(data.user);
@@ -175,41 +196,47 @@ export class UserServiceProvider {
   }
 
   public changePassword(credentials, user) {
-    let URL = '/users/change-password'
-    return this.apiService.post(URL, { passwordData: credentials, user: user })
+    let URL = '/users/change-password';
+    return this.apiService.post(URL, { passwordData: credentials, user: user });
   }
 
-  public checkChgPasswordUser(credentials, currentPassword): Observable<number> {
-    let URL = '/users/checkChangePasswordUser'
-    return this.apiService.post(URL, { user: credentials, currentPassword: currentPassword });
+  public checkChgPasswordUser(
+    credentials,
+    currentPassword
+  ): Observable<number> {
+    let URL = '/users/checkChangePasswordUser';
+    return this.apiService.post(URL, {
+      user: credentials,
+      currentPassword: currentPassword
+    });
   }
-  changeOnlineStatus(status){
-    let URL = '/users/changeOnlineStatus'
+  changeOnlineStatus(status) {
+    let URL = '/users/changeOnlineStatus';
     return this.apiService.patch(URL, { onlineStatus: status });
   }
   public checkUser(credentials): Observable<number> {
-    let URL = '/users/checkUser'
+    let URL = '/users/checkUser';
     return this.apiService.post(URL, { user: credentials });
   }
   public forgetPassword(credentials) {
-    let URL = '/users/forgetPassword'
+    let URL = '/users/forgetPassword';
     return this.apiService.post(URL, { email: credentials });
   }
   public forgetVerifySixPin(email, code) {
     let URL = '/users/forgetVerifySixPin';
-    return this.apiService.post(URL, { email: email, code: code })
+    return this.apiService.post(URL, { email: email, code: code });
   }
   public confirmTradePasswordCode(email, code) {
     let URL = '/users/confirmTradePasswordCode';
-    return this.apiService.post(URL, { email: email, code: code })
+    return this.apiService.post(URL, { email: email, code: code });
   }
   public changeRandonString(username) {
-    let URL = '/users/randomstring'
+    let URL = '/users/randomstring';
     return this.apiService.patch(URL, { username: username });
   }
   public setNewPassword(credentials, email) {
     let URL = '/users/setNewPassword';
-    return this.apiService.patch(URL, { user: credentials, email: email })
+    return this.apiService.patch(URL, { user: credentials, email: email });
   }
   public getTradepassword(username, tradepassword) {
     let tradePrdURL = '/users/tradepassword';
@@ -217,10 +244,14 @@ export class UserServiceProvider {
     return this.apiService.get(URL);
   }
   public forgetTradePassword(email) {
-    let URL = '/users/forgetTradePassword'
+    let URL = '/users/forgetTradePassword';
     return this.apiService.post(URL, { email: email });
   }
   public get2faSecret(username) {
     return this.apiService.get(`/2fa?username=${username}`);
+  }
+  public changeBadges(number) {
+    this.badges.next(number);
+    console.log('ProfileBadge:' + number);
   }
 }

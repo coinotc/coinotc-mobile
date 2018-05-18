@@ -109,7 +109,7 @@ export class ModalContentPage {
   trader;
   user;
   rateStatus;
-  notification = new Notification('', null, 'high');
+  notification = new Notification('', null, null, 'high');
   average;
   rate;
 
@@ -218,7 +218,7 @@ export class ModalContentPage {
           .subscribe(result => {
             console.log(result);
             for (let i = 0; i < result.length; i++) {
-              let triggerAlert = new Notification('', null, 'high');
+              let triggerAlert = new Notification('', null, null, 'high');
               this.profileServiceProvider
                 .getProfile(result[i].username)
                 .subscribe(result => {
@@ -226,10 +226,10 @@ export class ModalContentPage {
                   triggerAlert.notification = {
                     title: `You may be willing to SELL ${
                       this.orderInfo.crypto
-                      } in ${this.orderInfo.fiat} now !`,
+                    } in ${this.orderInfo.fiat} now !`,
                     body: `The average price from recent trades is ${
                       this.average
-                      } ${this.orderInfo.fiat}`,
+                    } ${this.orderInfo.fiat}`,
                     sound: 'default',
                     click_action: 'FCM_PLUGIN_ACTIVITY',
                     icon: 'fcm_push_icon'
@@ -265,7 +265,7 @@ export class ModalContentPage {
           )
           .subscribe(result => {
             for (let i = 0; i < result.length; i++) {
-              let triggerAlert = new Notification('', null, 'high');
+              let triggerAlert = new Notification('', null, null, 'high');
               this.profileServiceProvider
                 .getProfile(result[i].username)
                 .subscribe(result => {
@@ -273,10 +273,10 @@ export class ModalContentPage {
                   triggerAlert.notification = {
                     title: `You may be willing to BUY ${
                       this.orderInfo.crypto
-                      } in ${this.orderInfo.fiat} now !`,
+                    } in ${this.orderInfo.fiat} now !`,
                     body: `The average price from recent trades is ${
                       this.average
-                      } ${this.orderInfo.fiat}`,
+                    } ${this.orderInfo.fiat}`,
                     sound: 'default',
                     click_action: 'FCM_PLUGIN_ACTIVITY',
                     icon: 'fcm_push_icon'
