@@ -56,6 +56,8 @@ export class ProfilePage {
     console.log('SEE>>>>>' + this.currentUserName);
 
     this.profileService.getProfile(this.profileUser).subscribe(result => {
+      console.log(this.profileUser);
+      console.log(result)
       this.notification.to = result[0].deviceToken;
       this.notification.notification = {
         // title: `Your Order with ${this.trader} has progress !`,
@@ -111,7 +113,8 @@ export class ProfilePage {
     // this.navCtrl.push(ProfilePage,
     //   this.profileUser)
 
-    //Send FCM to target
+    //Send FCM to
+    console.log(this.notification)
     this.alertServiceProvider
       .onNotification(this.notification)
       .subscribe(result => {
