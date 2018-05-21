@@ -37,8 +37,8 @@ export class MyApp {
     this.onResumeSubscription = platform.resume.subscribe(() => {
       console.log('there is resume');
       console.log(this.userService.getCurrentUser().username);
-      if (this.userService.getCurrentUser().username !== undefined) {
-        //this.rootPage = TabsPage;
+      if (this.userService.getCurrentUser().username === this.userService.getCurrentUser().username) {
+        this.rootPage = TabsPage;
         this.userService.changeOnlineStatus(true).subscribe();
       }
       // do something meaningful when the app is put in the foreground

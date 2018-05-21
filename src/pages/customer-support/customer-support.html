@@ -22,7 +22,8 @@
       {{'Content' | translate}}:
       <br>{{complain.content}}
     </ion-card-content>
-    <button ion-button full (tap)="changeStatus()" style="text-align:center" color="danger">
+    <button ion-button  full (tap)="changeStatus()" [disabled] = "complainStatus == 3"
+    style="text-align:center" color="danger">
       {{'Close'| translate}}
     </button>
   </ion-card>
@@ -47,7 +48,7 @@
   </ion-list>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf = "!(complainStatus == 3)">
 
   <ion-grid>
     <ion-row>

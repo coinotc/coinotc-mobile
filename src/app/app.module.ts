@@ -86,6 +86,9 @@ import { UnbindGoogleAuthPage } from '../pages/unbind-google-auth/unbind-google-
 import { GetIpProvider } from '../providers/get-ip/get-ip';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+import { Device } from '@ionic-native/device';
+import { KycFormPage } from '../pages/kyc-form/kyc-form';
+import { CountryServiceProvider } from '../providers/country-service/country-service';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -133,7 +136,8 @@ export function createTranslateLoader(http: HttpClient) {
     CustomerSupportPage,
     GoogleAuthInputPage,
     UnbindGoogleAuthPage,
-    TutorialPage
+    TutorialPage,
+    KycFormPage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -200,7 +204,8 @@ export function createTranslateLoader(http: HttpClient) {
     CustomerSupportPage,
     GoogleAuthInputPage,
     UnbindGoogleAuthPage,
-    TutorialPage
+    TutorialPage,
+    KycFormPage
   ],
   providers: [
     StatusBar,
@@ -229,7 +234,9 @@ export function createTranslateLoader(http: HttpClient) {
     LocalNotifications,
     NotificationServiceProvider,
     GetIpProvider,
-    IonicImageViewerModule
+    IonicImageViewerModule,
+    Device,
+    CountryServiceProvider
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

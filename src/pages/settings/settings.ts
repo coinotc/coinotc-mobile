@@ -12,6 +12,7 @@ import { AuthPage } from '../auth/auth';
 import { Errors } from '../../models/errors.model';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
 import { Storage } from '@ionic/storage';
+import { KycFormPage } from '../kyc-form/kyc-form';
 /**
  * Generated class for the SettingsPage page.
  *
@@ -48,7 +49,7 @@ export class SettingsPage implements OnInit {
     public toastCtrl: ToastController,
     public userService: UserServiceProvider,
     private alertCtrl: AlertController,
-    private storage: Storage) {
+    private storage: Storage,) {
     this.initializeCurrencies();
     this.storage.ready().then(() => this.storage.get('nativeCurrency') as Promise<string>).then(value => {
       if (value != null) {
@@ -128,19 +129,19 @@ export class SettingsPage implements OnInit {
     // });
     // //this.navCtrl.push(RealNameVerifiedPage);
     // console.log(this.ip + "103")
-
-    let alert = this.alertCtrl.create({
-      title: 'Low battery',
-      subTitle: "   ",
-      buttons: [{
-        text: 'Cancel',
-        role: 'cancel',
-        handler: data => {
-          console.log('Cancel clicked');
-        }
-      }]
-    });
-    alert.present();
+    // let alert = this.alertCtrl.create({
+    //   title: this.device.uuid,
+    //   subTitle: "   ",
+    //   buttons: [{
+    //     text: 'Cancel',
+    //     role: 'cancel',
+    //     handler: data => {
+    //       console.log('Cancel clicked');
+    //     }
+    //   }]
+    // });
+    // alert.present();
+    this.navCtrl.push(KycFormPage)
 
   }
   forgetTradePassword() {
