@@ -30,7 +30,6 @@ import { GetIpProvider } from '../../providers/get-ip/get-ip';
 import { Storage } from '@ionic/storage';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromPromise';
 /**
  * Generated class for the AuthPage page.
  *
@@ -122,46 +121,40 @@ export class AuthPage {
               'Received in foreground son of a bitch',
               JSON.stringify(data)
             );
-            if (data.type == 'profile') {
-              this.storage
-                .ready()
-                .then(() => this.storage.get('profile'))
-                .then(value => {
-                  if (value != null) {
-                    console.log('<<<<<<<<<<<<' + value);
-                    this.profileBadge = value;
-                  } else {
-                    this.profileBadge = 0;
-                  }
-                })
-                .then(() => this.userService.changeBadges(this.profileBadge))
-                .then(() =>
-                  this.storage
-                    .ready()
-                    .then(() =>
-                      this.storage.set('profile', ++this.profileBadge)
+            this.storage
+              .ready()
+              .then(() => this.storage.get(`${data.type}`))
+              .then(value => {
+                if (value != null) {
+                  this.profileBadge = value;
+                } else {
+                  this.profileBadge = 0;
+                }
+              })
+              .then(() => this.userService.changeBadges(this.profileBadge))
+              .then(() =>
+                this.storage
+                  .set(`${data.type}`, ++this.profileBadge)
+                  .then(() =>
+                    this.events.publish(
+                      'profileBadge:updated',
+                      this.profileBadge
                     )
-                    .then(() =>
-                      this.events.publish(
-                        'profileBadge:updated',
-                        this.profileBadge
-                      )
-                    )
-                );
-              // this.storage
-              //   .ready()
-              //   .then(() => console.log(this.profileBadge++))
-              //   .then(() => this.storage.set('profile', Math.random()))
-              //   .then(() => console.log(this.profileBadge))
-              //   .then(() => this.userService.changeBadges(this.profileBadge));
+                  )
+              );
+            // this.storage
+            //   .ready()
+            //   .then(() => console.log(this.profileBadge++))
+            //   .then(() => this.storage.set('profile', Math.random()))
+            //   .then(() => console.log(this.profileBadge))
+            //   .then(() => this.userService.changeBadges(this.profileBadge));
 
-              // .then(() =>
-              //   this.events.publish(
-              //     'profileBadge:updated',
-              //     this.profileBadge
-              //   )
-              // )
-            }
+            // .then(() =>
+            //   this.events.publish(
+            //     'profileBadge:updated',
+            //     this.profileBadge
+            //   )
+            // )
           }
         },
         error => {
@@ -284,10 +277,27 @@ export class AuthPage {
               loading
                 .dismiss()
                 .then(() => {
+                  loading = null;
+                  let getUser = this.userService.getCurrentUser().username;
+                  this.storage
+                    .ready()
+                    .then(() => this.storage.get(`${getUser}NewFollowers`))
+                    .then(value => {
+                      if (value != null) {
+                        this.profileBadge = value;
+                      } else {
+                        this.profileBadge = 0;
+                      }
+                    })
+                    .then(() =>
+                      this.events.publish(
+                        'profileBadge:updated',
+                        this.profileBadge
+                      )
+                    );
                   this.appCtrl.getRootNav().setRoot(TabsPage);
                   loading = null;
                   let updater = this.userService.getCurrentUser().username;
-                  console.log(updater);
                   this.profileServiceProvider
                     .updateDeviceToken(updater, this.deviceToken)
                     .subscribe(result => {
