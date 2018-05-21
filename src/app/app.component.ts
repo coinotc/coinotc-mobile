@@ -15,6 +15,7 @@ import { Observable } from 'rxjs/Rx';
 import { NotificationServiceProvider } from '../providers/notification-service/notification-service';
 import { Subscription } from 'rxjs';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+import 'rxjs/add/observable/fromPromise';
 
 @Component({
   templateUrl: 'app.html'
@@ -22,6 +23,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 export class MyApp {
   private timerSubscription: AnonymousSubscription;
   rootPage: any = AuthPage;
+  profileBadge: number;
   private onResumeSubscription: Subscription;
   private onPauseSubscription: Subscription;
   constructor(
@@ -59,7 +61,18 @@ export class MyApp {
           translate.setDefaultLang('en');
         }
       });
-
+    this.storage
+      .ready()
+      .then(() => this.storage.get('profile') as Promise<number>)
+      .then(value => {
+        if (value != null) {
+          console.log('>>>>>>>>>>>>>>>>>' + value);
+          this.profileBadge = value;
+        } else {
+          this.profileBadge = 0;
+        }
+      })
+      .then(() => this.userService.changeBadges(this.profileBadge));
     firebase.initializeApp(firebaseconfig);
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

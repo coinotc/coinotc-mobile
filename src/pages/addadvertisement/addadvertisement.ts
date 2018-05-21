@@ -53,12 +53,11 @@ export class AddadvertisementPage {
     this.title = navParams.data.title;
     this.model.crypto = navParams.data.crypto;
     this.model.fiat = navParams.data.fiat;
-    this.model.country = navParams.data.country;
-    // this.changerange();
-    // this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(result => {
-    //   this.cryptoprice = Number(result[0].price_sgd);
-    //   this.model.price = this.cryptoprice;
-    // });
+    if (navParams.data.country == "global") {
+      this.model.country = "singapore";
+    } else {
+      this.model.country = navParams.data.country;
+    }
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...',
       duration: 5000
