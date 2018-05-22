@@ -83,7 +83,7 @@ import { Storage } from '@ionic/storage';
       <div align=center>
         <div *ngIf="orderInfo.finished == 1 || orderInfo.finished ==2">
           <button ion-button large round full *ngIf="user.username == orderInfo.seller" [disabled]="orderInfo.finished !== 2" (tap)="onFinished()">{{'Approve' | translate}}</button>
-          <button ion-button large round full *ngIf="user.username == orderInfo.buyer"  (tap)="onInformed()">{{'Inform' | translate}}</button>
+          <button ion-button large round full *ngIf="user.username == orderInfo.buyer"  [disabled]="orderInfo.finished !== 1" (tap)="onInformed()">{{'Inform' | translate}}</button>
         </div>
         <div *ngIf="orderInfo.finished == 3 && (this.user.username == this.orderInfo.buyer && this.orderInfo.buyerRating == null || this.user.username == this.orderInfo.seller && this.orderInfo.sellerRating == null)">
           <rating [(ngModel)]="rate" readOnly="false" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
