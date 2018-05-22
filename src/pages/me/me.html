@@ -50,6 +50,7 @@
     <button ion-item (tap)="trustedTapped()">
       <ion-icon name="contacts" item-start></ion-icon>
       {{'Follow' | translate}}
+      <ion-badge item-end color="danger" *ngIf="profileBadge !== 0">{{profileBadge}}</ion-badge>
     </button>
 
     <button ion-item (tap)="settingsTapped()">

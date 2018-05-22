@@ -17,10 +17,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AuthPageModule } from '../pages/auth/auth.module';
 import { WalletPage } from '../pages/wallet/wallet';
-import {
-  TradePage,
-  fiatPopoverPage
-} from '../pages/trade/trade';
+import { TradePage, fiatPopoverPage } from '../pages/trade/trade';
 import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement';
 import { OrderListPage } from '../pages/order-list/order-list';
 import { AlertPage, AddAlertPage } from '../pages/alert/alert';
@@ -86,6 +83,7 @@ import { UnbindGoogleAuthPage } from '../pages/unbind-google-auth/unbind-google-
 import { GetIpProvider } from '../providers/get-ip/get-ip';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+import { Badge } from '@ionic-native/badge';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -229,8 +227,9 @@ export function createTranslateLoader(http: HttpClient) {
     LocalNotifications,
     NotificationServiceProvider,
     GetIpProvider,
-    IonicImageViewerModule
+    IonicImageViewerModule,
+    Badge
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {}

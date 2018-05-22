@@ -25,6 +25,7 @@ import { AngularFireStorage } from 'angularfire2/storage';
 import { Observable } from 'rxjs';
 import { ImageViewerController } from 'ionic-img-viewer';
 import { AnonymousSubscription } from 'rxjs/Subscription';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the RoomPage page.
@@ -82,7 +83,7 @@ import { AnonymousSubscription } from 'rxjs/Subscription';
       <div align=center>
         <div *ngIf="orderInfo.finished == 1 || orderInfo.finished ==2">
           <button ion-button large round full *ngIf="user.username == orderInfo.seller" [disabled]="orderInfo.finished !== 2" (tap)="onFinished()">{{'Approve' | translate}}</button>
-          <button ion-button large round full *ngIf="user.username == orderInfo.buyer" [disabled]="orderInfo.finished !== 1" (tap)="onInformed()">{{'Inform' | translate}}</button>
+          <button ion-button large round full *ngIf="user.username == orderInfo.buyer"  (tap)="onInformed()">{{'Inform' | translate}}</button>
         </div>
         <div *ngIf="orderInfo.finished == 3 && (this.user.username == this.orderInfo.buyer && this.orderInfo.buyerRating == null || this.user.username == this.orderInfo.seller && this.orderInfo.sellerRating == null)">
           <rating [(ngModel)]="rate" readOnly="false" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
@@ -122,7 +123,8 @@ export class ModalContentPage {
     public params: NavParams,
     public viewCtrl: ViewController,
     public navCtrl: NavController,
-    private events: Events
+    private events: Events,
+    private storage: Storage
   ) {
     this.orderInfo = this.params.data.orderInfo;
     this.trader = this.params.data.trader;
@@ -132,11 +134,14 @@ export class ModalContentPage {
       console.log(result);
       this.notification.to = result[0].deviceToken;
       this.notification.notification = {
-        title: `Your Order with ${this.trader} has progress !`,
-        body: `Order ID : ${this.orderInfo._id}`,
+        title: `Your Order with ${this.user.username} has progress !`,
         icon: 'fcm_push_icon',
         sound: 'default',
         click_action: 'FCM_PLUGIN_ACTIVITY'
+      };
+      this.notification.data = {
+        type: `${this.trader}OrderChanged`,
+        order: this.orderInfo._id
       };
     });
   }
@@ -177,6 +182,7 @@ export class ModalContentPage {
         .subscribe(result => {
           this.orderInfo = result;
         });
+      this.decreaseCount();
     });
     //Send push notification to trader
     console.log(this.notification);
@@ -195,6 +201,7 @@ export class ModalContentPage {
         .subscribe(result => {
           this.orderInfo = result;
         });
+      this.decreaseCount();
     });
     //Send push notification to trader
     this.alertServiceProvider
@@ -328,6 +335,31 @@ export class ModalContentPage {
       this.profileServiceProvider.sendRating(this.trader, ratings).subscribe();
     });
   }
+
+  decreaseCount() {
+    let filtered = [];
+    this.storage
+      .ready()
+      .then(() => this.storage.get(`${this.user.username}OrderChanged`))
+      .then(value => {
+        if (value != null) {
+          filtered = value.filter(
+            function(e) {
+              return this.indexOf(e) < 0;
+            },
+            [this.orderInfo._id]
+          );
+          console.log('filteredIs' + filtered);
+        } else {
+          filtered = [];
+        }
+      })
+      .then(() =>
+        this.storage.set(`${this.user.username}OrderChanged`, filtered)
+      )
+      .then(() => this.events.publish('orderBadge:updated', filtered));
+  }
+
   onWallet() {
     this.navCtrl.push(WalletPage);
   }
