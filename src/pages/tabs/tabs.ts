@@ -14,7 +14,7 @@ import { Storage } from '@ionic/storage';
 })
 export class TabsPage {
   tabRoots: any[];
-  profileBadge = 0;
+  //profileBadge = 0;
 
   constructor(
     public userService: UserServiceProvider,
@@ -30,33 +30,37 @@ export class TabsPage {
         root: TradePage,
         title: 'Trade',
         icon: 'swap',
-        badge: null
+        badge: 0
       },
       {
         root: OrderListPage,
         title: 'OrderList',
         icon: 'filing',
-        badge: null
+        badge: 0
       },
       {
         root: AlertPage,
         title: 'Alerts',
         icon: 'alarm',
-        badge: null
+        badge: 0
       },
       {
         root: WalletPage,
         title: 'Wallet',
         icon: 'logo-bitcoin',
-        badge: null
+        badge: 0
       },
       {
         root: MePage,
         title: 'Me',
         icon: 'person',
-        badge: this.profileBadge
+        badge: 0
       }
     ];
+    events.subscribe('orderBadge:updated', _badgeValue => {
+      console.log(_badgeValue);
+      this.tabRoots[1].badge = _badgeValue.length;
+    });
     events.subscribe('profileBadge:updated', _badgeValue => {
       this.tabRoots[4].badge = _badgeValue;
       console.log(this.tabRoots[4].badge);

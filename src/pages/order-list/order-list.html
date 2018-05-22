@@ -50,8 +50,8 @@
       <ion-card *ngFor="let order of activeOrders" (tap)="onDetail(order,order.buyer==user.username?order.seller:order.buyer)">
 
         <ion-item>
+          <ion-badge style="float:left" color="danger">{{orderBadge.includes(order._id)?'New':''}}</ion-badge>
           <text-avatar [text]="order.buyer==user.username?order.seller:order.buyer" item-left></text-avatar>
-
           <h2>{{order.buyer==user.username?order.seller:order.buyer}}
             <span style="float:right">{{order.crypto}}</span>
           </h2>
@@ -76,8 +76,8 @@
       <ion-card *ngFor="let order of finishedOrders" (tap)="onDetail(order,order.buyer==user.username?order.seller:order.buyer)">
 
         <ion-item>
+          <ion-badge style="float:left" color="danger">{{orderBadge.includes(order._id)?'New':''}}</ion-badge>
           <text-avatar [text]="order.buyer==user.username?order.seller:order.buyer" item-left></text-avatar>
-
           <h2>{{order.buyer==user.username?order.seller:order.buyer}}
             <span style="float:right">{{order.crypto}}</span>
           </h2>
