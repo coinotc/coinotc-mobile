@@ -31,6 +31,8 @@ import { Storage } from '@ionic/storage';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Badge } from '@ionic-native/badge';
+import { RoomPage } from '../room/room';
+import { OrderListPage } from '../order-list/order-list';
 /**
  * Generated class for the AuthPage page.
  *
@@ -118,7 +120,10 @@ export class AuthPage {
         (data: NotificationData) => {
           if (data.wasTapped) {
             console.log('Received in background', JSON.stringify(data));
-            this.badge.set(10);
+            if (data.pushData) {
+              let information = data.pushData;
+              this.navCtrl.push(RoomPage, information);
+            }
           } else {
             console.log(
               'Received in foreground son of a bitch',
