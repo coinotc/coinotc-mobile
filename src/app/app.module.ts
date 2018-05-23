@@ -84,6 +84,7 @@ import { GetIpProvider } from '../providers/get-ip/get-ip';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { Badge } from '@ionic-native/badge';
+import { SearchPipe } from '../pages/trade/trade';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -131,7 +132,8 @@ export function createTranslateLoader(http: HttpClient) {
     CustomerSupportPage,
     GoogleAuthInputPage,
     UnbindGoogleAuthPage,
-    TutorialPage
+    TutorialPage,
+    SearchPipe
   ],
   imports: [
     BrowserAnimationsModule,
