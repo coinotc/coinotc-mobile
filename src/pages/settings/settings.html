@@ -9,8 +9,12 @@
 <ion-content>
 
   <ion-list>
-
-
+    <ion-item>
+        <ion-icon name="card" item-start></ion-icon>
+        <ion-label>Using CTC as fee (50% discount)</ion-label>
+        <ion-toggle checked="false" [(ngModel)]="language" (ngModelChange)="useFee()"></ion-toggle>
+    </ion-item>
+  
     <button ion-item (tap)="realNameTapped()">
       <ion-icon name="person" item-start></ion-icon>
       KYC Verification
