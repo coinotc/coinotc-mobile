@@ -1,4 +1,12 @@
-import { Component, ViewChild, ElementRef, Renderer } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  Renderer,
+  Pipe,
+  PipeTransform,
+  Injectable
+} from '@angular/core';
 import { NavController, NavParams, App, ViewController } from 'ionic-angular';
 import { AddadvertisementPage } from '../addadvertisement/addadvertisement';
 import { Content } from 'ionic-angular';
@@ -18,7 +26,6 @@ import { Storage } from '@ionic/storage';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
 @Component({
   template: `
 <ion-list style="margin: 0px 16px 0px;" inset no-lines ion-row>
@@ -128,6 +135,7 @@ export class TradePage {
   fiat: string = 'USD';
   currentuser;
   banners;
+  query;
   public list: advertisement[];
   constructor(
     public popoverCtrl: PopoverController,
@@ -271,5 +279,27 @@ export class TradePage {
       }
     });
   }
+
   ngOnInit() {}
+}
+
+@Pipe({
+  name: 'searchPipe'
+})
+export class SearchPipe implements PipeTransform {
+  public transform(value, key: string, term: string) {
+    if (!term) return value;
+    return value.filter(item => {
+      if (item.hasOwnProperty(key)) {
+        if (term) {
+          let regExp = new RegExp('\\b' + term, 'gi');
+          return regExp.test(item[key]);
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    });
+  }
 }

@@ -8,8 +8,10 @@
 
   <ion-navbar col-12 style="margin: 0px">
     <button clear col-12 text-center ion-button icon-only (tap)="presentfilterPopover($event)" style="margin: 0px">
-      {{fiat}} / {{'crypto.' + crypto | translate}}<ion-icon name='arrow-dropdown'></ion-icon>
+      {{fiat}} / {{'crypto.' + crypto | translate}}
+      <ion-icon name='arrow-dropdown'></ion-icon>
     </button>
+    <ion-input type='text' placeholder="Search Username..." text-center [(ngModel)]="query"></ion-input>
     <!-- <button *ngIf="buynsell == 'buy'" float-right clear ion-button icon-only (tap)="addbuyad()">
       <i class="fa fa-plus fa-2x" style="background-color: rgba(248, 248, 248, 0.5); border-radius: 2rem;" aria-hidden="true"></i>
     </button>
@@ -51,7 +53,7 @@
     </ion-refresher-content>
   </ion-refresher>
   <ion-list>
-    <ion-item *ngFor="let item of list">
+    <ion-item *ngFor="let item of list| searchPipe:'owner':query">
       <text-avatar [text]="item.owner" (tap)="profile(item.owner)" item-left></text-avatar>
       <h2>{{item.owner}}</h2>
       <!-- <h3>{{gettrade(item.owner)}}</h3> -->
