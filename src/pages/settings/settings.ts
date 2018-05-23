@@ -13,6 +13,7 @@ import { Errors } from '../../models/errors.model';
 import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
 import { Storage } from '@ionic/storage';
 import { KycFormPage } from '../kyc-form/kyc-form';
+import { KycPassportPhoto1Page } from '../kyc-passport-photo1/kyc-passport-photo1';
 /**
  * Generated class for the SettingsPage page.
  *
@@ -141,7 +142,7 @@ export class SettingsPage implements OnInit {
     //   }]
     // });
     // alert.present();
-    this.navCtrl.push(KycFormPage)
+    this.navCtrl.push(KycPassportPhoto1Page)
 
   }
   forgetTradePassword() {

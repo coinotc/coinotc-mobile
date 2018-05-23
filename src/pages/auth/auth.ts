@@ -263,7 +263,7 @@ export class AuthPage {
     let loading = this.loadingCtrl.create({
       spinner: 'circles',
       content: 'loading...',
-      duration: 3000,
+      //duration: 3000,
       dismissOnPageChange: true
     });
     loading.present();
@@ -298,6 +298,7 @@ export class AuthPage {
             }
           },
           (errors: Errors) => {
+            loading.dismiss()
             for (let field in errors.errors) {
               if (typeof field !== 'undefined') {
                 console.log(field);
@@ -320,7 +321,7 @@ export class AuthPage {
     } else {
       this.userService.checkUser(credentials).subscribe(result => {
         console.log(result);
-
+        loading.dismiss();
         if (result != 0) {
           this.toastCtrl
             .create({

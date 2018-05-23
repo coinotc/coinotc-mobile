@@ -28,7 +28,14 @@
         <ion-input formControlName="lastName" autocapitalize="none" type="text"></ion-input>
       </ion-item>
       <ion-item *ngIf="KYCForm.controls.lastName.hasError('required') && KYCForm.controls.lastName.touched">
-        <ion-label style="color:red">lastName is required.</ion-label>
+        <ion-label style="color:red">Last Name is required.</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Passport ID</ion-label>
+        <ion-input formControlName="passport" autocapitalize="none" type="text"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="KYCForm.controls.passport.hasError('required') && KYCForm.controls.passport.touched">
+        <ion-label style="color:red">Passport ID is required.</ion-label>
       </ion-item>
       <ion-item>
         <ion-label>Gender</ion-label>
@@ -40,8 +47,8 @@
       <ion-item>
         <ion-label>Country</ion-label>
         <ion-select formControlName="country">
-          <ion-option value="f">Female</ion-option>
-          <ion-option value="m">Male</ion-option>
+          <ion-option value="CN">Chain</ion-option>
+          <ion-option value="SG">Singapore</ion-option>
         </ion-select>
       </ion-item>
     </ion-list>

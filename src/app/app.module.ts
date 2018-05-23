@@ -89,6 +89,9 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { Device } from '@ionic-native/device';
 import { KycFormPage } from '../pages/kyc-form/kyc-form';
 import { CountryServiceProvider } from '../providers/country-service/country-service';
+import { KycPassportPhoto1Page } from '../pages/kyc-passport-photo1/kyc-passport-photo1';
+import { KycPassportPhoto2Page } from '../pages/kyc-passport-photo2/kyc-passport-photo2';
+import { KycServiceProvider } from '../providers/kyc-service/kyc-service';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -137,7 +140,9 @@ export function createTranslateLoader(http: HttpClient) {
     GoogleAuthInputPage,
     UnbindGoogleAuthPage,
     TutorialPage,
-    KycFormPage
+    KycFormPage,
+    KycPassportPhoto1Page,
+    KycPassportPhoto2Page
   ],
   imports: [
     BrowserAnimationsModule,
@@ -205,7 +210,9 @@ export function createTranslateLoader(http: HttpClient) {
     GoogleAuthInputPage,
     UnbindGoogleAuthPage,
     TutorialPage,
-    KycFormPage
+    KycFormPage,
+    KycPassportPhoto1Page,
+    KycPassportPhoto2Page
   ],
   providers: [
     StatusBar,
@@ -236,7 +243,8 @@ export function createTranslateLoader(http: HttpClient) {
     GetIpProvider,
     IonicImageViewerModule,
     Device,
-    CountryServiceProvider
+    CountryServiceProvider,
+    KycServiceProvider
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

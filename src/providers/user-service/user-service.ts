@@ -110,6 +110,7 @@ export class UserServiceProvider {
           this.getCurrentUser().username +
           '<<<<<<<<<<<<<<<<<<'
       );
+      console.log(this.isAuthenticatedSubject)
     });
   }
 

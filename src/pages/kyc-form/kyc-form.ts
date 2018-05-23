@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { KycPassportPhoto1Page } from '../kyc-passport-photo1/kyc-passport-photo1';
 /**
  * Generated class for the KycFormPage page.
  *
@@ -33,6 +34,10 @@ export class KycFormPage {
           '',
           Validators.compose([Validators.required])
         ],
+        passport:[
+          '',
+          Validators.compose([Validators.required])
+        ],
         country:[
           '',
           Validators.compose([Validators.required])
@@ -40,7 +45,8 @@ export class KycFormPage {
       });
   }
   submitForm() {
-    console.log(this.KYCForm.value.country)
+    const credentials = this.KYCForm.value;
+    this.navCtrl.push(KycPassportPhoto1Page,{credentials : credentials});
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad KycFormPage');
