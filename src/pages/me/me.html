@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Me</ion-title>
+    <ion-title>{{'Me' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -17,23 +17,23 @@
           <ion-row>
             <ion-col>
               <h2>{{model.orderCount}}</h2>
-              <p>Trades</p>
+              <p>{{'Trades' | translate}}</p>
             </ion-col>
             <ion-col>
               <h2>{{followingCount}}</h2>
-              <p>Following</p>
+              <p>{{'Following' | translate}}</p>
             </ion-col>
             <ion-col>
               <h2>{{followerCount}}</h2>
-              <p>Followers</p>
+              <p>{{'Followers' | translate}}</p>
             </ion-col>
             <ion-col>
               <h2>{{rating}}</h2>
-              <p>Rating</p>
+              <p>{{'Rating' | translate}}</p>
             </ion-col>
             <ion-col>
               <h2>0</h2>
-              <p>Volume</p>
+              <p>{{'Volume' | translate}}</p>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -44,25 +44,28 @@
   <ion-list no-border *ngIf="currentuser.username != ''">
     <button ion-item (tap)="advertisementsTapped()">
       <ion-icon name="images" item-start></ion-icon>
-      Advertisements
+      {{'Advertisements.Advertisements' | translate}}
     </button>
+
     <button ion-item (tap)="trustedTapped()">
       <ion-icon name="contacts" item-start></ion-icon>
-      Follow
+      {{'Follow' | translate}}
+      <ion-badge item-end color="danger" *ngIf="profileBadge !== 0">{{profileBadge}}</ion-badge>
     </button>
 
     <button ion-item (tap)="settingsTapped()">
       <ion-icon name="settings" item-start></ion-icon>
-      Settings
+      {{'Settings' | translate}}
     </button>
 
     <button ion-item (tap)="complain()">
       <ion-icon name="text" item-start></ion-icon>
-      Support
+      {{'Support' | translate}}
     </button>
+
     <button ion-item (tap)="googleAuth()">
       <ion-icon name="logo-google" item-start></ion-icon>
-      Google Authenticator
+      {{'GoogleAuthenticator' | translate}}
     </button>
 
 

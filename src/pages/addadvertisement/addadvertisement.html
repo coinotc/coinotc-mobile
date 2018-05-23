@@ -18,19 +18,22 @@
     <ion-item>
       <ion-label>{{'SelectCurrency' | translate}}</ion-label>
       <ion-select item-right [(ngModel)]="model.crypto" (ngModelChange)="getcryptoprice()" formControlName="crypto">
+        <ion-option value="BITCOIN">Bitcoin</ion-option>
         <ion-option value="ETHEREUM">Ethereum</ion-option>
         <ion-option value="RIPPLE">Ripple</ion-option>
         <ion-option value="MONERO">Monero</ion-option>
         <ion-option value="STELLAR">Stellar</ion-option>
         <ion-option value="CARDANO">Cardano</ion-option>
+        <ion-option value="ZILLIQA">Zilliqa</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>{{'Country' | translate}}</ion-label>
       <ion-select item-right [(ngModel)]="model.country" formControlName="country">
         <ion-option value="singapore">{{'Singapore' | translate}}</ion-option>
+        <ion-option value="malaysia">{{'Malaysia' | translate}}</ion-option>
+        <ion-option value="thailand">{{'Thailand' | translate}}</ion-option>
         <ion-option value="china">{{'China' | translate}}</ion-option>
-        <ion-option value="usa">{{'USA' | translate}}</ion-option>
         <ion-option value="korea">{{'Korea' | translate}}</ion-option>
       </ion-select>
     </ion-item>
@@ -39,17 +42,21 @@
       <ion-select item-right [(ngModel)]="model.fiat" (ngModelChange)="getcryptoprice()" formControlName="fiat">
         <ion-option value="SGD">{{'fiat.SGD' | translate}}</ion-option>
         <ion-option value="CNY">{{"fiat.CNY" | translate}}</ion-option>
+        <ion-option value="THB">{{"fiat.THB" | translate}}</ion-option>
+        <ion-option value="MYR">{{"fiat.MYR" | translate}}</ion-option>
         <ion-option value="USD">{{'fiat.USD' | translate}}</ion-option>
         <ion-option value="KRW">{{'fiat.KRW' | translate}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>{{'CryptoPrice' |  translate}}</ion-label>
+      <ion-label>{{'CryptoPrice' | translate}}</ion-label>
       <ion-input text-right readonly [(ngModel)]="cryptoprice" formControlName="cryptoprice"></ion-input>
+      <ion-label>{{model.fiat}}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label>{{'Price' | translate}}</ion-label>
       <ion-input text-right (ngModelChange)="changerange()" [(ngModel)]="model.price" formControlName="price"></ion-input>
+      <ion-label>{{model.fiat}}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label>{{'MinLimit' | translate}}</ion-label>
@@ -96,7 +103,10 @@
     <ion-item *ngIf="adform.controls.limit.hasError('max') && adform.controls.limit.touched">
       <ion-label style="color:red">Time limit has to below 60.</ion-label>
     </ion-item>
-    <ion-textarea [(ngModel)]="model.message" placeholder="{{'AdvertisementMessage' | translate}}" formControlName="message"></ion-textarea>
+    <ion-item>
+      <ion-label>{{'AdvertisementMessage' | translate}}</ion-label>
+      <ion-textarea [(ngModel)]="model.message" formControlName="message"></ion-textarea>
+    </ion-item>
     <ion-item *ngIf="adform.controls.message.hasError('required') && adform.controls.message.touched">
       <ion-label style="color:red">Message is required.</ion-label>
     </ion-item>

@@ -9,6 +9,8 @@ import { advertisement } from '../../models/advertisement';
 import { RoomPage } from '../room/room';
 import { AdinformationPage } from '../adinformation/adinformation';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
+import { Notification } from '../../models/notification';
+import { AlertServiceProvider } from '../../providers/alert-service/alert-service';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -26,6 +28,7 @@ export class ProfilePage {
   placeholderPicture = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515005723652&di=a1ebb7c0a1b6bfede1ff5ebc057ed073&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D822b27e7b8fb43160e12723948cd2c56%2F6c224f4a20a44623b6b1e24e9222720e0cf3d7a7.jpg';
   //private profile: Observable<Profile>;
   model = new Profile(null, null, null, null, null);
+  notification = new Notification('', null, null, 'high');
   rate;
   profileUser;
   currentUserName;
@@ -43,11 +46,30 @@ export class ProfilePage {
     private profileService: ProfileServiceProvider,
     private ev: Events,
     private advertisementService: AdvertisementServiceProvider,
-    public orderService: OrderServiceProvider
+    public orderService: OrderServiceProvider,
+    private alertServiceProvider: AlertServiceProvider
   ) {
     this.profileUser = navParams.data;
+    console.log(this.profileUser);
     this.currentUserName = this.userService.getCurrentUser().username;
     this.onSegment();
+    console.log('SEE>>>>>' + this.currentUserName);
+
+    this.profileService.getProfile(this.profileUser).subscribe(result => {
+      console.log(this.profileUser);
+      console.log(result);
+      this.notification.to = result[0].deviceToken;
+      this.notification.notification = {
+        // title: `Your Order with ${this.trader} has progress !`,
+        body: `${this.currentUserName} started following you.`,
+        icon: 'fcm_push_icon',
+        sound: 'default',
+        click_action: 'FCM_PLUGIN_ACTIVITY'
+      };
+      this.notification.data = {
+        type: `${this.profileUser}NewFollowers`
+      };
+    });
   }
   onDetail(order, trader) {
     this.navCtrl.push(RoomPage, {
@@ -60,12 +82,12 @@ export class ProfilePage {
     if (information.type == 1) {
       this.navCtrl.push(AdinformationPage, {
         information: information,
-        tradetype: { type: 'Buy', crypto: information.crypto }
+        tradetype: { type: 'Buy', crypto: information.crypto, ismine: false }
       });
     } else {
       this.navCtrl.push(AdinformationPage, {
         information: information,
-        tradetype: { type: 'Sell', crypto: information.crypto }
+        tradetype: { type: 'Sell', crypto: information.crypto, ismine: false }
       });
     }
   }
@@ -76,6 +98,12 @@ export class ProfilePage {
     if (this.followStatus == 'follow') {
       b.push(this.profileUser);
       a.push(this.currentUserName);
+      //Send FCM to
+      this.alertServiceProvider
+        .onNotification(this.notification)
+        .subscribe(result => {
+          console.log(JSON.stringify(result));
+        });
     } else {
       b.splice(
         this.userService.getCurrentUser().following.indexOf(this.profileUser),
@@ -110,13 +138,15 @@ export class ProfilePage {
       this.visible = false;
     }
     this.profileService.getProfile(this.profileUser).subscribe(result => {
-      this.model.followers = result[0].followers;
-      this.model.following = result[0].following;
-      this.followerCount = this.model.followers.length;
-      this.followingCount = this.model.following.length;
+      // this.model.followers = result[0].followers;
+      // this.model.following = result[0].following;
+      this.followerCount = result[0].followers.length;
+      this.followingCount = result[0].following.length;
       if (!(result[0].ratings.length == 0)) {
-        for (var _i = 0; _i < result[0].ratings.length; _i++) {
-          var num = result[0].rating[_i]
+        this.rating = 0;
+        for (let _i: number = 0; _i < result[0].ratings.length; _i++) {
+          console.log(result[0]);
+          let num = result[0].ratings[_i];
           console.log(num);
           this.rating = this.rating + num;
         }
@@ -128,9 +158,11 @@ export class ProfilePage {
       //   this.rate = this.model.goodCount / this.model.orderCount;
       // }
     });
+    console.log(this.value);
     switch (this.value) {
       case 'ad':
         this.orderService.getMyTrade(this.profileUser).subscribe(result => {
+          //console.log(result+"111111111111")
           this.model.orderCount = result;
         });
         this.advertisementService
@@ -143,12 +175,9 @@ export class ProfilePage {
         this.orderService
           .getTradeWithHim(this.profileUser, this.currentUserName)
           .subscribe(result => {
-            this.model.orderCount = result;
-          });
-        this.advertisementService
-          .getMyadvertisement(this.profileUser, true)
-          .subscribe(result => {
+            console.log(result);
             this.trade = result;
+            this.model.orderCount = result.length;
           });
         break;
     }

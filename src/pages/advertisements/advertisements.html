@@ -1,14 +1,14 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Advertisements</ion-title>
+    <ion-title>{{'Advertisements.Advertisements' | translate}}</ion-title>
   </ion-navbar>
   <ion-toolbar>
     <ion-segment [(ngModel)]="value">
-      <ion-segment-button value="Active" (tap)="onSegment()">
-        Active
+      <ion-segment-button value="Active" (tap)="onSegment('Active')">
+        {{'Advertisements.Active' | translate}}
       </ion-segment-button>
-      <ion-segment-button value="Disabled" (tap)="onSegment()">
-        Disabled
+      <ion-segment-button value="Disabled" (tap)="onSegment('Disabled')">
+        {{'Advertisements.Disabled' | translate}}
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -17,14 +17,14 @@
 
 <ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content pullingText="Pulldown to Refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
-      </ion-refresher-content>
-    </ion-refresher>
+    <ion-refresher-content pullingText="Pulldown to Refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
 
   <div [ngSwitch]="value">
     <ion-list *ngSwitchCase="'Disabled'">
-      <ion-item-sliding *ngFor="let advertisement of disableAdvertisement" >
-        <ion-item  (tap)="edit(advertisement)">
+      <ion-item-sliding *ngFor="let advertisement of disableAdvertisement">
+        <ion-item (tap)="edit(advertisement)">
           <text-avatar [text]="advertisement.owner" item-left></text-avatar>
           <h2>{{advertisement.owner}}</h2>
           <p>{{advertisement.payment}}</p>
@@ -33,31 +33,31 @@
           </div>
         </ion-item>
         <ion-item-options>
-            <button ion-button color="secondary" (tap)="setVisible(advertisement)" icon-start>
-              Active
-            </button>
-            <button ion-button color="danger" (tap)="delete(advertisement)" icon-start>
-              Delete
-            </button>
-          </ion-item-options>
+          <button ion-button color="secondary" (tap)="setVisible(advertisement)" icon-start>
+            {{'Advertisements.Active' | translate}}
+          </button>
+          <button ion-button color="danger" (tap)="delete(advertisement)" icon-start>
+            {{'Delete' | translate}}
+          </button>
+        </ion-item-options>
       </ion-item-sliding>
     </ion-list>
 
 
     <ion-list *ngSwitchCase="'Active'">
-      <ion-item-sliding *ngFor="let advertisement of activeAdvertisement" >
+      <ion-item-sliding *ngFor="let advertisement of activeAdvertisement">
         <ion-item (tap)="read(advertisement)">
           <text-avatar [text]="advertisement.owner" item-left></text-avatar>
-            <h2>{{advertisement.owner}}</h2>
-            <p>{{advertisement.payment}}</p>
+          <h2>{{advertisement.owner}}</h2>
+          <p>{{advertisement.payment}}</p>
           <div item-right text-right>
             <h5 style="color:#02cb66">{{advertisement.price| number : '1.2-2'}} {{advertisement.fiat}}</h5>
           </div>
         </ion-item>
         <ion-item-options>
-            <button ion-button color="danger" (tap)="setVisible(advertisement)" icon-start>
-              Disable
-            </button>
+          <button ion-button color="danger" (tap)="setVisible(advertisement)" icon-start>
+            {{'Advertisements.Disabled' | translate}}
+          </button>
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>

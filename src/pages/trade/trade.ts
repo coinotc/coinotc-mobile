@@ -1,4 +1,12 @@
-import { Component, ViewChild, ElementRef, Renderer } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  Renderer,
+  Pipe,
+  PipeTransform,
+  Injectable
+} from '@angular/core';
 import { NavController, NavParams, App, ViewController } from 'ionic-angular';
 import { AddadvertisementPage } from '../addadvertisement/addadvertisement';
 import { Content } from 'ionic-angular';
@@ -11,92 +19,83 @@ import { ProfilePage } from '../profile/profile';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { BannerControlProvider } from '../../providers/banner-control/banner-control';
 import { banner } from '../../models/banner-control';
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the TradePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
 @Component({
   template: `
-<ion-list inset>
-  <ion-list-header>
-    Country
-  </ion-list-header>
-  <ion-list radio-group [(ngModel)]="countrycopy">
+<ion-list style="margin: 0px 16px 0px;" inset no-lines ion-row>
+  <ion-list radio-group [(ngModel)]="fiatcopy" col-6>
+    <ion-item-divider>
+      {{'Currency' | translate}}
+    </ion-item-divider>
     <ion-item>
-      <ion-label>Global</ion-label>
-      <ion-radio value="global" (click)="leave()"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>Singapore</ion-label>
-      <ion-radio value="singapore" (click)="leave()"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>China</ion-label>
-      <ion-radio value="china" (click)="leave()"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>USA</ion-label>
-      <ion-radio value="usa" (click)="leave()"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>Korea</ion-label>
-      <ion-radio value="korea" (click)="leave()"></ion-radio>
-    </ion-item>
-  </ion-list>
-</ion-list>`
-})
-export class countryPopoverPage {
-  countrycopy: string;
-  isClear: boolean = true;
-  isSolid: boolean = true;
-
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public viewCtrl: ViewController,
-    public events: Events
-  ) {
-    this.countrycopy = this.navParams.data.country;
-  }
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PopoverPage');
-  }
-  leave() {
-    this.viewCtrl.dismiss({ country: this.countrycopy });
-  }
-}
-@Component({
-  template: `
-<ion-list inset>
-  <ion-list-header>
-    Currency
-  </ion-list-header>
-
-  <ion-list radio-group [(ngModel)]="fiatcopy">
-    <ion-item>
-      <ion-label>SGD</ion-label>
+      <ion-label>{{'fiat.SGD' | translate}}</ion-label>
       <ion-radio value="SGD" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
-      <ion-label>CNY</ion-label>
+      <ion-label>{{'fiat.CNY' | translate}}</ion-label>
       <ion-radio value="CNY" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
-      <ion-label>USD</ion-label>
+      <ion-label>{{'fiat.USD' | translate}}</ion-label>
       <ion-radio value="USD" (click)="leave()"></ion-radio>
     </ion-item>
     <ion-item>
-      <ion-label>KRW</ion-label>
+      <ion-label>{{'fiat.THB' | translate}}</ion-label>
+      <ion-radio value="THB" (click)="leave()"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{'fiat.MYR' | translate}}</ion-label>
+      <ion-radio value="MYR" (click)="leave()"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{'fiat.KRW' | translate}}</ion-label>
       <ion-radio value="KRW" (click)="leave()"></ion-radio>
     </ion-item>
   </ion-list>
-</ion-list>`
+  <ion-list style="margin-bottom: 0px;" radio-group [(ngModel)]="crypto" col-6>
+    <ion-item-divider>
+      {{'Crypto' | translate}}
+    </ion-item-divider>
+    <ion-item>
+      <ion-label>BITCOIN</ion-label>
+      <ion-radio value="BITCOIN" (click)="leave()"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>ETHEREUM</ion-label>
+      <ion-radio value="ETHEREUM" (click)="leave()"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>RIPPLE</ion-label>
+      <ion-radio value="RIPPLE" (click)="leave()"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>MONERO</ion-label>
+      <ion-radio value="MONERO" (click)="leave()"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>STELLAR</ion-label>
+      <ion-radio value="STELLAR" (click)="leave()"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>CARDANO</ion-label>
+      <ion-radio value="CARDANO" (click)="leave()"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>ZILLIQA</ion-label>
+      <ion-radio value="ZILLIQA" (click)="leave()"></ion-radio>
+    </ion-item>
+  </ion-list>
+  </ion-list>`
 })
 export class fiatPopoverPage {
   fiatcopy: string;
+  crypto: string;
   isClear: boolean = true;
   isSolid: boolean = true;
 
@@ -107,12 +106,13 @@ export class fiatPopoverPage {
     public events: Events
   ) {
     this.fiatcopy = this.navParams.data.fiat;
+    this.crypto = this.navParams.data.crypto;
+  }
+  leave() {
+    this.viewCtrl.dismiss({ crypto: this.crypto, fiat: this.fiatcopy });
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad PopoverPage');
-  }
-  leave() {
-    this.viewCtrl.dismiss({ fiat: this.fiatcopy });
   }
 }
 
@@ -125,16 +125,17 @@ export class TradePage {
   start = 0;
   threshold = 100;
   slideHeaderPrevious = 0;
-  ionScroll: any;
-  showheader: boolean;
-  hideheader: boolean;
+  // ionScroll: any;
+  // showheader: boolean;
+  // hideheader: boolean;
   headercontent: any;
   buynsell: string = 'buy';
   crypto: string = 'ETHEREUM';
-  country: string = 'singapore';
+  country;
   fiat: string = 'USD';
   currentuser;
   banners;
+  query;
   public list: advertisement[];
   constructor(
     public popoverCtrl: PopoverController,
@@ -144,33 +145,43 @@ export class TradePage {
     public adservice: AdvertisementServiceProvider,
     public events: Events,
     public userservice: UserServiceProvider,
+    private storage: Storage,
     public renderer: Renderer,
     public myElement: ElementRef,
     public bannerControl: BannerControlProvider,
     public ProfileService: ProfileServiceProvider
   ) {
-
-    this.showheader = false;
-    this.hideheader = true;
-    console.log("hello")
+    // this.showheader = false;
+    // this.hideheader = true;
     this.bannerControl.getBanner().subscribe(result => {
       this.banners = result;
-      console.log(this.banners)
-    })
+      console.log(this.banners);
+    });
   }
   ionViewDidEnter() {
     this.currentuser = this.userservice.getCurrentUser().username;
-    this.doRefresh();
-  }
-  doRefresh(refresher?) {
-    if (this.buynsell === "buy") {
-      this.adservice.getadvertisement(this.crypto, this.country, this.fiat, 1).subscribe(result => {
-        console.log(result);
-        this.list = result;
-        if (refresher) {
-          refresher.complete();
+    this.storage
+      .get('nativeRegion')
+      .then(value => {
+        if (value) {
+          this.country = value.region;
+        } else {
+          this.country = 'singapore';
         }
       })
+      .then(() => this.doRefresh());
+  }
+  doRefresh(refresher?) {
+    if (this.buynsell === 'buy') {
+      this.adservice
+        .getadvertisement(this.crypto, this.country, this.fiat, 1)
+        .subscribe(result => {
+          this.list = result;
+          console.log(this.list);
+          if (refresher) {
+            refresher.complete();
+          }
+        });
     } else {
       this.adservice
         .getadvertisement(this.crypto, this.country, this.fiat, 0)
@@ -186,7 +197,7 @@ export class TradePage {
     this.events.subscribe('reloadtrade', () => {
       this.doRefresh();
       this.events.unsubscribe('reloadtrade');
-    })
+    });
     if (ismine) {
       this.appCtrl.getRootNav().push(AdinformationPage, {
         information: information,
@@ -231,7 +242,7 @@ export class TradePage {
     this.events.subscribe('reloadtrade', () => {
       this.doRefresh();
       this.events.unsubscribe('reloadtrade');
-    })
+    });
     this.appCtrl.getRootNav().push(AddadvertisementPage, {
       type: 'Buy',
       title: 'publishBuy',
@@ -244,7 +255,7 @@ export class TradePage {
     this.events.subscribe('reloadtrade', () => {
       this.doRefresh();
       this.events.unsubscribe('reloadtrade');
-    })
+    });
     this.appCtrl.getRootNav().push(AddadvertisementPage, {
       type: 'Sell',
       title: 'publishSell',
@@ -253,47 +264,42 @@ export class TradePage {
       country: this.country
     });
   }
-  presentcountryPopover(myEvent) {
-    let popover = this.popoverCtrl.create(countryPopoverPage, { country: this.country });
+  presentfilterPopover(myEvent) {
+    let popover = this.popoverCtrl.create(
+      fiatPopoverPage,
+      { fiat: this.fiat, crypto: this.crypto },
+      { cssClass: 'contact-popover' }
+    );
     popover.present({ ev: myEvent });
     popover.onDidDismiss(data => {
       if (data) {
-        this.country = data.country;
-        this.doRefresh();
-      }
-    });
-  }
-  presentfiatPopover(myEvent) {
-    let popover = this.popoverCtrl.create(fiatPopoverPage, { fiat: this.fiat });
-    popover.present({ ev: myEvent });
-    popover.onDidDismiss(data => {
-      if (data) {
+        this.crypto = data.crypto;
         this.fiat = data.fiat;
         this.doRefresh();
       }
-    })
-  }
-  ngOnInit() {
-    // Ionic scroll element
-    this.ionScroll = this.myElement.nativeElement.getElementsByClassName('scroll-content')[0];
-    // On scroll function
-    this.ionScroll.addEventListener("scroll", () => {
-      if (this.ionScroll.scrollTop - this.start > this.threshold) {
-        this.showheader = true;
-        this.hideheader = false;
-      } else {
-        this.showheader = false;
-        this.hideheader = true;
-      }
-      if (this.slideHeaderPrevious >= this.ionScroll.scrollTop - this.start) {
-        this.showheader = false;
-        this.hideheader = true;
-      }
-      this.slideHeaderPrevious = this.ionScroll.scrollTop - this.start;
     });
-    // this.bannerControl.getBanner().subscribe(result =>{
-    //   this.banners = result;
-    //   console.log(this.banners)
-    // })
+  }
+
+  ngOnInit() {}
+}
+
+@Pipe({
+  name: 'searchPipe'
+})
+export class SearchPipe implements PipeTransform {
+  public transform(value, key: string, term: string) {
+    if (!term) return value;
+    return value.filter(item => {
+      if (item.hasOwnProperty(key)) {
+        if (term) {
+          let regExp = new RegExp('\\b' + term, 'gi');
+          return regExp.test(item[key]);
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    });
   }
 }

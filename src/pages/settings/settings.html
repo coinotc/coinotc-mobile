@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Settings</ion-title>
+    <ion-title>{{'Settings' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -17,17 +17,17 @@
   
     <button ion-item (tap)="realNameTapped()">
       <ion-icon name="person" item-start></ion-icon>
-      KYC Verification
+      {{'KYC' | translate}}
     </button>
 
     <button ion-item (tap)="paymentPrdTapped()">
       <ion-icon name="card" item-start></ion-icon>
-      Change Trade Password
+      {{'ChangeTradePassword' | translate}}
     </button>
 
     <button ion-item (tap)="forgetTradePassword()">
       <ion-icon name="calculator" item-start></ion-icon>
-      Forget Trade Password
+      {{'ForgetTradePassword' | translate}}
     </button>
 
     <!-- <ion-item>
@@ -44,31 +44,36 @@
     </ion-item> -->
     <button ion-item (tap)="passwordTapped()">
       <ion-icon name="lock" item-start></ion-icon>
-      Change Password
+      {{'ChangePassword' | translate}}
     </button>
     <ion-item>
       <ion-icon name='globe' item-start></ion-icon>
-      <ion-label>Select Language</ion-label>
+      <ion-label>{{'SelectLanguage' | translate}}</ion-label>
       <ion-select [(ngModel)]="language" (ngModelChange)="switchLanguage()">
         <ion-option *ngFor="let language of languages" [value]="language.value">{{language.label}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-icon name='logo-bitcoin' item-start></ion-icon>
-      <ion-label>Native Currency</ion-label>
+      <ion-label>{{'NativeCurrency' | translate}}</ion-label>
       <ion-select [(ngModel)]="baseCurrency" (ngModelChange)="setBaseCurrency()" [selectedText]="baseCurrency">
         <ion-option *ngFor="let currency of currencies" [value]="currency.currenciesCode">{{currency.currenciesDesc}} ({{currency.currenciesCode}})</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-icon name='logo-bitcoin' item-start></ion-icon>
-      <ion-label>Region</ion-label>
-      <ion-select [(ngModel)]="region" (ngModelChange)="setRegion()" [selectedText]="region">
-        <ion-option *ngFor="let region of regions" [value]="region.value">{{region.label}}</ion-option>
+      <ion-icon name='md-locate' item-start></ion-icon>
+      <ion-label>{{'Region' | translate}}</ion-label>
+      <ion-select [(ngModel)]="region" (ngModelChange)="setRegion()">
+        <ion-option *ngFor="let region of regions" [value]="region.value">{{region.label | translate}}</ion-option>
       </ion-select>
     </ion-item>
+
+    <!-- <button ion-item (tap)="logout()">
+        <ion-icon name="log-out" item-start></ion-icon>
+        Logout
+      </button>  -->
   </ion-list>
   <button ion-button block outline (tap)="logout()" style="text-align: center" color="danger">
-    Logout
+    {{'Logout' | translate}}
   </button>
 </ion-content>

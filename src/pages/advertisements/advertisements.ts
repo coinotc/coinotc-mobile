@@ -37,8 +37,19 @@ export class AdvertisementsPage {
   onTabSelect(tab: { index: number; id: string; }) {
     console.log(`Selected tab: `, tab);
   }
-  onSegment() {
-    this.doRefresh();
+  onSegment(value) {
+    //console.log(this.value)
+    console.log(value)
+    switch (value) {
+      case 'Active':
+        this.advertisementService.getMyadvertisement(this.user.username,true).subscribe((result) => {
+          this.activeAdvertisement = result;
+        }); break;
+      case 'Disabled':
+        this.advertisementService.getMyadvertisement(this.user.username, false).subscribe(result => {
+          this.disableAdvertisement = result;
+        }); break;
+    }
   }
   doRefresh(refresher?) {
     switch (this.value) {

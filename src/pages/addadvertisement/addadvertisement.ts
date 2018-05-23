@@ -53,12 +53,11 @@ export class AddadvertisementPage {
     this.title = navParams.data.title;
     this.model.crypto = navParams.data.crypto;
     this.model.fiat = navParams.data.fiat;
-    this.model.country = navParams.data.country;
-    // this.changerange();
-    // this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(result => {
-    //   this.cryptoprice = Number(result[0].price_sgd);
-    //   this.model.price = this.cryptoprice;
-    // });
+    if (navParams.data.country == "global") {
+      this.model.country = "singapore";
+    } else {
+      this.model.country = navParams.data.country;
+    }
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...',
       duration: 5000
@@ -109,7 +108,7 @@ export class AddadvertisementPage {
   getcryptoprice() {
     switch (this.model.fiat) {
       case 'SGD':
-        this.adservice.getprice(this.model.crypto, 'SGD').subscribe(
+        this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(
           result => {
             this.cryptoprice = Number(result[0].price_sgd);
             this.changerange();
@@ -118,7 +117,7 @@ export class AddadvertisementPage {
         );
         break;
       case 'CNY':
-        this.adservice.getprice(this.model.crypto, 'CNY').subscribe(
+        this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(
           result => {
             this.cryptoprice = Number(result[0].price_cny);
             this.changerange();
@@ -127,7 +126,7 @@ export class AddadvertisementPage {
         );
         break;
       case 'USD':
-        this.adservice.getprice(this.model.crypto, 'USD').subscribe(
+        this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(
           result => {
             this.cryptoprice = Number(result[0].price_usd);
             this.changerange();
@@ -136,9 +135,27 @@ export class AddadvertisementPage {
         );
         break;
       case 'KRW':
-        this.adservice.getprice(this.model.crypto, 'KRW').subscribe(
+        this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(
           result => {
             this.cryptoprice = Number(result[0].price_krw);
+            this.changerange();
+          },
+          error => this.changerange(error)
+        );
+        break;
+      case 'MYR':
+        this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(
+          result => {
+            this.cryptoprice = Number(result[0].price_myr);
+            this.changerange();
+          },
+          error => this.changerange(error)
+        );
+        break;
+      case 'THB':
+        this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(
+          result => {
+            this.cryptoprice = Number(result[0].price_thb);
             this.changerange();
           },
           error => this.changerange(error)

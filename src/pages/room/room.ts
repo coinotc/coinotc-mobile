@@ -25,6 +25,7 @@ import { AngularFireStorage } from 'angularfire2/storage';
 import { Observable } from 'rxjs';
 import { ImageViewerController } from 'ionic-img-viewer';
 import { AnonymousSubscription } from 'rxjs/Subscription';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the RoomPage page.
@@ -37,11 +38,11 @@ import { AnonymousSubscription } from 'rxjs/Subscription';
   <ion-header>
   <ion-toolbar>
     <ion-title>
-      Description
+      {{'Description' | translate}}
     </ion-title>
     <ion-buttons start>
       <button ion-button (tap)="dismiss()">
-        <span ion-text color="primary">Cancel</span>
+        <span ion-text color="primary">{{'Cancel' | translate}}</span>
       </button>
     </ion-buttons>
   </ion-toolbar>
@@ -82,13 +83,13 @@ import { AnonymousSubscription } from 'rxjs/Subscription';
       <div align=center>
         <div *ngIf="orderInfo.finished == 1 || orderInfo.finished ==2">
           <button ion-button large round full *ngIf="user.username == orderInfo.seller" [disabled]="orderInfo.finished !== 2" (tap)="onFinished()">{{'Approve' | translate}}</button>
-          <button ion-button large round full *ngIf="user.username == orderInfo.buyer" [disabled]="orderInfo.finished !== 1" (tap)="onInformed()">{{'Inform' | translate}}</button>
+          <button ion-button large round full *ngIf="user.username == orderInfo.buyer"  [disabled]="orderInfo.finished !== 1" (tap)="onInformed()">{{'Inform' | translate}}</button>
         </div>
         <div *ngIf="orderInfo.finished == 3 && (this.user.username == this.orderInfo.buyer && this.orderInfo.buyerRating == null || this.user.username == this.orderInfo.seller && this.orderInfo.sellerRating == null)">
           <rating [(ngModel)]="rate" readOnly="false" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
             nullable="false">
           </rating>
-          <button ion-button large round full (tap)="onRating()">Confirm Rating</button>
+          <button ion-button large round full (tap)="onRating()">{{'ConfirmRating' | translate}}</button>
         </div>
       </div>
     </ion-item>
@@ -109,7 +110,7 @@ export class ModalContentPage {
   trader;
   user;
   rateStatus;
-  notification = new Notification('', null);
+  notification = new Notification('', null, null, 'high');
   average;
   rate;
 
@@ -122,13 +123,27 @@ export class ModalContentPage {
     public params: NavParams,
     public viewCtrl: ViewController,
     public navCtrl: NavController,
-    private events: Events
+    private events: Events,
+    private storage: Storage
   ) {
     this.orderInfo = this.params.data.orderInfo;
     this.trader = this.params.data.trader;
     this.user = userService.getCurrentUser();
-
-    console.log(this.orderInfo);
+    this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
+      console.log('>>>>>>>>>>>' + this.trader);
+      console.log(result);
+      this.notification.to = result[0].deviceToken;
+      this.notification.notification = {
+        title: `Your Order with ${this.user.username} has progress !`,
+        icon: 'fcm_push_icon',
+        sound: 'default',
+        click_action: 'FCM_PLUGIN_ACTIVITY'
+      };
+      this.notification.data = {
+        type: `${this.trader}OrderChanged`,
+        order: this.orderInfo._id
+      };
+    });
   }
 
   onRefresh() {
@@ -149,7 +164,6 @@ export class ModalContentPage {
         }
         if (this.orderInfo.finished == 1 || this.orderInfo.finished == 2) {
           this.subscribeToData();
-          console.log('>>>>>>>>>>><<<<<<<<<<<');
         }
       });
   }
@@ -168,8 +182,10 @@ export class ModalContentPage {
         .subscribe(result => {
           this.orderInfo = result;
         });
+      this.decreaseCount();
     });
     //Send push notification to trader
+    console.log(this.notification);
     this.alertServiceProvider
       .onNotification(this.notification)
       .subscribe(result => {
@@ -185,6 +201,7 @@ export class ModalContentPage {
         .subscribe(result => {
           this.orderInfo = result;
         });
+      this.decreaseCount();
     });
     //Send push notification to trader
     this.alertServiceProvider
@@ -208,7 +225,7 @@ export class ModalContentPage {
           .subscribe(result => {
             console.log(result);
             for (let i = 0; i < result.length; i++) {
-              let triggerAlert = new Notification('', null);
+              let triggerAlert = new Notification('', null, null, 'high');
               this.profileServiceProvider
                 .getProfile(result[i].username)
                 .subscribe(result => {
@@ -255,7 +272,7 @@ export class ModalContentPage {
           )
           .subscribe(result => {
             for (let i = 0; i < result.length; i++) {
-              let triggerAlert = new Notification('', null);
+              let triggerAlert = new Notification('', null, null, 'high');
               this.profileServiceProvider
                 .getProfile(result[i].username)
                 .subscribe(result => {
@@ -318,6 +335,31 @@ export class ModalContentPage {
       this.profileServiceProvider.sendRating(this.trader, ratings).subscribe();
     });
   }
+
+  decreaseCount() {
+    let filtered = [];
+    this.storage
+      .ready()
+      .then(() => this.storage.get(`${this.user.username}OrderChanged`))
+      .then(value => {
+        if (value != null) {
+          filtered = value.filter(
+            function(e) {
+              return this.indexOf(e) < 0;
+            },
+            [this.orderInfo._id]
+          );
+          console.log('filteredIs' + filtered);
+        } else {
+          filtered = [];
+        }
+      })
+      .then(() =>
+        this.storage.set(`${this.user.username}OrderChanged`, filtered)
+      )
+      .then(() => this.events.publish('orderBadge:updated', filtered));
+  }
+
   onWallet() {
     this.navCtrl.push(WalletPage);
   }
@@ -351,7 +393,7 @@ export class RoomPage {
   private user;
   data = { type: '', name: '', message: '', roomname: '' };
   ref = firebase.database().ref('chatrooms/');
-
+  input;
   chats = [];
   roomkey: any;
   nickname: string;
@@ -359,7 +401,6 @@ export class RoomPage {
   switched = false;
   trader;
   average;
-  notification = new Notification('', null);
   type;
   finished;
   base64Image: string;
@@ -384,42 +425,27 @@ export class RoomPage {
     public modalCtrl: ModalController,
     private imageViewerCtrl: ImageViewerController
   ) {
+    //convert data
+    if (typeof navParams.data == 'string') {
+      this.input = JSON.parse(navParams.data);
+    } else {
+      this.input = navParams.data;
+    }
     this.events.unsubscribe('reloadtrade');
     this._imageViewerCtrl = imageViewerCtrl;
     this.user = userService.getCurrentUser();
     this.data.name = this.user.username;
     this.nickname = this.user.username;
-    this.type = navParams.data.type;
+    this.type = this.input.type;
     this.data.type = 'message';
-    if (this.type == 'order') {
-      this.trader = navParams.data.trader;
-      console.log(this.trader);
-      this.orderInfo = navParams.data.order;
-      this.finished = this.orderInfo.finished;
-      this.data.roomname = navParams.data.order._id;
-      this.profileServiceProvider.getProfile(this.trader).subscribe(result => {
-        this.notification.to = result[0].deviceToken;
-        this.notification.notification = {
-          title: `Your Order with ${this.trader} has progress !`,
-          body: `Order ID : ${this.orderInfo._id}`,
-          icon: 'fcm_push_icon',
-          sound: 'default',
-          click_action: 'FCM_PLUGIN_ACTIVITY'
-        };
-      });
-      if (navParams.data.roomkey == null) {
-        this.roomkey = navParams.data.order.roomkey;
-      } else {
-        this.roomkey = navParams.data.roomkey;
-      }
+    this.trader = this.input.trader;
+    this.orderInfo = this.input.order;
+    this.finished = this.orderInfo.finished;
+    this.data.roomname = this.input.order._id;
+    if (this.input.roomkey == null) {
+      this.roomkey = this.input.order.roomkey;
     } else {
-      this.data.roomname = navParams.data.complain;
-      this.finished = true;
-      if (navParams.data.complain.roomkey == null) {
-        this.roomkey = navParams.data.complain.roomkey;
-      } else {
-        this.roomkey = navParams.data.roomkey;
-      }
+      this.roomkey = this.input.roomkey;
     }
     this.data.message = '';
     let loading = this.loadingCtrl.create({
@@ -440,7 +466,8 @@ export class RoomPage {
         setTimeout(() => {
           if (this.offStatus === false) {
             loading.dismiss();
-            this.content.scrollToBottom(300);
+            // this.content.scrollToBottom(300);
+            if (this.content._scroll) this.content.scrollToBottom(300);
           }
         }, 500);
         var end = new Date().getTime();
@@ -461,7 +488,7 @@ export class RoomPage {
 
         setTimeout(() => {
           if (this.offStatus === false) {
-            this.content.scrollToTop(300);
+            if (this.content._scroll) this.content.scrollToTop(300);
             if (refresher) {
               refresher.complete();
             }
@@ -633,8 +660,8 @@ export class RoomPage {
 
   openModal() {
     let modal = this.modalCtrl.create(ModalContentPage, {
-      orderInfo: this.navParams.data.order,
-      trader: this.navParams.data.trader,
+      orderInfo: this.input.order,
+      trader: this.input.trader,
       type: 'order'
     });
     modal.present();

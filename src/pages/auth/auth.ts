@@ -6,7 +6,8 @@ import {
   ViewController,
   ToastController,
   LoadingController,
-  App
+  App,
+  Events
 } from 'ionic-angular';
 import {
   FormBuilder,
@@ -26,6 +27,12 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { SendMailPage } from '../send-mail/send-mail';
 import { ForgetPasswordPage } from '../forget-password/forget-password';
 import { GetIpProvider } from '../../providers/get-ip/get-ip';
+import { Storage } from '@ionic/storage';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import { Badge } from '@ionic-native/badge';
+import { RoomPage } from '../room/room';
+import { OrderListPage } from '../order-list/order-list';
 /**
  * Generated class for the AuthPage page.
  *
@@ -50,6 +57,8 @@ export class AuthPage {
   confirm_password_type = 'password';
   onlineToast: any;
   offlineToast: any;
+  profileBadge: number;
+  orderBadge: Array<String> = [];
   private PASSWORD_PATTERN = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{12,}$/;
 
   constructor(
@@ -64,8 +73,11 @@ export class AuthPage {
     private platform: Platform,
     private network: Network,
     private loadingCtrl: LoadingController,
+    private storage: Storage,
+    private badge: Badge,
     public appCtrl: App,
-    public getIpService: GetIpProvider
+    public getIpService: GetIpProvider,
+    public events: Events
   ) {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
@@ -82,6 +94,14 @@ export class AuthPage {
       ]
     });
     this.isModal = !!params.get('isModal');
+    // this.storage.ready().then(() => this.storage.get('order') as Promise<string>).then(value => {
+    //   if (value != null) {
+    //     let langObj = JSON.parse(JSON.stringify(value));
+    //     this.language = langObj.language;
+    //   } else {
+    //     this.language = 'en';
+    //   }
+    // });
     this.platform.ready().then(() => {
       this.fcm
         .getToken()
@@ -100,8 +120,55 @@ export class AuthPage {
         (data: NotificationData) => {
           if (data.wasTapped) {
             console.log('Received in background', JSON.stringify(data));
+            if (data.pushData) {
+              let information = data.pushData;
+              this.navCtrl.push(RoomPage, information);
+            }
           } else {
-            console.log('Received in foreground', JSON.stringify(data));
+            console.log(
+              'Received in foreground son of a bitch',
+              JSON.stringify(data)
+            );
+            let localUser = this.userService.getCurrentUser().username;
+            // console.log('localUser:' + localUser);
+            if (localUser) {
+              this.storage
+                .ready()
+                .then(() => this.storage.get(data.type))
+                .then(value => {
+                  // console.log(`The correct get ${localUser}OrderChanged`);
+                  // console.log(`Data type check ${data.type}`);
+                  if (data.type == `${localUser}NewFollowers`) {
+                    if (value != null) {
+                      this.profileBadge = value;
+                    } else {
+                      this.profileBadge = 0;
+                    }
+                  } else if (data.type == `${localUser}OrderChanged`) {
+                    if (value != null) {
+                      this.orderBadge = value;
+                    } else {
+                      this.orderBadge = [];
+                    }
+                  }
+                })
+                .then(() => {
+                  if (data.type == `${localUser}NewFollowers`) {
+                    this.storage.set(`${data.type}`, ++this.profileBadge);
+                  } else if (data.type == `${localUser}OrderChanged`) {
+                    this.orderBadge.push(data.order);
+                    this.storage.set(`${data.type}`, this.orderBadge);
+                  }
+                })
+                .then(() => {
+                  this.events.publish(
+                    'profileBadge:updated',
+                    this.profileBadge
+                  );
+                  this.events.publish('orderBadge:updated', this.orderBadge);
+                })
+                .then(() => this.badge.increase(1));
+            }
           }
         },
         error => {
@@ -118,7 +185,7 @@ export class AuthPage {
       this.authForm.removeControl('username');
     }
     if (this.authType === 'login') {
-      console.log("Login ....");
+      console.log('Login ....');
       this.authForm = this.fb.group({
         email: [
           '',
@@ -126,8 +193,10 @@ export class AuthPage {
         ],
         password: [
           '',
-          Validators.compose([Validators.required,
-          Validators.pattern(this.PASSWORD_PATTERN)])
+          Validators.compose([
+            Validators.required,
+            Validators.pattern(this.PASSWORD_PATTERN)
+          ])
         ]
       });
     } else {
@@ -195,85 +264,127 @@ export class AuthPage {
   }
 
   submitForm() {
-    this.password_type = "password";
-    this.confirm_password_type = "password";
+    this.password_type = 'password';
+    this.confirm_password_type = 'password';
 
     let loading = this.loadingCtrl.create({
       spinner: 'circles',
       content: 'loading...',
-      duration: 3000
+      duration: 3000,
+      dismissOnPageChange: true
     });
     loading.present();
     console.log(this.deviceToken);
     this.isSubmitting = true;
     const credentials = this.authForm.value;
-    if (this.authType == "login") {
+    if (this.authType == 'login') {
       this.getIpService.getIP().subscribe(ip => {
-        this.userService
-          .login(credentials , ip)
-          .subscribe(
-            user => {
-              console.log(user.active)
-              if (user.active == false)
-                this.navCtrl.push(SendMailPage)
-              else {
-                console.log('subscribe user!!!');
-                if (this.isModal) this.viewCtrl.dismiss();
-                this.displayTabs();
-                console.log('Login ....' + this.navCtrl.parent);
-                loading
-                  .dismiss()
-                  .then(() => {
-                    this.appCtrl.getRootNav().setRoot(TabsPage);
-                    loading = null;
-                    let updater = this.userService.getCurrentUser().username;
-                    console.log(updater);
-                    this.profileServiceProvider
-                      .updateDeviceToken(updater, this.deviceToken)
-                      .subscribe(result => {
-                        console.log('...update deviceToken successfully...');
-                      });
-                  })
-                  .catch(e => console.log(e));
-              }
-            },
-            (errors: Errors) => {
-              for (let field in errors.errors) {
-                if (typeof field !== 'undefined') {
-                  console.log(field);
-                  let errorMessage = errors.errors[field]['message'];
-                  if (typeof errors.errors[field]['message'] === 'undefined') {
-                    errorMessage = errors.errors[field];
-                  }
-                  this.toastCtrl
-                    .create({
-                      message: `${field} ${errorMessage}`,
-                      duration: 3000
+        this.userService.login(credentials, ip).subscribe(
+          user => {
+            console.log(user.active);
+            if (user.active == false) this.navCtrl.push(SendMailPage);
+            else {
+              console.log('subscribe user!!!');
+              if (this.isModal) this.viewCtrl.dismiss();
+              this.displayTabs();
+              console.log('Login ....' + this.navCtrl.parent);
+              loading
+                .dismiss()
+                .then(() => {
+                  loading = null;
+                  let getUser = this.userService.getCurrentUser().username;
+                  this.storage
+                    .ready()
+                    .then(() => {
+                      this.storage
+                        .get(`${getUser}NewFollowers`)
+                        .then(value => {
+                          if (value != null) {
+                            this.profileBadge = value;
+                          } else {
+                            this.profileBadge = 0;
+                          }
+                        })
+                        .then(() =>
+                          this.events.publish(
+                            'profileBadge:updated',
+                            this.profileBadge
+                          )
+                        );
+                      this.storage
+                        .get(`${getUser}OrderChanged`)
+                        .then(value => {
+                          if (value != null) {
+                            this.orderBadge = value;
+                          } else {
+                            this.orderBadge = [];
+                          }
+                        })
+                        .then(() =>
+                          this.events.publish(
+                            'orderBadge:updated',
+                            this.orderBadge
+                          )
+                        );
                     })
-                    .present();
-                }
-              }
-              this.isSubmitting = false;
+                    .then(() => {
+                      let badgeCount =
+                        this.profileBadge + this.orderBadge.length;
+                      this.badge.set(badgeCount);
+                    });
+                  this.appCtrl.getRootNav().setRoot(TabsPage);
+                  loading = null;
+                  let updater = this.userService.getCurrentUser().username;
+                  this.profileServiceProvider
+                    .updateDeviceToken(updater, this.deviceToken)
+                    .subscribe(result => {
+                      console.log('...update deviceToken successfully...');
+                    });
+                })
+                .catch(e => console.log(e));
             }
-          );
-      })
-    }
-    else {
+          },
+          (errors: Errors) => {
+            for (let field in errors.errors) {
+              if (typeof field !== 'undefined') {
+                console.log(field);
+                let errorMessage = errors.errors[field]['message'];
+                if (typeof errors.errors[field]['message'] === 'undefined') {
+                  errorMessage = errors.errors[field];
+                }
+                this.toastCtrl
+                  .create({
+                    message: `${field} ${errorMessage}`,
+                    duration: 3000
+                  })
+                  .present();
+              }
+            }
+            this.isSubmitting = false;
+          }
+        );
+      });
+    } else {
       this.userService.checkUser(credentials).subscribe(result => {
-        console.log(result)
+        console.log(result);
+
         if (result != 0) {
           this.toastCtrl
             .create({
-              message: "email or username have been taken",
+              message: 'email or username have been taken',
               duration: 3000
             })
             .present();
         } else {
           this.getIpService.getIP().subscribe(result => {
-            this.navCtrl.setRoot(PincodePage, { user: credentials, deviceToken: this.deviceToken, ip: result });
-          })
+            this.navCtrl.setRoot(PincodePage, {
+              user: credentials,
+              deviceToken: this.deviceToken,
+              ip: result
+            });
+          });
         }
-      })
+      });
     }
   }
 
@@ -284,7 +395,8 @@ export class AuthPage {
 
   toggleConfirmPasswordMode() {
     console.log('toggle >>>> confirm password');
-    this.confirm_password_type = this.confirm_password_type === 'text' ? 'password' : 'text';
+    this.confirm_password_type =
+      this.confirm_password_type === 'text' ? 'password' : 'text';
   }
 
   forgetPassword() {

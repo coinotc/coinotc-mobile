@@ -1,20 +1,25 @@
 import { Component } from '@angular/core';
-import { IonicPage, 
-         NavController, 
-         NavParams,
-         ToastController,
-         LoadingController } from 'ionic-angular';
-import { FormBuilder,
-         FormGroup,
-         FormControl,
-         Validators,
-         AbstractControl, 
-         ValidationErrors, 
-         ValidatorFn,
-         AsyncValidatorFn } from '@angular/forms';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ToastController,
+  LoadingController
+} from 'ionic-angular';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+  AsyncValidatorFn
+} from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Observable } from 'rxjs/Rx';
 import { SettingsPage } from '../settings/settings';
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the ModifyPrdPage page.
@@ -33,30 +38,36 @@ export class ModifyPasswordPage {
   private PASSWORD_PATTERN = '^(?=.*d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{12,}$';
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private fb: FormBuilder,
-    public userService:UserServiceProvider,
+    public userService: UserServiceProvider,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController
-    ) {
-      let oldPasswordControl = new FormControl(
-        '',
-        {validators:Validators.compose([
+  ) {
+    let oldPasswordControl = new FormControl(
+      '',
+      {
+        validators: Validators.compose([
           Validators.required,
           Validators.pattern(this.PASSWORD_PATTERN)
-        ]), 
-        asyncValidators: this.checkCurrentPassword(this.userService),
-        updateOn: 'blur'}
-      );
-      let newPasswordControl = new FormControl(
-        '',
-        Validators.compose([
+        ]),
+        asyncValidators: this.checkCurrentPassword(this.userService,'1'),
+        updateOn: 'blur'
+      }
+    );
+    let newPasswordControl = new FormControl(
+      '',
+      {
+        validators: Validators.compose([
           Validators.required,
           Validators.pattern(this.PASSWORD_PATTERN)
-        ])
-      );
-      let confirmPasswordControl = new FormControl(
-        '',
-        Validators.compose([Validators.required, this.equalTo(newPasswordControl)])
-      );
+        ]),
+        asyncValidators: this.checkCurrentPassword(this.userService,'0'),
+        updateOn: 'blur'
+      }
+    );
+    let confirmPasswordControl = new FormControl(
+      '',
+      Validators.compose([Validators.required, this.equalTo(newPasswordControl)])
+    );
     this.passwordForm = this.fb.group({
       oldPassword: oldPasswordControl,
       newPassword: newPasswordControl,
@@ -64,23 +75,25 @@ export class ModifyPasswordPage {
     })
   }
 
-  checkCurrentPassword(userService: UserServiceProvider): AsyncValidatorFn{
+  checkCurrentPassword(userService: UserServiceProvider, value): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
       let input = control.value;
       console.log(input);
-      if(input != ''){
-        return userService.checkChgPasswordUser(this.userService.getCurrentUser(), input).map(result=>{
-            console.log("zzzz" +result);
-            if(result == 0){
-              console.log('>>>> result ');
-              return { isValid: true, required: false };
-            }else{
-              return null;
-            }
+      if (input != '') {
+        return userService.checkChgPasswordUser(this.userService.getCurrentUser(), input).map(result => {
+          console.log("zzzz" + result);
+          if (result == 0 && value == '1') {
+            console.log('>>>> result ');
+            return { isValid: true, required: false };
+          } else if (result != 0 && value == '1')
+            return null;
+          else if (result == 0 && value == '0')
+            return null;
+          else if (result != 0 && value == '0')
+            return { isValid: true, required: false };
         });
       }
     };
-
   }
 
   equalTo(equalControl: AbstractControl): ValidatorFn {
@@ -114,16 +127,16 @@ export class ModifyPasswordPage {
     });
     loading.present();
     const credentials = this.passwordForm.value;
-    this.userService.changePassword(credentials, this.userService.getCurrentUser()).subscribe(result =>{
-      if(result != null){
+    this.userService.changePassword(credentials, this.userService.getCurrentUser()).subscribe(result => {
+      if (result != null) {
         loading.dismiss();
         this.toastCtrl
           .create({
             message: "Password changed.",
             duration: 3500
           })
-        .present();
-        this.navCtrl.push(SettingsPage);
+          .present();
+        this.navCtrl.push(TabsPage);
       }
     });
   }

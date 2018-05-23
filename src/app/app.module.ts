@@ -17,11 +17,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AuthPageModule } from '../pages/auth/auth.module';
 import { WalletPage } from '../pages/wallet/wallet';
-import {
-  TradePage,
-  countryPopoverPage,
-  fiatPopoverPage
-} from '../pages/trade/trade';
+import { TradePage, fiatPopoverPage } from '../pages/trade/trade';
 import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement';
 import { OrderListPage } from '../pages/order-list/order-list';
 import { AlertPage, AddAlertPage } from '../pages/alert/alert';
@@ -57,7 +53,6 @@ import { FCM } from '@ionic-native/fcm';
 import { ComplainPage } from '../pages/complain/complain';
 import { AdvertisementsPage } from '../pages/advertisements/advertisements';
 import { TrustedPage } from '../pages/trusted/trusted';
-import { ElasticHeaderModule } from 'ionic2-elastic-header/dist';
 import { Network } from '@ionic-native/network';
 import { EditAdvertisementPage } from '../pages/edit-advertisement/edit-advertisement';
 import { GoogleAuthPage } from '../pages/google-auth/google-auth';
@@ -87,6 +82,9 @@ import { GoogleAuthInputPage } from '../pages/google-auth-input/google-auth-inpu
 import { UnbindGoogleAuthPage } from '../pages/unbind-google-auth/unbind-google-auth';
 import { GetIpProvider } from '../providers/get-ip/get-ip';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { TutorialPage } from '../pages/tutorial/tutorial';
+import { Badge } from '@ionic-native/badge';
+import { SearchPipe } from '../pages/trade/trade';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -116,7 +114,6 @@ export function createTranslateLoader(http: HttpClient) {
     ComplainPage,
     AdvertisementsPage,
     TrustedPage,
-    countryPopoverPage,
     fiatPopoverPage,
     EditAdvertisementPage,
     TwoFactorAuthPage,
@@ -134,7 +131,9 @@ export function createTranslateLoader(http: HttpClient) {
     ConfirmResetTradePasswordPage,
     CustomerSupportPage,
     GoogleAuthInputPage,
-    UnbindGoogleAuthPage
+    UnbindGoogleAuthPage,
+    TutorialPage,
+    SearchPipe
   ],
   imports: [
     BrowserAnimationsModule,
@@ -156,7 +155,6 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     AdinformationPageModule,
-    ElasticHeaderModule,
     Ionic2RatingModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseconfig),
@@ -184,7 +182,6 @@ export function createTranslateLoader(http: HttpClient) {
     ComplainPage,
     AdvertisementsPage,
     TrustedPage,
-    countryPopoverPage,
     fiatPopoverPage,
     EditAdvertisementPage,
     TwoFactorAuthPage,
@@ -202,7 +199,8 @@ export function createTranslateLoader(http: HttpClient) {
     ConfirmResetTradePasswordPage,
     CustomerSupportPage,
     GoogleAuthInputPage,
-    UnbindGoogleAuthPage
+    UnbindGoogleAuthPage,
+    TutorialPage
   ],
   providers: [
     StatusBar,
@@ -231,7 +229,8 @@ export function createTranslateLoader(http: HttpClient) {
     LocalNotifications,
     NotificationServiceProvider,
     GetIpProvider,
-    IonicImageViewerModule
+    IonicImageViewerModule,
+    Badge
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
