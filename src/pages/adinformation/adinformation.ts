@@ -111,6 +111,39 @@ export class AdinformationPage {
       content: 'Please wait...',
       duration: 5000
     });
+    if (this.tradetype.type == 'Buy') {
+      this.orderinformation.buyer = this.userservice.getCurrentUser().username;
+      this.orderinformation.seller = this.information.owner;
+      this.profileservice
+        .getProfile(this.orderinformation.seller)
+        .subscribe(result => {
+          this.notification.to = result[0].deviceToken;
+          this.notification.notification = {
+            title: `You have an order with ${
+              this.orderinformation.buyer
+            } now !`,
+            icon: 'fcm_push_icon',
+            sound: 'default',
+            click_action: 'FCM_PLUGIN_ACTIVITY'
+          };
+        });
+    } else {
+      this.orderinformation.seller = this.userservice.getCurrentUser().username;
+      this.orderinformation.buyer = this.information.owner;
+      this.profileservice
+        .getProfile(this.orderinformation.buyer)
+        .subscribe(result => {
+          this.notification.to = result[0].deviceToken;
+          this.notification.notification = {
+            title: `You have an order with ${
+              this.orderinformation.seller
+            } now !`,
+            icon: 'fcm_push_icon',
+            sound: 'default',
+            click_action: 'FCM_PLUGIN_ACTIVITY'
+          };
+        });
+    }
   }
   profile() {
     if (this.information.owner != this.userservice.getCurrentUser().username)
@@ -132,39 +165,6 @@ export class AdinformationPage {
           this.orderinformation.limit = this.information.limit;
           this.orderinformation.message = this.information.message;
           this.orderinformation.owner = this.information.owner;
-          if (this.tradetype.type == 'Buy') {
-            this.orderinformation.buyer = this.userservice.getCurrentUser().username;
-            this.orderinformation.seller = this.information.owner;
-            this.profileservice
-              .getProfile(this.orderinformation.seller)
-              .subscribe(result => {
-                this.notification.to = result[0].deviceToken;
-                this.notification.notification = {
-                  title: `${
-                    this.orderinformation.buyer
-                  } Make an Order with you !`,
-                  icon: 'fcm_push_icon',
-                  sound: 'default',
-                  click_action: 'FCM_PLUGIN_ACTIVITY'
-                };
-              });
-          } else {
-            this.orderinformation.seller = this.userservice.getCurrentUser().username;
-            this.orderinformation.buyer = this.information.owner;
-            this.profileservice
-              .getProfile(this.orderinformation.buyer)
-              .subscribe(result => {
-                this.notification.to = result[0].deviceToken;
-                this.notification.notification = {
-                  title: `${
-                    this.orderinformation.seller
-                  } Make an Order with you !`,
-                  icon: 'fcm_push_icon',
-                  sound: 'default',
-                  click_action: 'FCM_PLUGIN_ACTIVITY'
-                };
-              });
-          }
           // console.log(this.orderinformation);
           this.orderservice.postorder(this.orderinformation).subscribe(
             result => {
@@ -173,12 +173,10 @@ export class AdinformationPage {
               this.data.name = this.userservice.getCurrentUser().username;
               //console.log(JSON.parse(JSON.stringify(result,null,4)));
               this.data.roomname = JSON.parse(JSON.stringify(result))._id;
-
               let newData = this.ref.push();
               newData.set({
                 roomname: this.data.roomname
               }); //定义房间名 并创建房间
-
               this.roomkey = getRoomKey(this.ref);
               console.log(this.roomkey + '<<<<<<<<<<here is the roomkey');
               this.orderservice
@@ -187,14 +185,27 @@ export class AdinformationPage {
               if (this.tradetype.type == 'Buy') {
                 this.notification.data = {
                   type: `${this.orderinformation.seller}OrderChanged`,
-                  order: result._id
+                  order: result._id,
+                  pushData: {
+                    order: result,
+                    trader: owner,
+                    roomkey: this.roomkey,
+                    type: 'order'
+                  }
                 };
               } else {
                 this.notification.data = {
                   type: `${this.orderinformation.buyer}OrderChanged`,
-                  order: result._id
+                  order: result._id,
+                  pushData: {
+                    order: result,
+                    trader: owner,
+                    roomkey: this.roomkey,
+                    type: 'order'
+                  }
                 };
               }
+              console.log(this.notification);
               this.alertService
                 .onNotification(this.notification)
                 .subscribe(result => console.log(JSON.stringify(result)));

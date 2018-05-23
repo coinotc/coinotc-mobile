@@ -393,7 +393,7 @@ export class RoomPage {
   private user;
   data = { type: '', name: '', message: '', roomname: '' };
   ref = firebase.database().ref('chatrooms/');
-
+  input;
   chats = [];
   roomkey: any;
   nickname: string;
@@ -425,32 +425,27 @@ export class RoomPage {
     public modalCtrl: ModalController,
     private imageViewerCtrl: ImageViewerController
   ) {
+    //convert data
+    if (typeof navParams.data == 'string') {
+      this.input = JSON.parse(navParams.data);
+    } else {
+      this.input = navParams.data;
+    }
     this.events.unsubscribe('reloadtrade');
     this._imageViewerCtrl = imageViewerCtrl;
     this.user = userService.getCurrentUser();
     this.data.name = this.user.username;
     this.nickname = this.user.username;
-    this.type = navParams.data.type;
+    this.type = this.input.type;
     this.data.type = 'message';
-    if (this.type == 'order') {
-      this.trader = navParams.data.trader;
-      console.log(this.trader);
-      this.orderInfo = navParams.data.order;
-      this.finished = this.orderInfo.finished;
-      this.data.roomname = navParams.data.order._id;
-      if (navParams.data.roomkey == null) {
-        this.roomkey = navParams.data.order.roomkey;
-      } else {
-        this.roomkey = navParams.data.roomkey;
-      }
+    this.trader = this.input.trader;
+    this.orderInfo = this.input.order;
+    this.finished = this.orderInfo.finished;
+    this.data.roomname = this.input.order._id;
+    if (this.input.roomkey == null) {
+      this.roomkey = this.input.order.roomkey;
     } else {
-      this.data.roomname = navParams.data.complain;
-      this.finished = true;
-      if (navParams.data.complain.roomkey == null) {
-        this.roomkey = navParams.data.complain.roomkey;
-      } else {
-        this.roomkey = navParams.data.roomkey;
-      }
+      this.roomkey = this.input.roomkey;
     }
     this.data.message = '';
     let loading = this.loadingCtrl.create({
@@ -665,8 +660,8 @@ export class RoomPage {
 
   openModal() {
     let modal = this.modalCtrl.create(ModalContentPage, {
-      orderInfo: this.navParams.data.order,
-      trader: this.navParams.data.trader,
+      orderInfo: this.input.order,
+      trader: this.input.trader,
       type: 'order'
     });
     modal.present();
