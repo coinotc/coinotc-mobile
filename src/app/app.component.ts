@@ -60,6 +60,11 @@ export class MyApp {
         } else {
           translate.setDefaultLang('en');
         }
+      }).then(() => this.storage.get('isLogin') as Promise<string>)
+      .then(value => {
+        console.log(value)
+        if (value == "true")
+          this.rootPage = TabsPage;
       });
     firebase.initializeApp(firebaseconfig);
     platform.ready().then(() => {
