@@ -40,7 +40,12 @@ export class RealNameVerifiedPage {
     '',
     '',
     null,
-    null
+    null,
+    null,
+    null,
+    null,
+    '',
+    ''
   );
   constructor(
     public navCtrl: NavController,

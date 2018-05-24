@@ -43,7 +43,12 @@ export class UserServiceProvider {
       '',
       '',
       null,
-      null
+      null,
+      null,
+      null,
+      null,
+      '',
+      ''
     )
   );
   public currentUser = this.currentUserSubject
@@ -110,6 +115,7 @@ export class UserServiceProvider {
           this.getCurrentUser().username +
           '<<<<<<<<<<<<<<<<<<'
       );
+      console.log(this.isAuthenticatedSubject)
     });
   }
 
@@ -149,7 +155,9 @@ export class UserServiceProvider {
       return data.user;
     });
   }
-
+  getUser(){
+    return this.apiService.get('/userInfo');
+  }
   // Update the user on the server (email, pass, etc)
   updateBaseCurrency(currency): Observable<User> {
     return this.apiService.put('/users/base-currency', currency).map(data => {

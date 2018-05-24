@@ -1,0 +1,61 @@
+<!--
+  Generated template for the KycFormPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>kycForm</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="KYCForm" (ngSubmit)="submitForm()">
+    <ion-list>
+      <ion-item>
+        <ion-label stacked>First Name</ion-label>
+        <ion-input formControlName="firstName" autocapitalize="none" type="text"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="KYCForm.controls.firstName.hasError('required') && KYCForm.controls.firstName.touched">
+        <ion-label style="color:red">First Name.</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Last Name</ion-label>
+        <ion-input formControlName="lastName" autocapitalize="none" type="text"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="KYCForm.controls.lastName.hasError('required') && KYCForm.controls.lastName.touched">
+        <ion-label style="color:red">Last Name is required.</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Passport ID</ion-label>
+        <ion-input formControlName="passport" autocapitalize="none" type="text"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="KYCForm.controls.passport.hasError('required') && KYCForm.controls.passport.touched">
+        <ion-label style="color:red">Passport ID is required.</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Gender</ion-label>
+        <ion-select formControlName="gender">
+          <ion-option value="f">Female</ion-option>
+          <ion-option value="m">Male</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Country</ion-label>
+        <ion-select formControlName="country">
+          <ion-option value="CN">Chain</ion-option>
+          <ion-option value="SG">Singapore</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button tappable ion-button full [disabled]="!KYCForm.valid" type="submit">
+        Next
+      </button>
+    </div>
+  </form>
+</ion-content>

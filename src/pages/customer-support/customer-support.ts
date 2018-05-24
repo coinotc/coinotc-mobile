@@ -19,6 +19,7 @@ export class CustomerSupportPage {
   complain;
   complainChat;
   leaveMess = '';
+  complainStatus;
   chatsObservable$: any;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -26,7 +27,8 @@ export class CustomerSupportPage {
     public modalCtrl: ModalController) {
     
     this.complain = this.navParams.data.complain;
-
+    this.complainStatus = this.complain.status;
+    console.log(this.complainStatus)
     this.chatsObservable$ = Observable.of(this.complain.message);
       //console.log(this.complain.message)
   }
@@ -46,7 +48,12 @@ export class CustomerSupportPage {
   changeStatus() {
     this.complainService.changeStatus(this.complain._id,3).subscribe(result => {
       //this.listToComplainChatService.complainResult.subscribe(complain => this.complain = complain);
+      //this.navCtrl.pop()
       this.complain = result;
+      console.log(result)
+      this.complainStatus = result.status;
+      
+      //this
     });
   }
   ionViewDidLoad() {

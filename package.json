@@ -33,6 +33,7 @@
     "@ionic-native/badge": "^4.7.0",
     "@ionic-native/camera": "^4.6.0",
     "@ionic-native/core": "4.4.0",
+    "@ionic-native/device": "^4.7.0",
     "@ionic-native/fcm": "^4.5.3",
     "@ionic-native/local-notifications": "^4.7.0",
     "@ionic-native/network": "^4.6.0",
