@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,LoadingController} from 'ionic-angular';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { KycPassportPhoto1Page } from '../kyc-passport-photo1/kyc-passport-photo1';
+import { KycServiceProvider } from "../../providers/kyc-service/kyc-service";
 /**
  * Generated class for the KycFormPage page.
  *
@@ -18,7 +18,9 @@ export class KycFormPage {
   KYCForm: FormGroup;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    public kycService:KycServiceProvider,
+    private loadingCtrl: LoadingController) {
       this.KYCForm = this.fb.group({
         firstName: [
           '',
@@ -45,8 +47,18 @@ export class KycFormPage {
       });
   }
   submitForm() {
+    let loading = this.loadingCtrl.create({
+      spinner: 'circles',
+      content: 'loading...',
+      //duration: 3000,
+      dismissOnPageChange: true
+    });
+    loading.present();
     const credentials = this.KYCForm.value;
-    this.navCtrl.push(KycPassportPhoto1Page,{credentials : credentials});
+    this.kycService.verifyName(credentials).subscribe(result=>{
+      loading.dismiss();
+      this.navCtrl.pop();
+    })
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad KycFormPage');

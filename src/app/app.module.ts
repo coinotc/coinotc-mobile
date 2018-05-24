@@ -92,6 +92,7 @@ import { CountryServiceProvider } from '../providers/country-service/country-ser
 import { KycPassportPhoto1Page } from '../pages/kyc-passport-photo1/kyc-passport-photo1';
 import { KycPassportPhoto2Page } from '../pages/kyc-passport-photo2/kyc-passport-photo2';
 import { KycServiceProvider } from '../providers/kyc-service/kyc-service';
+import { KycListPage } from '../pages/kyc-list/kyc-list';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -142,7 +143,8 @@ export function createTranslateLoader(http: HttpClient) {
     TutorialPage,
     KycFormPage,
     KycPassportPhoto1Page,
-    KycPassportPhoto2Page
+    KycPassportPhoto2Page,
+    KycListPage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -212,7 +214,8 @@ export function createTranslateLoader(http: HttpClient) {
     TutorialPage,
     KycFormPage,
     KycPassportPhoto1Page,
-    KycPassportPhoto2Page
+    KycPassportPhoto2Page,
+    KycListPage
   ],
   providers: [
     StatusBar,

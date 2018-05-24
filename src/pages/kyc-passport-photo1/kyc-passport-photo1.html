@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-    <img src={{base64Image}} >
+    <img src={{base64Image}} #imgPreview>
     <button ion-button clear icon-only item-right large (tap)="takePhoto()">
       <ion-icon name="camera"></ion-icon>
     </button>

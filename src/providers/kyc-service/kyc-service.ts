@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { ApiServiceProvider } from '../api-service/api-service';
+import { catchError } from 'rxjs/operators';
 /*
   Generated class for the KycServiceProvider provider.
 
@@ -12,11 +13,29 @@ import { ApiServiceProvider } from '../api-service/api-service';
 export class KycServiceProvider {
 
   constructor(public http: HttpClient,
-  public apiService:ApiServiceProvider) {
+    public apiService: ApiServiceProvider) {
     console.log('Hello KycServiceProvider Provider');
   }
-  submitKYC(credentials,files:any){
-   var KYCUrl ='/users/kyc'
-    return this.apiService.patch(KYCUrl, {credentials:credentials,files:files})
- }
+  uploadSelfiePhoto(file: any) {
+    console.log(file.get('key'))
+    var KYCUrl = '/users/kyc/selfiePhoto'
+    return this.apiService.patch(KYCUrl, file)
+  }
+  uploadPassportPhoto(base64Image) {
+    //console.log(file.get('key'))
+    //console.log(file.get('photo'))
+    var KYCUrl = '/users/kyc/passportPhoto'
+    return this.apiService.patch(KYCUrl, {base64Image:base64Image})
+  }
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.log("Error"+JSON.stringify(error.error));
+      return Observable.throw(error  || 'backend server error');
+    };
+  }
+  verifyName(credentials) {
+    var KYCUrl = '/users/kyc/verifyName'
+    return this.apiService.patch(KYCUrl, credentials)
+  }
+
 }

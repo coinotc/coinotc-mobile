@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild ,ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams , Platform ,LoadingController} from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImageViewerController } from 'ionic-img-viewer';
-import { KycPassportPhoto2Page } from '../kyc-passport-photo2/kyc-passport-photo2';
+import { KycServiceProvider } from '../../providers/kyc-service/kyc-service';
+//import fs from 'fs';
+
 /**
  * Generated class for the KycPassportPhoto1Page page.
  *
@@ -18,13 +20,14 @@ import { KycPassportPhoto2Page } from '../kyc-passport-photo2/kyc-passport-photo
 export class KycPassportPhoto1Page {
   base64Image = "assets/imgs/p1.png"
   input = new FormData();
-  credentials;
+  base64String 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public camera: Camera,
     public platform: Platform,
-    private loadingCtrl: LoadingController,) {
-      this.credentials = this.navParams.data.credentials
+    private loadingCtrl: LoadingController,
+    public kycService:KycServiceProvider) {
+      //this.credentials = this.navParams.data.credentials
   }
 
   ionViewDidLoad() {
@@ -52,7 +55,8 @@ export class KycPassportPhoto1Page {
           const filename = Math.floor(Date.now() / 1000);
           this.base64Image = 'data:image/jpeg;base64,' + imageData;
           loading.dismiss();
-          this.input.append("photo1",this.base64Image)
+          // this.input.append("photo",this.base64Image)
+          // this.input.append("key","PassportPhoto")
         },
         err => {
           console.log('Error taking photo', JSON.stringify(err));
@@ -62,6 +66,22 @@ export class KycPassportPhoto1Page {
   }
 
   next(){
-    this.navCtrl.push(KycPassportPhoto2Page,{input:this.input , credentials : this.credentials})
+  //   this.base64String = this.base64Image.split(';base64,').pop();
+  //   fs.writeFile('image.png', this.base64String, {encoding: 'base64'}, function(err) {
+  //     console.log('File created');
+  // });
+    //this.input.append()
+    let loading = this.loadingCtrl.create({
+      spinner: 'circles',
+      content: 'loading...',
+      //duration: 3000,
+      dismissOnPageChange: true
+    });
+    loading.present();
+    this.kycService.uploadPassportPhoto(this.base64Image).subscribe(result=>{
+      //console.log(result)
+      loading.dismiss();
+      this.navCtrl.pop();
+    })
   }
 }

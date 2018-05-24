@@ -18,16 +18,13 @@ import { KycServiceProvider } from '../../providers/kyc-service/kyc-service';
 export class KycPassportPhoto2Page {
   base64Image = "assets/imgs/p2.png"
   input = new FormData();
-  credentials;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public camera: Camera,
     public platform: Platform,
     private loadingCtrl: LoadingController,
     public kycService:KycServiceProvider) {
-      this.input = this.navParams.data.input.get("photo1");
-      this.credentials = this.navParams.data.credentials
-      //console.log(this.base64Image)
+      
   }
 
   ionViewDidLoad() {
@@ -56,7 +53,8 @@ export class KycPassportPhoto2Page {
           this.base64Image = 'data:image/jpeg;base64,' + imageData;
           loading.dismiss();
           //let input = new FormData();
-          this.input.append("photo2",this.base64Image)
+          this.input.append("photo",this.base64Image)
+          this.input.append("key","Selfie")
         },
         err => {
           console.log('Error taking photo', JSON.stringify(err));
@@ -65,8 +63,17 @@ export class KycPassportPhoto2Page {
     }
   }
   next(){
-    this.kycService.submitKYC( this.credentials , this.input).subscribe(result=>{
-      
+    let loading = this.loadingCtrl.create({
+      spinner: 'circles',
+      content: 'loading...',
+      //duration: 3000,
+      dismissOnPageChange: true
+    });
+    loading.present();
+    this.kycService.uploadSelfiePhoto(this.input).subscribe(result=>{
+      console.log(result)
+      loading.dismiss();
+      this.navCtrl.pop();
     })
   }
 }

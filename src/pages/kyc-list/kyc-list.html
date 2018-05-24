@@ -1,0 +1,67 @@
+<!--
+  Generated template for the KycListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>KYCList</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card (tap)="goVerifyKYCName()">
+    <ion-card-header>
+      KYC Name
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item *ngIf="user.verifyKYCName == 0">
+        <p>Please fuking do it.</p>
+        <ion-badge item-end>Please verifyKYCName</ion-badge>
+      </ion-item>
+      <ion-item *ngIf="user.verifyKYCName != 0">
+        <p>{{user.firstName}} {{user.lastName}}</p>
+        <ion-badge *ngIf="user.verifyKYCName == 1" item-end>pending</ion-badge>
+        <ion-badge *ngIf="user.verifyKYCName == 2" item-end>verify</ion-badge>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-card (tap)="goPassportPhoto()">
+    <ion-card-header>
+      Passport Photo
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item *ngIf="user.verifyPassportPhoto == 0">
+        <p>Please fuking do it.</p>
+        <ion-badge item-end>Please verify</ion-badge>
+      </ion-item>
+      <ion-item *ngIf="user.verifyPassportPhoto != 0">
+        <p>{{user.firstName}} {{user.lastName}}</p>
+        <ion-badge *ngIf="user.verifyPassportPhoto == 1" item-end>pending</ion-badge>
+        <ion-badge *ngIf="user.verifyPassportPhoto == 2" item-end>verify</ion-badge>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-card (tap)="goSelfie()">
+    <ion-card-header>
+      Selfie
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item *ngIf="user.verifySelfie == 0">
+        <p>Please fuking do it.</p>
+        <ion-badge item-end>Please verify</ion-badge>
+      </ion-item>
+      <ion-item *ngIf="user.verifySelfie != 0">
+        <p>{{user.firstName}} {{user.lastName}}</p>
+        <ion-badge *ngIf="user.verifySelfie == 1" item-end>pending</ion-badge>
+        <ion-badge *ngIf="user.verifySelfie == 2" item-end>verify</ion-badge>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
