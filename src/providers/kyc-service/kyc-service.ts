@@ -16,16 +16,17 @@ export class KycServiceProvider {
     public apiService: ApiServiceProvider) {
     console.log('Hello KycServiceProvider Provider');
   }
-  uploadSelfiePhoto(file: any) {
-    console.log(file.get('key'))
+  uploadSelfiePhoto(input:any) {
+    //console.log(file.get('key'))
     var KYCUrl = '/users/kyc/selfiePhoto'
-    return this.apiService.patch(KYCUrl, file)
+    return this.apiService.patch(KYCUrl, {input:input})
   }
-  uploadPassportPhoto(base64Image) {
+  uploadPassportPhoto(input:any) {
     //console.log(file.get('key'))
     //console.log(file.get('photo'))
+    console.log("")
     var KYCUrl = '/users/kyc/passportPhoto'
-    return this.apiService.patch(KYCUrl, {base64Image:base64Image})
+    return this.apiService.patch(KYCUrl, {input:input})
   }
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

@@ -55,7 +55,7 @@ export class KycPassportPhoto1Page {
           const filename = Math.floor(Date.now() / 1000);
           this.base64Image = 'data:image/jpeg;base64,' + imageData;
           loading.dismiss();
-          // this.input.append("photo",this.base64Image)
+          this.input.append("photo",this.base64Image)
           // this.input.append("key","PassportPhoto")
         },
         err => {
@@ -78,7 +78,7 @@ export class KycPassportPhoto1Page {
       dismissOnPageChange: true
     });
     loading.present();
-    this.kycService.uploadPassportPhoto(this.base64Image).subscribe(result=>{
+    this.kycService.uploadPassportPhoto(this.input.get("photo")).subscribe(result=>{
       //console.log(result)
       loading.dismiss();
       this.navCtrl.pop();

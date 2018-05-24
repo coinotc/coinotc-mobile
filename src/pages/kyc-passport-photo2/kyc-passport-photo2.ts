@@ -54,7 +54,7 @@ export class KycPassportPhoto2Page {
           loading.dismiss();
           //let input = new FormData();
           this.input.append("photo",this.base64Image)
-          this.input.append("key","Selfie")
+          //this.input.append("key","Selfie")
         },
         err => {
           console.log('Error taking photo', JSON.stringify(err));
@@ -70,7 +70,7 @@ export class KycPassportPhoto2Page {
       dismissOnPageChange: true
     });
     loading.present();
-    this.kycService.uploadSelfiePhoto(this.input).subscribe(result=>{
+    this.kycService.uploadSelfiePhoto(this.input.get("photo")).subscribe(result=>{
       console.log(result)
       loading.dismiss();
       this.navCtrl.pop();
