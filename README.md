@@ -63,6 +63,16 @@ ionic cordova run android --livereload-host --livereload -c
 ```
 * Launch Chrome browser access the following url chrome://inspect
 
+## Ubuntu 16.04 not working
+* sudo nano /etc/sysctl.conf
+* Add the below entry to the sysctl.conf 
+```
+fs.inotify.max_user_watches=524288
+```
+* Restart the sys control service 
+```
+sudo sysctl --system
+```
 # Font Awesome added to ionic usage
 ```html
 <!-- basic usage -->
