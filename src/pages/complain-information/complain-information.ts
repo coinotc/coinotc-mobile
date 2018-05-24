@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage,NavController,NavParams,ViewController,ToastController,LoadingController,App} from 'ionic-angular';
-import { FormBuilder,FormGroup,FormControl,Validators} from '@angular/forms';
+import { IonicPage, NavController, NavParams, ViewController, ToastController, LoadingController, App } from 'ionic-angular';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { complain } from '../../models/complain';
 import { ComplainServiceProvider } from '../../providers/complain-service/complain-service';
@@ -23,18 +23,18 @@ export class ComplainInformationPage {
   //data = { type:'', name:'', message:'',roomname:'' };
   //ref = firebase.database().ref('chatrooms/');
   //roomkey:any;
-  complainForm:FormGroup;
+  complainForm: FormGroup;
   orderInformation;
   username;
   // complainUser;
   // Complainant;
-  model = new complain('','','','Order','',0,null,'',null);
+  model = new complain('', '', '', 'Order', '', 0, null, '', null);
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  private userService:UserServiceProvider,
-  private fb: FormBuilder,
-  private loadingCtrl: LoadingController,
-  private complainService:ComplainServiceProvider,
-  private toastCtrl: ToastController
+    private userService: UserServiceProvider,
+    private fb: FormBuilder,
+    private loadingCtrl: LoadingController,
+    private complainService: ComplainServiceProvider,
+    private toastCtrl: ToastController
   ) {
     this.username = this.userService.getCurrentUser().username;
     this.orderInformation = this.navParams.data;
@@ -47,12 +47,12 @@ export class ComplainInformationPage {
     // this.complainUser = this.userService.getCurrentUser().username == this.orderInformation.seller ? this.orderInformation.buyer : this.orderInformation.seller; 
     //console.log(this.compainUser)
     this.complainForm = this.fb.group({
-      title:['',Validators.required],
-      content:['',Validators.required]
+      title: ['', Validators.required],
+      content: ['', Validators.required]
     })
   }
 
-  submitForm(){
+  submitForm() {
     this.model.username = this.username;
     this.model.orderId = this.orderInformation._id;
     // this.model.pleader = this.complainUser;
@@ -65,17 +65,25 @@ export class ComplainInformationPage {
     console.log(this.model);
     this.complainService.sendComplain(this.model).subscribe(result => {
       //console.log(result)
-      if(result != null)
-       this.navCtrl.setRoot(TabsPage);
-       else{
+      this.navCtrl.pop()
+      if (result == null) {
+        
         this.toastCtrl
-        .create({
-          message: `This order has been complained.Please waitting support to solve`,
-          duration: 4500
-        })
-        .present();
-       }
-     });
+          .create({
+            message: `This order has been complained.Please waitting support to solve`,
+            duration: 4500
+          })
+          .present();
+      }else{
+        this.toastCtrl
+          .create({
+            message: `success`,
+            duration: 4500
+          })
+          .present();
+      }
+
+    });
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ComplainInformationPage');

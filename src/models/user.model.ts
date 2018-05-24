@@ -22,6 +22,11 @@ export class User {
     public country:string,
     public nativeRegion:string,
     public ip:Array<any>,
-    public online:boolean
+    public online:boolean,
+    public verifyKYCName:number,
+    public verifyPassportPhoto:number,
+    public verifySelfie:number,
+    public passportPhoto:string,
+    public selfiePhoto:string
   ) {}
 }

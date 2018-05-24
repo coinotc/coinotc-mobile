@@ -83,6 +83,13 @@ import { UnbindGoogleAuthPage } from '../pages/unbind-google-auth/unbind-google-
 import { GetIpProvider } from '../providers/get-ip/get-ip';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+import { Device } from '@ionic-native/device';
+import { KycFormPage } from '../pages/kyc-form/kyc-form';
+import { CountryServiceProvider } from '../providers/country-service/country-service';
+import { KycPassportPhoto1Page } from '../pages/kyc-passport-photo1/kyc-passport-photo1';
+import { KycPassportPhoto2Page } from '../pages/kyc-passport-photo2/kyc-passport-photo2';
+import { KycServiceProvider } from '../providers/kyc-service/kyc-service';
+import { KycListPage } from '../pages/kyc-list/kyc-list';
 import { Badge } from '@ionic-native/badge';
 import { SearchPipe } from '../pages/trade/trade';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
@@ -133,6 +140,10 @@ export function createTranslateLoader(http: HttpClient) {
     GoogleAuthInputPage,
     UnbindGoogleAuthPage,
     TutorialPage,
+    KycFormPage,
+    KycPassportPhoto1Page,
+    KycPassportPhoto2Page,
+    KycListPage,
     SearchPipe
   ],
   imports: [
@@ -200,7 +211,11 @@ export function createTranslateLoader(http: HttpClient) {
     CustomerSupportPage,
     GoogleAuthInputPage,
     UnbindGoogleAuthPage,
-    TutorialPage
+    TutorialPage,
+    KycFormPage,
+    KycPassportPhoto1Page,
+    KycPassportPhoto2Page,
+    KycListPage
   ],
   providers: [
     StatusBar,
@@ -230,6 +245,9 @@ export function createTranslateLoader(http: HttpClient) {
     NotificationServiceProvider,
     GetIpProvider,
     IonicImageViewerModule,
+    Device,
+    CountryServiceProvider,
+    KycServiceProvider,
     Badge
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

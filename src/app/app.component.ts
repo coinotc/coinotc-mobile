@@ -35,10 +35,11 @@ export class MyApp {
     private localNotifications: LocalNotifications,
     private storage: Storage
   ) {
+
     this.onResumeSubscription = platform.resume.subscribe(() => {
       console.log('there is resume');
       console.log(this.userService.getCurrentUser().username);
-      if (this.userService.getCurrentUser().username !== undefined) {
+      if (this.userService.getCurrentUser().username != "" && this.userService.isLoggedIn()) {
         //this.rootPage = TabsPage;
         this.userService.changeOnlineStatus(true).subscribe();
       }
@@ -62,6 +63,12 @@ export class MyApp {
       });
     firebase.initializeApp(firebaseconfig);
     platform.ready().then(() => {
+      console.log(this.userService.getCurrentUser());
+      console.log(this.userService.isLoggedIn())
+      if (this.userService.getCurrentUser().username != "" && this.userService.isLoggedIn()) {
+        this.rootPage = TabsPage;
+        //this.userService.changeOnlineStatus(true).subscribe();
+      }
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
