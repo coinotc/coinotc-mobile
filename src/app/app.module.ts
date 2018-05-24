@@ -17,10 +17,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AuthPageModule } from '../pages/auth/auth.module';
 import { WalletPage } from '../pages/wallet/wallet';
-import {
-  TradePage,
-  fiatPopoverPage
-} from '../pages/trade/trade';
+import { TradePage, fiatPopoverPage } from '../pages/trade/trade';
 import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement';
 import { OrderListPage } from '../pages/order-list/order-list';
 import { AlertPage, AddAlertPage } from '../pages/alert/alert';
@@ -93,6 +90,8 @@ import { KycPassportPhoto1Page } from '../pages/kyc-passport-photo1/kyc-passport
 import { KycPassportPhoto2Page } from '../pages/kyc-passport-photo2/kyc-passport-photo2';
 import { KycServiceProvider } from '../providers/kyc-service/kyc-service';
 import { KycListPage } from '../pages/kyc-list/kyc-list';
+import { Badge } from '@ionic-native/badge';
+import { SearchPipe } from '../pages/trade/trade';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -144,7 +143,8 @@ export function createTranslateLoader(http: HttpClient) {
     KycFormPage,
     KycPassportPhoto1Page,
     KycPassportPhoto2Page,
-    KycListPage
+    KycListPage,
+    SearchPipe
   ],
   imports: [
     BrowserAnimationsModule,
@@ -247,8 +247,9 @@ export function createTranslateLoader(http: HttpClient) {
     IonicImageViewerModule,
     Device,
     CountryServiceProvider,
-    KycServiceProvider
+    KycServiceProvider,
+    Badge
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {}

@@ -15,7 +15,6 @@ import { Observable } from 'rxjs/Rx';
 import { NotificationServiceProvider } from '../providers/notification-service/notification-service';
 import { Subscription } from 'rxjs';
 import { TutorialPage } from '../pages/tutorial/tutorial';
-import 'rxjs/add/observable/fromPromise';
 
 @Component({
   templateUrl: 'app.html'
@@ -62,18 +61,6 @@ export class MyApp {
           translate.setDefaultLang('en');
         }
       });
-    this.storage
-      .ready()
-      .then(() => this.storage.get('profile') as Promise<number>)
-      .then(value => {
-        if (value != null) {
-          console.log('>>>>>>>>>>>>>>>>>' + value);
-          this.profileBadge = value;
-        } else {
-          this.profileBadge = 0;
-        }
-      })
-      .then(() => this.userService.changeBadges(this.profileBadge));
     firebase.initializeApp(firebaseconfig);
     platform.ready().then(() => {
       console.log(this.userService.getCurrentUser());

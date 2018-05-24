@@ -30,7 +30,9 @@ import { GetIpProvider } from '../../providers/get-ip/get-ip';
 import { Storage } from '@ionic/storage';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromPromise';
+import { Badge } from '@ionic-native/badge';
+import { RoomPage } from '../room/room';
+import { OrderListPage } from '../order-list/order-list';
 /**
  * Generated class for the AuthPage page.
  *
@@ -55,8 +57,8 @@ export class AuthPage {
   confirm_password_type = 'password';
   onlineToast: any;
   offlineToast: any;
-  orderBadge: any;
   profileBadge: number;
+  orderBadge: Array<String> = [];
   private PASSWORD_PATTERN = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{12,}$/;
 
   constructor(
@@ -71,9 +73,10 @@ export class AuthPage {
     private platform: Platform,
     private network: Network,
     private loadingCtrl: LoadingController,
+    private storage: Storage,
+    private badge: Badge,
     public appCtrl: App,
     public getIpService: GetIpProvider,
-    public storage: Storage,
     public events: Events
   ) {
     // use FormBuilder to create a form group
@@ -117,50 +120,54 @@ export class AuthPage {
         (data: NotificationData) => {
           if (data.wasTapped) {
             console.log('Received in background', JSON.stringify(data));
+            if (data.pushData) {
+              let information = data.pushData;
+              this.navCtrl.push(RoomPage, information);
+            }
           } else {
             console.log(
               'Received in foreground son of a bitch',
               JSON.stringify(data)
             );
-            if (data.type == 'profile') {
+            let localUser = this.userService.getCurrentUser().username;
+            // console.log('localUser:' + localUser);
+            if (localUser) {
               this.storage
                 .ready()
-                .then(() => this.storage.get('profile'))
+                .then(() => this.storage.get(data.type))
                 .then(value => {
-                  if (value != null) {
-                    console.log('<<<<<<<<<<<<' + value);
-                    this.profileBadge = value;
-                  } else {
-                    this.profileBadge = 0;
+                  // console.log(`The correct get ${localUser}OrderChanged`);
+                  // console.log(`Data type check ${data.type}`);
+                  if (data.type == `${localUser}NewFollowers`) {
+                    if (value != null) {
+                      this.profileBadge = value;
+                    } else {
+                      this.profileBadge = 0;
+                    }
+                  } else if (data.type == `${localUser}OrderChanged`) {
+                    if (value != null) {
+                      this.orderBadge = value;
+                    } else {
+                      this.orderBadge = [];
+                    }
                   }
                 })
-                .then(() => this.userService.changeBadges(this.profileBadge))
-                .then(() =>
-                  this.storage
-                    .ready()
-                    .then(() =>
-                      this.storage.set('profile', ++this.profileBadge)
-                    )
-                    .then(() =>
-                      this.events.publish(
-                        'profileBadge:updated',
-                        this.profileBadge
-                      )
-                    )
-                );
-              // this.storage
-              //   .ready()
-              //   .then(() => console.log(this.profileBadge++))
-              //   .then(() => this.storage.set('profile', Math.random()))
-              //   .then(() => console.log(this.profileBadge))
-              //   .then(() => this.userService.changeBadges(this.profileBadge));
-
-              // .then(() =>
-              //   this.events.publish(
-              //     'profileBadge:updated',
-              //     this.profileBadge
-              //   )
-              // )
+                .then(() => {
+                  if (data.type == `${localUser}NewFollowers`) {
+                    this.storage.set(`${data.type}`, ++this.profileBadge);
+                  } else if (data.type == `${localUser}OrderChanged`) {
+                    this.orderBadge.push(data.order);
+                    this.storage.set(`${data.type}`, this.orderBadge);
+                  }
+                })
+                .then(() => {
+                  this.events.publish(
+                    'profileBadge:updated',
+                    this.profileBadge
+                  );
+                  this.events.publish('orderBadge:updated', this.orderBadge);
+                })
+                .then(() => this.badge.increase(1));
             }
           }
         },
@@ -284,10 +291,50 @@ export class AuthPage {
               loading
                 .dismiss()
                 .then(() => {
+                  loading = null;
+                  let getUser = this.userService.getCurrentUser().username;
+                  this.storage
+                    .ready()
+                    .then(() => {
+                      this.storage
+                        .get(`${getUser}NewFollowers`)
+                        .then(value => {
+                          if (value != null) {
+                            this.profileBadge = value;
+                          } else {
+                            this.profileBadge = 0;
+                          }
+                        })
+                        .then(() =>
+                          this.events.publish(
+                            'profileBadge:updated',
+                            this.profileBadge
+                          )
+                        );
+                      this.storage
+                        .get(`${getUser}OrderChanged`)
+                        .then(value => {
+                          if (value != null) {
+                            this.orderBadge = value;
+                          } else {
+                            this.orderBadge = [];
+                          }
+                        })
+                        .then(() =>
+                          this.events.publish(
+                            'orderBadge:updated',
+                            this.orderBadge
+                          )
+                        );
+                    })
+                    .then(() => {
+                      let badgeCount =
+                        this.profileBadge + this.orderBadge.length;
+                      this.badge.set(badgeCount);
+                    });
                   this.appCtrl.getRootNav().setRoot(TabsPage);
                   loading = null;
                   let updater = this.userService.getCurrentUser().username;
-                  console.log(updater);
                   this.profileServiceProvider
                     .updateDeviceToken(updater, this.deviceToken)
                     .subscribe(result => {

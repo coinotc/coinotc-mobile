@@ -67,7 +67,7 @@ export class ProfilePage {
         click_action: 'FCM_PLUGIN_ACTIVITY'
       };
       this.notification.data = {
-        type: 'profile'
+        type: `${this.profileUser}NewFollowers`
       };
     });
   }

@@ -98,6 +98,5 @@
     <plugin name="cordova-plugin-device" spec="^2.0.2" />
     <plugin name="com-sarriaroman-photoviewer" spec="^1.1.16" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.2.1" />
-    <engine name="ios" spec="4.5.4" />
-    <engine name="android" spec="6.3.0" />
+    <plugin name="cordova-plugin-badge" spec="^0.8.7" />
 </widget>
