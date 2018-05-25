@@ -35,7 +35,22 @@ export class MyApp {
     private localNotifications: LocalNotifications,
     private storage: Storage
   ) {
-
+    //this.rootPage = AuthPage;
+    this.storage
+      .ready()
+      .then(() => this.storage.get('preferLanguage') as Promise<string>)
+      .then(value => {
+        if (value != null) {
+          let langObj = JSON.parse(JSON.stringify(value));
+          translate.setDefaultLang(langObj.language);
+        } else {
+          translate.setDefaultLang('en');
+        }
+      }).then(() => this.storage.get('isLogin') as Promise<string>)
+      .then(value => {
+        if (value)
+          this.rootPage = TabsPage;
+      });
     this.onResumeSubscription = platform.resume.subscribe(() => {
       console.log('there is resume');
       console.log(this.userService.getCurrentUser().username);
@@ -50,30 +65,14 @@ export class MyApp {
       if (this.userService.getCurrentUser().username !== undefined)
         this.userService.changeOnlineStatus(false).subscribe();
     });
-    this.storage
-      .ready()
-      .then(() => this.storage.get('preferLanguage') as Promise<string>)
-      .then(value => {
-        if (value != null) {
-          let langObj = JSON.parse(JSON.stringify(value));
-          translate.setDefaultLang(langObj.language);
-        } else {
-          translate.setDefaultLang('en');
-        }
-      }).then(() => this.storage.get('isLogin') as Promise<string>)
-      .then(value => {
-        console.log(value)
-        if (value == "true")
-          this.rootPage = TabsPage;
-      });
     firebase.initializeApp(firebaseconfig);
     platform.ready().then(() => {
       console.log(this.userService.getCurrentUser());
       console.log(this.userService.isLoggedIn())
-      if (this.userService.getCurrentUser().username != "" && this.userService.isLoggedIn()) {
-        this.rootPage = TabsPage;
+      // if (this.userService.getCurrentUser().username != "" && this.userService.isLoggedIn()) {
+      //   this.rootPage = TabsPage;
         //this.userService.changeOnlineStatus(true).subscribe();
-      }
+      //}
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();

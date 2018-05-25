@@ -112,6 +112,11 @@ export class UserServiceProvider {
       this.currentUserSubject.next({} as User);
       // Set auth status to false
       this.isAuthenticatedSubject.next(false);
+      this.storage
+        .ready()
+        .then(
+          () => this.storage.set('isLogin', this.isLoggedIn()) as Promise<boolean>
+        )
       console.log(
         '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' +
         this.getCurrentUser().username +
@@ -144,6 +149,7 @@ export class UserServiceProvider {
 
   isLoggedIn(): boolean {
     // Check if the user is authenticated
+    //this.jwtService.isTokenExpired()
     return this.isAuthenticatedSubject.getValue();
   }
 

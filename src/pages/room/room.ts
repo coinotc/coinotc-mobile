@@ -406,7 +406,7 @@ export class RoomPage {
   base64Image: string;
   rate;
   rateStatus;
-  itemPerPage: number = 10;
+  itemPerPage: number = 20;
   chatsObservable$: any;
   private _imageViewerCtrl: ImageViewerController;
 
@@ -451,14 +451,15 @@ export class RoomPage {
     let loading = this.loadingCtrl.create({
       spinner: 'circles',
       content: 'loading...',
-      duration: 3500
+      dismissOnPageChange: true
+      //duration: 3500
     });
     loading.present();
     var start = new Date().getTime();
     firebase
       .database()
       .ref('chatrooms/' + this.roomkey + '/chats')
-      .limitToLast(this.itemPerPage)
+      //.limitToLast(10)
       .on('value', resp => {
         this.chats = [];
         this.chats = snapshotToArray(resp);
@@ -481,7 +482,7 @@ export class RoomPage {
     firebase
       .database()
       .ref('chatrooms/' + this.roomkey + '/chats')
-      .limitToLast(this.itemPerPage)
+      //.limitToLast(this.itemPerPage)
       .on('value', resp => {
         this.chats = [];
         this.chats = snapshotToArray(resp);
