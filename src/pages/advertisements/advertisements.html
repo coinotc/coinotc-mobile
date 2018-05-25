@@ -45,7 +45,7 @@
 
 
     <ion-list *ngSwitchCase="'Active'">
-      <ion-item-sliding *ngFor="let advertisement of activeAdvertisement">
+      <ion-item-sliding *ngFor="let advertisement of activeAdvertisement;let i=index;">
         <ion-item (tap)="read(advertisement)">
           <text-avatar [text]="advertisement.owner" item-left></text-avatar>
           <h2>{{advertisement.owner}}</h2>
@@ -57,6 +57,9 @@
         <ion-item-options>
           <button ion-button color="danger" (tap)="setVisible(advertisement)" icon-start>
             {{'Advertisements.Disabled' | translate}}
+          </button>
+          <button ion-button color="primary" (tap)="onShare(i)" icon-start>
+            Share
           </button>
         </ion-item-options>
       </ion-item-sliding>
