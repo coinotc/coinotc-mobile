@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  App,
+  LoadingController
+} from 'ionic-angular';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { advertisement } from '../../models/advertisement';
@@ -28,6 +34,7 @@ export class AdvertisementsPage {
     private advertisementService: AdvertisementServiceProvider,
     private appCtrl: App,
     private userServiceProvider: UserServiceProvider,
+    private loadingCtrl: LoadingController,
     private socialSharing: SocialSharing
   ) {
     this.user = this.userServiceProvider.getCurrentUser();
@@ -42,6 +49,11 @@ export class AdvertisementsPage {
   }
   onSegment(value) {
     //console.log(this.value)
+    let loading = this.loadingCtrl.create({
+      spinner: 'circles',
+      content: 'loading...'
+      //duration: 3500
+    });
     console.log(value);
     switch (value) {
       case 'Active':
@@ -49,6 +61,7 @@ export class AdvertisementsPage {
           .getMyadvertisement(this.user.username, true)
           .subscribe(result => {
             this.activeAdvertisement = result;
+            loading.dismiss();
           });
         break;
       case 'Disabled':
@@ -56,6 +69,7 @@ export class AdvertisementsPage {
           .getMyadvertisement(this.user.username, false)
           .subscribe(result => {
             this.disableAdvertisement = result;
+            loading.dismiss();
           });
         break;
     }

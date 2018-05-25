@@ -92,14 +92,16 @@ export class UserServiceProvider {
       let nativeCurry = {
         currency: user.nativeCurrency
       };
-
+      // Set isAuthenticated to true
+      this.isAuthenticatedSubject.next(true);
       this.storage
         .ready()
         .then(
           () => this.storage.set('nativeCurrency', nativeCurry) as Promise<void>
-        );
-      // Set isAuthenticated to true
-      this.isAuthenticatedSubject.next(true);
+        ).then(
+          () => this.storage.set('isLogin', this.isLoggedIn()) as Promise<boolean>
+        )
+
     });
   }
 
@@ -110,10 +112,15 @@ export class UserServiceProvider {
       this.currentUserSubject.next({} as User);
       // Set auth status to false
       this.isAuthenticatedSubject.next(false);
+      this.storage
+        .ready()
+        .then(
+          () => this.storage.set('isLogin', this.isLoggedIn()) as Promise<boolean>
+        )
       console.log(
         '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' +
-          this.getCurrentUser().username +
-          '<<<<<<<<<<<<<<<<<<'
+        this.getCurrentUser().username +
+        '<<<<<<<<<<<<<<<<<<'
       );
       console.log(this.isAuthenticatedSubject)
     });
@@ -142,6 +149,7 @@ export class UserServiceProvider {
 
   isLoggedIn(): boolean {
     // Check if the user is authenticated
+    //this.jwtService.isTokenExpired()
     return this.isAuthenticatedSubject.getValue();
   }
 
@@ -155,7 +163,7 @@ export class UserServiceProvider {
       return data.user;
     });
   }
-  getUser(){
+  getUser() {
     return this.apiService.get('/userInfo');
   }
   // Update the user on the server (email, pass, etc)

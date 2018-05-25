@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,LoadingController} from 'ionic-angular';
 import { advertisement } from '../../models/advertisement';
 import { FormBuilder , FormGroup , FormControl , Validators } from '@angular/forms';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
@@ -40,7 +40,8 @@ export class EditAdvertisementPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private adservice: AdvertisementServiceProvider,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private loadingCtrl: LoadingController) {
     this.adservice.getMyEditAdvertisement(navParams.data.information._id).subscribe(result=>{
       this.information = result[0];
       console.log(this.information)
@@ -111,7 +112,13 @@ export class EditAdvertisementPage {
     );
   }
   edit(){
+    let loading = this.loadingCtrl.create({
+      spinner: 'circles',
+      content: 'loading...',
+      //duration: 3500
+    });
     this.adservice.editAdvertisement(this.information).subscribe(result => {
+      loading.dismiss();
       console.log(result);
       this.navCtrl.pop();
     });

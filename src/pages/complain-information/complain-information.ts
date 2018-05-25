@@ -53,6 +53,13 @@ export class ComplainInformationPage {
   }
 
   submitForm() {
+    let loading = this.loadingCtrl.create({
+      spinner: 'circles',
+      content: 'loading...',
+      //duration: 3000,
+      dismissOnPageChange: true
+    });
+    loading.present();
     this.model.username = this.username;
     this.model.orderId = this.orderInformation._id;
     // this.model.pleader = this.complainUser;
@@ -64,6 +71,7 @@ export class ComplainInformationPage {
     // this.model.country = this.orderInformation.country;
     console.log(this.model);
     this.complainService.sendComplain(this.model).subscribe(result => {
+      loading.dismiss();
       //console.log(result)
       this.navCtrl.pop()
       if (result == null) {
