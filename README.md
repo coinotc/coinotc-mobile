@@ -20,10 +20,10 @@ add angularfire2 node_module folder with this https://github.com/angular/angular
 - [x] #55 (iOS/Android) Password Validation Policy
 - [x] #56 (iOS/Android) Trade Password 6-PIN Validation & Encryption
 - [x] #58 (iOS/Android) Profile => Advertisement Page w/o details
-- [ ] #59 (iOS/Android) FEATURE: Forget Password
+- [x] #59 (iOS/Android) FEATURE: Forget Password
 - [x] #78 (iOS/Android) Order List not refreshed when new order is made
-- [ ] #79 (iOS/Android) In-App Badge Notifications
-- [ ] #80 (iOS/Android) Chat Bubble covered by Order Information
+- [x] #79 (iOS/Android) In-App Badge Notifications
+- [x] #80 (iOS/Android) Chat Bubble covered by Order Information
 - [x] #81 (iOS/Android) Tab Component is visible in Chat
 - [x] #82 (iOS/Android) Add Currency symbols to fiat & crypto values
 - [x] #83 (iOS/Android) Clean up CSS in Order Information
@@ -37,7 +37,7 @@ add angularfire2 node_module folder with this https://github.com/angular/angular
 - [x] #91 (iOS/Android) order not pushed to finished after done
 - [x] #92 (iOS/Android) Chat Room Title Change
 - [x] #93 (iOS/Android) Remove Block Function
-- [ ] #94 (iOS/Android) MY Trades With Him Tab
+- [x] #94 (iOS/Android) MY Trades With Him Tab
 - [x] #95 (iOS/Android) Chat Room Image Upload
 - [x] #96 (iOS/Android) Alert Component CSS Clean Up
 - [x] #97 (iOS/Android) Dismiss Alert On Activation
