@@ -14,7 +14,7 @@ export class JwtServiceProvider {
     console.log('JwtServiceProvider Provider');
   }
 
-  public latestToken:string;
+  public latestToken: string;
 
   getToken(): Promise<String> {
     return this.storage.ready().then(() => this.storage.get('jwtToken') as Promise<string>).then(token => {
@@ -28,9 +28,9 @@ export class JwtServiceProvider {
     return this.storage.ready().then(() => this.storage.set('jwtToken', token) as Promise<void>);
   }
 
-  
 
-  destroyToken():Promise<void>{
+
+  destroyToken(): Promise<void> {
     this.latestToken = null;
     return this.storage.remove('jwtToken');
   }
