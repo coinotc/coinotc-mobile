@@ -1,5 +1,12 @@
 // iOS only Sass variables can go here
 page-trade {
+
+  ion-slides {
+    height: auto;
+  }
+  .searchbar-ios .searchbar-input {
+    border-radius: 25px;
+  }
   .fa-sliders {
     color: grey;
   }

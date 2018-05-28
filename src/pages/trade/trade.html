@@ -4,14 +4,37 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header no-border>
+<ion-header no-border style="background-color: whitesmoke;padding-bottom: 1%">
+
+  <ion-row style="background-color: #327eff; padding-bottom: 0.5%">
+
+      <button ion-row col-4 clear justify-content-center small ion-button  icon-only (tap)="presentfilterPopover($event)" style="margin: 0 0 0 0; color: white;right: 2%">
+          <p>{{fiat}} / {{'crypto.' + crypto | translate}}</p>
+          <ion-icon name='ios-arrow-down' style="font-size: 13px; "></ion-icon>
+      </button>
 
 
-  <button clear text-center ion-button icon-only (tap)="presentfilterPopover($event)">
-    {{fiat}} / {{'crypto.' + crypto | translate}}
-    <ion-icon name='ios-arrow-down'></ion-icon>
-  </button>
-  <ion-searchbar mode="ios" type='text' placeholder="Search User" text-center [(ngModel)]="query"></ion-searchbar>
+      <ion-searchbar col-8 mode="ios" type='text' placeholder="Search User"  [(ngModel)]="query" style="border:0 0 0 0; padding:0 0 0 0; background: transparent; min-height: 39px; border-top: 0px; border-bottom: 0px; right: 6%"></ion-searchbar>
+
+
+
+
+  </ion-row>
+
+  <ion-slides>
+      <ion-slide *ngFor="let banner of banners">
+        <img src={{banner.imgURL}}>
+      </ion-slide>
+  </ion-slides>
+
+
+
+
+  <ion-segment [(ngModel)]="buynsell" (ngModelChange)="doRefresh()" style="background-color:white" >
+      <ion-segment-button value="buy">{{'willing.wannaBuy' | translate}}</ion-segment-button>
+      <ion-segment-button value="sell">{{'willing.wannaSell' | translate}}</ion-segment-button>
+  </ion-segment>
+
 
 
 
@@ -24,42 +47,29 @@
 
   <!-- style="position: absolute; left: 3rem;"  -->
   <!-- <ion-title text-center> -->
-  <ion-segment [(ngModel)]="buynsell" (ngModelChange)="doRefresh()">
-    <ion-segment-button value="buy">{{'willing.wannaBuy' | translate}}</ion-segment-button>
-    <ion-segment-button value="sell">{{'willing.wannaSell' | translate}}</ion-segment-button>
-  </ion-segment>
-  <!-- </ion-title> -->
 
+  <!-- </ion-title> -->
 
 </ion-header>
 
 
-<ion-content fullscreen #content>
-  <!-- <input type="text" #country style="display:none" (ngModelChange)="change()">
-  <input type="text" #fiat style="display:none" (ngModelChange)="change()"> -->
-  <ion-slides>
-    <ion-slide *ngFor="let banner of banners">
-      <img src={{banner.imgURL}}>
-    </ion-slide>
-    <!-- <ion-slide>
-      <img src="https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg" alt="assets/imgs/logo.png">
-    </ion-slide>
-    <ion-slide>
-      <img src="https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg" alt="">
-    </ion-slide>
-    <ion-slide>
-      <img src="https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg" alt="">
-    </ion-slide> -->
-  </ion-slides>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingText="pulldown to refresh" refreshingSpinner="circles" refreshingText="refreshing...">
-    </ion-refresher-content>
+
+
+<ion-content padding >
+
+
+  <ion-grid>
+  <ion-refresher no-border (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingText="pulldown to refresh" refreshingSpinner="circles" refreshingText="refreshing...">
+      </ion-refresher-content>
   </ion-refresher>
+
+
+<ion-row>
   <ion-list>
     <ion-item *ngFor="let item of list| searchPipe:'owner':query">
       <text-avatar [text]="item.owner" (tap)="profile(item.owner)" item-left></text-avatar>
       <h2>{{item.owner}}</h2>
-      <!-- <h3>{{gettrade(item.owner)}}</h3> -->
       <i [class]="item.country" *ngIf="country == 'global'"></i>
       <i *ngFor="let class of item.payment" [class]="class"></i>
       <div item-right text-right>
@@ -78,7 +88,10 @@
       </ion-label>
     </ion-item>
   </ion-list>
+</ion-row>
+  </ion-grid>
 </ion-content>
+
 <ion-footer>
   <ion-fab bottom right>
     <button ion-fab (tap)="addbuyad()" color="secondary" *ngIf="buynsell == 'buy'">

@@ -28,7 +28,7 @@ import { Storage } from '@ionic/storage';
  */
 @Component({
   template: `
-<ion-list style="margin: 0px 16px 0px;" inset no-lines ion-row>
+<ion-list mode="ios" style="margin: 0px 16px 0px;" inset no-lines ion-row>
   <ion-list radio-group [(ngModel)]="fiatcopy" col-6>
     <ion-item-divider>
       {{'Currency' | translate}}

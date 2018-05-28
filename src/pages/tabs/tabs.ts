@@ -62,8 +62,8 @@ export class TabsPage {
       this.tabRoots[1].badge = _badgeValue.length;
     });
     events.subscribe('profileBadge:updated', _badgeValue => {
-      this.tabRoots[4].badge = _badgeValue;
-      console.log(this.tabRoots[4].badge);
+      this.tabRoots[3].badge = _badgeValue;
+      console.log(this.tabRoots[3].badge);
     });
   }
 }
