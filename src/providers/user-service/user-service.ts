@@ -9,6 +9,7 @@ import { JwtServiceProvider } from '../jwt-service/jwt-service';
 import { User } from '../../models/user.model';
 import { Storage } from '@ionic/storage';
 import { environment } from '../../../environments/environment';
+import { ServersideTimeServiceProvider } from '../serverside-time-service/serverside-time-service';
 
 /*
   Generated class for the UserServiceProvider provider.
@@ -59,11 +60,13 @@ export class UserServiceProvider {
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
   private badges = new BehaviorSubject<number>(null);
   castBadges = this.badges.asObservable();
-
+  private isTokenExpiredSubject = new BehaviorSubject<boolean>(true);
+  public isTokenExpired = this.isTokenExpiredSubject.asObservable();
   constructor(
     private apiService: ApiServiceProvider,
     private jwtService: JwtServiceProvider,
-    private storage: Storage
+    private storage: Storage,
+    private serversideTimeService: ServersideTimeServiceProvider
   ) {
     console.log('UserServiceProvider Provider');
   }
@@ -149,8 +152,25 @@ export class UserServiceProvider {
 
   isLoggedIn(): boolean {
     // Check if the user is authenticated
+    if (this.isAuthenticatedSubject.getValue()) {
+      this.serversideTimeService.getOffsetSeconds().subscribe(result => {
+        console.log(this.getCurrentUser().token)
+        this.isTokenExpiredSubject.next(this.jwtService.isTokenExpired(this.getCurrentUser().token, result));
+      })
+      return !this.isTokenExpiredSubject.getValue();
+    } else
+      return false;
+    // this.serversideTimeService.getOffsetSeconds().subscribe(result => {
+    //   console.log(this.getCurrentUser().token)
+    //   this.isTokenExpiredSubject.next(this.jwtService.isTokenExpired(this.getCurrentUser().token, result));
+
+    // })
+    // if (this.isAuthenticatedSubject.getValue() && this.isTokenExpiredSubject.getValue())
+    //   return true;
+    // else
+    //   return false;
     //this.jwtService.isTokenExpired()
-    return this.isAuthenticatedSubject.getValue();
+    //return this.isAuthenticatedSubject.getValue();
   }
 
   // Update the user on the server (email, pass, etc)
