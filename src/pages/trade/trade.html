@@ -55,17 +55,16 @@
 
 
 
-<ion-content padding >
+<ion-content padding #content>
 
 
-  <ion-grid>
   <ion-refresher no-border (ionRefresh)="doRefresh($event)">
       <ion-refresher-content pullingText="pulldown to refresh" refreshingSpinner="circles" refreshingText="refreshing...">
       </ion-refresher-content>
   </ion-refresher>
 
 
-<ion-row>
+
   <ion-list>
     <ion-item *ngFor="let item of list| searchPipe:'owner':query">
       <text-avatar [text]="item.owner" (tap)="profile(item.owner)" item-left></text-avatar>
@@ -88,8 +87,6 @@
       </ion-label>
     </ion-item>
   </ion-list>
-</ion-row>
-  </ion-grid>
 </ion-content>
 
 <ion-footer>
