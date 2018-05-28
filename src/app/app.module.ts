@@ -39,7 +39,6 @@ import { FaIconComponent } from '../components/fa-icon/fa-icon.component';
 import { AlertServiceProvider } from '../providers/alert-service/alert-service';
 import { MePageModule } from '../pages/me/me.module';
 import { ModifyPasswordPageModule } from '../pages/modify-password/modify-password.module';
-import { RealNameVerifiedPage } from '../pages/real-name-verified/real-name-verified';
 import { PincodeInputModule } from 'ionic2-pincode-input';
 import { PincodePage } from '../pages/pincode/pincode';
 import { ConfirmPincodePage } from '../pages/confirm-pincode/confirm-pincode';
@@ -112,7 +111,6 @@ export function createTranslateLoader(http: HttpClient) {
     AlertPage,
     AddAlertPage,
     FaIconComponent,
-    RealNameVerifiedPage,
     PincodePage,
     ConfirmPincodePage,
     ProfilePage,
@@ -184,7 +182,6 @@ export function createTranslateLoader(http: HttpClient) {
     OrderListPage,
     AlertPage,
     AddAlertPage,
-    RealNameVerifiedPage,
     PincodePage,
     ConfirmPincodePage,
     ProfilePage,
@@ -250,7 +247,8 @@ export function createTranslateLoader(http: HttpClient) {
     CountryServiceProvider,
     KycServiceProvider,
     Badge,
-    ServersideTimeServiceProvider
+    ServersideTimeServiceProvider,
+    CountryServiceProvider
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -12,10 +12,10 @@ import { Observable} from 'rxjs/Rx';
 export class CountryServiceProvider {
 
   constructor(public http: HttpClient,
-  public apiService:ApiServiceProvider) {
+    public apiService: ApiServiceProvider) {
     console.log('Hello CountryServiceProvider Provider');
   }
   getCountries() {
-    return this.apiService.getExternal('./assets/data/currencies.json');
+    return this.apiService.getExternal('./assets/data/country.json');
   }
 }

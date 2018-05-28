@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { ApiServiceProvider } from '../api-service/api-service';
 import { catchError } from 'rxjs/operators';
+import { Storage } from '@ionic/storage';
 /*
   Generated class for the KycServiceProvider provider.
 
@@ -13,7 +14,8 @@ import { catchError } from 'rxjs/operators';
 export class KycServiceProvider {
 
   constructor(public http: HttpClient,
-    public apiService: ApiServiceProvider) {
+    public apiService: ApiServiceProvider,
+    private storage: Storage,) {
     console.log('Hello KycServiceProvider Provider');
   }
   uploadSelfiePhoto(input:any) {
@@ -36,7 +38,13 @@ export class KycServiceProvider {
   }
   verifyName(credentials) {
     var KYCUrl = '/users/kyc/verifyName'
-    return this.apiService.patch(KYCUrl, credentials)
+    return this.apiService.patch(KYCUrl, credentials).map(data => {
+      this.storage
+        .ready()
+        .then(
+          () => this.storage.set('nativeCountry', credentials.country) as Promise<void>
+        );
+      return data;
+    });
   }
-
 }

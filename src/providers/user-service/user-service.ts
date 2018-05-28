@@ -49,6 +49,7 @@ export class UserServiceProvider {
       null,
       null,
       '',
+      '',
       ''
     )
   );
@@ -95,6 +96,9 @@ export class UserServiceProvider {
       let nativeCurry = {
         currency: user.nativeCurrency
       };
+      let nativeCountry = {
+        country : user.nativeCountry
+      }
       // Set isAuthenticated to true
       this.isAuthenticatedSubject.next(true);
       this.storage
@@ -103,6 +107,8 @@ export class UserServiceProvider {
           () => this.storage.set('nativeCurrency', nativeCurry) as Promise<void>
         ).then(
           () => this.storage.set('isLogin', this.isLoggedIn()) as Promise<boolean>
+        ).then(
+          () =>this.storage.set('nativeCountry',nativeCountry) as Promise<void>
         )
 
     });
