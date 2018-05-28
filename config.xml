@@ -87,6 +87,8 @@
         <string>need photo library access to save pictures there</string>
     </edit-config>
     <allow-navigation href="*" />
+    <engine name="ios" spec="4.5.4" />
+    <engine name="android" spec="6.3.0" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />

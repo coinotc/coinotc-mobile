@@ -6,21 +6,22 @@
 -->
 <ion-header no-border>
 
-  <ion-navbar col-12 style="margin: 0px">
-    <ion-row>
-      <button clear col-6 text-center ion-button icon-only (tap)="presentfilterPopover($event)" style="margin: 0px">
-        {{fiat}} / {{'crypto.' + crypto | translate}}
-        <ion-icon name='arrow-dropdown'></ion-icon>
-      </button>
-      <ion-input col-6 type='text' placeholder="Search User" text-center style="background-color:white" [(ngModel)]="query"></ion-input>
-    </ion-row>
-    <!-- <button *ngIf="buynsell == 'buy'" float-right clear ion-button icon-only (tap)="addbuyad()">
+
+  <button clear text-center ion-button icon-only (tap)="presentfilterPopover($event)">
+    {{fiat}} / {{'crypto.' + crypto | translate}}
+    <ion-icon name='ios-arrow-down'></ion-icon>
+  </button>
+  <ion-searchbar mode="ios" type='text' placeholder="Search User" text-center [(ngModel)]="query"></ion-searchbar>
+
+
+
+  <!-- <button *ngIf="buynsell == 'buy'" float-right clear ion-button icon-only (tap)="addbuyad()">
       <i class="fa fa-plus fa-2x" style="background-color: rgba(248, 248, 248, 0.5); border-radius: 2rem;" aria-hidden="true"></i>
     </button>
     <button *ngIf="buynsell == 'sell'" float-right clear ion-button icon-only (tap)="addsellad()">
       <i class="fa fa-plus fa-2x" style="background-color: rgba(248, 248, 248, 0.5); border-radius: 2rem;" aria-hidden="true"></i>
     </button> -->
-  </ion-navbar>
+
   <!-- style="position: absolute; left: 3rem;"  -->
   <!-- <ion-title text-center> -->
   <ion-segment [(ngModel)]="buynsell" (ngModelChange)="doRefresh()">
@@ -33,23 +34,23 @@
 </ion-header>
 
 
-<ion-content fullscreen #content style="top: 100px;">
+<ion-content fullscreen #content>
   <!-- <input type="text" #country style="display:none" (ngModelChange)="change()">
   <input type="text" #fiat style="display:none" (ngModelChange)="change()"> -->
-  <!-- <ion-slides style="height:20%;">
+  <ion-slides>
     <ion-slide *ngFor="let banner of banners">
       <img src={{banner.imgURL}}>
     </ion-slide>
-    <ion-slide>
-      <img src="https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg" alt="">
+    <!-- <ion-slide>
+      <img src="https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg" alt="assets/imgs/logo.png">
     </ion-slide>
     <ion-slide>
       <img src="https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg" alt="">
     </ion-slide>
     <ion-slide>
       <img src="https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg" alt="">
-    </ion-slide>
-  </ion-slides> -->
+    </ion-slide> -->
+  </ion-slides>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingText="pulldown to refresh" refreshingSpinner="circles" refreshingText="refreshing...">
     </ion-refresher-content>
