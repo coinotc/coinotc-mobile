@@ -47,6 +47,7 @@ export class KycListPage {
     0,
     0,
     '',
+    '',
     ''
   )
   constructor(public navCtrl: NavController,

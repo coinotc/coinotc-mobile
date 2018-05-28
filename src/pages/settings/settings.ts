@@ -5,8 +5,7 @@ import * as _ from 'lodash';
 import { CurrenciesServiceProvider } from '../../providers/currencies/currencies-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { ModifyPasswordPage } from '../modify-password/modify-password';
-import { RealNameVerifiedPage } from '../real-name-verified/real-name-verified'
-import { ModifyTradepasswordPage } from '../modify-tradepassword/modify-tradepassword'
+import { ModifyTradepasswordPage } from '../modify-tradepassword/modify-tradepassword';
 import { ForgetTradePasswordTextPage } from '../forget-trade-password-text/forget-trade-password-text';
 import { AuthPage } from '../auth/auth';
 import { Errors } from '../../models/errors.model';
