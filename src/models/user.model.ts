@@ -27,6 +27,7 @@ export class User {
     public verifyPassportPhoto:number,
     public verifySelfie:number,
     public passportPhoto:string,
-    public selfiePhoto:string
+    public selfiePhoto:string,
+    public nativeCountry:string
   ) {}
 }
