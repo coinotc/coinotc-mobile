@@ -92,6 +92,7 @@ import { KycListPage } from '../pages/kyc-list/kyc-list';
 import { Badge } from '@ionic-native/badge';
 import { SearchPipe } from '../pages/trade/trade';
 import { ServersideTimeServiceProvider } from '../providers/serverside-time-service/serverside-time-service';
+import { SocialSharing } from '@ionic-native/social-sharing';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -248,7 +249,8 @@ export function createTranslateLoader(http: HttpClient) {
     KycServiceProvider,
     Badge,
     ServersideTimeServiceProvider,
-    CountryServiceProvider
+    CountryServiceProvider,
+    SocialSharing
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
