@@ -13,17 +13,23 @@
 
 </ion-header>
 
-<ion-content padding>
-  <ion-list inset *ngFor="let complain of complains">
-    <ion-item-sliding>
-      <ion-item (tap)="onDetail(complain)">
-        <h2>{{complain.username}}</h2>
-        <p>{{complain.type}}</p>
-        <div item-right text-right>
-          <h5 style="color:#02cb66">{{complain.status == 0 ? "NOT SUBMITTED" : (complain.status == 2 ? "Pending Approval" : (complain.status == 3 ?
-            "Resubmission Needed" : "Approved"))}}</h5>
-        </div>
-      </ion-item>
-    </ion-item-sliding>
+<ion-content>
+  <ion-list *ngFor="let complain of complains" >
+
+    <ion-item (tap)="onDetail(complain)">
+      <h2>{{complain.fiat}}/{{complain.crypto}}</h2>
+      <h2>{{complain.theOther}}</h2>
+      <!-- <p>{{complain.type}}</p> -->
+      <div item-right text-right>
+        <h2>{{complain.createDate | date:'medium'}}</h2>
+        <h5 style="color:#02cb66">{{complain.status == 0 ? "request for help" : (complain.status == 1 ? "Pending" : (complain.status == 2 ? "On Hold"
+          : "Complete/Close"))}}</h5>
+      </div>
+    </ion-item>
   </ion-list>
+  <ion-item *ngIf="complains &&complains.length == 0">
+    <ion-label>
+      empty
+    </ion-label>
+  </ion-item>
 </ion-content>
