@@ -8,7 +8,10 @@ export class complain{
         public status:number,
         public message:Array<any>,
         public title:string,
-        public createDate:Date
+        public createDate:Date,
+        public crypto:string,
+        public theOther:string,
+        public fiat:string
     ){
     }
 }

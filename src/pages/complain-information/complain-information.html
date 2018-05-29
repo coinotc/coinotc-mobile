@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <ion-list>
     <ion-item>
       <ion-label>{{'Username' | translate}}</ion-label>
@@ -47,7 +47,7 @@
       <ion-item *ngIf="complainForm.controls.content.hasError('required') && complainForm.controls.content.touched">
         <ion-label style="color:red">content is required.</ion-label>
       </ion-item>
-      <button ion-button tappable ion-button  [disabled]="!complainForm.valid" type="submit">
+      <button ion-button tappable ion-button block round [disabled]="!complainForm.valid" type="submit">
         <ion-label>{{'Submit' | translate}}</ion-label>
       </button>
     </form>
