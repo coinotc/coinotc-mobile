@@ -16,13 +16,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class TutorialPage {
   slides = [
     {
-      image: "assets/img/ica-slidebox-img-1.png"
+      image: "assets/imgs/p1.png"
     },
     {
-      image: "assets/img/ica-slidebox-img-2.png",
+      image: "assets/imgs/p2.png",
     },
     {
-      image: "assets/img/ica-slidebox-img-3.png",
+      image: "assets/imgs/p1.png",
     }
   ];
   constructor(public navCtrl: NavController, public navParams: NavParams) {
