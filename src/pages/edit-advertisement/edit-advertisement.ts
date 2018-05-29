@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,LoadingController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { advertisement } from '../../models/advertisement';
-import { FormBuilder , FormGroup , FormControl , Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service';
 /**
  * Generated class for the EditAdvertisementPage page.
@@ -19,6 +19,7 @@ export class EditAdvertisementPage {
   // information: advertisement;
   adform: FormGroup;
   belowmax = true;
+  notgetprice = true;
   rangepercent = 0;
   type;
   title: String;
@@ -42,7 +43,7 @@ export class EditAdvertisementPage {
     private adservice: AdvertisementServiceProvider,
     private fb: FormBuilder,
     private loadingCtrl: LoadingController) {
-    this.adservice.getMyEditAdvertisement(navParams.data.information._id).subscribe(result=>{
+    this.adservice.getMyEditAdvertisement(navParams.data.information._id).subscribe(result => {
       this.information = result[0];
       console.log(this.information)
     })
@@ -58,12 +59,12 @@ export class EditAdvertisementPage {
       crypto: ['ETHEREUM', Validators.required],
       country: ['singapore', Validators.required],
       fiat: ['SGD', Validators.required],
-      rangepercent: [null, Validators.required],
+      cryptoprice: [null, Validators.required],
       price: [null, [Validators.min(0)]],
       min_price: [null, [Validators.min(0), Validators.required]],
       max_price: [null, [Validators.min(0), Validators.required]],
       payment: ['', Validators.required],
-      limit: [null, [Validators.min(15), Validators.max(60), Validators.required]],
+      limit: [null, [Validators.min(15), Validators.max(60)]],
       message: ['', Validators.required]
     })
   }
@@ -84,34 +85,60 @@ export class EditAdvertisementPage {
         this.adservice.getprice(this.information.crypto, 'SGD').subscribe(result => {
           this.cryptoprice = Number(result[0].price_sgd);
           this.changerange();
-        });
+        },
+          error => this.changerange(error)
+        );
         break;
       case 'CNY':
         this.adservice.getprice(this.information.crypto, 'CNY').subscribe(result => {
           this.cryptoprice = Number(result[0].price_cny);
           this.changerange();
-        });
+        },
+          error => this.changerange(error));
         break;
       case 'USD':
         this.adservice.getprice(this.information.crypto, 'USD').subscribe(result => {
           this.cryptoprice = Number(result[0].price_usd);
           this.changerange();
-        });
+        },
+          error => this.changerange(error));
         break;
       case 'KRW':
         this.adservice.getprice(this.information.crypto, 'KRW').subscribe(result => {
           this.cryptoprice = Number(result[0].price_krw);
           this.changerange();
-        });
+        },
+          error => this.changerange(error));
+        break;
+      case 'MYR':
+        this.adservice.getprice(this.information.crypto, 'MYR').subscribe(
+          result => {
+            this.cryptoprice = Number(result[0].price_myr);
+            this.changerange();
+          },
+          error => this.changerange(error)
+        );
+        break;
+      case 'THB':
+        this.adservice.getprice(this.information.crypto, 'THB').subscribe(
+          result => {
+            this.cryptoprice = Number(result[0].price_thb);
+            this.changerange();
+          },
+          error => this.changerange(error)
+        );
         break;
     }
   }
-  changerange() {
-    this.information.price = Number(
-      (this.cryptoprice * (100 + this.rangepercent) / 100).toFixed(4)
-    );
+  changerange(error?) {
+    if (error) {
+      this.notgetprice = true;
+    } else {
+      this.notgetprice = false;
+      this.information.price = this.cryptoprice;
+    }
   }
-  edit(){
+  edit() {
     let loading = this.loadingCtrl.create({
       spinner: 'circles',
       content: 'loading...',
