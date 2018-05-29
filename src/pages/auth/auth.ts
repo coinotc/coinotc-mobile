@@ -179,6 +179,8 @@ export class AuthPage {
   }
 
   authTypeChange() {
+    this.password_type = 'password';
+    this.confirm_password_type = 'password';
     if (this.authType === 'register') {
       this.authForm.addControl('username', new FormControl());
     } else {

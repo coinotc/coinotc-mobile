@@ -233,10 +233,10 @@ export class ModalContentPage {
                   triggerAlert.notification = {
                     title: `You may be willing to SELL ${
                       this.orderInfo.crypto
-                    } in ${this.orderInfo.fiat} now !`,
+                      } in ${this.orderInfo.fiat} now !`,
                     body: `The average price from recent trades is ${
                       this.average
-                    } ${this.orderInfo.fiat}`,
+                      } ${this.orderInfo.fiat}`,
                     sound: 'default',
                     click_action: 'FCM_PLUGIN_ACTIVITY',
                     icon: 'fcm_push_icon'
@@ -280,10 +280,10 @@ export class ModalContentPage {
                   triggerAlert.notification = {
                     title: `You may be willing to BUY ${
                       this.orderInfo.crypto
-                    } in ${this.orderInfo.fiat} now !`,
+                      } in ${this.orderInfo.fiat} now !`,
                     body: `The average price from recent trades is ${
                       this.average
-                    } ${this.orderInfo.fiat}`,
+                      } ${this.orderInfo.fiat}`,
                     sound: 'default',
                     click_action: 'FCM_PLUGIN_ACTIVITY',
                     icon: 'fcm_push_icon'
@@ -344,7 +344,7 @@ export class ModalContentPage {
       .then(value => {
         if (value != null) {
           filtered = value.filter(
-            function(e) {
+            function (e) {
               return this.indexOf(e) < 0;
             },
             [this.orderInfo._id]
@@ -561,26 +561,31 @@ export class RoomPage {
             .then(snapshot => {
               console.log('SNAPSHOT ---> ');
 
-              loading.dismiss().then(() => {
-                let newData = firebase
-                  .database()
-                  .ref('chatrooms/' + this.roomkey + '/chats')
-                  .push();
-                newData
-                  .set({
-                    type: this.data.type,
-                    user: this.data.name,
-                    message: null,
-                    isImage: true,
-                    //base64Image: this.base64Image,
-                    sendDate: Date(),
-                    downloadURL: snapshot.downloadURL
-                  })
-                  .catch(e => console.log(e));
-              });
+              //loading.dismiss().then(() => {
+              let newData = firebase
+                .database()
+                .ref('chatrooms/' + this.roomkey + '/chats')
+                .push();
+              newData
+                .set({
+                  type: this.data.type,
+                  user: this.data.name,
+                  message: null,
+                  isImage: true,
+                  //base64Image: this.base64Image,
+                  sendDate: Date(),
+                  downloadURL: snapshot.downloadURL
+                })
+                .catch(e => {
+                  loading.dismiss();
+                  console.log(e)
+                });
+              //});
+              loading.dismiss();
             });
         },
         err => {
+          //loading.dismiss();
           console.log('Error taking photo', JSON.stringify(err));
         }
       );
@@ -681,7 +686,7 @@ export const snapshotToArray = snapshot => {
 };
 export const getRoomKey = ref => {
   let roomkey;
-  ref.limitToLast(1).on('child_added', function(prevChildKey) {
+  ref.limitToLast(1).on('child_added', function (prevChildKey) {
     console.log('===>>>>' + prevChildKey.key);
     roomkey = prevChildKey.key;
   }); //获取roomkey

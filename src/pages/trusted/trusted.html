@@ -4,10 +4,10 @@
   </ion-navbar>
   <ion-toolbar>
     <ion-segment [(ngModel)]="value">
-      <ion-segment-button value="following" (tap)="onSegment()">
+      <ion-segment-button value="following" (click)="onSegment()">
         {{'Following' | translate}}
       </ion-segment-button>
-      <ion-segment-button value="followers" (tap)="onSegment()">
+      <ion-segment-button value="followers" (click)="onSegment()">
         {{'Followers' | translate}}
       </ion-segment-button>
     </ion-segment>
@@ -29,15 +29,11 @@
   
     </ion-list>
     <ion-list *ngSwitchCase="'followers'">
-      
         <ion-item *ngFor="let follower of followers" (tap)="profile(follower)">
           <text-avatar [text]="follower"  item-left></text-avatar>
-
           <h2>{{follower}}
           </h2>
         </ion-item>
-
-    
     </ion-list>
   </div>
 </ion-content>

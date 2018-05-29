@@ -26,9 +26,7 @@ export class ComplainInformationPage {
   complainForm: FormGroup;
   orderInformation;
   username;
-  // complainUser;
-  // Complainant;
-  model = new complain('', '', '', 'Order', '', 0, null, '', null);
+  model = new complain('', '', '', 'Order', '', 0, null, '', null,'','','');
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private userService: UserServiceProvider,
     private fb: FormBuilder,
@@ -62,6 +60,10 @@ export class ComplainInformationPage {
     loading.present();
     this.model.username = this.username;
     this.model.orderId = this.orderInformation._id;
+    this.model.crypto = this.orderInformation.crypto;
+    this.model.theOther = this.orderInformation.seller == this.username ? this.orderInformation.buyer : this.username
+    this.model.fiat = this.orderInformation.fiat;
+    console.log(this.orderInformation.fiat)
     // this.model.pleader = this.complainUser;
     // this.model.complainant = this.userService.getCurrentUser().username;
     // this.model.orderId = this.orderInformation._id;
