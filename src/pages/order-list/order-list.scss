@@ -1,3 +1,20 @@
 page-order-list {
+  .toolbar-background {
+    background-color: #327eff;
+    border-color: transparent
+  }
+  .toolbar-title-ios{
+    color: white
+  }
+  ion-segment{
+    background-color: #327eff;
+    border-color: transparent
 
+  }
+  .segment-md .segment-button {
+    color:  white;
+  }
+  .segment-md .segment-button.activated, .segment-md .segment-button.segment-activated  {
+    border-color: white;  
+  }
 }

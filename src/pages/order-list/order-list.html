@@ -4,20 +4,24 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header no-border>
+  <ion-row>
+    <ion-navbar no-border col-12 mode="ios">
+      <ion-title mode="ios" style="color: white">{{'OrderList' | translate}}</ion-title>
+    </ion-navbar>
+
+    <ion-segment col-12 [(ngModel)]="segments">
+        <ion-segment-button value="Active" (click)="onSegment()">
+          {{'Active' | translate}}
+        </ion-segment-button>
+        <ion-segment-button value="Finished" (click)="onSegment()">
+          {{'Finished' | translate}}
+        </ion-segment-button>
+      </ion-segment>
+  </ion-row>
 
 
-  <ion-navbar>
-    <ion-title>{{'OrderList' | translate}}</ion-title>
-  </ion-navbar>
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="segments">
-      <ion-segment-button value="Active" (click)="onSegment()">
-        {{'Active' | translate}}
-      </ion-segment-button>
-      <ion-segment-button value="Finished" (click)="onSegment()">
-        {{'Finished' | translate}}
-      </ion-segment-button>
+
       <!-- <ion-segment-button value="ActiveBuy" (tap)="onSegment()">
         {{'ActiveBuy' | translate}}
       </ion-segment-button>
@@ -30,8 +34,8 @@
       <ion-segment-button value="FinishedSell" (tap)="onSegment()">
         {{'FinishedSell' | translate}}
       </ion-segment-button> -->
-    </ion-segment>
-  </ion-toolbar>
+
+
 
 </ion-header>
 

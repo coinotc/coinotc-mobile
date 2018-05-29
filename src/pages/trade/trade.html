@@ -14,7 +14,7 @@
       </button>
 
 
-      <ion-searchbar col-8 mode="ios" type='text' placeholder="Search User"  [(ngModel)]="query" style="border:0 0 0 0; padding:0 0 0 0; background: transparent; min-height: 39px; border-top: 0px; border-bottom: 0px; right: 6%"></ion-searchbar>
+      <ion-searchbar col-8 mode="ios" type='text' placeholder="Search User"  [(ngModel)]="query" style="border:0 0 0 0; padding:0 0 0 0; background: transparent; min-height: 39px; border-top: 0px; border-bottom: 0px; right: 5%"></ion-searchbar>
 
 
 
@@ -55,11 +55,19 @@
 
 
 
-<ion-content padding #content>
+<ion-content #content>
 
 
-  <ion-refresher no-border (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content pullingText="pulldown to refresh" refreshingSpinner="circles" refreshingText="refreshing...">
+  <ion-refresher no-border (ionRefresh)="doRefresh($event)"
+  snapbackDuration="500"
+  closeDuration="500"
+  pullMin="80">
+      <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="crescent"
+      refreshingText="Refreshing..."
+      	>
       </ion-refresher-content>
   </ion-refresher>
 
@@ -80,7 +88,6 @@
         <button ion-button [ngClass]="item.crypto" round (tap)="adinformation(item,false)" *ngIf="item.type==0 && item.owner != currentuser">{{'Sell' | translate}} {{item.crypto}}</button>
       </div>
     </ion-item>
-    <ion-item *ngIf="list&&list.length != 0" style="height: 50px;"></ion-item>
     <ion-item *ngIf="list&&list.length == 0">
       <ion-label style="overflow: visible;">
         empty
