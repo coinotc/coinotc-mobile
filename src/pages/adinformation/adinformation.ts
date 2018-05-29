@@ -59,6 +59,7 @@ export class AdinformationPage {
     null,
     null,
     null,
+    null,
     1,
     null
   );
@@ -121,7 +122,7 @@ export class AdinformationPage {
           this.notification.notification = {
             title: `You have an order with ${
               this.orderinformation.buyer
-            } now !`,
+              } now !`,
             icon: 'fcm_push_icon',
             sound: 'default',
             click_action: 'FCM_PLUGIN_ACTIVITY'
@@ -137,7 +138,7 @@ export class AdinformationPage {
           this.notification.notification = {
             title: `You have an order with ${
               this.orderinformation.seller
-            } now !`,
+              } now !`,
             icon: 'fcm_push_icon',
             sound: 'default',
             click_action: 'FCM_PLUGIN_ACTIVITY'
@@ -165,6 +166,7 @@ export class AdinformationPage {
           this.orderinformation.limit = this.information.limit;
           this.orderinformation.message = this.information.message;
           this.orderinformation.owner = this.information.owner;
+          this.orderinformation.adid = this.information._id;
           // console.log(this.orderinformation);
           this.orderservice.postorder(this.orderinformation).subscribe(
             result => {
@@ -268,7 +270,7 @@ export class AdinformationPage {
 
 export const getRoomKey = ref => {
   let roomkey;
-  ref.limitToLast(1).on('child_added', function(prevChildKey) {
+  ref.limitToLast(1).on('child_added', function (prevChildKey) {
     //console.log("===>>>>" + prevChildKey.key)
     roomkey = prevChildKey.key;
   }); //获取roomkey
