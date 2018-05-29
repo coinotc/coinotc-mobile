@@ -20,8 +20,8 @@ export class AddadvertisementPage {
   adform: FormGroup;
   belowmax = true;
   notgetprice = true;
-  type: String;
-  title: String;
+  type: String = 'Buy';
+  title: String = 'Public Advertisement';
   loading;
   model = new advertisement(
     '',
@@ -49,8 +49,6 @@ export class AddadvertisementPage {
     public loadingCtrl: LoadingController,
     private fb: FormBuilder
   ) {
-    this.type = navParams.data.type;
-    this.title = navParams.data.title;
     this.model.crypto = navParams.data.crypto;
     this.model.fiat = navParams.data.fiat;
     if (navParams.data.country == "global") {
@@ -62,14 +60,16 @@ export class AddadvertisementPage {
       content: 'Please wait...',
       duration: 5000
     });
-    this.getcryptoprice();
+    this.changetype();
+  }
+  changetype() {
     if (this.type == 'Buy') {
       this.adform = this.fb.group({
         crypto: [this.model.crypto, Validators.required],
         country: [this.model.country, Validators.required],
         fiat: [this.model.fiat, Validators.required],
-        cryptoprice: [null, Validators.required],
-        price: [null, [Validators.min(0)]],
+        // cryptoprice: [null, Validators.required],
+        price: [this.cryptoprice, [Validators.min(0)]],
         min_price: [null, [Validators.min(0), Validators.required]],
         max_price: [null, [Validators.min(0), Validators.required]],
         payment: ['', Validators.required],
@@ -84,8 +84,8 @@ export class AddadvertisementPage {
         crypto: [this.model.crypto, Validators.required],
         country: [this.model.country, Validators.required],
         fiat: [this.model.fiat, Validators.required],
-        cryptoprice: [null, Validators.required],
-        price: [null, [Validators.min(0)]],
+        // cryptoprice: [null, Validators.required],
+        price: [this.cryptoprice, [Validators.min(0)]],
         min_price: [null, [Validators.min(0), Validators.required]],
         max_price: [null, [Validators.min(0), Validators.required]],
         payment: ['', Validators.required],
@@ -93,6 +93,7 @@ export class AddadvertisementPage {
         message: ['', Validators.required]
       });
     }
+    this.getcryptoprice();
   }
   notbelowmax() {
     if (this.model.max_price && this.model.min_price) {
