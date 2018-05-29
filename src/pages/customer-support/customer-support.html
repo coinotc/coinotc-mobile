@@ -15,15 +15,14 @@
 
 <ion-content>
   <ion-card>
-    <ion-card-header>
-      {{'Title' | translate}}:{{complain.title}}
-    </ion-card-header>
     <ion-card-content>
-      {{'Content' | translate}}:
-      <br>{{complain.content}}
+      <ion-label>{{'Title' | translate}}:{{complain.title}}</ion-label>
+      <ion-label>{{'CreateDate' | translate}}:{{complain.createDate | date:'medium'}}</ion-label>
+      <ion-label>{{'Content' | translate}}:{{complain.content}}</ion-label>
+      <ion-label>{{complain.theOther}}</ion-label>
+      <ion-label>{{complain.fiat}}/{{complain.crypto}}</ion-label>
     </ion-card-content>
-    <button ion-button  full (tap)="changeStatus()" [disabled] = "complainStatus == 3"
-    style="text-align:center" color="danger">
+    <button ion-button full (tap)="changeStatus()" [disabled]="complainStatus == 3" style="text-align:center" color="danger">
       {{'Close'| translate}}
     </button>
   </ion-card>
@@ -48,7 +47,7 @@
   </ion-list>
 </ion-content>
 
-<ion-footer *ngIf = "!(complainStatus == 3)">
+<ion-footer *ngIf="!(complainStatus == 3)">
 
   <ion-grid>
     <ion-row>

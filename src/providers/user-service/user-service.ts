@@ -163,7 +163,7 @@ export class UserServiceProvider {
         console.log(this.getCurrentUser().token)
         this.isTokenExpiredSubject.next(this.jwtService.isTokenExpired(this.getCurrentUser().token, result));
       })
-      return !this.isTokenExpiredSubject.getValue();
+      return this.isTokenExpiredSubject.getValue();
     } else
       return false;
     // this.serversideTimeService.getOffsetSeconds().subscribe(result => {

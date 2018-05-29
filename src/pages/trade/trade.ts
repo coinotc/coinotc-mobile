@@ -125,9 +125,6 @@ export class TradePage {
   start = 0;
   threshold = 100;
   slideHeaderPrevious = 0;
-  // ionScroll: any;
-  // showheader: boolean;
-  // hideheader: boolean;
   headercontent: any;
   buynsell: string = 'buy';
   crypto: string = 'ETHEREUM';
@@ -158,8 +155,9 @@ export class TradePage {
       console.log(this.banners);
     });
   }
+  ionViewWillEnter() {
+  }
   ionViewDidEnter() {
-    this.currentuser = this.userservice.getCurrentUser().username;
     this.storage
       .get('nativeRegion')
       .then(value => {
@@ -172,6 +170,7 @@ export class TradePage {
       .then(() => this.doRefresh());
   }
   doRefresh(refresher?) {
+    this.currentuser = this.userservice.getCurrentUser().username;
     if (this.buynsell === 'buy') {
       this.adservice
         .getadvertisement(this.crypto, this.country, this.fiat, 1)
@@ -238,27 +237,12 @@ export class TradePage {
       this.appCtrl.getRootNav().push(ProfilePage, owner);
     }
   }
-  addbuyad() {
+  addad() {
     this.events.subscribe('reloadtrade', () => {
       this.doRefresh();
       this.events.unsubscribe('reloadtrade');
     });
     this.appCtrl.getRootNav().push(AddadvertisementPage, {
-      type: 'Buy',
-      title: 'publishBuy',
-      crypto: this.crypto,
-      fiat: this.fiat,
-      country: this.country
-    });
-  }
-  addsellad() {
-    this.events.subscribe('reloadtrade', () => {
-      this.doRefresh();
-      this.events.unsubscribe('reloadtrade');
-    });
-    this.appCtrl.getRootNav().push(AddadvertisementPage, {
-      type: 'Sell',
-      title: 'publishSell',
       crypto: this.crypto,
       fiat: this.fiat,
       country: this.country
@@ -280,7 +264,7 @@ export class TradePage {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }
 
 @Pipe({
