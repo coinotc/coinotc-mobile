@@ -113,7 +113,10 @@ export class ModalContentPage {
   notification = new Notification('', null, null, 'high');
   average;
   rate;
-
+  data = { type: '', name: '', message: '', roomname: '' };
+  roomkey;
+  offStatus: boolean = false;
+  chats = [];
   constructor(
     public userService: UserServiceProvider,
     private orderServiceProvider: OrderServiceProvider,
@@ -126,6 +129,7 @@ export class ModalContentPage {
     private events: Events,
     private storage: Storage
   ) {
+    this.roomkey = this.params.data.roomkey
     this.orderInfo = this.params.data.orderInfo;
     this.trader = this.params.data.trader;
     this.user = userService.getCurrentUser();
@@ -134,7 +138,7 @@ export class ModalContentPage {
       console.log(result);
       this.notification.to = result[0].deviceToken;
       this.notification.notification = {
-        title: `Your Order with ${this.user.username} has progress !`,
+        body: `Your Order with ${this.user.username} has progress !`,
         icon: 'fcm_push_icon',
         sound: 'default',
         click_action: 'FCM_PLUGIN_ACTIVITY'
@@ -184,6 +188,24 @@ export class ModalContentPage {
         });
       this.decreaseCount();
     });
+    let InformeData = firebase.database().ref('chatrooms/' + this.roomkey + '/chats').push();
+    InformeData.set({
+      type: 'informed',
+      user: this.user.username,
+      message: this.user.username + ' has made a fiat payment.',
+      sendDate: Date()
+    });
+    this.data.message = '';
+
+    firebase.database().ref('chatrooms/' + this.roomkey + '/chats').on('value', resp => {
+      this.chats = [];
+      this.chats = snapshotToArray(resp);
+      setTimeout(() => {
+        if (this.offStatus === false) {
+          //this.content.scrollToBottom(300);
+        }
+      }, 1000);
+    });
     //Send push notification to trader
     console.log(this.notification);
     this.alertServiceProvider
@@ -231,12 +253,9 @@ export class ModalContentPage {
                 .subscribe(result => {
                   triggerAlert.to = result[0].deviceToken;
                   triggerAlert.notification = {
-                    title: `You may be willing to SELL ${
+                    body: `You may be willing to SELL ${
                       this.orderInfo.crypto
-                      } in ${this.orderInfo.fiat} now !`,
-                    body: `The average price from recent trades is ${
-                      this.average
-                      } ${this.orderInfo.fiat}`,
+                    } in ${this.orderInfo.fiat} now !`,
                     sound: 'default',
                     click_action: 'FCM_PLUGIN_ACTIVITY',
                     icon: 'fcm_push_icon'
@@ -278,12 +297,9 @@ export class ModalContentPage {
                 .subscribe(result => {
                   triggerAlert.to = result[0].deviceToken;
                   triggerAlert.notification = {
-                    title: `You may be willing to BUY ${
+                    body: `You may be willing to BUY ${
                       this.orderInfo.crypto
-                      } in ${this.orderInfo.fiat} now !`,
-                    body: `The average price from recent trades is ${
-                      this.average
-                      } ${this.orderInfo.fiat}`,
+                    } in ${this.orderInfo.fiat} now !`,
                     sound: 'default',
                     click_action: 'FCM_PLUGIN_ACTIVITY',
                     icon: 'fcm_push_icon'
@@ -304,6 +320,24 @@ export class ModalContentPage {
             }
           });
       });
+    let FinishData = firebase.database().ref('chatrooms/' + this.roomkey + '/chats').push();
+    FinishData.set({
+      type: 'finish',
+      user: this.user.username,
+      message: this.user.username + 'has released the coins to wallet.',
+      sendDate: Date()
+    });
+    this.data.message = '';
+
+    firebase.database().ref('chatrooms/' + this.roomkey + '/chats').on('value', resp => {
+      this.chats = [];
+      this.chats = snapshotToArray(resp);
+      setTimeout(() => {
+        if (this.offStatus === false) {
+          //this.content.scrollToBottom(300);
+        }
+      }, 1000);
+    });
   }
 
   onRating() {
@@ -334,6 +368,24 @@ export class ModalContentPage {
       ratings.push(this.rate);
       this.profileServiceProvider.sendRating(this.trader, ratings).subscribe();
     });
+    let RatingData = firebase.database().ref('chatrooms/' + this.roomkey + '/chats').push();
+    RatingData.set({
+      type: 'rating',
+      user: this.user.username,
+      message: this.user.username + 'has rated you.',
+      sendDate: Date()
+    });
+    this.data.message = '';
+
+    firebase.database().ref('chatrooms/' + this.roomkey + '/chats').on('value', resp => {
+      this.chats = [];
+      this.chats = snapshotToArray(resp);
+      setTimeout(() => {
+        if (this.offStatus === false) {
+          //this.content.scrollToBottom(300);
+        }
+      }, 1000);
+    });
   }
 
   decreaseCount() {
@@ -344,7 +396,7 @@ export class ModalContentPage {
       .then(value => {
         if (value != null) {
           filtered = value.filter(
-            function (e) {
+            function(e) {
               return this.indexOf(e) < 0;
             },
             [this.orderInfo._id]
@@ -466,11 +518,11 @@ export class RoomPage {
         this.chatsObservable$ = Observable.of(this.chats);
         setTimeout(() => {
           if (this.offStatus === false) {
-            loading.dismiss();
             // this.content.scrollToBottom(300);
             if (this.content._scroll) this.content.scrollToBottom(300);
           }
-        }, 500);
+        }, 1000);
+        loading.dismiss();
         var end = new Date().getTime();
         console.log(end - start);
       });
@@ -494,25 +546,36 @@ export class RoomPage {
               refresher.complete();
             }
           }
-        }, 500);
+        }, 1000);
         var end = new Date().getTime();
         console.log(end - start);
       });
   }
 
   sendMessage() {
+    let loading = this.loadingCtrl.create({
+      spinner: 'circles',
+      content: 'loading...',
+      dismissOnPageChange: true
+      //duration: 3500
+    });
+    loading.present();
     if (this.data.message.trim() != '') {
       let newData = firebase
         .database()
         .ref('chatrooms/' + this.roomkey + '/chats')
-        .push();
+        .push()
       newData.set({
         type: this.data.type,
         user: this.data.name,
         message: this.data.message,
         sendDate: Date()
-      });
+      }).then((() => {
+        loading.dismiss();
+      })
+      )
       this.data.message = '';
+      //loading.dismiss();
       //this.scrollToBottom();
     }
   }
@@ -522,7 +585,7 @@ export class RoomPage {
       if (this.content.scrollToBottom) {
         this.content.scrollToBottom();
       }
-    }, 400);
+    }, 1000);
   }
 
   complain() {
@@ -578,7 +641,7 @@ export class RoomPage {
                 })
                 .catch(e => {
                   loading.dismiss();
-                  console.log(e)
+                  console.log(e);
                 });
               //});
               loading.dismiss();
@@ -668,7 +731,8 @@ export class RoomPage {
     let modal = this.modalCtrl.create(ModalContentPage, {
       orderInfo: this.input.order,
       trader: this.input.trader,
-      type: 'order'
+      type: 'order',
+      roomkey: this.roomkey
     });
     modal.present();
   }
@@ -686,7 +750,7 @@ export const snapshotToArray = snapshot => {
 };
 export const getRoomKey = ref => {
   let roomkey;
-  ref.limitToLast(1).on('child_added', function (prevChildKey) {
+  ref.limitToLast(1).on('child_added', function(prevChildKey) {
     console.log('===>>>>' + prevChildKey.key);
     roomkey = prevChildKey.key;
   }); //获取roomkey

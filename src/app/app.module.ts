@@ -93,6 +93,7 @@ import { Badge } from '@ionic-native/badge';
 import { SearchPipe } from '../pages/trade/trade';
 import { ServersideTimeServiceProvider } from '../providers/serverside-time-service/serverside-time-service';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { ViewMyAdvertisementPage } from '../pages/view-my-advertisement/view-my-advertisement';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -144,7 +145,8 @@ export function createTranslateLoader(http: HttpClient) {
     KycPassportPhoto1Page,
     KycPassportPhoto2Page,
     KycListPage,
-    SearchPipe
+    SearchPipe,
+    ViewMyAdvertisementPage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -217,7 +219,8 @@ export function createTranslateLoader(http: HttpClient) {
     KycFormPage,
     KycPassportPhoto1Page,
     KycPassportPhoto2Page,
-    KycListPage
+    KycListPage,
+    ViewMyAdvertisementPage
   ],
   providers: [
     StatusBar,

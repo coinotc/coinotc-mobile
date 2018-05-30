@@ -3,6 +3,7 @@ export class OrderInformation {
     public buyer: string,
     public seller: string,
     public owner: string,
+    public adid: string,
     public crypto: string,
     public country: string,
     public quantity: number,
@@ -16,5 +17,5 @@ export class OrderInformation {
     public sellerRating: number,
     public finished: number,
     public roomkey: string
-  ) {}
+  ) { }
 }

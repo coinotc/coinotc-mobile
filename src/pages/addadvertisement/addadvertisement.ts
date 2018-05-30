@@ -111,7 +111,7 @@ export class AddadvertisementPage {
       case 'SGD':
         this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(
           result => {
-            this.cryptoprice = Number(result[0].price_sgd);
+            this.cryptoprice = Number(Number(result[0].price_sgd).toFixed(2));
             this.changerange();
           },
           error => this.changerange(error)
@@ -120,7 +120,7 @@ export class AddadvertisementPage {
       case 'CNY':
         this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(
           result => {
-            this.cryptoprice = Number(result[0].price_cny);
+            this.cryptoprice = Number(Number(result[0].price_cny).toFixed(2));
             this.changerange();
           },
           error => this.changerange(error)
@@ -129,7 +129,7 @@ export class AddadvertisementPage {
       case 'USD':
         this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(
           result => {
-            this.cryptoprice = Number(result[0].price_usd);
+            this.cryptoprice = Number(Number(result[0].price_usd).toFixed(2));
             this.changerange();
           },
           error => this.changerange(error)
@@ -138,7 +138,7 @@ export class AddadvertisementPage {
       case 'KRW':
         this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(
           result => {
-            this.cryptoprice = Number(result[0].price_krw);
+            this.cryptoprice = Number(Number(result[0].price_krw).toFixed(2));
             this.changerange();
           },
           error => this.changerange(error)
@@ -147,7 +147,7 @@ export class AddadvertisementPage {
       case 'MYR':
         this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(
           result => {
-            this.cryptoprice = Number(result[0].price_myr);
+            this.cryptoprice = Number(Number(result[0].price_myr).toFixed(2));
             this.changerange();
           },
           error => this.changerange(error)
@@ -156,7 +156,7 @@ export class AddadvertisementPage {
       case 'THB':
         this.adservice.getprice(this.model.crypto, this.model.fiat).subscribe(
           result => {
-            this.cryptoprice = Number(result[0].price_thb);
+            this.cryptoprice = Number(Number(result[0].price_thb).toFixed(2));
             this.changerange();
           },
           error => this.changerange(error)
@@ -197,6 +197,17 @@ export class AddadvertisementPage {
         });
         toast.present();
       }
+    }, error => {
+      let toast = this.toastCtrl.create({
+        message: error,
+        duration: 3000
+      });
+      toast.onDidDismiss(()=>{
+        this.navCtrl.pop();
+        this.loading.dismiss();
+        this.events.publish('reloadtrade');
+      })
+      toast.present();
     });
   }
   addsellad() {
@@ -221,6 +232,17 @@ export class AddadvertisementPage {
         });
         toast.present();
       }
+    }, error => {
+      let toast = this.toastCtrl.create({
+        message: error,
+        duration: 3000
+      });
+      toast.onDidDismiss(()=>{
+        this.navCtrl.pop();
+        this.loading.dismiss();
+        this.events.publish('reloadtrade');
+      })
+      toast.present();
     });
   }
 }

@@ -19,19 +19,26 @@
     </ion-grid>
 
     <ion-buttons end>
-      <button ion-button (tap)="complain()" icon-only>
+      <!-- <button ion-button (tap)="complain()" icon-only>
         <ion-icon name="notifications" color="danger"></ion-icon>
       </button>
       <button ion-button (tap)="openModal()" icon-only>
         <ion-icon name="information-circle"></ion-icon>
-      </button>
+      </button> -->
       <button ion-button clear icon-only item-right (tap)="attachImage()" icon-only>
         <ion-icon name="attach"></ion-icon>
       </button>
     </ion-buttons>
 
   </ion-navbar>
-
+  <ion-item>
+    <h4 ion-button (tap)="complain()">
+      Complain
+    </h4>
+    <h4 ion-button (tap)="openModal()" >
+      Information
+    </h4>
+  </ion-item>
 </ion-header>
 
 
@@ -46,7 +53,7 @@
 
     <ion-item *virtualItem="let chat">
 
-      <div class="chat-status" text-center *ngIf="chat.type==='join'||chat.type==='exit';else message">
+      <div class="chat-status" text-center *ngIf="chat.type==='informed'||chat.type==='finish'||chat.type==='rating';else message">
         <span class="chat-date">{{chat.sendDate | date:'short'}}</span>
         <span class="chat-content-center">{{chat.message}}</span>
       </div>

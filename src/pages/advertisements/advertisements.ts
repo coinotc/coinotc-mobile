@@ -12,6 +12,7 @@ import { advertisement } from '../../models/advertisement';
 import { AdinformationPage } from '../adinformation/adinformation';
 import { EditAdvertisementPage } from '../edit-advertisement/edit-advertisement';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { ViewMyAdvertisementPage } from '../view-my-advertisement/view-my-advertisement';
 /**
  * Generated class for the AdvertisementsPage page.
  *
@@ -100,9 +101,8 @@ export class AdvertisementsPage {
   }
   read(information) {
     console.log(information);
-    this.appCtrl.getRootNav().push(AdinformationPage, {
-      information: information,
-      tradetype: { type: 'My', crypto: 'Advertisement', ismine: true }
+    this.appCtrl.getRootNav().push(ViewMyAdvertisementPage, {
+      information: information
     });
   }
   setVisible(information) {

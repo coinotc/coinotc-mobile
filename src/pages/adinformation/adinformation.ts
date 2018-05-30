@@ -59,6 +59,7 @@ export class AdinformationPage {
     null,
     null,
     null,
+    null,
     1,
     null
   );
@@ -79,22 +80,26 @@ export class AdinformationPage {
     this.information = navParams.data.information;
     this.ismine = navParams.data.tradetype.ismine;
     console.log(navParams.data);
-    this.orderservice.getMyTrade(this.navParams.data.information.owner).subscribe(result => {
-      this.user.orderCount = result;
-    })
-    this.profileservice.getProfile(this.navParams.data.information.owner).subscribe(result => {
-      if (!(result[0].ratings.length == 0)) {
-        this.user.rating = 0
-        for (let _i: number = 0; _i < result[0].ratings.length; _i++) {
-          console.log(result[0])
-          let num = result[0].ratings[_i]
-          console.log(num);
-          this.user.rating = this.user.rating + num;
+    this.orderservice
+      .getMyTrade(this.navParams.data.information.owner)
+      .subscribe(result => {
+        this.user.orderCount = result;
+      });
+    this.profileservice
+      .getProfile(this.navParams.data.information.owner)
+      .subscribe(result => {
+        if (!(result[0].ratings.length == 0)) {
+          this.user.rating = 0;
+          for (let _i: number = 0; _i < result[0].ratings.length; _i++) {
+            console.log(result[0]);
+            let num = result[0].ratings[_i];
+            console.log(num);
+            this.user.rating = this.user.rating + num;
+          }
+          this.user.rating = this.user.rating / result[0].ratings.length;
         }
-        this.user.rating = this.user.rating / result[0].ratings.length;
-      }
-      console.log(this.user);
-    });
+        console.log(this.user);
+      });
     // this.profileservice.getProfile(this.information.owner).subscribe(result => {
     //   console.log(result);
     //   this.user = result[0];
@@ -119,9 +124,7 @@ export class AdinformationPage {
         .subscribe(result => {
           this.notification.to = result[0].deviceToken;
           this.notification.notification = {
-            title: `You have an order with ${
-              this.orderinformation.buyer
-            } now !`,
+            body: `You have an order with ${this.orderinformation.buyer} now !`,
             icon: 'fcm_push_icon',
             sound: 'default',
             click_action: 'FCM_PLUGIN_ACTIVITY'
@@ -135,9 +138,9 @@ export class AdinformationPage {
         .subscribe(result => {
           this.notification.to = result[0].deviceToken;
           this.notification.notification = {
-            title: `You have an order with ${
+            body: `You have an order with ${
               this.orderinformation.seller
-            } now !`,
+              } now !`,
             icon: 'fcm_push_icon',
             sound: 'default',
             click_action: 'FCM_PLUGIN_ACTIVITY'
@@ -165,6 +168,7 @@ export class AdinformationPage {
           this.orderinformation.limit = this.information.limit;
           this.orderinformation.message = this.information.message;
           this.orderinformation.owner = this.information.owner;
+          this.orderinformation.adid = this.information._id;
           // console.log(this.orderinformation);
           this.orderservice.postorder(this.orderinformation).subscribe(
             result => {
@@ -268,7 +272,7 @@ export class AdinformationPage {
 
 export const getRoomKey = ref => {
   let roomkey;
-  ref.limitToLast(1).on('child_added', function(prevChildKey) {
+  ref.limitToLast(1).on('child_added', function (prevChildKey) {
     //console.log("===>>>>" + prevChildKey.key)
     roomkey = prevChildKey.key;
   }); //获取roomkey
