@@ -113,7 +113,10 @@ export class ModalContentPage {
   notification = new Notification('', null, null, 'high');
   average;
   rate;
-
+  data = { type: '', name: '', message: '', roomname: '' };
+  roomkey;
+  offStatus: boolean = false;
+  chats = [];
   constructor(
     public userService: UserServiceProvider,
     private orderServiceProvider: OrderServiceProvider,
@@ -126,6 +129,7 @@ export class ModalContentPage {
     private events: Events,
     private storage: Storage
   ) {
+    this.roomkey = this.params.data.roomkey
     this.orderInfo = this.params.data.orderInfo;
     this.trader = this.params.data.trader;
     this.user = userService.getCurrentUser();
@@ -183,6 +187,24 @@ export class ModalContentPage {
           this.orderInfo = result;
         });
       this.decreaseCount();
+    });
+    let InformeData = firebase.database().ref('chatrooms/' + this.roomkey + '/chats').push();
+    InformeData.set({
+      type: 'informed',
+      user: this.user.username,
+      message: this.user.username + ' has made a fiat payment.',
+      sendDate: Date()
+    });
+    this.data.message = '';
+
+    firebase.database().ref('chatrooms/' + this.roomkey + '/chats').on('value', resp => {
+      this.chats = [];
+      this.chats = snapshotToArray(resp);
+      setTimeout(() => {
+        if (this.offStatus === false) {
+          //this.content.scrollToBottom(300);
+        }
+      }, 1000);
     });
     //Send push notification to trader
     console.log(this.notification);
@@ -298,6 +320,24 @@ export class ModalContentPage {
             }
           });
       });
+    let FinishData = firebase.database().ref('chatrooms/' + this.roomkey + '/chats').push();
+    FinishData.set({
+      type: 'finish',
+      user: this.user.username,
+      message: this.user.username + 'has released the coins to wallet.',
+      sendDate: Date()
+    });
+    this.data.message = '';
+
+    firebase.database().ref('chatrooms/' + this.roomkey + '/chats').on('value', resp => {
+      this.chats = [];
+      this.chats = snapshotToArray(resp);
+      setTimeout(() => {
+        if (this.offStatus === false) {
+          //this.content.scrollToBottom(300);
+        }
+      }, 1000);
+    });
   }
 
   onRating() {
@@ -327,6 +367,24 @@ export class ModalContentPage {
       let ratings = result[0].ratings;
       ratings.push(this.rate);
       this.profileServiceProvider.sendRating(this.trader, ratings).subscribe();
+    });
+    let RatingData = firebase.database().ref('chatrooms/' + this.roomkey + '/chats').push();
+    RatingData.set({
+      type: 'rating',
+      user: this.user.username,
+      message: this.user.username + 'has rated you.',
+      sendDate: Date()
+    });
+    this.data.message = '';
+
+    firebase.database().ref('chatrooms/' + this.roomkey + '/chats').on('value', resp => {
+      this.chats = [];
+      this.chats = snapshotToArray(resp);
+      setTimeout(() => {
+        if (this.offStatus === false) {
+          //this.content.scrollToBottom(300);
+        }
+      }, 1000);
     });
   }
 
@@ -460,11 +518,11 @@ export class RoomPage {
         this.chatsObservable$ = Observable.of(this.chats);
         setTimeout(() => {
           if (this.offStatus === false) {
-            loading.dismiss();
             // this.content.scrollToBottom(300);
             if (this.content._scroll) this.content.scrollToBottom(300);
           }
-        }, 500);
+        }, 1000);
+        loading.dismiss();
         var end = new Date().getTime();
         console.log(end - start);
       });
@@ -488,25 +546,36 @@ export class RoomPage {
               refresher.complete();
             }
           }
-        }, 500);
+        }, 1000);
         var end = new Date().getTime();
         console.log(end - start);
       });
   }
 
   sendMessage() {
+    let loading = this.loadingCtrl.create({
+      spinner: 'circles',
+      content: 'loading...',
+      dismissOnPageChange: true
+      //duration: 3500
+    });
+    loading.present();
     if (this.data.message.trim() != '') {
       let newData = firebase
         .database()
         .ref('chatrooms/' + this.roomkey + '/chats')
-        .push();
+        .push()
       newData.set({
         type: this.data.type,
         user: this.data.name,
         message: this.data.message,
         sendDate: Date()
-      });
+      }).then((() => {
+        loading.dismiss();
+      })
+      )
       this.data.message = '';
+      //loading.dismiss();
       //this.scrollToBottom();
     }
   }
@@ -516,7 +585,7 @@ export class RoomPage {
       if (this.content.scrollToBottom) {
         this.content.scrollToBottom();
       }
-    }, 400);
+    }, 1000);
   }
 
   complain() {
@@ -662,7 +731,8 @@ export class RoomPage {
     let modal = this.modalCtrl.create(ModalContentPage, {
       orderInfo: this.input.order,
       trader: this.input.trader,
-      type: 'order'
+      type: 'order',
+      roomkey: this.roomkey
     });
     modal.present();
   }

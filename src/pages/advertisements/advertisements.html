@@ -25,8 +25,8 @@
     <ion-list *ngSwitchCase="'Disabled'">
       <ion-item-sliding *ngFor="let advertisement of disableAdvertisement">
         <ion-item (tap)="edit(advertisement)">
-          <text-avatar [text]="advertisement.owner" item-left></text-avatar>
-          <h2>{{advertisement.owner}}</h2>
+          <i [class]="advertisement.crypto"  item-left></i>
+          <h2>{{advertisement.fiat}}/{{advertisement.crypto}}</h2>
           <i *ngFor="let class of advertisement.payment" [class]="class"></i>
           <div item-right text-right>
             <h5 style="color:#02cb66">{{advertisement.price| number : '1.2-2'}} {{+advertisement.fiat}}</h5>
@@ -47,8 +47,8 @@
     <ion-list *ngSwitchCase="'Active'">
       <ion-item-sliding *ngFor="let advertisement of activeAdvertisement;let i=index;">
         <ion-item (tap)="read(advertisement)">
-          <text-avatar [text]="advertisement.owner" item-left></text-avatar>
-          <h2>{{advertisement.owner}}</h2>
+          <i [class]="advertisement.crypto" item-left></i>
+          <h2>{{advertisement.fiat}}/{{advertisement.crypto}}</h2>
           <i *ngFor="let class of advertisement.payment" [class]="class"></i>
           <div item-right text-right>
             <h5 style="color:#02cb66">{{advertisement.price| number : '1.2-2'}} {{advertisement.fiat}}</h5>

@@ -1,0 +1,57 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>My Advertisement</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-row>
+        <i [class]="information.crypto" item-left></i>
+        <span >{{information.fiat}}/{{information.crypto}}</span>
+      <div item-right text-right>
+        <h4>{{information.price}} {{'fiat.'+information.fiat | translate}}</h4>
+        <i *ngFor="let class of information.payment" [class]="class"></i>
+      </div>
+    </ion-row>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <div ion-row text-center>
+      <div ion-col>
+        <h4>{{user.orderCount}}</h4>
+        <span>{{'Trades' | translate}}</span>
+      </div>
+      <div ion-col>
+        <h4>{{user.rating}}</h4>
+        <span>{{'Good' | translate}}</span>
+      </div>
+    </div>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      {{'AdvertisementMessage' | translate}}:
+    </ion-card-header>
+    <ion-card-content>
+      {{information.message}}
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        {{'limit' | translate}}:{{information.min_price}} {{'fiat.'+information.fiat | translate}} - {{information.max_price}} {{'fiat.'+information.fiat
+        | translate}}
+      </ion-item>
+      <ion-item>
+        {{'Timelimit' | translate}}:{{information.limit}}
+      </ion-item>
+      <ion-item>
+        {{'Country' | translate}}:{{information.country}}
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
