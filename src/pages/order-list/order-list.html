@@ -7,14 +7,14 @@
 <ion-header no-border>
   <ion-row>
     <ion-navbar no-border col-12 mode="ios">
-      <ion-title mode="ios" style="color: white">{{'OrderList' | translate}}</ion-title>
+      <ion-title  mode="ios" style="color: white">{{'OrderList' | translate}}</ion-title>
     </ion-navbar>
 
-    <ion-segment col-12 [(ngModel)]="segments">
-        <ion-segment-button value="Active" (click)="onSegment()">
+    <ion-segment col-12 mode="md" [(ngModel)]="segments">
+        <ion-segment-button mode="md" value="Active" (click)="onSegment()">
           {{'Active' | translate}}
         </ion-segment-button>
-        <ion-segment-button value="Finished" (click)="onSegment()">
+        <ion-segment-button mode="md" value="Finished" (click)="onSegment()">
           {{'Finished' | translate}}
         </ion-segment-button>
       </ion-segment>
@@ -40,7 +40,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingText="Pulldown to Refresh" refreshingSpinner="circles" refreshingText="Refreshing...">

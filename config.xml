@@ -102,7 +102,7 @@
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.0" />
     <allow-navigation href="http://192.168.50.116:8100" />
     <allow-navigation href="http://192.168.2.100:8100" />
+    <allow-navigation href="http://192.168.50.116:8101" />
     <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="6.3.0" />
-    <allow-navigation href="http://192.168.50.116:8101" />
 </widget>

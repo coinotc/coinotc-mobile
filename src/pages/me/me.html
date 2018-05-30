@@ -1,18 +1,18 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>{{'Me' | translate}}</ion-title>
+<ion-header >
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">{{'Me' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content *ngIf="model">
-  <ion-list *ngIf="currentuser.username != ''" no-lines>
-    <ion-list-header>
-      <ion-item>
+  <ion-list mode="md" *ngIf="currentuser.username != ''" no-lines>
+    <ion-list-header mode="md">
+      <ion-item mode="md">
         <text-avatar [text]="user.name" item-left></text-avatar>
         <p class="username">{{user.name}}</p>
         <p>{{user.email}}</p>
       </ion-item>
-      <ion-item>
+      <ion-item mode="md">
         <ion-grid>
           <ion-row>
             <ion-col>

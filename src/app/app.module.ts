@@ -149,7 +149,10 @@ export function createTranslateLoader(http: HttpClient) {
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
-    IonicModule.forRoot(MyApp, { mode: 'md' }),
+    IonicModule.forRoot(MyApp,
+       { mode: 'md',
+       backButtonIcon: "ios-arrow-back" }
+      ),
     HttpClientModule,
     HttpModule,
     rootRouting,

@@ -489,7 +489,7 @@ export class RoomPage {
 
         setTimeout(() => {
           if (this.offStatus === false) {
-            if (this.content._scroll) this.content.scrollToTop(300);
+            // if (this.content._scroll) this.content.scrollToTop(300);
             if (refresher) {
               refresher.complete();
             }
