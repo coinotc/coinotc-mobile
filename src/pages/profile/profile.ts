@@ -60,7 +60,6 @@ export class ProfilePage {
       console.log(result);
       this.notification.to = result[0].deviceToken;
       this.notification.notification = {
-        // title: `Your Order with ${this.trader} has progress !`,
         body: `${this.currentUserName} started following you.`,
         icon: 'fcm_push_icon',
         sound: 'default',
