@@ -1,44 +1,20 @@
 <ion-header>
 
-  <ion-navbar>
-
-    <ion-grid>
-
-      <ion-row>
-
-        <ion-col col-4>
-          <text-avatar [text]="nickname==orderInfo.buyer?orderInfo.seller:orderInfo.buyer" item-left></text-avatar>
-        </ion-col>
-
-        <ion-col col-8>
-          <h4 style="margin-top:1rem; font-size: 15.8px;">{{nickname==orderInfo.buyer?orderInfo.seller:orderInfo.buyer}}</h4>
-        </ion-col>
-
-      </ion-row>
-
-    </ion-grid>
-
+  <ion-navbar mode="ios">
+    <!-- <text-avatar [text]="nickname==orderInfo.buyer?orderInfo.seller:orderInfo.buyer" item-left></text-avatar> -->
+    <ion-title mode="ios">{{nickname==orderInfo.buyer?orderInfo.seller:orderInfo.buyer}}</ion-title>
     <ion-buttons end>
-      <!-- <button ion-button (tap)="complain()" icon-only>
-        <ion-icon name="notifications" color="danger"></ion-icon>
-      </button>
-      <button ion-button (tap)="openModal()" icon-only>
-        <ion-icon name="information-circle"></ion-icon>
-      </button> -->
       <button ion-button clear icon-only item-right (tap)="attachImage()" icon-only>
         <ion-icon name="attach"></ion-icon>
       </button>
     </ion-buttons>
-
   </ion-navbar>
-  <ion-item>
-    <h4 ion-button (tap)="complain()">
-      Complain
-    </h4>
-    <h4 ion-button (tap)="openModal()" >
-      Information
-    </h4>
-  </ion-item>
+    <ion-segment>
+      <ion-segment-button id="complain" (tap)="complain()"> 
+         Complain
+      </ion-segment-button>
+      <ion-segment-button id="orderInfo"(tap)="openModal()" >Order Information</ion-segment-button>
+    </ion-segment>
 </ion-header>
 
 
@@ -94,7 +70,7 @@
       <ion-row>
         <ion-col col-2>
           <button ion-button clear icon-only item-right (tap)="takePhoto()">
-            <ion-icon name="camera"></ion-icon>
+            <ion-icon color="primary"name="camera"></ion-icon>
           </button>
         </ion-col>
         <ion-col col-8>
@@ -102,7 +78,7 @@
         </ion-col>
         <ion-col col-2 style="text-align: end;">
           <button ion-button clear icon-only float-end type="submit">
-            <ion-icon name="send"></ion-icon>
+            <ion-icon color="primary" name="send"></ion-icon>
           </button>
         </ion-col>
       </ion-row>

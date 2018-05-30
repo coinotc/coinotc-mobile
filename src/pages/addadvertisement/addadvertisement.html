@@ -9,10 +9,10 @@
     <ion-title mode="ios">Create Advertisement</ion-title>
   </ion-navbar>
   <ion-segment mode="md" [(ngModel)]="type" style="background-color:white" (ngModelChange)="changetype()" >
-    <ion-segment-button mode="md" value="Buy">
+    <ion-segment-button mode="md" value="Buy" id="buy">
       Buy
     </ion-segment-button>
-    <ion-segment-button mode="md" value="Sell">
+    <ion-segment-button mode="md" value="Sell" id="sell">
       Sell
     </ion-segment-button>
   </ion-segment>

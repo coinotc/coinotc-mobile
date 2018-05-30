@@ -36,11 +36,11 @@ import { Storage } from '@ionic/storage';
 @Component({
   template: `
   <ion-header>
-  <ion-toolbar>
-    <ion-title>
+  <ion-toolbar mode="ios">
+    <ion-title mode="ios">
       {{'Description' | translate}}
     </ion-title>
-    <ion-buttons start>
+    <ion-buttons start mode="ios">
       <button ion-button (tap)="dismiss()">
         <span ion-text color="primary">{{'Cancel' | translate}}</span>
       </button>

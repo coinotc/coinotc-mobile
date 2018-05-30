@@ -28,8 +28,8 @@
 
 
   <ion-segment mode="md" [(ngModel)]="buynsell" (ngModelChange)="doRefresh()" style="background-color:white">
-    <ion-segment-button mode="md" value="buy">{{'willing.wannaBuy' | translate}}</ion-segment-button>
-    <ion-segment-button mode="md" value="sell">{{'willing.wannaSell' | translate}}</ion-segment-button>
+    <ion-segment-button mode="md" id="buy" value="buy">{{'willing.wannaBuy' | translate}}</ion-segment-button>
+    <ion-segment-button mode="md" id="sell" value="sell">{{'willing.wannaSell' | translate}}</ion-segment-button>
   </ion-segment>
 
 

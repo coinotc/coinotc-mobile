@@ -10,4 +10,21 @@ page-addadvertisement {
     .button-inner {
       color: white
   }
+
+ #buy{
+    color: green;
+    // border-color: red
+  }
+  #buy.segment-activated {
+    border-color: green
+  }
+
+
+  #sell{ 
+    color: red
+  }
+
+  #sell.segment-activated {
+    border-color: red
+  }
 }
