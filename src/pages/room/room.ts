@@ -134,7 +134,7 @@ export class ModalContentPage {
       console.log(result);
       this.notification.to = result[0].deviceToken;
       this.notification.notification = {
-        title: `Your Order with ${this.user.username} has progress !`,
+        body: `Your Order with ${this.user.username} has progress !`,
         icon: 'fcm_push_icon',
         sound: 'default',
         click_action: 'FCM_PLUGIN_ACTIVITY'
@@ -231,12 +231,9 @@ export class ModalContentPage {
                 .subscribe(result => {
                   triggerAlert.to = result[0].deviceToken;
                   triggerAlert.notification = {
-                    title: `You may be willing to SELL ${
+                    body: `You may be willing to SELL ${
                       this.orderInfo.crypto
-                      } in ${this.orderInfo.fiat} now !`,
-                    body: `The average price from recent trades is ${
-                      this.average
-                      } ${this.orderInfo.fiat}`,
+                    } in ${this.orderInfo.fiat} now !`,
                     sound: 'default',
                     click_action: 'FCM_PLUGIN_ACTIVITY',
                     icon: 'fcm_push_icon'
@@ -278,12 +275,9 @@ export class ModalContentPage {
                 .subscribe(result => {
                   triggerAlert.to = result[0].deviceToken;
                   triggerAlert.notification = {
-                    title: `You may be willing to BUY ${
+                    body: `You may be willing to BUY ${
                       this.orderInfo.crypto
-                      } in ${this.orderInfo.fiat} now !`,
-                    body: `The average price from recent trades is ${
-                      this.average
-                      } ${this.orderInfo.fiat}`,
+                    } in ${this.orderInfo.fiat} now !`,
                     sound: 'default',
                     click_action: 'FCM_PLUGIN_ACTIVITY',
                     icon: 'fcm_push_icon'
@@ -344,7 +338,7 @@ export class ModalContentPage {
       .then(value => {
         if (value != null) {
           filtered = value.filter(
-            function (e) {
+            function(e) {
               return this.indexOf(e) < 0;
             },
             [this.orderInfo._id]
@@ -578,7 +572,7 @@ export class RoomPage {
                 })
                 .catch(e => {
                   loading.dismiss();
-                  console.log(e)
+                  console.log(e);
                 });
               //});
               loading.dismiss();
@@ -686,7 +680,7 @@ export const snapshotToArray = snapshot => {
 };
 export const getRoomKey = ref => {
   let roomkey;
-  ref.limitToLast(1).on('child_added', function (prevChildKey) {
+  ref.limitToLast(1).on('child_added', function(prevChildKey) {
     console.log('===>>>>' + prevChildKey.key);
     roomkey = prevChildKey.key;
   }); //获取roomkey
