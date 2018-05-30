@@ -53,6 +53,7 @@ export class ViewMyAdvertisementPage {
     null,
     null,
     null,
+    null,
     1,
     null
   );
