@@ -21,7 +21,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 })
 export class MyApp {
   private timerSubscription: AnonymousSubscription;
-  rootPage: any = AuthPage;
+  rootPage: any ;
   profileBadge: number;
   private onResumeSubscription: Subscription;
   private onPauseSubscription: Subscription;
@@ -48,8 +48,13 @@ export class MyApp {
         }
       }).then(() => this.storage.get('isLogin') as Promise<string>)
       .then(value => {
-        if (value)
+        if (value){
           this.rootPage = TabsPage;
+        }
+        else{
+          this.rootPage = AuthPage;
+        }
+
       });
     this.onResumeSubscription = platform.resume.subscribe(() => {
       console.log('there is resume');
