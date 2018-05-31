@@ -255,7 +255,7 @@ export class ModalContentPage {
                   triggerAlert.notification = {
                     body: `You may be willing to SELL ${
                       this.orderInfo.crypto
-                    } in ${this.orderInfo.fiat} now !`,
+                      } in ${this.orderInfo.fiat} now !`,
                     sound: 'default',
                     click_action: 'FCM_PLUGIN_ACTIVITY',
                     icon: 'fcm_push_icon'
@@ -299,7 +299,7 @@ export class ModalContentPage {
                   triggerAlert.notification = {
                     body: `You may be willing to BUY ${
                       this.orderInfo.crypto
-                    } in ${this.orderInfo.fiat} now !`,
+                      } in ${this.orderInfo.fiat} now !`,
                     sound: 'default',
                     click_action: 'FCM_PLUGIN_ACTIVITY',
                     icon: 'fcm_push_icon'
@@ -396,7 +396,7 @@ export class ModalContentPage {
       .then(value => {
         if (value != null) {
           filtered = value.filter(
-            function(e) {
+            function (e) {
               return this.indexOf(e) < 0;
             },
             [this.orderInfo._id]
@@ -623,7 +623,6 @@ export class RoomPage {
             .putString(this.base64Image, 'data_url')
             .then(snapshot => {
               console.log('SNAPSHOT ---> ');
-
               //loading.dismiss().then(() => {
               let newData = firebase
                 .database()
@@ -638,13 +637,16 @@ export class RoomPage {
                   //base64Image: this.base64Image,
                   sendDate: Date(),
                   downloadURL: snapshot.downloadURL
+                }).then(() => {
+                  loading.dismiss();
                 })
                 .catch(e => {
-                  loading.dismiss();
                   console.log(e);
-                });
+                }).then(() => {
+                  loading.dismiss();
+                })
               //});
-              loading.dismiss();
+              //loading.dismiss();
             });
         },
         err => {
@@ -678,7 +680,7 @@ export class RoomPage {
           let loading = this.loadingCtrl.create({
             spinner: 'circles',
             content: 'Uploading...',
-            duration: 3500
+            //duration: 3500
           });
           loading.present();
           // imageData is either a base64 encoded string or a file URI
@@ -691,22 +693,22 @@ export class RoomPage {
             .putString(this.base64Image, 'data_url')
             .then(snapshot => {
               console.log('SNAPSHOT ' + snapshot);
-
-              loading.dismiss().then(() => {
-                let newData = firebase
-                  .database()
-                  .ref('chatrooms/' + this.roomkey + '/chats')
-                  .push();
-                newData.set({
-                  type: this.data.type,
-                  user: this.data.name,
-                  message: null,
-                  isImage: true,
-                  //base64Image: this.base64Image,
-                  sendDate: Date(),
-                  downloadURL: snapshot.downloadURL
-                });
+              //loading.dismiss().then(() => {
+              let newData = firebase
+                .database()
+                .ref('chatrooms/' + this.roomkey + '/chats')
+                .push();
+              loading.dismiss()
+              newData.set({
+                type: this.data.type,
+                user: this.data.name,
+                message: null,
+                isImage: true,
+                //base64Image: this.base64Image,
+                sendDate: Date(),
+                downloadURL: snapshot.downloadURL
               });
+              //});
             })
             .catch(e => console.log(e));
         },
@@ -750,7 +752,7 @@ export const snapshotToArray = snapshot => {
 };
 export const getRoomKey = ref => {
   let roomkey;
-  ref.limitToLast(1).on('child_added', function(prevChildKey) {
+  ref.limitToLast(1).on('child_added', function (prevChildKey) {
     console.log('===>>>>' + prevChildKey.key);
     roomkey = prevChildKey.key;
   }); //获取roomkey

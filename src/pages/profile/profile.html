@@ -20,10 +20,10 @@
       <text-avatar [text]="profileUser" item-left></text-avatar>
       <h2>{{profileUser}}</h2>
 
-      <button id="follow" ion-button clear (click)="follow()">
-          {{ visible ? 'Unfollow' : 'Follow' }}
+      <button id="follow" ion-button clear (tap)="follow()" [hidden]="isUser">
+          {{ visible ? 'Follow' : 'Unfollow' }}
           &nbsp;
-        <ion-icon [name]="visible ? 'remove' :'add'">
+        <ion-icon [name]="visible ? 'add' :'remove'">
         </ion-icon>
       </button>
     </ion-item>
