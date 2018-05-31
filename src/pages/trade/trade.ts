@@ -14,6 +14,7 @@ import { AdvertisementServiceProvider } from '../../providers/advertisement-serv
 import { advertisement } from '../../models/advertisement';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { AdinformationPage } from '../adinformation/adinformation';
+import { ViewMyAdvertisementPage } from '../view-my-advertisement/view-my-advertisement';
 import { PopoverController, Events } from 'ionic-angular';
 import { ProfilePage } from '../profile/profile';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
@@ -193,36 +194,26 @@ export class TradePage {
         });
     }
   }
-  adinformation(information, ismine) {
+  myadvertisement(information) {
+    this.appCtrl.getRootNav().push(ViewMyAdvertisementPage, {
+      information: information,
+    });
+  }
+  adinformation(information) {
     this.events.subscribe('reloadtrade', () => {
       this.doRefresh();
       this.events.unsubscribe('reloadtrade');
     });
-    if (ismine) {
+    if (information.type == 1) {
       this.appCtrl.getRootNav().push(AdinformationPage, {
         information: information,
-        tradetype: { type: 'My', crypto: 'Advertisement', ismine: ismine }
+        tradetype: { type: 'Buy', crypto: information.crypto, }
       });
     } else {
-      if (information.type == 1) {
-        this.appCtrl.getRootNav().push(AdinformationPage, {
-          information: information,
-          tradetype: {
-            type: 'Buy',
-            crypto: information.crypto,
-            ismine: ismine
-          }
-        });
-      } else {
-        this.appCtrl.getRootNav().push(AdinformationPage, {
-          information: information,
-          tradetype: {
-            type: 'Sell',
-            crypto: information.crypto,
-            ismine: ismine
-          }
-        });
-      }
+      this.appCtrl.getRootNav().push(AdinformationPage, {
+        information: information,
+        tradetype: { type: 'Sell', crypto: information.crypto, }
+      });
     }
   }
   // viewMyAdv(information){
