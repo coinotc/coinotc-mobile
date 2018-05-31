@@ -2,4 +2,29 @@ page-addadvertisement {
     ion-navbar >div.toolbar-background{
         background-color: #327eff;
     }
+
+    .toolbar-title-ios{
+      color: white
+    }
+
+    .button-inner {
+      color: white
+  }
+
+ #buy{
+    color: green;
+    // border-color: red
+  }
+  #buy.segment-activated {
+    border-color: green
+  }
+
+
+  #sell{ 
+    color: red
+  }
+
+  #sell.segment-activated {
+    border-color: red
+  }
 }

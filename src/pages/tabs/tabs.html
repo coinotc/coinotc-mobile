@@ -1,5 +1,5 @@
-<ion-tabs>
-  <ion-tab tappable id="mainTab" *ngFor="let tabRoot of tabRoots" [root]="tabRoot.root" [tabBadge]="tabRoot.badge" tabBadgeStyle="danger"
+<ion-tabs mode="md">
+  <ion-tab mode="md" tappable id="mainTab" *ngFor="let tabRoot of tabRoots" [root]="tabRoot.root" [tabBadge]="tabRoot.badge" tabBadgeStyle="danger"
     tabTitle="{{tabRoot.title | translate}}" tabIcon="{{tabRoot.icon}}">
   </ion-tab>
 </ion-tabs>

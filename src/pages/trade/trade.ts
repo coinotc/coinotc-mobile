@@ -21,6 +21,7 @@ import { ProfileServiceProvider } from '../../providers/profile-service/profile-
 import { BannerControlProvider } from '../../providers/banner-control/banner-control';
 import { banner } from '../../models/banner-control';
 import { Storage } from '@ionic/storage';
+import { ViewMyAdvertisementPage } from '../view-my-advertisement/view-my-advertisement';
 /**
  * Generated class for the TradePage page.
  *
@@ -215,6 +216,9 @@ export class TradePage {
       });
     }
   }
+  // viewMyAdv(information){
+  //   this.appCtrl.getRootNav().push(ViewMyAdvertisementPage,{information: information})
+  // }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TradePage');
     this.content.resize();

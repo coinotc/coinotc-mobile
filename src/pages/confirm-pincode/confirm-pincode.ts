@@ -99,7 +99,7 @@ export class ConfirmPincodePage {
           if (this.type) {
             this.navCtrl.setRoot(PincodePage, { type: this.type });
           } else {
-            this.navCtrl.setRoot(PincodePage, { user: this.user, deviceToken: this.deviceToken });
+            this.navCtrl.setRoot(PincodePage, { user: this.user, deviceToken: this.deviceToken , ip :this.navParams.data.ip });
           }
         }
       }

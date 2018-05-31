@@ -1,6 +1,6 @@
 {
   "Trade": "Trade",
-  "OrderList": "Order List",
+  "OrderList": "Orders",
   "Alerts": "Alert",
   "Wallet": "Wallet",
   "Me": "Me",
@@ -95,7 +95,7 @@
   "publishSell": "Publish a Sell Coin",
   "PremiumSettings": "Premium Settings",
   "Currency": "Fiat",
-  "AdvertisementMessage": "Message",
+  "AdvertisementMessage": "Advertisement Information",
   "minutes": "minutes",
   "Trades": "Trades",
   "Rating": "Rating",

@@ -1,4 +1,32 @@
 page-profile {
+
+    .toolbar-background {
+        background-color: #327eff;
+        border-color: transparent
+      }
+      .toolbar-title-ios{
+        color: white
+      }
+      .button-inner {
+        color: white
+    }
+
+    #follow {    
+        background-color:  #327eff;
+    }
+
+    // ion-segment-md{
+    //     background-color: #327eff;
+    //     border-color: transparent
+    
+    //   }
+    //   .segment-md .segment-button {
+    //     color:  white;
+    //   }
+    //   .segment-md .segment-button.activated, .segment-md .segment-button.segment-activated  {
+    //     border-color: white;
+    //   }
+
     .bank {
         margin: 0.25rem;
         height: 1.5rem;

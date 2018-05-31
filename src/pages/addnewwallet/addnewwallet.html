@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content >
   <form [formGroup]="walletForm" (ngSubmit)="submitForm()" >
   <ion-list>
     <ion-item>
@@ -31,14 +31,14 @@
       <ion-label fixed>Wallet Name</ion-label>
       <ion-input type="text" formControlName="walletName" placeholder="Name"></ion-input>
     </ion-item>
-  
+
     <div padding>
       <button ion-button [disabled]="!walletForm.valid" type="submit">
         Add
       </button>
     </div>
-    
-  
+
+
   </ion-list>
   </form>
 </ion-content>
