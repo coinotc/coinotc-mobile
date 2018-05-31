@@ -8,7 +8,7 @@
   <ion-navbar style="padding-bottom: 0.5%">
     <h3>{{title | translate}}</h3>
   </ion-navbar>
-  <ion-segment [(ngModel)]="type" style="background-color:white" (ngModelChange)="changetype()" >
+  <ion-segment [(ngModel)]="type" style="background-color:white" (ngModelChange)="changetype()">
     <ion-segment-button value="Buy">
       Buy
     </ion-segment-button>
@@ -21,6 +21,7 @@
 
 <ion-content padding [ngSwitch]="type">
   <ion-list *ngIf="type" [formGroup]="adform">
+    <ion-label style="margin: 0px;text-align: center;color: red;font-size: 1.2rem;font-weight: bold;">{{'advertisement.samewarning' | translate}}</ion-label>
     <ion-item>
       <ion-label>{{'SelectCurrency' | translate}}</ion-label>
       <ion-select item-right [(ngModel)]="model.crypto" (ngModelChange)="getcryptoprice()" formControlName="crypto">
