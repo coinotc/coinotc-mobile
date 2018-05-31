@@ -284,7 +284,14 @@ export class AuthPage {
         this.userService.login(credentials, ip).subscribe(
           user => {
             console.log(user.active);
-            if (user.active == false) this.navCtrl.push(SendMailPage);
+            if (user.active == false) {
+              this.storage
+                .ready()
+                .then(
+                  () => this.storage.set('isLogin', false) as Promise<void>
+                )
+              this.navCtrl.push(SendMailPage);
+            }
             else {
               console.log('subscribe user!!!');
               if (this.isModal) this.viewCtrl.dismiss();
