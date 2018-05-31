@@ -6,9 +6,9 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>
-      <p>{{profileUser}}</p>
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">
+      {{profileUser}}
     </ion-title>
   </ion-navbar>
 
@@ -19,11 +19,15 @@
     <ion-item>
       <text-avatar [text]="profileUser" item-left></text-avatar>
       <h2>{{profileUser}}</h2>
+
+      <button id="follow" ion-button clear (click)="follow()">
+          {{ visible ? 'Unfollow' : 'Follow' }}
+          &nbsp;
+        <ion-icon [name]="visible ? 'remove' :'add'">
+        </ion-icon>
+      </button>
     </ion-item>
-    <button ion-button clear (click)="follow()">
-      <ion-icon [name]="visible ? 'ios-thumbs-up-outline' :'ios-thumbs-up'">
-      </ion-icon>
-    </button>
+    
     <ion-item>
       <ion-grid>
         <ion-row>
@@ -51,7 +55,7 @@
       </ion-grid>
     </ion-item>
   </ion-list>
-  <ion-toolbar>
+  <!-- <ion-toolbar> -->
     <ion-segment [(ngModel)]="value">
       <ion-segment-button value="ad" (click)="onSegment()">
         {{'HisAd' | translate}}
@@ -60,7 +64,7 @@
         {{'TradeWith' | translate}}
       </ion-segment-button>
     </ion-segment>
-  </ion-toolbar>
+  <!-- </ion-toolbar> -->
 
   <ion-list *ngIf="model">
     <div [ngSwitch]="value">

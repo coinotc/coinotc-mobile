@@ -1,3 +1,17 @@
 page-settings {
 
+    .toolbar-background {
+        background-color: #327eff;
+        border-color: transparent
+      }
+      .toolbar-title-ios{
+        color: white
+      }
+      .button-inner {
+        color: white
+    }
+    #logout > .button-inner{
+        color: #e93a3a
+    }
+    
 }

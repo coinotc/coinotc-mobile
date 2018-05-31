@@ -10,14 +10,10 @@
 <ion-content>
   <ion-card>
     <ion-item>
-      <ion-row>
         <i [class]="information.crypto" item-left></i>
-        <span >{{information.fiat}}/{{information.crypto}}</span>
-      <div item-right text-right>
-        <h4>{{information.price}} {{'fiat.'+information.fiat | translate}}</h4>
-        <i *ngFor="let class of information.payment" [class]="class"></i>
-      </div>
-    </ion-row>
+        <span ion-row justify-content-center item-left>{{information.fiat}}/{{information.crypto}}</span>
+        <h4 item-right style="color:#02cb66">{{information.price}} {{'fiat.'+information.fiat | translate}}</h4>
+        <i ion-row justify-content-center *ngFor="let class of information.payment" [class]="class"></i>
     </ion-item>
   </ion-card>
   <ion-card>
@@ -41,17 +37,17 @@
     </ion-card-content>
   </ion-card>
   <ion-card>
-    <ion-card-content>
-      <ion-item>
-        {{'limit' | translate}}:{{information.min_price}} {{'fiat.'+information.fiat | translate}} - {{information.max_price}} {{'fiat.'+information.fiat
+    <!-- <ion-card-content> -->
+      <ion-item color="danger">
+        {{'Purchase/Selling Limit' | translate}}:{{information.min_price}} - {{information.max_price}} {{'fiat.'+information.fiat
         | translate}}
       </ion-item>
       <ion-item>
-        {{'Timelimit' | translate}}:{{information.limit}}
+        {{'Time Limit' | translate}}:{{information.limit}} Minutes
       </ion-item>
       <ion-item>
-        {{'Country' | translate}}:{{information.country}}
+        {{'Country' | translate}}: {{information.country | uppercase}}
       </ion-item>
-    </ion-card-content>
+    <!-- </ion-card-content> -->
   </ion-card>
 </ion-content>
