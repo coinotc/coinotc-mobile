@@ -22,6 +22,7 @@
 
 <ion-content [ngSwitch]="type">
   <ion-list mode="ios" *ngIf="type" [formGroup]="adform">
+    <ion-label style="margin: 0px;text-align: center;color: red;font-size: 1.2rem;font-weight: bold;">{{'advertisement.samewarning' | translate}}</ion-label>
     <ion-item>
       <ion-label>{{'SelectCurrency' | translate}}</ion-label>
       <ion-select item-right [(ngModel)]="model.crypto" (ngModelChange)="getcryptoprice()" formControlName="crypto">
