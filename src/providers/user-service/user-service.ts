@@ -230,11 +230,6 @@ export class UserServiceProvider {
         tradepassword: tradepassword,
         ip: ip
       })
-      .map(data => {
-        console.log('----> setAuth');
-        this.setAuth(data.user);
-        return data;
-      });
   }
 
   public changePassword(credentials, user) {
