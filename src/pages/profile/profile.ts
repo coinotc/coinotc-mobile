@@ -39,6 +39,7 @@ export class ProfilePage {
   followingCount;
   followerCount;
   rating = 0;
+  isUser: boolean;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -52,6 +53,7 @@ export class ProfilePage {
     this.profileUser = navParams.data;
     console.log(this.profileUser);
     this.currentUserName = this.userService.getCurrentUser().username;
+    this.isUser = (this.currentUserName === this.profileUser)
     this.onSegment();
     console.log('SEE>>>>>' + this.currentUserName);
 
@@ -92,32 +94,42 @@ export class ProfilePage {
   }
 
   follow() {
-    let a = this.userService.getCurrentUser().followers;
-    let b = this.userService.getCurrentUser().following;
-    if (this.followStatus == 'follow') {
-      b.push(this.profileUser);
-      a.push(this.currentUserName);
-      //Send FCM to
-      this.alertServiceProvider
-        .onNotification(this.notification)
-        .subscribe(result => {
-          console.log(JSON.stringify(result));
-        });
-    } else {
-      b.splice(
-        this.userService.getCurrentUser().following.indexOf(this.profileUser),
-        1
-      );
-      a.splice(
-        this.userService
-          .getCurrentUser()
-          .following.indexOf(this.currentUserName),
-        1
-      );
-    }
-    this.profileService.sendFollowing(this.currentUserName, b).subscribe();
-    this.profileService.sendFollowers(this.profileUser, a).subscribe();
-    this.onSegment();
+    this.profileService.getProfile(this.profileUser).subscribe(result => {
+      let a = result[0].followers;
+      let b = this.userService.getCurrentUser().following;
+      console.log(a)
+      console.log(b)
+
+      if (this.followStatus == 'follow') {
+        b.push(this.profileUser);
+        a.push(this.currentUserName);
+        //Send FCM to
+        console.log(a)
+        console.log(b)
+        this.alertServiceProvider
+          .onNotification(this.notification)
+          .subscribe(result => {
+            console.log(JSON.stringify(result));
+          });
+      } else {
+        b.splice(
+          this.userService.getCurrentUser().following.indexOf(this.profileUser),
+          1
+        );
+        a.splice(
+          this.userService
+            .getCurrentUser()
+            .following.indexOf(this.currentUserName),
+          1
+        );
+        console.log(a)
+        console.log(b)
+      }
+      this.profileService.sendFollowing(this.currentUserName, b).subscribe();
+      this.profileService.sendFollowers(this.profileUser, a).subscribe();
+      this.onSegment();
+    })
+
     // this.navCtrl.push(ProfilePage,
     //   this.profileUser)
   }
