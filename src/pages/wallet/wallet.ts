@@ -14,7 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'wallet.html'
 })
 export class WalletPage {
-  segments = 'Ethereum';
+  segments = 'Bitcoin';
   tradeSegments = 'Receive';
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
