@@ -1,7 +1,7 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>{{'Settings' | translate}}</ion-title>
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">{{'Settings' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -73,7 +73,7 @@
         Logout
       </button>  -->
   </ion-list>
-  <button ion-button block outline (tap)="logout()" style="text-align: center" color="danger">
+  <button id="logout" ion-button block outline (tap)="logout()" style="text-align: center" color="danger">
     {{'Logout' | translate}}
   </button>
 </ion-content>

@@ -6,8 +6,8 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>{{'Complain' | translate}}</ion-title>
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">{{'Complain' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -47,9 +47,12 @@
       <ion-item *ngIf="complainForm.controls.content.hasError('required') && complainForm.controls.content.touched">
         <ion-label style="color:red">content is required.</ion-label>
       </ion-item>
-      <button ion-button tappable ion-button block round [disabled]="!complainForm.valid" type="submit">
-        <ion-label>{{'Submit' | translate}}</ion-label>
+     
+      <button ion-button tappable full [disabled]="!complainForm.valid" type="submit" >
+          <ion-label>{{'Submit' | translate}}</ion-label>
       </button>
+
+      
     </form>
   </ion-list>
 </ion-content>

@@ -20,6 +20,7 @@ import { ProfileServiceProvider } from '../../providers/profile-service/profile-
 import { BannerControlProvider } from '../../providers/banner-control/banner-control';
 import { banner } from '../../models/banner-control';
 import { Storage } from '@ionic/storage';
+import { ViewMyAdvertisementPage } from '../view-my-advertisement/view-my-advertisement';
 /**
  * Generated class for the TradePage page.
  *
@@ -192,38 +193,31 @@ export class TradePage {
         });
     }
   }
-  adinformation(information, ismine) {
+  myadvertisement(information) {
+    this.appCtrl.getRootNav().push(ViewMyAdvertisementPage, {
+      information: information,
+    });
+  }
+  adinformation(information) {
     this.events.subscribe('reloadtrade', () => {
       this.doRefresh();
       this.events.unsubscribe('reloadtrade');
     });
-    if (ismine) {
+    if (information.type == 1) {
       this.appCtrl.getRootNav().push(AdinformationPage, {
         information: information,
-        tradetype: { type: 'My', crypto: 'Advertisement', ismine: ismine }
+        tradetype: { type: 'Buy', crypto: information.crypto, }
       });
     } else {
-      if (information.type == 1) {
-        this.appCtrl.getRootNav().push(AdinformationPage, {
-          information: information,
-          tradetype: {
-            type: 'Buy',
-            crypto: information.crypto,
-            ismine: ismine
-          }
-        });
-      } else {
-        this.appCtrl.getRootNav().push(AdinformationPage, {
-          information: information,
-          tradetype: {
-            type: 'Sell',
-            crypto: information.crypto,
-            ismine: ismine
-          }
-        });
-      }
+      this.appCtrl.getRootNav().push(AdinformationPage, {
+        information: information,
+        tradetype: { type: 'Sell', crypto: information.crypto, }
+      });
     }
   }
+  // viewMyAdv(information){
+  //   this.appCtrl.getRootNav().push(ViewMyAdvertisementPage,{information: information})
+  // }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TradePage');
     this.content.resize();

@@ -1,6 +1,6 @@
 {
   "Trade": "Trade",
-  "OrderList": "Order List",
+  "OrderList": "Orders",
   "Alerts": "Alert",
   "Wallet": "Wallet",
   "Me": "Me",
@@ -36,6 +36,9 @@
   "Completed": "Completed",
   "SignIn": "Sign In",
   "Register": "Sign Up",
+  "advertisement": {
+    "samewarning": "same fiat/crypto advertisement just only one can be active!"
+  },
   "SelectCurrency": "Select Crypto",
   "Country": "Country",
   "Singapore": "Singapore",
@@ -92,7 +95,7 @@
   "publishSell": "Publish a Sell Coin",
   "PremiumSettings": "Premium Settings",
   "Currency": "Fiat",
-  "AdvertisementMessage": "Message",
+  "AdvertisementMessage": "Advertisement Information",
   "minutes": "minutes",
   "Trades": "Trades",
   "Rating": "Rating",
@@ -117,8 +120,7 @@
   "NewPriceAlert": "New Price Alert",
   "Above": "ABOVE",
   "Below": "BELOW",
-  "NewAlertTips":
-    "Tips:The default value of showed price is the average price from recent orders.",
+  "NewAlertTips": "Tips:The default value of showed price is the average price from recent orders.",
   "CreateAlert": "Create Alert",
   "Description": "Description",
   "Cancel": "Cancel",

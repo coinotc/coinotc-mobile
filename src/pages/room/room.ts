@@ -36,11 +36,11 @@ import { Storage } from '@ionic/storage';
 @Component({
   template: `
   <ion-header>
-  <ion-toolbar>
-    <ion-title>
+  <ion-toolbar mode="ios">
+    <ion-title mode="ios">
       {{'Description' | translate}}
     </ion-title>
-    <ion-buttons start>
+    <ion-buttons start mode="ios">
       <button ion-button (tap)="dismiss()">
         <span ion-text color="primary">{{'Cancel' | translate}}</span>
       </button>
@@ -541,7 +541,7 @@ export class RoomPage {
 
         setTimeout(() => {
           if (this.offStatus === false) {
-            if (this.content._scroll) this.content.scrollToTop(300);
+            // if (this.content._scroll) this.content.scrollToTop(300);
             if (refresher) {
               refresher.complete();
             }

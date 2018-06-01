@@ -36,6 +36,9 @@
   "Completed": "交易完成",
   "SignIn": "登录账号",
   "Register": "注册账号",
+  "advertisement": {
+    "samewarning": "只能同时激活一个'法定货币/虚拟货币'的广告!"
+  },
   "SelectCurrency": "选择币种",
   "Country": "国家",
   "Global": "全球",
