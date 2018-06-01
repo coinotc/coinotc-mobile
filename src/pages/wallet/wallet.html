@@ -17,6 +17,9 @@
 
   <ion-toolbar>
     <ion-segment [(ngModel)]="segments">
+      <ion-segment-button value="Bitcoin" (tap)="onSegment()">
+        BTC
+      </ion-segment-button>
       <ion-segment-button value="Ethereum" (tap)="onSegment()">
         ETH
       </ion-segment-button>
@@ -32,6 +35,9 @@
       <ion-segment-button value="Cardano" (tap)="onSegment()">
         ADA
       </ion-segment-button>
+      <ion-segment-button value="Zilliqa" (tap)="onSegment()">
+        ZIL
+      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 
@@ -40,6 +46,80 @@
 <ion-content>
 
   <div [ngSwitch]="segments">
+
+    <div *ngSwitchCase="'Bitcoin'">
+
+      <ion-card>
+        <ion-card-header>
+          <ion-item>
+            <ion-label>Total</ion-label>
+            <ion-input type="text" placeholder="totalblablabla" disabled text-right></ion-input>
+          </ion-item>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-row>
+            <ion-item style="width:50%">
+              <ion-label>Available</ion-label>
+              <ion-input type="text" placeholder="available" disabled text-right></ion-input>
+            </ion-item>
+            <ion-item style="width:50%">
+              <ion-label>Locked</ion-label>
+              <ion-input type="text" placeholder="locked" disabled text-right></ion-input>
+            </ion-item>
+          </ion-row>
+          <ion-segment [(ngModel)]="tradeSegments ">
+            <ion-segment-button value="Receive">
+              Receive {{segments}}
+            </ion-segment-button>
+            <ion-segment-button value="Send">
+              Send {{segments}}
+            </ion-segment-button>
+          </ion-segment>
+          <div [ngSwitch]='tradeSegments'>
+            <div *ngSwitchCase="'Receive'">
+              <br>
+              <h4>Transfer BTC to this address to deposite on your CoinOTC wallet</h4>
+              <br>
+              <ion-row>
+                <div style="width:50%">
+                  <button ion-button round outline style="width:90%" (tap)="onCopy()">Copy</button>
+                </div>
+                <div style="width:50%">
+                  <button ion-button round outline style="width:90%" (tap)="onAllAddress()">All Address</button>
+                </div>
+              </ion-row>
+              <p>Tips</p>
+              <p>Send only BTC to the deposit address. Sending any other currency to the BTC address will result in the loss
+                of your deposit. Recharge the above address requires 1 network confirmation to arrive, the minimum deposit
+                amount is 0.01 BTC.</p>
+            </div>
+            <div *ngSwitchCase="'Send'">
+              <ion-item>
+                <ion-label>Address</ion-label>
+                <ion-input type="text" placeholder="Enter BTC address"></ion-input>
+                <button item-right>
+                  <fa-icon name="qrcode" size="1x"></fa-icon>
+                </button>
+              </ion-item>
+              <ion-item>
+                <ion-label>Amount</ion-label>
+                <ion-input type="text" placeholder="You can send at most xxx BTC"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input type="text" placeholder="Memo(show in trade details)"></ion-input>
+              </ion-item>
+              <p>Tips</p>
+              <p>BTC address can only be recharged BTC. If you send BTC to a not BTC address it will be lost. BTC network transfer
+                fee is 0.0005BTC. The minimum withdrawal amount is 0.01BTC.</p>
+              <div align=center>
+                <button ion-button round style="width:90%" (tap)="onComfirm()">Confirm to Send</button>
+              </div>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+    </div>
 
     <div *ngSwitchCase="'Ethereum'">
 
@@ -104,7 +184,7 @@
               </ion-item>
               <p>Tips</p>
               <p>ETH address can only be recharged ETH. If you send ETH to a not ETH address it will be lost. ETH network transfer
-                fee is 0.0005ETH. The minimum withdrawal amount is 001ETH.</p>
+                fee is 0.0005ETH. The minimum withdrawal amount is 0.01ETH.</p>
               <div align=center>
                 <button ion-button round style="width:90%" (tap)="onComfirm()">Confirm to Send</button>
               </div>
@@ -178,7 +258,7 @@
               </ion-item>
               <p>Tips</p>
               <p>XMR address can only be recharged XMR. If you send XMR to a not XMR address it will be lost. XMR network transfer
-                fee is 0.0005XMR. The minimum withdrawal amount is 001XMR.</p>
+                fee is 0.0005XMR. The minimum withdrawal amount is 0.01XMR.</p>
               <div align=center>
                 <button ion-button round style="width:90%" (tap)="onComfirm()">Confirm to Send</button>
               </div>
@@ -252,7 +332,7 @@
               </ion-item>
               <p>Tips</p>
               <p>XRP address can only be recharged XRP. If you send XRP to a not XRP address it will be lost. XRP network transfer
-                fee is 0.0005XRP. The minimum withdrawal amount is XRP.</p>
+                fee is 0.0005XRP. The minimum withdrawal amount is 0.01XRP.</p>
               <div align=center>
                 <button ion-button round style="width:90%" (tap)="onComfirm()">Confirm to Send</button>
               </div>
@@ -326,7 +406,7 @@
               </ion-item>
               <p>Tips</p>
               <p>XML address can only be recharged XML. If you send XML to a not XML address it will be lost. XML network transfer
-                fee is 0.0005XML. The minimum withdrawal amount is 001XML.</p>
+                fee is 0.0005XML. The minimum withdrawal amount is 0.01XML.</p>
               <div align=center>
                 <button ion-button round style="width:90%" (tap)="onComfirm()">Confirm to Send</button>
               </div>
@@ -400,7 +480,81 @@
               </ion-item>
               <p>Tips</p>
               <p>ADA address can only be recharged ADA. If you send ADA to a not ADA address it will be lost. ADA network transfer
-                fee is 0.0005ADA. The minimum withdrawal amount is 001ADA.</p>
+                fee is 0.0005ADA. The minimum withdrawal amount is 0.01ADA.</p>
+              <div align=center>
+                <button ion-button round style="width:90%" (tap)="onComfirm()">Confirm to Send</button>
+              </div>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+    </div>
+
+    <div *ngSwitchCase="'Zilliqa'">
+
+      <ion-card>
+        <ion-card-header>
+          <ion-item>
+            <ion-label>Total</ion-label>
+            <ion-input type="text" placeholder="totalblablabla" disabled text-right></ion-input>
+          </ion-item>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-row>
+            <ion-item style="width:50%">
+              <ion-label>Available</ion-label>
+              <ion-input type="text" placeholder="available" disabled text-right></ion-input>
+            </ion-item>
+            <ion-item style="width:50%">
+              <ion-label>Locked</ion-label>
+              <ion-input type="text" placeholder="locked" disabled text-right></ion-input>
+            </ion-item>
+          </ion-row>
+          <ion-segment [(ngModel)]="tradeSegments ">
+            <ion-segment-button value="Receive">
+              Receive {{segments}}
+            </ion-segment-button>
+            <ion-segment-button value="Send">
+              Send {{segments}}
+            </ion-segment-button>
+          </ion-segment>
+          <div [ngSwitch]='tradeSegments'>
+            <div *ngSwitchCase="'Receive'">
+              <br>
+              <h4>Transfer ZIL to this address to deposite on your CoinOTC wallet</h4>
+              <br>
+              <ion-row>
+                <div style="width:50%">
+                  <button ion-button round outline style="width:90%" (tap)="onCopy()">Copy</button>
+                </div>
+                <div style="width:50%">
+                  <button ion-button round outline style="width:90%" (tap)="onAllAddress()">All Address</button>
+                </div>
+              </ion-row>
+              <p>Tips</p>
+              <p>Send only ZIL to the deposit address. Sending any other currency to the ZIL address will result in the loss
+                of your deposit. Recharge the above address requires 1 network confirmation to arrive, the minimum deposit
+                amount is 0.01 ZIL.</p>
+            </div>
+            <div *ngSwitchCase="'Send'">
+              <ion-item>
+                <ion-label>Address</ion-label>
+                <ion-input type="text" placeholder="Enter ZIL address"></ion-input>
+                <button item-right>
+                  <fa-icon name="qrcode" size="1x"></fa-icon>
+                </button>
+              </ion-item>
+              <ion-item>
+                <ion-label>Amount</ion-label>
+                <ion-input type="text" placeholder="You can send at most xxx ZIL"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input type="text" placeholder="Memo(show in trade details)"></ion-input>
+              </ion-item>
+              <p>Tips</p>
+              <p>ZIL address can only be recharged ZIL. If you send ZIL to a not ZIL address it will be lost. ZIL network transfer
+                fee is 0.0005ZIL. The minimum withdrawal amount is 0.01ZIL.</p>
               <div align=center>
                 <button ion-button round style="width:90%" (tap)="onComfirm()">Confirm to Send</button>
               </div>
