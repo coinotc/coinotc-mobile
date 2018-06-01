@@ -14,7 +14,6 @@ import { AdvertisementServiceProvider } from '../../providers/advertisement-serv
 import { advertisement } from '../../models/advertisement';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { AdinformationPage } from '../adinformation/adinformation';
-import { ViewMyAdvertisementPage } from '../view-my-advertisement/view-my-advertisement';
 import { PopoverController, Events } from 'ionic-angular';
 import { ProfilePage } from '../profile/profile';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
