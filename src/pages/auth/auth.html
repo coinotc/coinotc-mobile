@@ -59,10 +59,10 @@
       <ion-item>
         <ion-label stacked>{{'Password'| translate}}</ion-label>
         <ion-input formControlName="password" [type]="password_type"></ion-input>
-        <!-- <button ion-button large clear item-end type="button" (click)="togglePasswordMode()" style="height:32px;">
+        <button ion-button large clear item-end type="button" (click)="togglePasswordMode()" style="height:32px;">
           <ion-icon *ngIf="password_type=='password'" name="eye-off" item-right></ion-icon>
           <ion-icon *ngIf="password_type=='text'" name="eye" item-right></ion-icon>
-        </button> -->
+        </button>
       </ion-item>
       <ion-item *ngIf="authForm.controls.password.touched && authForm.controls.password.hasError('required')">
         <ion-label style="color:red">Password is required.</ion-label>
@@ -78,11 +78,11 @@
       <ion-item *ngIf=" authType === 'register' ">
         <ion-label stacked>{{'ConfirmPassword' | translate}}</ion-label>
         <ion-input formControlName="confirmPassword" [disabled]="!authForm.controls.password.valid" [type]="confirm_password_type"></ion-input>
-        <!-- <button ion-button large clear item-end type="button" [disabled]="!authForm.controls.password.valid" (click)="toggleConfirmPasswordMode()"
+        <button ion-button large clear item-end type="button" [disabled]="!authForm.controls.password.valid" (click)="toggleConfirmPasswordMode()"
           style="height:32px;">
           <ion-icon *ngIf="confirm_password_type=='password'" name="eye-off" item-right></ion-icon>
           <ion-icon *ngIf="confirm_password_type=='text'" name="eye " item-right></ion-icon>
-        </button> -->
+        </button>
       </ion-item>
       <ion-item *ngIf="authType == 'register' && authForm.controls.confirmPassword.hasError('required') && authForm.controls.confirmPassword.touched">
         <ion-label style="color:red">Confirm password is required.</ion-label>

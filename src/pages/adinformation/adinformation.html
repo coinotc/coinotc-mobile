@@ -67,9 +67,9 @@
     </ion-card-content>
   </ion-card>
 </ion-content>
-<ion-footer [ngSwitch]="ismine">
-  <div *ngSwitchCase="true"></div>
-  <ion-toolbar *ngSwitchCase="false">
+<ion-footer >
+  <!-- <div *ngSwitchCase="false"></div> -->
+  <ion-toolbar >
     <!-- <ion-toolbar *ngSwitchDefault> -->
     <button ion-button [disabled]="disabled" full (tap)="makeorder()">{{tradetype.type | translate}}</button>
   </ion-toolbar>
