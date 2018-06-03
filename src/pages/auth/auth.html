@@ -81,7 +81,7 @@
         <button ion-button large clear item-end type="button" [disabled]="!authForm.controls.password.valid" (click)="toggleConfirmPasswordMode()"
           style="height:32px;">
           <ion-icon *ngIf="confirm_password_type=='password'" name="eye-off" item-right></ion-icon>
-          <ion-icon *ngIf="confirm_password_type=='text'" name="eye " item-right></ion-icon>
+          <ion-icon *ngIf="confirm_password_type=='text'" name="eye" item-right></ion-icon>
         </button>
       </ion-item>
       <ion-item *ngIf="authType == 'register' && authForm.controls.confirmPassword.hasError('required') && authForm.controls.confirmPassword.touched">
