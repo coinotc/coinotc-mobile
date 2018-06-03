@@ -16,11 +16,12 @@ export class CryptowalletProvider {
     console.log('Hello CryptowalletProvider Provider');
   }
 
-  /*
-  public generateWallet(): Observable<any> {
-    let generateWalletURL = '/wallet/generate';
-    let URL = `${generateWalletURL}`;
-    return this.apiService.get(URL);
-  }*/
+  public getWalletInfo():Observable<any> {
+    return this.apiService.get("/wallet/wallet-info")
+  }
+
+  public getWalletBalance(id, type): Observable<any> {
+    return this.apiService.get(`/wallet/balance/${id}/${type}`)
+  }
 
 }

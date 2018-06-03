@@ -17,27 +17,27 @@
 
   <ion-toolbar>
     <ion-segment [(ngModel)]="segments">
-      <ion-segment-button value="Bitcoin" (tap)="onSegment()">
+      <!-- <ion-segment-button value="BTC" (tap)="onSegment()">
         BTC
-      </ion-segment-button>
-      <ion-segment-button value="Ethereum" (tap)="onSegment()">
+      </ion-segment-button> -->
+      <ion-segment-button value="ETH" (tap)="balance(this.walletInfo.id,'ETH')">
         ETH
       </ion-segment-button>
-      <ion-segment-button value="Monero" (tap)="onSegment()">
+      <ion-segment-button value="XMR" (tap)="balance(this.walletInfo.id,'XMR')">
         XMR
       </ion-segment-button>
-      <ion-segment-button value="Ripple" (tap)="onSegment()">
+      <ion-segment-button value="XRP" (tap)="balance(this.walletInfo.id,'XRP')">
         XRP
       </ion-segment-button>
-      <ion-segment-button value="Stellar" (tap)="onSegment()">
+      <ion-segment-button value="XLM" (tap)="balance(this.walletInfo.id,'XLM')">
         XLM
       </ion-segment-button>
-      <ion-segment-button value="Cardano" (tap)="onSegment()">
+      <ion-segment-button value="ADA" (tap)="balance(this.walletInfo.id,'ADA')">
         ADA
       </ion-segment-button>
-      <ion-segment-button value="Zilliqa" (tap)="onSegment()">
+      <!-- <ion-segment-button value="ZIL" (tap)="onSegment()">
         ZIL
-      </ion-segment-button>
+      </ion-segment-button> -->
     </ion-segment>
   </ion-toolbar>
 
@@ -47,7 +47,7 @@
 
   <div [ngSwitch]="segments">
 
-    <div *ngSwitchCase="'Bitcoin'">
+    <div *ngSwitchCase="'BTC'">
 
       <ion-card>
         <ion-card-header>
@@ -67,11 +67,11 @@
               <ion-input type="text" placeholder="locked" disabled text-right></ion-input>
             </ion-item>
           </ion-row>
-          <ion-segment [(ngModel)]="tradeSegments ">
-            <ion-segment-button value="Receive">
+          <ion-segment mode="ios"[(ngModel)]="tradeSegments ">
+            <ion-segment-button mode="ios" value="Receive">
               Receive {{segments}}
             </ion-segment-button>
-            <ion-segment-button value="Send">
+            <ion-segment-button mode="ios"value="Send">
               Send {{segments}}
             </ion-segment-button>
           </ion-segment>
@@ -121,20 +121,21 @@
 
     </div>
 
-    <div *ngSwitchCase="'Ethereum'">
+    <div *ngSwitchCase="'ETH'">
 
       <ion-card>
         <ion-card-header>
           <ion-item>
             <ion-label>Total</ion-label>
-            <ion-input type="text" placeholder="totalblablabla" disabled text-right></ion-input>
+            <!-- <ion-input type="text" placeholder="totalblablabla" disabled text-right></ion-input> -->
+            <ion-label text-right></ion-label>
           </ion-item>
         </ion-card-header>
         <ion-card-content>
           <ion-row>
             <ion-item style="width:50%">
               <ion-label>Available</ion-label>
-              <ion-input type="text" placeholder="available" disabled text-right></ion-input>
+              <ion-label text-right style="color:#02cb66">{{walletBalance.balance}}</ion-label>
             </ion-item>
             <ion-item style="width:50%">
               <ion-label>Locked</ion-label>
@@ -142,10 +143,10 @@
             </ion-item>
           </ion-row>
           <ion-segment mode="ios" [(ngModel)]="tradeSegments ">
-            <ion-segment-button value="Receive">
+            <ion-segment-button mode="ios" value="Receive">
               Receive {{segments}}
             </ion-segment-button>
-            <ion-segment-button value="Send">
+            <ion-segment-button mode="ios" value="Send">
               Send {{segments}}
             </ion-segment-button>
           </ion-segment>
@@ -159,7 +160,7 @@
                   <button ion-button round outline style="width:90%" (tap)="onCopy()">Copy</button>
                 </div>
                 <div style="width:50%">
-                  <button ion-button round outline style="width:90%" (tap)="onAllAddress()">All Address</button>
+                  <button ion-button round outline style="width:90%" (tap)="myAddress(walletInfo.ETH.address,segments)">My Address</button>
                 </div>
               </ion-row>
               <p>Tips</p>
@@ -195,7 +196,7 @@
 
     </div>
 
-    <div *ngSwitchCase="'Monero'">
+    <div *ngSwitchCase="'XMR'">
 
       <ion-card>
         <ion-card-header>
@@ -208,18 +209,17 @@
           <ion-row>
             <ion-item style="width:50%">
               <ion-label>Available</ion-label>
-              <ion-input type="text" placeholder="available" disabled text-right></ion-input>
-            </ion-item>
+              <ion-label text-right style="color:#02cb66">{{walletBalance.balance}}</ion-label>            </ion-item>
             <ion-item style="width:50%">
               <ion-label>Locked</ion-label>
               <ion-input type="text" placeholder="locked" disabled text-right></ion-input>
             </ion-item>
           </ion-row>
-          <ion-segment [(ngModel)]="tradeSegments ">
-            <ion-segment-button value="Receive">
+          <ion-segment mode="ios" [(ngModel)]="tradeSegments ">
+            <ion-segment-button mode="ios" value="Receive">
               Receive {{segments}}
             </ion-segment-button>
-            <ion-segment-button value="Send">
+            <ion-segment-button mode="ios" value="Send">
               Send {{segments}}
             </ion-segment-button>
           </ion-segment>
@@ -233,7 +233,7 @@
                   <button ion-button round outline style="width:90%" (tap)="onCopy()">Copy</button>
                 </div>
                 <div style="width:50%">
-                  <button ion-button round outline style="width:90%" (tap)="onAllAddress()">All Address</button>
+                  <button ion-button round outline style="width:90%" (tap)="myAddress(walletInfo.XMR.address,segments)">My Address</button>
                 </div>
               </ion-row>
               <p>Tips</p>
@@ -269,7 +269,7 @@
 
     </div>
 
-    <div *ngSwitchCase="'Ripple'">
+    <div *ngSwitchCase="'XRP'">
 
       <ion-card>
         <ion-card-header>
@@ -282,18 +282,17 @@
           <ion-row>
             <ion-item style="width:50%">
               <ion-label>Available</ion-label>
-              <ion-input type="text" placeholder="available" disabled text-right></ion-input>
-            </ion-item>
+              <ion-label text-right style="color:#02cb66">{{walletBalance.balance}}</ion-label>            </ion-item>
             <ion-item style="width:50%">
               <ion-label>Locked</ion-label>
               <ion-input type="text" placeholder="locked" disabled text-right></ion-input>
             </ion-item>
           </ion-row>
-          <ion-segment [(ngModel)]="tradeSegments ">
-            <ion-segment-button value="Receive">
+          <ion-segment mode="ios"[(ngModel)]="tradeSegments ">
+            <ion-segment-button mode="ios" value="Receive">
               Receive {{segments}}
             </ion-segment-button>
-            <ion-segment-button value="Send">
+            <ion-segment-button mode="ios"value="Send">
               Send {{segments}}
             </ion-segment-button>
           </ion-segment>
@@ -307,7 +306,7 @@
                   <button ion-button round outline style="width:90%" (tap)="onCopy()">Copy</button>
                 </div>
                 <div style="width:50%">
-                  <button ion-button round outline style="width:90%" (tap)="onAllAddress()">All Address</button>
+                  <button ion-button round outline style="width:90%" (tap)="myAddress(walletInfo.XRP.address,segments)">My Address</button>
                 </div>
               </ion-row>
               <p>Tips</p>
@@ -343,7 +342,7 @@
 
     </div>
 
-    <div *ngSwitchCase="'Stellar'">
+    <div *ngSwitchCase="'XLM'">
 
       <ion-card>
         <ion-card-header>
@@ -356,57 +355,56 @@
           <ion-row>
             <ion-item style="width:50%">
               <ion-label>Available</ion-label>
-              <ion-input type="text" placeholder="available" disabled text-right></ion-input>
-            </ion-item>
+              <ion-label text-right style="color:#02cb66">{{walletBalance.balance}}</ion-label>            </ion-item>
             <ion-item style="width:50%">
               <ion-label>Locked</ion-label>
               <ion-input type="text" placeholder="locked" disabled text-right></ion-input>
             </ion-item>
           </ion-row>
-          <ion-segment [(ngModel)]="tradeSegments ">
-            <ion-segment-button value="Receive">
+          <ion-segment mode="ios" [(ngModel)]="tradeSegments ">
+            <ion-segment-button mode="ios" value="Receive">
               Receive {{segments}}
             </ion-segment-button>
-            <ion-segment-button value="Send">
+            <ion-segment-button mode="ios" value="Send">
               Send {{segments}}
             </ion-segment-button>
           </ion-segment>
           <div [ngSwitch]='tradeSegments'>
             <div *ngSwitchCase="'Receive'">
               <br>
-              <h4>Transfer XML to this address to deposite on your CoinOTC wallet</h4>
+              <h4>Transfer XLM to this address to deposite on your CoinOTC wallet</h4>
               <br>
               <ion-row>
                 <div style="width:50%">
                   <button ion-button round outline style="width:90%" (tap)="onCopy()">Copy</button>
                 </div>
                 <div style="width:50%">
-                  <button ion-button round outline style="width:90%" (tap)="onAllAddress()">All Address</button>
+                  <button ion-button round outline style="width:90%" (tap)="myAddress(walletInfo.XLM.address,segments)">My Address</button>
                 </div>
               </ion-row>
               <p>Tips</p>
-              <p>Send only XML to the deposit address. Sending any other currency to the XML address will result in the loss
+              <p>Send only XLM to the deposit address. Sending any other currency to the XLM address will result in the loss
                 of your deposit. Recharge the above address requires 1 network confirmation to arrive, the minimum deposit
-                amount is 0.01 XML.</p>
+                amount is 0.01 XLM.</p>
             </div>
             <div *ngSwitchCase="'Send'">
               <ion-item>
                 <ion-label>Address</ion-label>
-                <ion-input type="text" placeholder="Enter XML address"></ion-input>
+                <ion-input type="text" placeholder="Enter XLM address"></ion-input>
                 <button item-right>
                   <fa-icon name="qrcode" size="1x"></fa-icon>
                 </button>
               </ion-item>
               <ion-item>
                 <ion-label>Amount</ion-label>
-                <ion-input type="text" placeholder="You can send at most xxx XML"></ion-input>
+                <ion-input type="text" placeholder="You can send at most xxx XLM"></ion-input>
               </ion-item>
               <ion-item>
                 <ion-input type="text" placeholder="Memo(show in trade details)"></ion-input>
               </ion-item>
               <p>Tips</p>
-              <p>XML address can only be recharged XML. If you send XML to a not XML address it will be lost. XML network transfer
-                fee is 0.0005XML. The minimum withdrawal amount is 0.01XML.</p>
+              <p>XLM address can only be recharged XLM. If you send XML to a not XLM address it will be lost. XLM network transfer
+                fee is 0.0005XLM. The minimum withdrawal amount is 0.01XML.</p>
               <div align=center>
                 <button ion-button round style="width:90%" (tap)="onComfirm()">Confirm to Send</button>
               </div>
@@ -417,7 +415,7 @@
 
     </div>
 
-    <div *ngSwitchCase="'Cardano'">
+    <div *ngSwitchCase="'ADA'">
 
       <ion-card>
         <ion-card-header>
@@ -430,18 +428,17 @@
           <ion-row>
             <ion-item style="width:50%">
               <ion-label>Available</ion-label>
-              <ion-input type="text" placeholder="available" disabled text-right></ion-input>
-            </ion-item>
+              <ion-label text-right style="color:#02cb66">{{walletBalance.balance}}</ion-label>            </ion-item>
             <ion-item style="width:50%">
               <ion-label>Locked</ion-label>
               <ion-input type="text" placeholder="locked" disabled text-right></ion-input>
             </ion-item>
           </ion-row>
-          <ion-segment [(ngModel)]="tradeSegments ">
-            <ion-segment-button value="Receive">
+          <ion-segment mode="ios"[(ngModel)]="tradeSegments ">
+            <ion-segment-button mode="ios" value="Receive">
               Receive {{segments}}
             </ion-segment-button>
-            <ion-segment-button value="Send">
+            <ion-segment-button mode="ios" value="Send">
               Send {{segments}}
             </ion-segment-button>
           </ion-segment>
@@ -455,7 +452,7 @@
                   <button ion-button round outline style="width:90%" (tap)="onCopy()">Copy</button>
                 </div>
                 <div style="width:50%">
-                  <button ion-button round outline style="width:90%" (tap)="onAllAddress()">All Address</button>
+                  <button ion-button round outline style="width:90%" (tap)="myAddress(walletInfo.ADA.address,segments)">My Address</button>
                 </div>
               </ion-row>
               <p>Tips</p>
@@ -491,7 +488,7 @@
 
     </div>
 
-    <div *ngSwitchCase="'Zilliqa'">
+    <div *ngSwitchCase="'ZIL'">
 
       <ion-card>
         <ion-card-header>
@@ -504,18 +501,17 @@
           <ion-row>
             <ion-item style="width:50%">
               <ion-label>Available</ion-label>
-              <ion-input type="text" placeholder="available" disabled text-right></ion-input>
-            </ion-item>
+              <ion-label text-right style="color:#02cb66">{{walletBalance.balance}}</ion-label>            </ion-item>
             <ion-item style="width:50%">
               <ion-label>Locked</ion-label>
               <ion-input type="text" placeholder="locked" disabled text-right></ion-input>
             </ion-item>
           </ion-row>
-          <ion-segment [(ngModel)]="tradeSegments ">
-            <ion-segment-button value="Receive">
+          <ion-segment mode="ios"[(ngModel)]="tradeSegments ">
+            <ion-segment-button mode="ios" value="Receive">
               Receive {{segments}}
             </ion-segment-button>
-            <ion-segment-button value="Send">
+            <ion-segment-button mode="ios" value="Send">
               Send {{segments}}
             </ion-segment-button>
           </ion-segment>
