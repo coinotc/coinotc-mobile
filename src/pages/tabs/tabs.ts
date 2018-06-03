@@ -38,12 +38,12 @@ export class TabsPage {
         icon: 'filing',
         badge: 0
       },
-      // {
-      //   root: AlertPage,
-      //   title: 'Alerts',
-      //   icon: 'alarm',
-      //   badge: 0
-      // },
+      {
+        root: AlertPage,
+        title: 'Alerts',
+        icon: 'alarm',
+        badge: 0
+      },
       {
         root: WalletPage,
         title: 'Wallet',
