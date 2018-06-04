@@ -171,9 +171,9 @@
             <div *ngSwitchCase="'Send'">
               <ion-item>
                 <ion-label>Address</ion-label>
-                <ion-input type="text" placeholder="Enter ETH address"></ion-input>
-                <button item-right>
-                  <fa-icon name="qrcode" size="1x"></fa-icon>
+                <ion-input type="text" placeholder="Enter ETH address" [value]="scannedText" (input)="scannedText=$event.target.value"></ion-input>
+                <button item-right (tap)="scan()">
+                  <ion-icon name="qr-scanner"></ion-icon>
                 </button>
               </ion-item>
               <ion-item>

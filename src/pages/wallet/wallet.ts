@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController, LoadingController } from 'ionic-angular';
-
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 import { CryptowalletProvider } from '../../providers/cryptowallet/cryptowallet';
-import { Observable } from '@firebase/util';
+import { Observable } from 'rxjs/Rx';
 
 /**
  * Generated class for the WalletPage page.
@@ -18,6 +18,7 @@ import { Observable } from '@firebase/util';
 })
 
 export class WalletPage implements OnInit{
+  private scannedText: string;
   segments = 'Bitcoin';
   tradeSegments = 'Receive';
   walletInfo = null;
@@ -27,13 +28,23 @@ export class WalletPage implements OnInit{
     public navParams: NavParams, 
     public walletService  : CryptowalletProvider,
     public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    private barcodeScanner: BarcodeScanner
+  ) {
 
    
     
     // console.log(this.walletService.getWalletInfo())
   }
 
+  scan(){
+    this.barcodeScanner.scan().then(barcodeData => {
+      console.log('Barcode data', barcodeData);
+      this.scannedText = barcodeData.text;
+     }).catch(err => {
+         console.log('Error', err);
+     });
+  }
   balance(id, type) {
     if(this.walletInfo != null){
       this.walletService.getWalletBalance(id, type).subscribe(result => { 
