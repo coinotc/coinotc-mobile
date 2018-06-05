@@ -11,7 +11,8 @@ export class complain{
         public createDate:Date,
         public crypto:string,
         public theOther:string,
-        public fiat:string
+        public fiat:string,
+        public roomkey:string
     ){
     }
 }

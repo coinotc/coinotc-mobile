@@ -25,6 +25,10 @@ export class ComplainServiceProvider {
     let url = `${this.complainURL}?username=${username}`;
     return this.apiService.get(url);
   }
+  public getCurrentComplain(id){
+    let url = `${this.complainURL}/getCurrentComplain?_id=${id}`;
+    return this.apiService.get(url);
+  }
   public changeStatus(id, status) {
     let url = `/complain/changeStatus`;
     return this.apiService.patch(url, { id: id, status: status });
@@ -34,7 +38,7 @@ export class ComplainServiceProvider {
     return this.apiService.patch(url,{id:id,message:message});
   }
   public addRoomKey(roomkey,complainId){
-    let URL = `${this.complainURL}/roomkey?complainId=${complainId}`;
-    return this.apiService.patch(URL, {roomkey:roomkey});
+    let URL = `${this.complainURL}/roomkey`;
+    return this.apiService.patch(URL, {roomkey:roomkey,complainId:complainId});
   }
 }
