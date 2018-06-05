@@ -17,6 +17,7 @@ import {
 } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
+import { CryptowalletProvider } from '../../providers/cryptowallet/cryptowallet';
 import { Errors } from '../../models/errors.model';
 import { TabsPage } from '../../pages/tabs/tabs';
 import { PincodePage } from '../pincode/pincode';
@@ -77,7 +78,8 @@ export class AuthPage {
     private badge: Badge,
     public appCtrl: App,
     public getIpService: GetIpProvider,
-    public events: Events
+    public events: Events,
+    public walletSvc: CryptowalletProvider
   ) {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
@@ -404,9 +406,15 @@ export class AuthPage {
   }
 
   toggleConfirmPasswordMode() {
+    const credentials = this.authForm.value;
     console.log('toggle >>>> confirm password');
-    this.confirm_password_type =
-      this.confirm_password_type === 'text' ? 'password' : 'text';
+    console.log('toggle >>>> credentials.confirmPassword'  +credentials.confirmPassword);
+    console.log('toggle >>>> this.confirm_password_types'  +this.confirm_password_type);
+    if(credentials.confirmPassword != ""){
+      console.log('toggle >>>> cccconfirm password');
+      console.log(this.confirm_password_type === 'text' ? 'password' : 'text');
+      this.confirm_password_type = this.confirm_password_type === 'text' ? 'password' : 'text';
+    }
   }
 
   forgetPassword() {

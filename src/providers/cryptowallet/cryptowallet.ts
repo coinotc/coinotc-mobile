@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ApiServiceProvider } from '../api-service/api-service';
+import { Observable } from 'rxjs/Rx';
 
 /*
   Generated class for the CryptowalletProvider provider.
@@ -10,8 +12,16 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CryptowalletProvider {
 
-  constructor(public http: HttpClient) {
+  constructor(private apiService: ApiServiceProvider) {
     console.log('Hello CryptowalletProvider Provider');
+  }
+
+  public getWalletInfo():Observable<any> {
+    return this.apiService.get("/wallet/wallet-info")
+  }
+
+  public getWalletBalance(id, type): Observable<any> {
+    return this.apiService.get(`/wallet/balance/${id}/${type}`)
   }
 
 }

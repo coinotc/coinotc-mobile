@@ -125,6 +125,7 @@ apksigner verify ./platforms/android/build/outputs/apk/coinotc-release.apk
 
 # Production Builds (IOS)
 ```
-ionic cordova plugin remove cordova-plugin-wkwebview-engine
-ionic cordova plugin add cordova-plugin-ionic-webview
+ionic cordova build ios
 ```
+
+* Launch xcode, change the version number and archieve the app which eventually will use the app loader to upload to the itunes connect platform .

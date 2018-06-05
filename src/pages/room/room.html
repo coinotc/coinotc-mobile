@@ -65,7 +65,7 @@
 
 
 <ion-footer>
-  <form (ngSubmit)="sendMessage()">
+  <!--<form (ngSubmit)="sendMessage()">-->
     <ion-grid>
       <ion-row>
         <ion-col col-2>
@@ -77,11 +77,11 @@
           <ion-input #chat_input type="text" placeholder="Type a message" [(ngModel)]="data.message" (focusin)="onFocus()" name="message"></ion-input>
         </ion-col>
         <ion-col col-2 style="text-align: end;">
-          <button ion-button clear icon-only float-end type="submit">
+          <button ion-button clear icon-only float-end type="submit" (tap)="sendMessage()" >
             <ion-icon color="primary" name="send"></ion-icon>
           </button>
         </ion-col>
       </ion-row>
     </ion-grid>
-  </form>
+  <!--</form>-->
 </ion-footer>

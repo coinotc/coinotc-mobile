@@ -503,8 +503,8 @@ export class RoomPage {
     let loading = this.loadingCtrl.create({
       spinner: 'circles',
       content: 'loading...',
-      dismissOnPageChange: true
-      //duration: 3500
+      dismissOnPageChange: true,
+      //duration: 3000
     });
     loading.present();
     var start = new Date().getTime();
@@ -516,16 +516,20 @@ export class RoomPage {
         this.chats = [];
         this.chats = snapshotToArray(resp);
         this.chatsObservable$ = Observable.of(this.chats);
+        console.log(">>>>>>")
+        loading.dismiss();
+        console.log("<<<<<<<<")
+        var end = new Date().getTime();
+        console.log(end - start);
         setTimeout(() => {
           if (this.offStatus === false) {
             // this.content.scrollToBottom(300);
             if (this.content._scroll) this.content.scrollToBottom(300);
+            console.log("timeout-------")
           }
         }, 1000);
-        loading.dismiss();
-        var end = new Date().getTime();
-        console.log(end - start);
-      });
+      })
+      // loading.dismiss();
   }
 
   doRefresh(refresher?) {
@@ -555,7 +559,7 @@ export class RoomPage {
   sendMessage() {
     let loading = this.loadingCtrl.create({
       spinner: 'circles',
-      content: 'loading...',
+      content: 'Loading...',
       dismissOnPageChange: true
       //duration: 3500
     });
@@ -574,6 +578,12 @@ export class RoomPage {
         loading.dismiss();
       })
       )
+      setTimeout(() => {
+          // this.content.scrollToBottom(300);
+          if (this.content._scroll) this.content.scrollToBottom(300);
+          console.log("timeout-------")
+        
+      }, 1000);
       this.data.message = '';
       //loading.dismiss();
       //this.scrollToBottom();
@@ -638,11 +648,17 @@ export class RoomPage {
                   sendDate: Date(),
                   downloadURL: snapshot.downloadURL
                 }).then(() => {
-                  loading.dismiss();
+                  setTimeout(() => {
+                    // this.content.scrollToBottom(300);
+                    if (this.content._scroll) this.content.scrollToBottom(300);
+                    console.log("timeout-------");
+                    loading.dismiss();
+                  
+                }, 1000);
+                 
                 })
                 .catch(e => {
                   console.log(e);
-                }).then(() => {
                   loading.dismiss();
                 })
               //});

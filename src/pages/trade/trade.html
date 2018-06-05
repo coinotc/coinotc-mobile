@@ -72,7 +72,7 @@
         <h5 style="color:#02cb66">
           {{item.price | number : '1.2-2'}}&nbsp;{{'fiat.'+item.fiat | translate}}
         </h5>
-        <button ion-button [ngClass]="item.crypto" round (tap)="adinformation(item,true)" *ngIf="item.owner === currentuser">view my advertisement</button>
+        <button ion-button [ngClass]="item.crypto" round (tap)="adinformation(item,true)" *ngIf="item.owner === currentuser">view my Ads</button>
         <button ion-button [ngClass]="item.crypto" round (tap)="adinformation(item,false)" *ngIf="item.type==1 && item.owner != currentuser">{{'Buy' | translate}} {{item.crypto}}</button>
         <button ion-button [ngClass]="item.crypto" round (tap)="adinformation(item,false)" *ngIf="item.type==0 && item.owner != currentuser">{{'Sell' | translate}} {{item.crypto}}</button>
       </div>

@@ -38,12 +38,12 @@ export class TabsPage {
         icon: 'filing',
         badge: 0
       },
-      // {
-      //   root: AlertPage,
-      //   title: 'Alerts',
-      //   icon: 'alarm',
-      //   badge: 0
-      // },
+      {
+        root: AlertPage,
+        title: 'Alerts',
+        icon: 'alarm',
+        badge: 0
+      },
       {
         root: WalletPage,
         title: 'Wallet',
@@ -62,8 +62,8 @@ export class TabsPage {
       this.tabRoots[1].badge = _badgeValue.length;
     });
     events.subscribe('profileBadge:updated', _badgeValue => {
-      this.tabRoots[3].badge = _badgeValue;
-      console.log(this.tabRoots[3].badge);
+      this.tabRoots[4].badge = _badgeValue;
+      console.log(this.tabRoots[4].badge);
     });
   }
 }
