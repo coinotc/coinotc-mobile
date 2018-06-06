@@ -1,6 +1,6 @@
 {
   "name": "coinotc-mobile",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Nimbus-LLC",
   "homepage": "https://coinotc.market/",
   "private": true,
@@ -78,7 +78,7 @@
     "ionic-img-viewer": "^2.9.0",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionic-text-avatar": "^1.1.0",
-    "ionic2-pincode-input": "^0.1.1",
+    "ionic2-pincode-input": "^0.2.0",
     "ionic2-rating": "^1.2.2",
     "ionicons": "3.0.0",
     "jquery": "^3.3.1",

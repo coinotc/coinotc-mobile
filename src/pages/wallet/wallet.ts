@@ -45,10 +45,17 @@ export class WalletPage implements OnInit{
          console.log('Error', err);
      });
   }
+
   balance(id, type) {
     if(this.walletInfo != null){
-      this.walletService.getWalletBalance(id, type).subscribe(result => { 
-        this.walletBalance = result;
+      this.walletService.getWalletBalance(id, type).subscribe(result => {
+        console.log(type);
+        if(type =='ADA'){
+          console.log("its ADA!");
+          this.walletBalance = {balance: +result.balance/1000000};;
+        }else{
+          this.walletBalance = result;
+        }
         console.log(this.walletBalance.balance)
       })
     }else{

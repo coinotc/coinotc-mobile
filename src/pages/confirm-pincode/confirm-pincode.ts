@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { PincodeController } from 'ionic2-pincode-input/dist/pincode';
+import { PincodeController } from 'ionic2-pincode-input';
 import { TabsPage } from '../tabs/tabs';
 import { PincodePage } from '../pincode/pincode';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
