@@ -1,4 +1,15 @@
 page-confirm-pincode{
+  .toolbar-background {
+    background-color: #327eff;
+    border-color: transparent
+  }
+  .toolbar-title-ios{
+    color: white
+  }
+  .button-inner {
+    color: white
+}
+
     .pincode-wrapper {
       z-index: 10;
       position: absolute;

@@ -19,10 +19,10 @@ import { Observable } from 'rxjs/Rx';
 
 export class WalletPage implements OnInit{
   private scannedText: string;
-  segments = 'Bitcoin';
+  segments = 'ETH';
   tradeSegments = 'Receive';
   walletInfo = null;
-  walletBalance = {balance: 9999999999};
+  walletBalance = { balance: 0  };
   // o$: Observable<any>;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 

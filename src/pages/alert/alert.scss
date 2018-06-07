@@ -1,4 +1,12 @@
 page-addalert {
+  .toolbar-background {
+    background-color: #327eff;
+    border-color: transparent
+  }
+  .toolbar-title-ios{
+    color: white
+  }
+  
   .main-view {
     background: transparent;
   }
@@ -35,6 +43,16 @@ page-addalert {
 }
 
 page-alert {
+  .toolbar-background {
+    background-color: #327eff;
+    border-color: transparent
+  }
+  .toolbar-title-ios{
+    color: white
+  }
+  .button-inner {
+    color: white
+}
   .fab[mini] {
     margin: 8px;
     width: 32px;

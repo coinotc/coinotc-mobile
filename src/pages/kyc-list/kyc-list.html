@@ -6,8 +6,8 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>KYCList</ion-title>
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">KYC Verification</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -17,49 +17,46 @@
 
   <ion-card (tap)="goVerifyKYCName()">
     <ion-card-header>
-      KYC Name
+      Real Name Verification
     </ion-card-header>
     <ion-card-content>
       <ion-item *ngIf="user.verifyKYCName == 0">
-        <p>Please fuking do it.</p>
-        <ion-badge item-end>Please verifyKYCName</ion-badge>
+        <ion-badge color="light" item-end>Not Verified</ion-badge>
       </ion-item>
       <ion-item *ngIf="user.verifyKYCName != 0">
         <p>{{user.firstName}} {{user.lastName}}</p>
-        <ion-badge *ngIf="user.verifyKYCName == 1" item-end>pending</ion-badge>
-        <ion-badge *ngIf="user.verifyKYCName == 2" item-end>verify</ion-badge>
+        <ion-badge *ngIf="user.verifyKYCName == 1" item-end>Pending</ion-badge>
+        <ion-badge *ngIf="user.verifyKYCName == 2" item-end>Verified</ion-badge>
       </ion-item>
     </ion-card-content>
   </ion-card>
   <ion-card (tap)="goPassportPhoto()">
     <ion-card-header>
-      Passport Photo
+      ID Verification
     </ion-card-header>
     <ion-card-content>
       <ion-item *ngIf="user.verifyPassportPhoto == 0">
-        <p>Please fuking do it.</p>
-        <ion-badge item-end>Please verify</ion-badge>
+        <ion-badge color="light" item-end>Not Verified</ion-badge>
       </ion-item>
       <ion-item *ngIf="user.verifyPassportPhoto != 0">
         <p>{{user.firstName}} {{user.lastName}}</p>
-        <ion-badge *ngIf="user.verifyPassportPhoto == 1" item-end>pending</ion-badge>
-        <ion-badge *ngIf="user.verifyPassportPhoto == 2" item-end>verify</ion-badge>
+        <ion-badge *ngIf="user.verifyPassportPhoto == 1" item-end>Pending</ion-badge>
+        <ion-badge *ngIf="user.verifyPassportPhoto == 2" item-end>Verified</ion-badge>
       </ion-item>
     </ion-card-content>
   </ion-card>
   <ion-card (tap)="goSelfie()">
     <ion-card-header>
-      Selfie
+      Selfie Verification
     </ion-card-header>
     <ion-card-content>
       <ion-item *ngIf="user.verifySelfie == 0">
-        <p>Please fuking do it.</p>
-        <ion-badge item-end>Please verify</ion-badge>
+        <ion-badge color="light" item-end>Not Verified</ion-badge>
       </ion-item>
       <ion-item *ngIf="user.verifySelfie != 0">
         <p>{{user.firstName}} {{user.lastName}}</p>
-        <ion-badge *ngIf="user.verifySelfie == 1" item-end>pending</ion-badge>
-        <ion-badge *ngIf="user.verifySelfie == 2" item-end>verify</ion-badge>
+        <ion-badge *ngIf="user.verifySelfie == 1" item-end>Pending</ion-badge>
+        <ion-badge *ngIf="user.verifySelfie == 2" item-end>Verified</ion-badge>
       </ion-item>
     </ion-card-content>
   </ion-card>

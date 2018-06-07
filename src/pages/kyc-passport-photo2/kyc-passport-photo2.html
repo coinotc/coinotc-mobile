@@ -6,14 +6,14 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>kyc-passport-photo2</ion-title>
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">Selfie Verification</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content >
   <img src={{base64Image}} >
   <button ion-button clear icon-only item-right large (tap)="takePhoto()">
     <ion-icon name="camera"></ion-icon>
