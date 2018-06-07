@@ -11,14 +11,26 @@ import { Observable } from 'rxjs/Rx';
 */
 @Injectable()
 export class CryptowalletProvider {
+  APP_URI : string = '/wallet/';
 
   constructor(private apiService: ApiServiceProvider) {
     console.log('Hello CryptowalletProvider Provider');
   }
 
   public getWalletInfo():Observable<any> {
-    return this.apiService.get("/wallet/wallet-info")
+    return this.apiService.get(`${this.APP_URI}wallet-info`)
   }
+
+  public transfer(transfer):Observable<any> {
+    return this.apiService
+      .post(`${this.APP_URI}withdrawal`, transfer)
+      .map(data => {
+        console.log('----> transfer');
+      return data;
+    });
+  }
+
+ 
 
   public getWalletBalance(id, type): Observable<any> {
     return this.apiService.get(`/wallet/balance/${id}/${type}`)

@@ -4,6 +4,12 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 import { CryptowalletProvider } from '../../providers/cryptowallet/cryptowallet';
 import { Observable } from 'rxjs/Rx';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators
+} from '@angular/forms';
 
 /**
  * Generated class for the WalletPage page.
@@ -23,15 +29,32 @@ export class WalletPage implements OnInit{
   tradeSegments = 'Receive';
   walletInfo = null;
   walletBalance = { balance: 0  };
+  walletForm: FormGroup;
   // o$: Observable<any>;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     public walletService  : CryptowalletProvider,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    private barcodeScanner: BarcodeScanner
+    private barcodeScanner: BarcodeScanner,
+    private fb: FormBuilder,
   ) {
-
+    this.walletForm = this.fb.group({
+      address: [
+        '',
+        Validators.compose([Validators.required])
+      ],
+      amount: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(/^-?(0|[1-9]\d*)?$/)
+        ])
+      ],
+      notes: [
+        ''
+      ],
+    });
    
     
     // console.log(this.walletService.getWalletInfo())
@@ -79,12 +102,34 @@ export class WalletPage implements OnInit{
     alert.present();
   }
 
-  onComfirm() {
-    //To be done...
+  onComfirm(type) {
+    const loader = this.loadingCtrl.create({
+      content: "Transferring...",
+    });
+    loader.present();
+    console.log("Sending ... crypto ");
+    console.log(type);
+    const transfers = this.walletForm.value;
+    transfers.type = type;
+    console.log(JSON.stringify(transfers));
+    this.walletService.transfer(transfers).subscribe(result => {
+      this.walletInfo = result;
+      loader.dismiss();
+      console.log(this.walletInfo.id)
+    },
+    error => {
+      console.log(error);
+      loader.dismiss();
+    },
+    () => {
+      loader.dismiss();
+    })
   }
+
   onSegment(){
-    console.log("cliked")
+    console.log("clicked")
   }
+
   ngOnInit() {
     const loader = this.loadingCtrl.create({
       content: "Please wait...",
@@ -97,15 +142,6 @@ export class WalletPage implements OnInit{
       loader.dismiss();
       console.log(this.walletInfo.id)
     })
-    
-   
-
   }
-  // cryptoWalletSelected(wallet) {
-  //   this.navCtrl.push('WalletDetailsPage');
-  // }
 
-  // addNewWallet() {
-  //   this.navCtrl.push('AddnewwalletPage');
-  // }
 }

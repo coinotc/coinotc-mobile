@@ -44,7 +44,6 @@
 </ion-header>
 
 <ion-content>
-
   <div [ngSwitch]="segments">
 
     <div *ngSwitchCase="'BTC'">
@@ -168,26 +167,26 @@
                 of your deposit. Recharge the above address requires 1 network confirmation to arrive, the minimum deposit
                 amount is 0.01 ETH.</p>
             </div>
-            <div *ngSwitchCase="'Send'">
+            <div [formGroup]="walletForm" *ngSwitchCase="'Send'">
               <ion-item>
                 <ion-label>Address</ion-label>
-                <ion-input type="text" placeholder="Enter ETH address" [value]="scannedText" (input)="scannedText=$event.target.value"></ion-input>
+                <ion-input type="text" placeholder="Enter ETH address" [value]="scannedText" (input)="scannedText=$event.target.value" formControlName="address"></ion-input>
                 <button item-right (tap)="scan()">
                   <ion-icon name="qr-scanner"></ion-icon>
                 </button>
               </ion-item>
               <ion-item>
                 <ion-label>Amount</ion-label>
-                <ion-input type="text" placeholder="You can send at most xxx ETH"></ion-input>
+                <ion-input type="number" placeholder="ETH Amount" formControlName="amount"></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input type="text" placeholder="Memo(show in trade details)"></ion-input>
+                <ion-input type="text" placeholder="Memo(show in trade details)" formControlName="notes"></ion-input>
               </ion-item>
               <p>Tips</p>
               <p>ETH address can only be recharged ETH. If you send ETH to a not ETH address it will be lost. ETH network transfer
                 fee is 0.0005ETH. The minimum withdrawal amount is 0.01ETH.</p>
               <div align=center>
-                <button ion-button round style="width:90%" (tap)="onComfirm()">Confirm to Send</button>
+                <button ion-button round style="width:90%" (tap)="onComfirm('ETH')">Confirm to Send</button>
               </div>
             </div>
           </div>
