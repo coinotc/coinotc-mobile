@@ -7,33 +7,45 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Wallet Details</ion-title>
+    <ion-title>Transaction history</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="goBack()">
+        <ion-icon name="back"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
-  <ion-toolbar>
-      <ion-segment [(ngModel)]="segments">
-        <ion-segment-button value="Receive" (tap)="generateQRcode()">
-          Receive
-        </ion-segment-button>
-        <ion-segment-button value="Send" (tap)="sendCrypto()">
-          Send
-        </ion-segment-button>   
-      </ion-segment>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-list>
+    <ion-list-header>
+      Pending
+    </ion-list-header>
 
-    <div [ngSwitch]="segments">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="assets/imgs/ETH.png">
+      </ion-avatar>
+      <h2>Finn</h2>
+      <h3>I'm a big deal</h3>
+      <p>Listen, I've had a pretty messed up day...</p>
+    </ion-item>
+  </ion-list>
 
-        <div *ngSwitchCase="'Receive'">
-    
-          Receive
-        </div>
-    
-        <div *ngSwitchCase="'Send'">
-          Send
-        </div>
-    </div>
+  <ion-list>
+    <ion-list-header>
+      Completed
+    </ion-list-header>
+
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="assets/imgs/ADA.jpg">
+      </ion-avatar>
+      <h2>Poe</h2>
+      <h3>New Ride</h3>
+      <p>I just upgraded my X-Wing. Next time...</p>
+    </ion-item>
+
+  </ion-list>
 
 </ion-content>

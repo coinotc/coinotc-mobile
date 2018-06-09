@@ -16,6 +16,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AuthPageModule } from '../pages/auth/auth.module';
+import { WalletDetailsPageModule } from '../pages/wallet-details/wallet-details.module';
 import { WalletPage } from '../pages/wallet/wallet';
 import { TradePage, fiatPopoverPage } from '../pages/trade/trade';
 import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement';
@@ -177,7 +178,8 @@ export function createTranslateLoader(http: HttpClient) {
     AngularFireModule.initializeApp(firebaseconfig),
     AngularFireStorageModule,
     ModifyPasswordPageModule,
-    IonicImageViewerModule
+    IonicImageViewerModule,
+    WalletDetailsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

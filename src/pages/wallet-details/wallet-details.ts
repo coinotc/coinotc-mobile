@@ -15,9 +15,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class WalletDetailsPage {
   segments: any = 'Receive';
+  public cryptoType;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-  
+    this.cryptoType = navParams.get("cryptoType");
   }
 
   ionViewDidLoad() {
