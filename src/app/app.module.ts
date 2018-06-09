@@ -95,6 +95,7 @@ import { ServersideTimeServiceProvider } from '../providers/serverside-time-serv
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { ViewMyAdvertisementPage } from '../pages/view-my-advertisement/view-my-advertisement';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Clipboard } from '@ionic-native/clipboard';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -258,7 +259,8 @@ export function createTranslateLoader(http: HttpClient) {
     ServersideTimeServiceProvider,
     CountryServiceProvider,
     SocialSharing,
-    BarcodeScanner
+    BarcodeScanner,
+    Clipboard
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

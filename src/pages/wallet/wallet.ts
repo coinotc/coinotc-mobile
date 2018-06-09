@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController, LoadingController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Clipboard } from '@ionic-native/clipboard';
 
 import { CryptowalletProvider } from '../../providers/cryptowallet/cryptowallet';
 import { Observable } from 'rxjs/Rx';
+import { concatMap, mapTo } from 'rxjs/operators';
 import {
   FormBuilder,
   FormGroup,
@@ -27,8 +29,30 @@ export class WalletPage implements OnInit{
   private scannedText: string;
   segments = 'ETH';
   tradeSegments = 'Receive';
-  walletInfo = null;
-  walletBalance = { balance: 0  };
+  public walletBalance = { balance: 0  };
+  walletInfo = {
+    id: 1,
+    ETH: {
+        address: 1
+    
+    },
+    ADA: {
+        address: 1
+     
+    },
+    XRP: {
+        address:1
+  
+    },
+    XLM: {
+        address: 1
+
+    },
+    XMR: {
+        address: 1
+
+    }
+  };
   walletForm: FormGroup;
   // o$: Observable<any>;
   constructor(public navCtrl: NavController, 
@@ -38,6 +62,7 @@ export class WalletPage implements OnInit{
     public loadingCtrl: LoadingController,
     private barcodeScanner: BarcodeScanner,
     private fb: FormBuilder,
+    private clipboard:  Clipboard
   ) {
     this.walletForm = this.fb.group({
       address: [
@@ -55,11 +80,20 @@ export class WalletPage implements OnInit{
         ''
       ],
     });
-   
-    
-    // console.log(this.walletService.getWalletInfo())
+
   }
 
+  copy(address){
+    console.log("BEFORE COPY" + address );
+    this.clipboard.copy(address);
+    console.log(this.clipboard.copy(address))
+    const loader = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: "Your Ethereum Address has been copied to your clipboard!",
+      duration: 1000
+    });
+    loader.present();
+  }
   scan(){
     this.barcodeScanner.scan().then(barcodeData => {
       console.log('Barcode data', barcodeData);
@@ -69,27 +103,49 @@ export class WalletPage implements OnInit{
      });
   }
 
-  balance(id, type) {
+  balance(id, type: string) {
     if(this.walletInfo != null){
       this.walletService.getWalletBalance(id, type).subscribe(result => {
         console.log(type);
-        if(type =='ADA'){
+        console.log("ADD ID!"+id)
+        if(type === 'ADA'){
           console.log("its ADA!");
-          this.walletBalance = {balance: +result.balance/1000000};;
+          const spin = this.loadingCtrl.create({
+            content: "Loading. . .",
+            duration: 500
+          });
+          spin.present();
+          this.walletBalance = {balance: +result.balance/1000000};
+          
+        
+        }else if (type === 'XMR'){
+          console.log("its XMR!");
+          const spin = this.loadingCtrl.create({
+            content: "Loading. . .",
+            duration: 500
+          });
+          spin.present();
+          this.walletBalance = {balance: +result.balance/1000000000000};;
         }else{
-          this.walletBalance = result;
+          const spin = this.loadingCtrl.create({
+            content: "Loading. . .",
+            duration: 500
+          });
+          spin.present();
+          console.log(">>>>>" + result)
+          this.walletBalance = result; 
+          console.log("BALANCE"+ this.walletBalance)
         }
+        
         console.log(this.walletBalance.balance)
       })
+
     }else{
       this.balance(id, type);
-    }
+    } 
+      
     
-    //To be done...
-  }
-  
-  onCopy() {
-    //To be done...
+
   }
 
   myAddress(walletAddress,segments) {
@@ -135,13 +191,16 @@ export class WalletPage implements OnInit{
       content: "Please wait...",
     });
     loader.present();
-      
     
     this.walletService.getWalletInfo().subscribe(result => {
       this.walletInfo = result;
+      console.log("ITS ETH!" + this.walletInfo.ETH.address)
+      this.balance(this.walletInfo.id,'ETH');
       loader.dismiss();
-      console.log(this.walletInfo.id)
+      console.log(this.walletInfo.id);
+      console.log("ITS ETH2!" + this.walletInfo.ETH.address)
+      console.log("ETH BAL!" + this.walletBalance.balance)
     })
+  
   }
-
 }

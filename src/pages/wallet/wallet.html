@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar mode="ios">
-    <ion-title mode="ios">My Wallet</ion-title>
+    <ion-title mode="ios">{{segments}} Wallet</ion-title>
     <!-- <ion-buttons end>
       <button ion-button icon-only (tap)="addNewWallet()">
         <fa-icon name="qrcode" size="1x" style=" color: white"></fa-icon>
@@ -43,7 +43,7 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content padding>
   <div [ngSwitch]="segments">
 
     <div *ngSwitchCase="'BTC'">
@@ -122,26 +122,24 @@
 
     <div *ngSwitchCase="'ETH'">
 
-      <ion-card>
-        <ion-card-header>
-          <ion-item>
-            <ion-label>Total</ion-label>
-            <!-- <ion-input type="text" placeholder="totalblablabla" disabled text-right></ion-input> -->
-            <ion-label text-right></ion-label>
-          </ion-item>
-        </ion-card-header>
-        <ion-card-content>
+      <!-- <ion-card>
+        <ion-card-content> -->
           <ion-row>
-            <ion-item style="width:50%">
-              <ion-label>Available</ion-label>
-              <ion-label text-right style="color:#02cb66">{{walletBalance.balance}}</ion-label>
+            <ion-item>
+              <ion-label>Total</ion-label>
+              <!-- <ion-input type="text" placeholder="totalblablabla" disabled text-right></ion-input> -->
+              <ion-label text-right></ion-label>
             </ion-item>
-            <ion-item style="width:50%">
+            <ion-item>
+              <ion-label>Available</ion-label>
+              <ion-label text-right style="color:#02cb66">{{walletBalance.balance}} ETH</ion-label>
+            </ion-item>
+            <ion-item>
               <ion-label>Locked</ion-label>
-              <ion-input type="text" placeholder="locked" disabled text-right></ion-input>
+              <ion-label placeholder="locked" text-right></ion-label>
             </ion-item>
           </ion-row>
-          <ion-segment mode="ios" [(ngModel)]="tradeSegments ">
+          <ion-segment mode="ios" [(ngModel)]="tradeSegments">
             <ion-segment-button mode="ios" value="Receive">
               Receive {{segments}}
             </ion-segment-button>
@@ -152,11 +150,12 @@
           <div [ngSwitch]='tradeSegments'>
             <div *ngSwitchCase="'Receive'">
               <br>
-              <h4>Transfer ETH to this address to deposite on your CoinOTC wallet</h4>
+              <ion-badge align=center>ETH Deposit Address</ion-badge>
+              {{walletInfo.ETH.address}}
               <br>
               <ion-row>
                 <div style="width:50%">
-                  <button ion-button round outline style="width:90%" (tap)="onCopy()">Copy</button>
+                  <button ion-button round outline style="width:90%" (tap)="copy(walletInfo.ETH.address)">Copy</button>
                 </div>
                 <div style="width:50%">
                   <button ion-button round outline style="width:90%" (tap)="myAddress(walletInfo.ETH.address,segments)">My Address</button>
@@ -168,20 +167,17 @@
                 amount is 0.01 ETH.</p>
             </div>
             <div [formGroup]="walletForm" *ngSwitchCase="'Send'">
-              <ion-item>
-                <ion-label>Address</ion-label>
+              
+              <ion-row>
                 <ion-input type="text" placeholder="Enter ETH address" [value]="scannedText" (input)="scannedText=$event.target.value" formControlName="address"></ion-input>
-                <button item-right (tap)="scan()">
+                <button item-right ion-button icon-only clear (tap)="scan()">
                   <ion-icon name="qr-scanner"></ion-icon>
                 </button>
-              </ion-item>
-              <ion-item>
-                <ion-label>Amount</ion-label>
+              </ion-row>
+  
                 <ion-input type="number" placeholder="ETH Amount" formControlName="amount"></ion-input>
-              </ion-item>
-              <ion-item>
                 <ion-input type="text" placeholder="Memo(show in trade details)" formControlName="notes"></ion-input>
-              </ion-item>
+             
               <p>Tips</p>
               <p>ETH address can only be recharged ETH. If you send ETH to a not ETH address it will be lost. ETH network transfer
                 fee is 0.0005ETH. The minimum withdrawal amount is 0.01ETH.</p>
@@ -190,8 +186,8 @@
               </div>
             </div>
           </div>
-        </ion-card-content>
-      </ion-card>
+        <!-- </ion-card-content>
+      </ion-card> -->
 
     </div>
 

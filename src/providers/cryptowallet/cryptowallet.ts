@@ -29,9 +29,7 @@ export class CryptowalletProvider {
       return data;
     });
   }
-
- 
-
+  
   public getWalletBalance(id, type): Observable<any> {
     return this.apiService.get(`/wallet/balance/${id}/${type}`)
   }
