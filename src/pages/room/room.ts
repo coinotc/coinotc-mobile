@@ -661,7 +661,6 @@ export class RoomPage {
                   console.log(e);
                   loading.dismiss();
                 })
-                
               //});
               //loading.dismiss();
             });
@@ -716,7 +715,6 @@ export class RoomPage {
                 .ref('chatrooms/' + this.roomkey + '/chats')
                 .push();
               loading.dismiss()
-              console.log('take photo SUCCESSSSSS....');
               newData.set({
                 type: this.data.type,
                 user: this.data.name,
