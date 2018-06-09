@@ -32,6 +32,7 @@
     "@firebase/app-types": "^0.3.1",
     "@ionic-native/badge": "^4.7.0",
     "@ionic-native/barcode-scanner": "^4.7.0",
+    "@ionic-native/browser-tab": "^4.7.0",
     "@ionic-native/camera": "^4.6.0",
     "@ionic-native/clipboard": "^4.7.0",
     "@ionic-native/core": "4.4.0",
@@ -57,7 +58,9 @@
     "cordova-ios": "4.5.4",
     "cordova-plugin-add-swift-support": "^1.7.2",
     "cordova-plugin-badge": "^0.8.7",
+    "cordova-plugin-browsertab": "^0.2.0",
     "cordova-plugin-camera": "^4.0.3",
+    "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-fcm": "^2.1.2",
     "cordova-plugin-ionic-webview": "^1.2.1",
@@ -122,7 +125,8 @@
       "cordova-plugin-badge": {},
       "cordova-plugin-x-socialsharing": {},
       "phonegap-plugin-barcodescanner": {},
-      "cordova-clipboard": {}
+      "cordova-clipboard": {},
+      "cordova-plugin-browsertab": {}
     },
     "platforms": [
       "ios",

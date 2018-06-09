@@ -16,7 +16,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content >
   <ion-item>
     <ion-label>Pending</ion-label>
   </ion-item>
@@ -32,7 +32,8 @@
       </ion-avatar>
       <h2>Order No: {{pendingHistory.orderNo}}</h2>
       <h3>{{pendingHistory.createdAt | date: 'medium'}}</h3>
-      <p><a href="https://rinkeby.etherscan.io/tx/{{pendingHistory.receipt.hash}}">View transaction</a></p>
+      <!-- <p><a href="https://rinkeby.etherscan.io/tx/{{pendingHistory.receipt.hash}}">View transaction</a></p> -->
+      <button ion-button color="primary" (tap)="openLink(pendingHistory.receipt.hash)">View Transaction</button>
     </ion-item>
   </ion-list>
 
@@ -51,7 +52,9 @@
       </ion-avatar>
       <h2>Order No: {{completedHistory.orderNo}} {{completedHistory | json}}</h2>
       <h3>{{completedHistory.createdAt | date: 'medium'}}</h3>
-      <p><a href="https://rinkeby.etherscan.io/tx/{{completedHistory.receipt.hash}}">View transaction</a></p>
+      <!-- <p><a href="https://rinkeby.etherscan.io/tx/{{completedHistory.receipt.hash}}">View transaction</a></p> -->
+      <button ion-button color="primary" (tap)="openLink(pendingHistory.receipt.hash)">View Transaction</button>
+
     </ion-item>
 
   </ion-list>

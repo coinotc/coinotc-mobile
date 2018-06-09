@@ -102,6 +102,7 @@
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.0" />
     <plugin name="phonegap-plugin-barcodescanner" spec="^8.0.0" />
     <plugin name="cordova-clipboard" spec="^1.2.1" />
+    <plugin name="cordova-plugin-browsertab" spec="^0.2.0" />
     <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="6.3.0" />
     <engine name="browser" spec="5.0.3" />

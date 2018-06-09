@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, LoadingController, NavParams } from 'ionic-angular';
+import { BrowserTab } from '@ionic-native/browser-tab';
 import { CryptowalletProvider } from '../../providers/cryptowallet/cryptowallet';
 import { Observable } from 'rxjs';
 /**
@@ -27,12 +28,24 @@ export class WalletDetailsPage implements OnInit {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private walletsvc: CryptowalletProvider,
-              public loadingCtrl: LoadingController,) {
+              public loadingCtrl: LoadingController,
+              public browserTab: BrowserTab) {
     this.cryptoType = navParams.get("cryptoType");
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WalletDetailsPage');
+  }
+
+  openLink(hash){
+    this.browserTab.isAvailable()
+    .then(isAvailable => {
+      if (isAvailable) {
+        this.browserTab.openUrl(`https://rinkeby.etherscan.io/tx/${hash}`);
+      } else {
+        console.log("openurl failed!!!")
+      }
+    });
   }
 
   ngOnInit() {

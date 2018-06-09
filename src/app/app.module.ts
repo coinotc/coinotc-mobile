@@ -97,6 +97,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { ViewMyAdvertisementPage } from '../pages/view-my-advertisement/view-my-advertisement';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Clipboard } from '@ionic-native/clipboard';
+import { BrowserTab } from '@ionic-native/browser-tab';
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], {
   useHash: true
 });
@@ -262,7 +263,8 @@ export function createTranslateLoader(http: HttpClient) {
     CountryServiceProvider,
     SocialSharing,
     BarcodeScanner,
-    Clipboard
+    Clipboard,
+    BrowserTab
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
