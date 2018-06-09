@@ -8,18 +8,18 @@
 
   <ion-navbar mode="ios">
     <ion-title mode="ios">{{segments}} Wallet</ion-title>
-    <!-- <ion-buttons end>
+     <ion-buttons end>
       <button ion-button icon-only (tap)="addNewWallet()">
         <fa-icon name="qrcode" size="1x" style=" color: white"></fa-icon>
       </button>
-    </ion-buttons> -->
+    </ion-buttons>
   </ion-navbar>
 
   <ion-toolbar>
     <ion-segment [(ngModel)]="segments">
-      <!-- <ion-segment-button value="BTC" (tap)="onSegment()">
+       <ion-segment-button value="BTC" (tap)="onSegment()">
         BTC
-      </ion-segment-button> -->
+      </ion-segment-button> 
       <ion-segment-button value="ETH" (tap)="balance(this.walletInfo.id,'ETH')">
         ETH
       </ion-segment-button>

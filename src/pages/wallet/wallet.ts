@@ -12,7 +12,7 @@ import {
   FormControl,
   Validators
 } from '@angular/forms';
-
+import { WalletDetailsPage } from '../wallet-details/wallet-details';
 /**
  * Generated class for the WalletPage page.
  *
@@ -103,7 +103,8 @@ export class WalletPage implements OnInit{
      });
   }
 
-  balance(id, type: string) {
+  balance(id, type) {
+    this.selectedType = type;
     if(this.walletInfo != null){
       this.walletService.getWalletBalance(id, type).subscribe(result => {
         console.log(type);
@@ -148,6 +149,11 @@ export class WalletPage implements OnInit{
 
   }
 
+  showTransactionHistory(type){
+    console.log(type);
+    this.navCtrl.push(WalletDetailsPage, {cryptoType: type});
+  }
+
   myAddress(walletAddress,segments) {
     // console.log(walletInfo)
     const alert = this.alertCtrl.create({
@@ -170,15 +176,15 @@ export class WalletPage implements OnInit{
     console.log(JSON.stringify(transfers));
     this.walletService.transfer(transfers).subscribe(result => {
       this.walletInfo = result;
-      loader.dismiss();
+      loader.dismiss().catch((error)=>{console.log(error)});
       console.log(this.walletInfo.id)
     },
     error => {
       console.log(error);
-      loader.dismiss();
+      loader.dismiss().catch((error)=>{ console.log(error) });
     },
     () => {
-      loader.dismiss();
+      loader.dismiss().catch((error)=>{ console.log(error)});
     })
   }
 
@@ -194,12 +200,17 @@ export class WalletPage implements OnInit{
     
     this.walletService.getWalletInfo().subscribe(result => {
       this.walletInfo = result;
+<<<<<<< HEAD
       console.log("ITS ETH!" + this.walletInfo.ETH.address)
       this.balance(this.walletInfo.id,'ETH');
       loader.dismiss();
       console.log(this.walletInfo.id);
       console.log("ITS ETH2!" + this.walletInfo.ETH.address)
       console.log("ETH BAL!" + this.walletBalance.balance)
+=======
+      console.log(this.walletInfo.id)
+      loader.dismiss().catch((error)=>{ console.log(error) });
+>>>>>>> eeaa28afa5579c5a3720ea80e8944aa7876683f7
     })
   
   }

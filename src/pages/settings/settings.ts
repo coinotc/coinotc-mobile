@@ -142,7 +142,7 @@ export class SettingsPage implements OnInit {
     //   }]
     // });
     // alert.present();
-    this.navCtrl.push(KycListPage)
+    this.navCtrl.push(KycListPage);
 
   }
   forgetTradePassword() {

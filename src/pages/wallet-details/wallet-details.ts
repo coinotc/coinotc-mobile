@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, LoadingController, NavParams } from 'ionic-angular';
+import { CryptowalletProvider } from '../../providers/cryptowallet/cryptowallet';
+import { Observable } from 'rxjs';
 /**
  * Generated class for the WalletDetailsPage page.
  *
@@ -13,23 +14,48 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-wallet-details',
   templateUrl: 'wallet-details.html',
 })
-export class WalletDetailsPage {
+export class WalletDetailsPage implements OnInit {
   segments: any = 'Receive';
+  public cryptoType;
+  transactionHistoryPending: any = null;
+  transactionHistoryCompleted: any = null;
+  transactionHistoryPendingArr =  new Array();
+  transactionHistoryCompletedArr =  new Array();
+  transactionHistoryPendingObservable$: any;
+  transactionHistoryCompletedObservable$: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              private walletsvc: CryptowalletProvider,
+              public loadingCtrl: LoadingController,) {
+    this.cryptoType = navParams.get("cryptoType");
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WalletDetailsPage');
   }
 
-  generateQRcode(){
-
-  }
-
-  sendCrypto(){
-
+  ngOnInit() {
+    const loader = this.loadingCtrl.create({
+      content: "Please wait...",
+    });
+    loader.present();
+    
+    this.walletsvc.getTransactionHistory(this.cryptoType).subscribe(result => {
+      let jsonArr  = JSON.parse(result);
+      jsonArr.forEach((value, idx)=>{
+        if(value.status == 0){
+          this.transactionHistoryPendingArr.push(value);
+        }else{
+          this.transactionHistoryCompletedArr.push(value);
+        }
+      })
+      this.transactionHistoryPending = this.transactionHistoryPendingArr;
+      this.transactionHistoryCompletedArr = this.transactionHistoryCompletedArr;
+      this.transactionHistoryPendingObservable$ = Observable.of(this.transactionHistoryPending);
+      this.transactionHistoryCompletedObservable$ = Observable.of(this.transactionHistoryCompletedArr);
+      loader.dismiss().catch((error)=>{ console.log(error) });
+    })
   }
 
 }

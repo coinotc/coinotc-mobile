@@ -21,6 +21,10 @@ export class CryptowalletProvider {
     return this.apiService.get(`${this.APP_URI}wallet-info`)
   }
 
+  public getTransactionHistory(type):Observable<any> {
+    return this.apiService.get(`${this.APP_URI}transaction-history?type=${type}`)
+  }
+
   public transfer(transfer):Observable<any> {
     return this.apiService
       .post(`${this.APP_URI}withdrawal`, transfer)

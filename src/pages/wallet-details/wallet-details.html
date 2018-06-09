@@ -7,33 +7,53 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Wallet Details</ion-title>
+    <ion-title>Transaction history</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="goBack()">
+        <ion-icon name="back"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
-  <ion-toolbar>
-      <ion-segment [(ngModel)]="segments">
-        <ion-segment-button value="Receive" (tap)="generateQRcode()">
-          Receive
-        </ion-segment-button>
-        <ion-segment-button value="Send" (tap)="sendCrypto()">
-          Send
-        </ion-segment-button>   
-      </ion-segment>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-item>
+    <ion-label>Pending</ion-label>
+  </ion-item>
+  
+  <ion-list no-lines [virtualScroll]="transactionHistoryPendingObservable$ | async" approxItemHeight="100px">
+    <ion-item *virtualItem="let pendingHistory">
+      <ion-avatar item-start>
+        <img *ngIf="pendingHistory.cryptoCurrency == 'ETH'" src="assets/imgs/ETH.png">
+        <img *ngIf="pendingHistory.cryptoCurrency == 'ADA'" src="assets/imgs/ADA.jpg">
+        <img *ngIf="pendingHistory.cryptoCurrency == 'XLM'" src="assets/imgs/XLM.jpg">
+        <img *ngIf="pendingHistory.cryptoCurrency == 'XMR'" src="assets/imgs/XMR.jpg">
+        <img *ngIf="pendingHistory.cryptoCurrency == 'XRP'" src="assets/imgs/XRP.jpg">
+      </ion-avatar>
+      <h2>Order No: {{pendingHistory.orderNo}}</h2>
+      <h3>{{pendingHistory.createdAt | date: 'medium'}}</h3>
+      <p><a href="https://rinkeby.etherscan.io/tx/{{pendingHistory.receipt.hash}}">View transaction</a></p>
+    </ion-item>
+  </ion-list>
 
-    <div [ngSwitch]="segments">
+  <ion-item>
+    <ion-label>Completed</ion-label>
+  </ion-item>
 
-        <div *ngSwitchCase="'Receive'">
-    
-          Receive
-        </div>
-    
-        <div *ngSwitchCase="'Send'">
-          Send
-        </div>
-    </div>
+  <ion-list no-lines [virtualScroll]="transactionHistoryCompletedObservable$ | async" approxItemHeight="100px">
+    <ion-item *virtualItem="let completedHistory">
+      <ion-avatar item-start>
+        <img *ngIf="completedHistory.cryptoCurrency == 'ETH'" src="assets/imgs/ETH.png">
+        <img *ngIf="completedHistory.cryptoCurrency == 'ADA'" src="assets/imgs/ADA.jpg">
+        <img *ngIf="completedHistory.cryptoCurrency == 'XLM'" src="assets/imgs/XLM.jpg">
+        <img *ngIf="completedHistory.cryptoCurrency == 'XMR'" src="assets/imgs/XMR.jpg">
+        <img *ngIf="completedHistory.cryptoCurrency == 'XRP'" src="assets/imgs/XRP.jpg">
+      </ion-avatar>
+      <h2>Order No: {{completedHistory.orderNo}} {{completedHistory | json}}</h2>
+      <h3>{{completedHistory.createdAt | date: 'medium'}}</h3>
+      <p><a href="https://rinkeby.etherscan.io/tx/{{completedHistory.receipt.hash}}">View transaction</a></p>
+    </ion-item>
+
+  </ion-list>
 
 </ion-content>
