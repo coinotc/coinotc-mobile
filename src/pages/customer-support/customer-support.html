@@ -27,7 +27,7 @@
     </button>
   </ion-card>
 
-  <ion-list no-lines *ngFor="let chat of complain.message">
+  <!-- <ion-list no-lines *ngFor="let chat of complain.message">
     <ion-item>
       <div class="chat-message" text-right *ngIf="chat.role === 'user'">
         <div class="right-bubble">
@@ -44,21 +44,70 @@
         </div>
       </div>
     </ion-item>
+  </ion-list> -->
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="Pulldown to Refresh" refreshingSpinner="circles" refreshingText="Fetch chat history...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list >
+
+    <ion-item *ngFor="let chat of chats" no-lines>
+
+      <div class="chat-status" text-center *ngIf="chat.type==='informed'||chat.type==='finish'||chat.type==='rating';else message">
+        <span class="chat-date">{{chat.sendDate | date:'short'}}</span>
+        <span class="chat-content-center">{{chat.message}}</span>
+      </div>
+
+      <ng-template #message>
+        <div class="chat-message" text-right *ngIf="chat.user === 'user'">
+          <div class="right-bubble">
+            <span class="msg-date">{{chat.sendDate | date:'short'}}</span>
+            <p *ngIf="chat.message != null" text-wrap>{{chat.message}}</p>
+            <span class="triangle"></span>
+          </div>
+        </div>
+
+        <div class="chat-message" text-left *ngIf="chat.user !== 'user'">
+          <div class="left-bubble">
+            <span class="msg-date">{{chat.sendDate | date:'short'}}</span>
+            <p *ngIf="chat.message != null" text-wrap>{{chat.message}}</p>
+            <span class="triangle"></span>
+          </div>
+        </div>
+
+      </ng-template>
+
+    </ion-item>
   </ion-list>
 </ion-content>
 
 <ion-footer *ngIf="!(complainStatus == 3)">
 
-  <ion-grid>
+  <!-- <ion-grid>
     <ion-row>
       <ion-col col-10>
-        <ion-input type="text" placeholder="Type a message" [(ngModel)]="leaveMess" name="message"></ion-input>
+        <ion-input type="text" placeholder="Type a message" [(ngModel)]="data.message" name="message"></ion-input>
       </ion-col>
       <ion-col col-2 style="text-align: end;">
-        <button ion-button clear icon-only item-right [disabled]="!leaveMess" (click)=" onPost() ">
+        <button ion-button clear icon-only item-right [disabled]="!data.message" (click)=" sendMessage() ">
           <ion-icon name="paper-plane"></ion-icon>
         </button>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
+  <form (ngSubmit)="sendMessage()">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-10>
+          <ion-input #chat_input type="text" placeholder="Type a message" [(ngModel)]="data.message"  name="message"></ion-input>
+        </ion-col>
+        <ion-col col-2 style="text-align: end;">
+          <button ion-button clear icon-only float-end type="submit">
+            <ion-icon color="primary" name="send"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-footer>
