@@ -33,6 +33,11 @@ export class AdvertisementServiceProvider {
     return this.apiService.post(this.advertisement, information);
   }
 
+  public getfiatdata(type, fiat) {
+        let url = `/advertisement/getfiatdata/${type}/${fiat}`;
+        return this.apiService.get(url);
+      }
+
   public getMyadvertisement(username, type): Observable<advertisement[]> {
     let URL =
       this.advertisement + `/myadvertisement?owner=${username}&visible=${type}`;

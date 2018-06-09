@@ -26,13 +26,13 @@
     <ion-item>
       <ion-label>{{'SelectCurrency' | translate}}</ion-label>
       <ion-select item-right [(ngModel)]="model.crypto" (ngModelChange)="getcryptoprice()" formControlName="crypto">
-        <ion-option value="BITCOIN">Bitcoin</ion-option>
-        <ion-option value="ETHEREUM">Ethereum</ion-option>
-        <ion-option value="RIPPLE">Ripple</ion-option>
-        <ion-option value="MONERO">Monero</ion-option>
-        <ion-option value="STELLAR">Stellar</ion-option>
-        <ion-option value="CARDANO">Cardano</ion-option>
-        <ion-option value="ZILLIQA">Zilliqa</ion-option>
+        <ion-option *ngIf="crypto.BITCOIN" value="BITCOIN">Bitcoin</ion-option>
+        <ion-option *ngIf="crypto.ETHEREUM" value="ETHEREUM">Ethereum</ion-option>
+        <ion-option *ngIf="crypto.RIPPLE" value="RIPPLE">Ripple</ion-option>
+        <ion-option *ngIf="crypto.MONERO" value="MONERO">Monero</ion-option>
+        <ion-option *ngIf="crypto.STELLAR" value="STELLAR">Stellar</ion-option>
+        <ion-option *ngIf="crypto.CARDANO" value="CARDANO">Cardano</ion-option>
+        <ion-option *ngIf="crypto.ZILLIQA" value="ZILLIQA">Zilliqa</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
@@ -47,8 +47,7 @@
     </ion-item>
     <ion-item>
       <ion-label>{{'Currency' | translate}}</ion-label>
-      <ion-select item-right [(ngModel)]="model.fiat" (ngModelChange)="getcryptoprice()" formControlName="fiat">
-        <ion-option value="SGD">{{'fiat.SGD' | translate}}</ion-option>
+      <ion-select item-right [(ngModel)]="model.fiat" (ngModelChange)="fiatchange()" formControlName="fiat">        <ion-option value="SGD">{{'fiat.SGD' | translate}}</ion-option>
         <ion-option value="CNY">{{"fiat.CNY" | translate}}</ion-option>
         <ion-option value="THB">{{"fiat.THB" | translate}}</ion-option>
         <ion-option value="MYR">{{"fiat.MYR" | translate}}</ion-option>

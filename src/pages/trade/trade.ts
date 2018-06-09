@@ -159,9 +159,8 @@ export class TradePage {
   ionViewWillEnter() {
   }
   ionViewDidEnter() {
-    this.storage
-      .get('nativeRegion')
-      .then(value => {
+    this.storage.ready().then(() => {
+      this.storage.get('nativeRegion').then(value => {
         if (value) {
           this.country = value.region;
         } else {
@@ -169,6 +168,8 @@ export class TradePage {
         }
       })
       .then(() => this.doRefresh());
+    })
+  
   }
   doRefresh(refresher?) {
     this.currentuser = this.userservice.getCurrentUser().username;
@@ -193,26 +194,37 @@ export class TradePage {
         });
     }
   }
-  myadvertisement(information) {
-    this.appCtrl.getRootNav().push(ViewMyAdvertisementPage, {
-      information: information,
-    });
-  }
-  adinformation(information) {
+  
+  adinformation(information,ismine) {
     this.events.subscribe('reloadtrade', () => {
       this.doRefresh();
       this.events.unsubscribe('reloadtrade');
     });
-    if (information.type == 1) {
+    if (ismine) {
       this.appCtrl.getRootNav().push(AdinformationPage, {
         information: information,
-        tradetype: { type: 'Buy', crypto: information.crypto, }
+        tradetype: { type: 'My', crypto: 'Advertisement', ismine: ismine }
       });
     } else {
-      this.appCtrl.getRootNav().push(AdinformationPage, {
-        information: information,
-        tradetype: { type: 'Sell', crypto: information.crypto, }
-      });
+      if (information.type == 1) {
+        	        this.appCtrl.getRootNav().push(AdinformationPage, {
+                information: information,
+                 tradetype: {
+                    type: 'Buy',
+                    crypto: information.crypto,
+                    ismine: ismine
+                  }
+                });
+              } else {
+                this.appCtrl.getRootNav().push(AdinformationPage, {
+                  information: information,
+                  tradetype: {
+                    type: 'Sell',
+                    crypto: information.crypto,
+                    ismine: ismine
+                  }
+              });
+              }
     }
   }
   // viewMyAdv(information){

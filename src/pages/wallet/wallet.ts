@@ -28,6 +28,7 @@ import { WalletDetailsPage } from '../wallet-details/wallet-details';
 export class WalletPage implements OnInit{
   private scannedText: string;
   segments = 'ETH';
+  selectedType = "ETH";
   tradeSegments = 'Receive';
   public walletBalance = { balance: 0  };
   walletInfo = {
@@ -200,17 +201,12 @@ export class WalletPage implements OnInit{
     
     this.walletService.getWalletInfo().subscribe(result => {
       this.walletInfo = result;
-<<<<<<< HEAD
       console.log("ITS ETH!" + this.walletInfo.ETH.address)
       this.balance(this.walletInfo.id,'ETH');
       loader.dismiss();
       console.log(this.walletInfo.id);
       console.log("ITS ETH2!" + this.walletInfo.ETH.address)
       console.log("ETH BAL!" + this.walletBalance.balance)
-=======
-      console.log(this.walletInfo.id)
-      loader.dismiss().catch((error)=>{ console.log(error) });
->>>>>>> eeaa28afa5579c5a3720ea80e8944aa7876683f7
     })
   
   }
