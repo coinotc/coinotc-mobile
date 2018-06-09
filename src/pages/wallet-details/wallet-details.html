@@ -53,7 +53,7 @@
       <h2>Order No: {{completedHistory.orderNo}} {{completedHistory | json}}</h2>
       <h3>{{completedHistory.createdAt | date: 'medium'}}</h3>
       <!-- <p><a href="https://rinkeby.etherscan.io/tx/{{completedHistory.receipt.hash}}">View transaction</a></p> -->
-      <button ion-button color="primary" (tap)="openLink(pendingHistory.receipt.hash)">View Transaction</button>
+      <button ion-button color="primary" (tap)="openLink(completedHistory.receipt.hash)">View Transaction</button>
 
     </ion-item>
 
