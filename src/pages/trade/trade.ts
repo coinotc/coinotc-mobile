@@ -21,6 +21,7 @@ import { BannerControlProvider } from '../../providers/banner-control/banner-con
 import { banner } from '../../models/banner-control';
 import { Storage } from '@ionic/storage';
 import { ViewMyAdvertisementPage } from '../view-my-advertisement/view-my-advertisement';
+import { CryptowalletProvider } from '../../providers/cryptowallet/cryptowallet';
 /**
  * Generated class for the TradePage page.
  *
@@ -134,6 +135,30 @@ export class TradePage {
   currentuser;
   banners;
   query;
+  walletInfo = {
+    id: 1,
+    ETH: {
+        address: 1
+    
+    },
+    ADA: {
+        address: 1
+     
+    },
+    XRP: {
+        address:1
+  
+    },
+    XLM: {
+        address: 1
+
+    },
+    XMR: {
+        address: 1
+
+    }
+  };
+  walletBalance;
   public list: advertisement[];
   constructor(
     public popoverCtrl: PopoverController,
@@ -147,7 +172,8 @@ export class TradePage {
     public renderer: Renderer,
     public myElement: ElementRef,
     public bannerControl: BannerControlProvider,
-    public ProfileService: ProfileServiceProvider
+    public ProfileService: ProfileServiceProvider,
+    public walletService  : CryptowalletProvider,
   ) {
     // this.showheader = false;
     // this.hideheader = true;
@@ -213,18 +239,55 @@ export class TradePage {
                     type: 'Buy',
                     crypto: information.crypto,
                     ismine: ismine
-                  }
+                  },
+                  walletBalance : {"balance":"9999999999999999"}
                 });
               } else {
-                this.appCtrl.getRootNav().push(AdinformationPage, {
-                  information: information,
-                  tradetype: {
-                    type: 'Sell',
-                    crypto: information.crypto,
-                    ismine: ismine
-                  }
-              });
-              }
+                // check wallet balance before selling.
+                let type = null;
+                console.log(">>> <<< CRYPTO >>> " + information.crypto);
+                // ETHEREUM RIPPLE MONERO STELLAR CARDANO
+                console.log(this.walletInfo.id);
+                if(information.crypto ==='ETHEREUM'){
+                  type = 'eth';
+                }else if(information.crypto ==='RIPPLE'){
+                  type = 'xrp';
+                }else if(information.crypto ==='MONERO'){
+                  type = 'xmr';
+                }else if(information.crypto ==='STELLAR'){
+                  type = 'xlm';
+                }else if(information.crypto ==='CARDANO'){
+                  type = 'ada';
+                }
+                
+                if(type != null){
+                  this.walletService.getWalletBalance(this.walletInfo.id, type).subscribe(result => {
+                    console.log(type);
+                    console.log("ADD ID!"+this.walletInfo.id)
+                    if(type === 'ADA'){
+                      console.log("its ADA!");
+                      this.walletBalance = {balance: +result.balance/1000000};
+                    }else if (type === 'XMR'){
+                      console.log("its XMR!");
+                      this.walletBalance = {balance: +result.balance/1000000000000};;
+                    }else{
+                      console.log(">>>>>" + result)
+                      this.walletBalance = result; 
+                      console.log("BALANCE"+ JSON.stringify(this.walletBalance));
+                    }
+
+                    this.appCtrl.getRootNav().push(AdinformationPage, {
+                      information: information,
+                      tradetype: {
+                        type: 'Sell',
+                        crypto: information.crypto,
+                        ismine: ismine
+                      },
+                      walletBalance : this.walletBalance
+                  });
+                  })
+                }
+            }
     }
   }
   // viewMyAdv(information){
@@ -270,7 +333,11 @@ export class TradePage {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+      this.walletService.getWalletInfo().subscribe(result => {
+        this.walletInfo = result;
+      })
+  }
 }
 
 @Pipe({

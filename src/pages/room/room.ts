@@ -26,7 +26,7 @@ import { Observable } from 'rxjs';
 import { ImageViewerController } from 'ionic-img-viewer';
 import { AnonymousSubscription } from 'rxjs/Subscription';
 import { Storage } from '@ionic/storage';
-
+import { CryptowalletProvider } from '../../providers/cryptowallet/cryptowallet';
 /**
  * Generated class for the RoomPage page.
  *
@@ -127,7 +127,8 @@ export class ModalContentPage {
     public viewCtrl: ViewController,
     public navCtrl: NavController,
     private events: Events,
-    private storage: Storage
+    private storage: Storage,
+    private wallet: CryptowalletProvider
   ) {
     this.roomkey = this.params.data.roomkey
     this.orderInfo = this.params.data.orderInfo;
@@ -148,6 +149,7 @@ export class ModalContentPage {
         order: this.orderInfo._id
       };
     });
+    console.log(JSON.stringify(this.orderInfo));
   }
 
   onRefresh() {
@@ -181,6 +183,31 @@ export class ModalContentPage {
   onInformed() {
     this.orderInfo.finished = 2;
     this.orderServiceProvider.updateOrder(this.orderInfo).subscribe(result => {
+      let InformeData = firebase.database().ref('chatrooms/' + this.roomkey + '/chats').push();
+      InformeData.set({
+        type: 'informed',
+        user: this.user.username,
+        message: this.user.username + ' has made a fiat payment.',
+        sendDate: Date()
+      });
+      this.data.message = '';
+
+      firebase.database().ref('chatrooms/' + this.roomkey + '/chats').on('value', resp => {
+        this.chats = [];
+        this.chats = snapshotToArray(resp);
+        setTimeout(() => {
+          if (this.offStatus === false) {
+            //this.content.scrollToBottom(300);
+          }
+        }, 1000);
+      });
+      //Send push notification to trader
+      console.log(this.notification);
+      this.alertServiceProvider
+        .onNotification(this.notification)
+        .subscribe(result => {
+          console.log(JSON.stringify(result));
+        });
       this.orderServiceProvider
         .getSpecificOrder(this.orderInfo._id)
         .subscribe(result => {
@@ -188,31 +215,7 @@ export class ModalContentPage {
         });
       this.decreaseCount();
     });
-    let InformeData = firebase.database().ref('chatrooms/' + this.roomkey + '/chats').push();
-    InformeData.set({
-      type: 'informed',
-      user: this.user.username,
-      message: this.user.username + ' has made a fiat payment.',
-      sendDate: Date()
-    });
-    this.data.message = '';
-
-    firebase.database().ref('chatrooms/' + this.roomkey + '/chats').on('value', resp => {
-      this.chats = [];
-      this.chats = snapshotToArray(resp);
-      setTimeout(() => {
-        if (this.offStatus === false) {
-          //this.content.scrollToBottom(300);
-        }
-      }, 1000);
-    });
-    //Send push notification to trader
-    console.log(this.notification);
-    this.alertServiceProvider
-      .onNotification(this.notification)
-      .subscribe(result => {
-        console.log(JSON.stringify(result));
-      });
+    
   }
 
   onFinished() {
@@ -324,7 +327,7 @@ export class ModalContentPage {
     FinishData.set({
       type: 'finish',
       user: this.user.username,
-      message: this.user.username + 'has released the coins to wallet.',
+      message: this.user.username + ' has released the coins to your wallet.',
       sendDate: Date()
     });
     this.data.message = '';
@@ -372,7 +375,7 @@ export class ModalContentPage {
     RatingData.set({
       type: 'rating',
       user: this.user.username,
-      message: this.user.username + 'has rated you.',
+      message: this.user.username + ' has rated you.',
       sendDate: Date()
     });
     this.data.message = '';

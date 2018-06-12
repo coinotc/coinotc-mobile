@@ -43,6 +43,7 @@ export class AdinformationPage {
   ismine;
   range;
   loading;
+  walletBalance;
   notification = new Notification('', null, null, 'high');
   orderinformation = new OrderInformation(
     null,
@@ -79,6 +80,7 @@ export class AdinformationPage {
     this.tradetype = navParams.data.tradetype;
     this.information = navParams.data.information;
     this.ismine = navParams.data.tradetype.ismine;
+    this.walletBalance = navParams.data.walletBalance;
     console.log(navParams.data);
     this.orderservice
       .getMyTrade(this.navParams.data.information.owner)
@@ -169,62 +171,82 @@ export class AdinformationPage {
           this.orderinformation.message = this.information.message;
           this.orderinformation.owner = this.information.owner;
           this.orderinformation.adid = this.information._id;
-          // console.log(this.orderinformation);
-          this.orderservice.postorder(this.orderinformation).subscribe(
-            result => {
-              let owner = this.information.owner;
-              this.loading.dismiss();
-              this.data.name = this.userservice.getCurrentUser().username;
-              //console.log(JSON.parse(JSON.stringify(result,null,4)));
-              this.data.roomname = JSON.parse(JSON.stringify(result))._id;
-              let newData = this.ref.push();
-              newData.set({
-                roomname: this.data.roomname
-              }); //定义房间名 并创建房间
-              this.roomkey = getRoomKey(this.ref);
-              console.log(this.roomkey + '<<<<<<<<<<here is the roomkey');
-              this.orderservice
-                .addRoomKey(this.roomkey, this.data.roomname)
-                .subscribe();
-              if (this.tradetype.type == 'Buy') {
-                this.notification.data = {
-                  type: `${this.orderinformation.seller}OrderChanged`,
-                  order: result._id,
-                  pushData: {
+          console.log("Wallet balance > " + JSON.stringify(this.walletBalance.balance));
+          console.log(" trade quantity> " + this.orderinformation.quantity);
+          console.log("Wallet balance > " + typeof(this.walletBalance.balance));
+          console.log(" trade quantity> " + typeof(this.orderinformation.quantity));
+          console.log(+this.walletBalance.balance >= +this.orderinformation.quantity);
+          if((+this.walletBalance.balance) != NaN && (+this.orderinformation.quantity) != NaN){
+            if(+this.walletBalance.balance >= +this.orderinformation.quantity){
+              console.log("Can transact !");
+              this.orderservice.postorder(this.orderinformation).subscribe(
+                result => {
+                  let owner = this.information.owner;
+                  this.loading.dismiss();
+                  this.data.name = this.userservice.getCurrentUser().username;
+                  //console.log(JSON.parse(JSON.stringify(result,null,4)));
+                  this.data.roomname = JSON.parse(JSON.stringify(result))._id;
+                  let newData = this.ref.push();
+                  newData.set({
+                    roomname: this.data.roomname
+                  }); //定义房间名 并创建房间
+                  this.roomkey = getRoomKey(this.ref);
+                  console.log(this.roomkey + '<<<<<<<<<<here is the roomkey');
+                  this.orderservice
+                    .addRoomKey(this.roomkey, this.data.roomname)
+                    .subscribe();
+                  if (this.tradetype.type == 'Buy') {
+                    this.notification.data = {
+                      type: `${this.orderinformation.seller}OrderChanged`,
+                      order: result._id,
+                      pushData: {
+                        order: result,
+                        trader: owner,
+                        roomkey: this.roomkey,
+                        type: 'order'
+                      }
+                    };
+                  } else {
+                    this.notification.data = {
+                      type: `${this.orderinformation.buyer}OrderChanged`,
+                      order: result._id,
+                      pushData: {
+                        order: result,
+                        trader: owner,
+                        roomkey: this.roomkey,
+                        type: 'order'
+                      }
+                    };
+                  }
+                  console.log(this.notification);
+                  this.alertService
+                    .onNotification(this.notification)
+                    .subscribe(result => console.log(JSON.stringify(result)));
+                  this.navCtrl.push(RoomPage, {
                     order: result,
                     trader: owner,
                     roomkey: this.roomkey,
                     type: 'order'
-                  }
-                };
-              } else {
-                this.notification.data = {
-                  type: `${this.orderinformation.buyer}OrderChanged`,
-                  order: result._id,
-                  pushData: {
-                    order: result,
-                    trader: owner,
-                    roomkey: this.roomkey,
-                    type: 'order'
-                  }
-                };
-              }
-              console.log(this.notification);
-              this.alertService
-                .onNotification(this.notification)
-                .subscribe(result => console.log(JSON.stringify(result)));
-              this.navCtrl.push(RoomPage, {
-                order: result,
-                trader: owner,
-                roomkey: this.roomkey,
-                type: 'order'
-              });
-              //this.navCtrl.push(OrderWindowPage, { order: result, trader: owner });
-            },
-            error => {
+                  });
+                  //this.navCtrl.push(OrderWindowPage, { order: result, trader: owner });
+                },
+                error => {
+                  let toast = this.toastCtrl.create({
+                    message: error.error,
+                    duration: 2000
+                  });
+                  toast.onDidDismiss(() => {
+                    this.navCtrl.pop();
+                    this.loading.dismiss();
+                  });
+                  toast.present();
+                }
+              );
+            }else{
+              console.log("Cannot transact !");
               let toast = this.toastCtrl.create({
-                message: error.error,
-                duration: 2000
+                message: "Insufficient fund",
+                duration: 3000
               });
               toast.onDidDismiss(() => {
                 this.navCtrl.pop();
@@ -232,7 +254,8 @@ export class AdinformationPage {
               });
               toast.present();
             }
-          );
+          }
+          
         } else {
           let toast = this.toastCtrl.create({
             message: `this advertisement is closed`,

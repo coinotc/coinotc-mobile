@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController, LoadingController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Clipboard } from '@ionic-native/clipboard';
-
 import { CryptowalletProvider } from '../../providers/cryptowallet/cryptowallet';
 import { Observable } from 'rxjs/Rx';
 import { concatMap, mapTo } from 'rxjs/operators';
@@ -141,7 +140,6 @@ export class WalletPage implements OnInit{
         
         console.log(this.walletBalance.balance)
       })
-
     }else{
       this.balance(id, type);
     } 
