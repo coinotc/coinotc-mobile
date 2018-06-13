@@ -78,8 +78,7 @@ export class AdinformationPage {
   ) {
     this.tradetype = navParams.data.tradetype;
     this.information = navParams.data.information;
-    this.ismine = navParams.data.tradetype.ismine;
-    console.log(navParams.data);
+    this.ismine = this.userservice.getCurrentUser().username == this.information.owner;
     this.orderservice
       .getMyTrade(this.navParams.data.information.owner)
       .subscribe(result => {
