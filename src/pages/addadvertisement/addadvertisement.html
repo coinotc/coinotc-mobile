@@ -46,7 +46,8 @@
     </ion-item>
     <ion-item>
       <ion-label>{{'Currency' | translate}}</ion-label>
-      <ion-select item-right [(ngModel)]="model.fiat" (ngModelChange)="fiatchange()" formControlName="fiat">
+      <ion-select item-right [(ngModel)]="model.fiat" (ngModelChange)="getcryptoprice()" formControlName="fiat">
+        <!-- <ion-select item-right [(ngModel)]="model.fiat" (ngModelChange)="fiatchange()" formControlName="fiat"> -->
         <ion-option value="SGD">{{'fiat.SGD' | translate}}</ion-option>
         <ion-option value="CNY">{{"fiat.CNY" | translate}}</ion-option>
         <ion-option value="THB">{{"fiat.THB" | translate}}</ion-option>

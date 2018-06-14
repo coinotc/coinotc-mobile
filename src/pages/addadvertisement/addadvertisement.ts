@@ -102,7 +102,8 @@ export class AddadvertisementPage {
         message: ['', Validators.required]
       });
     }
-    this.fiatchange();
+    // this.fiatchange();
+    this.getcryptoprice();
   }
   notbelowmax() {
     if (this.model.max_price && this.model.min_price) {
@@ -115,56 +116,56 @@ export class AddadvertisementPage {
       this.belowmax = true;
     }
   }
-  checkcrypto(crypto) {
-    switch (crypto) {
-      case 'BITCOIN':
-        this.crypto.BITCOIN = false; break;
-      case 'ETHEREUM':
-        this.crypto.ETHEREUM = false; break;
-      case 'RIPPLE':
-        this.crypto.RIPPLE = false; break;
-      case 'MONERO':
-        this.crypto.MONERO = false; break;
-      case 'STELLAR':
-        this.crypto.STELLAR = false; break;
-      case 'CARDANO':
-        this.crypto.CARDANO = false; break;
-      case 'ZILLIQA':
-        this.crypto.ZILLIQA = false; break;
-    }
-  };
+  // checkcrypto(crypto) {
+  //   switch (crypto) {
+  //     case 'BITCOIN':
+  //       this.crypto.BITCOIN = false; break;
+  //     case 'ETHEREUM':
+  //       this.crypto.ETHEREUM = false; break;
+  //     case 'RIPPLE':
+  //       this.crypto.RIPPLE = false; break;
+  //     case 'MONERO':
+  //       this.crypto.MONERO = false; break;
+  //     case 'STELLAR':
+  //       this.crypto.STELLAR = false; break;
+  //     case 'CARDANO':
+  //       this.crypto.CARDANO = false; break;
+  //     case 'ZILLIQA':
+  //       this.crypto.ZILLIQA = false; break;
+  //   }
+  // };
 
-  fiatchange() {
-    this.crypto = {
-      BITCOIN: true,
-      ETHEREUM: true,
-      RIPPLE: true,
-      MONERO: true,
-      STELLAR: true,
-      CARDANO: true,
-      ZILLIQA: true
-    };
-    if (this.type == "Buy") {
-      this.adservice.getfiatdata(1, this.model.fiat).subscribe(result => {
-        console.log(result);
-        if (result.length) {
-          for (let i = 0; i < result.length; i++) {
-            this.checkcrypto(result[i].crypto);
-          }
-        }
-      })
-    } else {
-      this.adservice.getfiatdata(0, this.model.fiat).subscribe(result => {
-        console.log(result);
-        if (result.length) {
-          for (let i = 0; i < result.length; i++) {
-            this.checkcrypto(result[i].crypto);
-          }
-        }
-      });
-      this.getcryptoprice();
-    }
-  }
+  // fiatchange() {
+  //   this.crypto = {
+  //     BITCOIN: true,
+  //     ETHEREUM: true,
+  //     RIPPLE: true,
+  //     MONERO: true,
+  //     STELLAR: true,
+  //     CARDANO: true,
+  //     ZILLIQA: true
+  //   };
+  //   if (this.type == "Buy") {
+  //     this.adservice.getfiatdata(1, this.model.fiat).subscribe(result => {
+  //       console.log(result);
+  //       if (result.length) {
+  //         for (let i = 0; i < result.length; i++) {
+  //           this.checkcrypto(result[i].crypto);
+  //         }
+  //       }
+  //     })
+  //   } else {
+  //     this.adservice.getfiatdata(0, this.model.fiat).subscribe(result => {
+  //       console.log(result);
+  //       if (result.length) {
+  //         for (let i = 0; i < result.length; i++) {
+  //           this.checkcrypto(result[i].crypto);
+  //         }
+  //       }
+  //     });
+  //     this.getcryptoprice();
+  //   }
+  // }
   getcryptoprice() {
     switch (this.model.fiat) {
       case 'SGD':
