@@ -16,6 +16,6 @@ export class GetIpProvider {
     console.log('Hello GetIpProvider Provider');
   }
   public getIP():Observable<any>{
-    return this.apiService.getExternal("https://api.ipify.org?format=json")
+    return this.apiService.getExternal("http://ip-api.com/json")
   }
 }

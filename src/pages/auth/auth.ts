@@ -389,10 +389,11 @@ export class AuthPage {
             .present();
         } else {
           this.getIpService.getIP().subscribe(result => {
+            console.log("MY IP IS HERE" + JSON.stringify(result.query))
             this.navCtrl.setRoot(PincodePage, {
               user: credentials,
               deviceToken: this.deviceToken,
-              ip: result
+              ip: result.query
             });
           });
         }
