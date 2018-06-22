@@ -6,6 +6,7 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
 import { AlertServiceProvider } from '../../providers/alert-service/alert-service';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
+import { AdvertisementServiceProvider } from '../../providers/advertisement-service/advertisement-service'
 import {
   FormBuilder,
   FormGroup,
@@ -70,7 +71,8 @@ export class AlertPage {
     private alertServiceProvider: AlertServiceProvider,
     private userServiceProvider: UserServiceProvider,
     private orderServiceProvider: OrderServiceProvider,
-    private profileServiceProvider: ProfileServiceProvider
+    private profileServiceProvider: ProfileServiceProvider,
+    private advertisementServiceProvider: AdvertisementServiceProvider
   ) {
     this.user = this.userServiceProvider.getCurrentUser().username;
     this.doRefresh();
@@ -96,13 +98,14 @@ export class AlertPage {
   changeCrypto(cryptoValue) {
     this.crypto = cryptoValue;
     this.doRefresh();
-    this.orderServiceProvider
-      .getAlertInformation('USD', this.crypto)
+    this.advertisementServiceProvider
+      .getprice(this.crypto,'USD')
       .subscribe(result => {
         if (!result) {
           this.averagePrice = 0;
         } else {
-          this.averagePrice = result;
+          this.averagePrice = result[0].price_usd;
+          console.log(">>>>ALERT PRICE" + JSON.stringify(this.averagePrice))
         }
       });
   }
@@ -119,13 +122,14 @@ export class AlertPage {
   }
 
   doRefresh(refresher?) {
-    this.orderServiceProvider
-      .getAlertInformation('USD', this.crypto)
+    this.advertisementServiceProvider
+      .getprice(this.crypto,'USD')
       .subscribe(result => {
         if (!result) {
           this.averagePrice = 0;
         } else {
-          this.averagePrice = result;
+          this.averagePrice = result[0].price_usd;
+          console.log(">>>>ALERT PRICE" + JSON.stringify(this.averagePrice))
         }
       });
     this.alerts = this.alertServiceProvider.getAlerts(this.user, this.crypto);
