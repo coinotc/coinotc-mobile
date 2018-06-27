@@ -10,7 +10,7 @@ import { JwtServiceProvider } from '../jwt-service/jwt-service';
 @Injectable()
 export class ApiServiceProvider {
   private API_URL = environment.api_url;
-
+  
   constructor(public http: Http, private jwtService: JwtServiceProvider) {}
 
   private setHeaders(): Headers {
@@ -35,6 +35,7 @@ export class ApiServiceProvider {
   }
 
   private formatErrors(error: any) {
+    console.log("formatErrors > " + error);
     return Observable.throw(error.json());
   }
 
