@@ -9,7 +9,7 @@
   <ion-navbar mode="ios">
     <ion-title mode="ios">{{segments}} Wallet</ion-title>
      <ion-buttons end>
-        <button ion-button icon-only style="background: transparent;" (tap)="showTransactionHistory(this.selectedType)">
+        <button ion-button icon-only style="background: transparent;" (tap)="showTransactionHistory(selectedType)">
             <ion-icon name="clipboard" style="color: white; font-size: 22px;"></ion-icon>
         </button>
     </ion-buttons>
@@ -17,19 +17,19 @@
 
   <ion-toolbar>
     <ion-segment [(ngModel)]="segments">
-      <ion-segment-button value="ETH" (tap)="balance(this.walletInfo.id,'ETH')">
+      <ion-segment-button value="ETH" (tap)="balance(walletInfo.id,'ETH')">
         ETH
       </ion-segment-button>
-      <ion-segment-button value="XMR" (tap)="balance(this.walletInfo.id,'XMR')">
+      <ion-segment-button value="XMR" (tap)="balance(walletInfo.id,'XMR')">
         XMR
       </ion-segment-button>
-      <ion-segment-button value="XRP" (tap)="balance(this.walletInfo.id,'XRP')">
+      <ion-segment-button value="XRP" (tap)="balance(walletInfo.id,'XRP')">
         XRP
       </ion-segment-button>
-      <ion-segment-button value="XLM" (tap)="balance(this.walletInfo.id,'XLM')">
+      <ion-segment-button value="XLM" (tap)="balance(walletInfo.id,'XLM')">
         XLM
       </ion-segment-button>
-      <ion-segment-button value="ADA" (tap)="balance(this.walletInfo.id,'ADA')">
+      <ion-segment-button value="ADA" (tap)="balance(walletInfo.id,'ADA')">
         ADA
       </ion-segment-button>
     </ion-segment>
