@@ -56,8 +56,7 @@ export class AuthPage {
   password = 'password';
   password_type = 'password';
   confirm_password_type = 'password';
-  onlineToast: any;
-  offlineToast: any;
+  networkToast: any;
   profileBadge: number;
   orderBadge: Array<String> = [];
   private PASSWORD_PATTERN = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{12,}$/;
@@ -439,8 +438,7 @@ export class AuthPage {
   displayOnlineNetworkUpdate(connectionState: string) {
     let networkType = this.network.type;
     this.networkStatusIndicator = 2;
-    //this.offlineToast.dismiss();
-    this.onlineToast = this.toastCtrl
+    this.networkToast = this.toastCtrl
       .create({
         message: `You are now ${connectionState} via ${networkType}`,
         duration: 3000
@@ -450,11 +448,10 @@ export class AuthPage {
 
   displayOfflineNetworkUpdate(connectionState: string) {
     this.networkStatusIndicator = 1;
-    //this.onlineToast.dismiss();
-    this.offlineToast = this.toastCtrl
+    this.networkToast = this.toastCtrl
       .create({
         message: `You are now offline`,
-        showCloseButton: true
+        duration: 3000
       })
       .present();
   }

@@ -106,6 +106,17 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/translate/', '.json');
 }
 
+class CoinOTCIonicErrorHandler extends ErrorHandler {
+  constructor(){
+    super();
+  }
+
+  handleError(err: any){
+    console.log(err);
+    // send to an endpoint to send email to alert the development team.
+  }
+}
+
 @NgModule({
   declarations: [
     MyApp,
@@ -230,7 +241,7 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: ErrorHandler, useClass: CoinOTCIonicErrorHandler },
     OrderServiceProvider,
     AdvertisementServiceProvider,
     UserServiceProvider,

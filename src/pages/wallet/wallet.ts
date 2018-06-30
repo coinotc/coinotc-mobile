@@ -29,6 +29,7 @@ export class WalletPage implements OnInit{
   segments = 'ETH';
   selectedType = "ETH";
   tradeSegments = 'Receive';
+  loader;
   public walletBalance = { balance: 0  };
   walletInfo = {
     id: 1,
@@ -94,6 +95,7 @@ export class WalletPage implements OnInit{
     });
     loader.present();
   }
+
   scan(){
     this.barcodeScanner.scan().then(barcodeData => {
       console.log('Barcode data', barcodeData);
@@ -164,10 +166,13 @@ export class WalletPage implements OnInit{
   }
 
   onComfirm(type) {
-    const loader = this.loadingCtrl.create({
-      content: "Transferring...",
-    });
-    loader.present();
+    if(!this.loader){
+      this.loader = this.loadingCtrl.create({
+        content: "Transferring...",
+      });
+      this.loader.present();
+    }
+
     console.log("Sending ... crypto ");
     console.log(type);
     const transfers = this.walletForm.value;
@@ -175,15 +180,24 @@ export class WalletPage implements OnInit{
     console.log(JSON.stringify(transfers));
     this.walletService.transfer(transfers).subscribe(result => {
       this.walletInfo = result;
-      loader.dismiss().catch((error)=>{console.log(error)});
+      if(this.loader){
+        this.loader.dismiss().catch((error)=>{console.log(error)});
+        this.loader = null;
+      }
       console.log(this.walletInfo.id)
     },
     error => {
       console.log(error);
-      loader.dismiss().catch((error)=>{ console.log(error) });
+      if(this.loader){
+        this.loader.dismiss().catch((error)=>{console.log(error)});
+        this.loader = null;
+      }
     },
     () => {
-      loader.dismiss().catch((error)=>{ console.log(error)});
+      if(this.loader){
+        this.loader.dismiss().catch((error)=>{console.log(error)});
+        this.loader = null;
+      }
     })
   }
 
