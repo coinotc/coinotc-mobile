@@ -50,7 +50,7 @@ export class SettingsPage implements OnInit {
     public toastCtrl: ToastController,
     public userService: UserServiceProvider,
     private alertCtrl: AlertController,
-    private storage: Storage,) {
+    private storage: Storage) {
     this.initializeCurrencies();
     this.storage.ready().then(() => this.storage.get('nativeCurrency') as Promise<string>).then(value => {
       if (value != null) {

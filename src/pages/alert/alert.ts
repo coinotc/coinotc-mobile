@@ -21,7 +21,7 @@ import {
   ModalController,
   ViewController
 } from 'ionic-angular';
-
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the AlertPage page.
  *
@@ -63,6 +63,7 @@ export class AlertPage {
       icon: 'cardano'
     }
   ];
+  baseCurrency: any;
 
   constructor(
     public navCtrl: NavController,
@@ -72,7 +73,8 @@ export class AlertPage {
     private userServiceProvider: UserServiceProvider,
     private orderServiceProvider: OrderServiceProvider,
     private profileServiceProvider: ProfileServiceProvider,
-    private advertisementServiceProvider: AdvertisementServiceProvider
+    private advertisementServiceProvider: AdvertisementServiceProvider,
+    private storage: Storage
   ) {
     this.user = this.userServiceProvider.getCurrentUser().username;
     this.doRefresh();
@@ -80,6 +82,14 @@ export class AlertPage {
       this.deviceToken = result[0].deviceToken;
       this.notification.to = this.deviceToken;
       console.log(result[0]);
+    });
+    this.storage.ready().then(() => this.storage.get('nativeCurrency') as Promise<string>).then(value => {
+      if (value != null) {
+        console.log(value['currency']);
+        this.baseCurrency = value['currency'];
+      } else {
+        this.baseCurrency = 'USD';
+      }
     });
   }
 
@@ -161,14 +171,16 @@ export class AddAlertPage {
     public viewCtrl: ViewController,
     private orderServiceProvider: OrderServiceProvider,
     private alertServiceProvider: AlertServiceProvider,
+    private advertisementServiceProvider: AdvertisementServiceProvider,
     private fb: FormBuilder
   ) {
     this.user = this.navParams.get('user');
     this.crypto = this.navParams.get('crypto');
-    this.orderServiceProvider
-      .getAlertInformation(this.fiat, this.crypto)
+    this.advertisementServiceProvider
+      .getprice(this.crypto,this.fiat)
       .subscribe(result => {
-        this.price = result.toFixed(2);
+        console.log("HERE>>>>IS>>>>RESULT" + JSON.stringify(result));
+        this.price = result[0].price_usd;        
       });
     this.newAlertForm = this.fb.group({
       newPrice: [null, [this.priceValidator]]
@@ -176,10 +188,16 @@ export class AddAlertPage {
   }
 
   onFiat(fiat) {
-    this.orderServiceProvider
-      .getAlertInformation(fiat, this.crypto)
+    // this.orderServiceProvider
+    //   .getAlertInformation(fiat, this.crypto)
+    //   .subscribe(result => {
+    //     this.price = result;
+    //   });
+      this.advertisementServiceProvider
+      .getprice(this.crypto,fiat)
       .subscribe(result => {
-        this.price = result;
+        console.log("HERE>>>>IS>>>>RESULT" + result)
+        this.price = result[0].price_usd;        
       });
     console.log(this.model.above);
   }

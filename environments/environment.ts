@@ -17,6 +17,6 @@ export const environment = {
   //api_url: 'http://192.168.50.116:4001/api'
   //api_url: 'http://192.168.3.193:4001/api'
   //api_url: 'http://192.168.0.110:4001/api'
-  // api_url:  'http://172.17.153.128:4001/api'
-  api_url: 'http://localhost:4001/api'
+  api_url:  'http://172.17.153.128:4001/api'
+  //api_url: 'http://localhost:4001/api'
 };
