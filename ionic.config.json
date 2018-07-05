@@ -1,5 +1,5 @@
 {
-  "name": "coinotc-mobile",
+  "name": "CoinOTC",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

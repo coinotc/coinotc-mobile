@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="market.coinotc.app" version="0.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>coinotc.market</name>
+    <name>CoinOTC</name>
     <description>CoinOTC Singapore.</description>
     <author email="bunnyppl@hotmail.com" href="https://coinotc.market/">CoinOTC Development Team</author>
     <content src="index.html" />

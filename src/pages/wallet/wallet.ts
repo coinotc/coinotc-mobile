@@ -177,7 +177,8 @@ export class WalletPage implements OnInit{
     alert.present();
   }
 
-  onComfirm(type) {
+  onConfirm(type) {
+    console.log("this loader .... confirm  " + this.loader);
     if(!this.loader){
       this.loader = this.loadingCtrl.create({
         content: "Transferring...",

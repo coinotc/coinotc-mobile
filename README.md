@@ -1,5 +1,11 @@
 ##angularfire2 fix
-add angularfire2 node_module folder with this https://github.com/angular/angularfire2/files/1977627/dist.zip
+Extract to the angularfire2 directory under node_modules folder. https://github.com/angular/angularfire2/files/1977627/dist.zip
+
+Build error if this is not applied.
+
+### User Guide
+
+[Click Here](USERGUIDE.md)
 
 #### Legend
 - [ ] Yet To Be Done
@@ -127,5 +133,9 @@ apksigner verify ./platforms/android/build/outputs/apk/coinotc-release.apk
 ```
 ionic cordova build ios
 ```
+
+* If you are getting FCM error copy GoogleService-Info.plist to the ios platform root directory.
+
+* Make sure your cordova is up to date (8.0.0) if not the qr code scanner won't work
 
 * Launch xcode, change the version number and archieve the app which eventually will use the app loader to upload to the itunes connect platform .
