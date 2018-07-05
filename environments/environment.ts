@@ -9,7 +9,7 @@ export const environment = {
   //api_url: 'http://api.coinotc.market/api'
   //api_url: 'http://192.168.50.110:3000/api'
   //api_url: 'http://192.168.2.102:3000/api'
-  //api_url: 'https://api.coinotc.market/api'
+  api_url: 'https://api.coinotc.market/api'
   //api_url: 'http://192.168.50.243:3000/api'
   //api_url: 'http://192.168.3.42:4001/api'
   //api_url: 'http://192.168.50.196:3000/api'
@@ -18,5 +18,5 @@ export const environment = {
   //api_url: 'http://192.168.3.193:4001/api'
   //api_url: 'http://192.168.0.110:4001/api'
   //api_url:  'http://172.17.153.128:4001/api'
-  api_url: 'http://localhost:4001/api'
+  //api_url: 'http://localhost:4001/api'
 };

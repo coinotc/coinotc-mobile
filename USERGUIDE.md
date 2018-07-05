@@ -12,3 +12,8 @@
 ## Registration
 
 1. Launch CoinOTC mobile app
+2. Navigate to the Sign Up Page
+
+
+
+<img src="userguide/register-user.png" width="300">
