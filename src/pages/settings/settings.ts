@@ -1,19 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, App, ToastController, AlertController } from 'ionic-angular';
-import { TranslateService } from '@ngx-translate/core';
-import * as _ from 'lodash';
-import { CurrenciesServiceProvider } from '../../providers/currencies/currencies-service';
-import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { ModifyPasswordPage } from '../modify-password/modify-password';
-import { ModifyTradepasswordPage } from '../modify-tradepassword/modify-tradepassword';
-import { ForgetTradePasswordTextPage } from '../forget-trade-password-text/forget-trade-password-text';
-import { AuthPage } from '../auth/auth';
-import { Errors } from '../../models/errors.model';
-import { JwtServiceProvider } from '../../providers/jwt-service/jwt-service';
-import { Storage } from '@ionic/storage';
-import { KycFormPage } from '../kyc-form/kyc-form';
-import { KycPassportPhoto1Page } from '../kyc-passport-photo1/kyc-passport-photo1';
-import { KycListPage } from '../kyc-list/kyc-list';
+import { Component, OnInit } from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  App,
+  ToastController,
+  AlertController
+} from "ionic-angular";
+import { TranslateService } from "@ngx-translate/core";
+import * as _ from "lodash";
+import { CurrenciesServiceProvider } from "../../providers/currencies/currencies-service";
+import { UserServiceProvider } from "../../providers/user-service/user-service";
+import { ModifyPasswordPage } from "../modify-password/modify-password";
+import { ModifyTradepasswordPage } from "../modify-tradepassword/modify-tradepassword";
+import { ForgetTradePasswordTextPage } from "../forget-trade-password-text/forget-trade-password-text";
+import { AuthPage } from "../auth/auth";
+import { Errors } from "../../models/errors.model";
+import { JwtServiceProvider } from "../../providers/jwt-service/jwt-service";
+import { Storage } from "@ionic/storage";
+import { KycFormPage } from "../kyc-form/kyc-form";
+import { KycPassportPhoto1Page } from "../kyc-passport-photo1/kyc-passport-photo1";
+import { KycListPage } from "../kyc-list/kyc-list";
 /**
  * Generated class for the SettingsPage page.
  *
@@ -23,25 +30,29 @@ import { KycListPage } from '../kyc-list/kyc-list';
 
 @IonicPage()
 @Component({
-  selector: 'page-settings',
-  templateUrl: 'settings.html',
+  selector: "page-settings",
+  templateUrl: "settings.html"
 })
 export class SettingsPage implements OnInit {
   currencies: any[];
   language: any;
-  languages = [{ label: 'English', value: 'en' }, { label: '中文', value: 'cn' }];
+  languages = [
+    { label: "English", value: "en" },
+    { label: "中文", value: "cn" }
+  ];
   regions = [
-    { label: 'Global', value: 'global' },
-    { label: 'Singapore', value: 'singapore' },
-    { label: 'China', value: 'china' },
-    { label: 'Malaysia', value: 'malaysia' },
-    { label: 'Korea', value: 'korea' },
-    { label: 'Thailand', value: 'thailand' }
-  ]
+    { label: "Global", value: "global" },
+    { label: "Singapore", value: "singapore" },
+    { label: "China", value: "china" },
+    { label: "Malaysia", value: "malaysia" },
+    { label: "Korea", value: "korea" },
+    { label: "Thailand", value: "thailand" }
+  ];
   region: any;
   baseCurrency: any;
   isSubmitting = false;
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
     public translate: TranslateService,
     public currencyService: CurrenciesServiceProvider,
@@ -50,38 +61,57 @@ export class SettingsPage implements OnInit {
     public toastCtrl: ToastController,
     public userService: UserServiceProvider,
     private alertCtrl: AlertController,
-    private storage: Storage) {
+    private storage: Storage
+  ) {
     this.initializeCurrencies();
-    this.storage.ready().then(() => this.storage.get('nativeCurrency') as Promise<string>).then(value => {
-      if (value != null) {
-        console.log(value['currency']);
-        this.baseCurrency = value['currency'];
-      } else {
-        this.baseCurrency = 'USD';
-      }
-    });
-
-    this.storage.ready().then(() => this.storage.get('preferLanguage') as Promise<string>).then(value => {
-      if (value != null) {
-        let langObj = JSON.parse(JSON.stringify(value));
-        this.language = langObj.language;
-      } else {
-        this.language = 'en';
-      }
-    });
-
-    this.storage.ready().then(() => this.storage.get('nativeRegion') as Promise<string>).then(value => {
-      if (value != null) {
-        let regionObj = JSON.parse(JSON.stringify(value));
-        this.region = regionObj.region;
-      } else {
-        this.region = 'singapore';
-      }
-    });
   }
 
   ngOnInit() {
-    console.log('ngOnInit');
+    console.log("ngOnInit");
+    this.storage
+      .ready()
+      .then(() => this.storage.get("nativeCurrency") as Promise<string>)
+      .then(value => {
+        if (value != null) {
+          console.log(value["currency"]);
+          this.baseCurrency = value["currency"];
+        } else {
+          this.baseCurrency = "USD";
+        }
+        console.log("base currency" + this.baseCurrency);
+        // place the selected base currency on top of the list.
+        this.currencies.forEach((value, index) => {
+          if (value.currenciesCode === this.baseCurrency) {
+            console.log(value.currenciesCode);
+            this.currencies.unshift(value);
+            this.currencies.splice(index, 1);
+          }
+        });
+      });
+
+    this.storage
+      .ready()
+      .then(() => this.storage.get("preferLanguage") as Promise<string>)
+      .then(value => {
+        if (value != null) {
+          let langObj = JSON.parse(JSON.stringify(value));
+          this.language = langObj.language;
+        } else {
+          this.language = "en";
+        }
+      });
+
+    this.storage
+      .ready()
+      .then(() => this.storage.get("nativeRegion") as Promise<string>)
+      .then(value => {
+        if (value != null) {
+          let regionObj = JSON.parse(JSON.stringify(value));
+          this.region = regionObj.region;
+        } else {
+          this.region = "singapore";
+        }
+      });
   }
 
   initializeCurrencies() {
@@ -95,17 +125,20 @@ export class SettingsPage implements OnInit {
         let currencyObj = {
           currenciesCode: currenciesCode[currencyIndex],
           currenciesDesc: currenciesDesc[currencyIndex]
-        }
+        };
         currenciesArr.push(currencyObj);
       }
+      // sort the currencies list.
+      currenciesArr.sort();
       this.currencies = currenciesArr;
     });
   }
+
   switchLanguage() {
     console.log(this.language);
     let preferLanguage = {
       language: this.language
-    }
+    };
     this.userService.updateLanguage(preferLanguage).subscribe(result => {
       console.log(result);
       this.translate.use(this.language);
@@ -116,7 +149,7 @@ export class SettingsPage implements OnInit {
     console.log(this.region);
     let nativeRegion = {
       region: this.region
-    }
+    };
     this.userService.updateRegion(nativeRegion).subscribe(result => {
       console.log(result);
     });
@@ -143,11 +176,12 @@ export class SettingsPage implements OnInit {
     // });
     // alert.present();
     this.navCtrl.push(KycListPage);
-
   }
+
   forgetTradePassword() {
     this.navCtrl.push(ForgetTradePasswordTextPage);
   }
+
   paymentPrdTapped() {
     this.navCtrl.setRoot(ModifyTradepasswordPage);
   }
@@ -161,12 +195,12 @@ export class SettingsPage implements OnInit {
     //console.log(this.userService.logout());
     this.userService.logout().subscribe(
       user => {
-        console.log('log out !!!!!');
+        console.log("log out !!!!!");
         this.jwtService.destroyToken();
-        let tabs = document.querySelectorAll('.tabbar.show-tabbar');
+        let tabs = document.querySelectorAll(".tabbar.show-tabbar");
         if (tabs !== null) {
           Object.keys(tabs).map(key => {
-            tabs[key].style.display = 'none';
+            tabs[key].style.display = "none";
           });
         }
         //let nav = this.appCtrl.getActiveNavs();
@@ -191,14 +225,13 @@ export class SettingsPage implements OnInit {
     console.log("set base currency! " + this.baseCurrency);
     let nativeCurry = {
       currency: this.baseCurrency
-    }
+    };
     this.userService.updateBaseCurrency(nativeCurry).subscribe(result => {
       console.log(result);
     });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
+    console.log("ionViewDidLoad SettingsPage");
   }
-
-};
+}

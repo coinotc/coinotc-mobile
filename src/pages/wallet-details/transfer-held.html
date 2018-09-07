@@ -1,0 +1,20 @@
+<ion-content >
+    <ion-list no-lines [virtualScroll]="transactionHistoryHeldObservable$ | async" approxItemHeight="100px">
+      <ion-item *virtualItem="let heldHistory">
+        <ion-avatar item-start>
+          <img *ngIf="heldHistory.cryptoCurrency == 'ETH'" src="assets/imgs/ETH.png">
+          <img *ngIf="heldHistory.cryptoCurrency == 'ADA'" src="assets/imgs/ADA.jpg">
+          <img *ngIf="heldHistory.cryptoCurrency == 'XLM'" src="assets/imgs/XLM.jpg">
+          <img *ngIf="heldHistory.cryptoCurrency == 'XMR'" src="assets/imgs/XMR.jpg">
+          <img *ngIf="heldHistory.cryptoCurrency == 'XRP'" src="assets/imgs/XRP.jpg">
+        </ion-avatar>
+        <h2>Order No: {{heldHistory.orderNo}} {{heldHistory | json}}</h2>
+        <h3>{{heldHistory.createdAt | date: 'medium'}}</h3>
+        <!-- <p><a href="https://rinkeby.etherscan.io/tx/{{heldHistory.receipt.hash}}">View transaction</a></p> -->
+        <button ion-button color="primary" (tap)="openLink(heldHistory.receipt.hash)">View Transaction</button>
+  
+      </ion-item>
+  
+    </ion-list>
+  
+</ion-content>

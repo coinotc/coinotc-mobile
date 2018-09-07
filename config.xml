@@ -104,4 +104,6 @@
     <engine name="android" spec="6.3.0" />
     <engine name="browser" spec="5.0.3" />
     <engine name="ios" spec="4.5.4" />
+    <allow-navigation href="http://192.168.3.42:8100" />
+    <allow-navigation href="http://172.27.246.227:8100" />
 </widget>

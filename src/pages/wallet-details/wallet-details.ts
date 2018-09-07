@@ -31,6 +31,7 @@ export class WalletDetailsPage implements OnInit {
               public loadingCtrl: LoadingController,
               public browserTab: BrowserTab) {
     this.cryptoType = navParams.get("cryptoType");
+    console.log(`Crypto Type > ${this.cryptoType}`);
   }
 
   ionViewDidLoad() {
@@ -41,7 +42,10 @@ export class WalletDetailsPage implements OnInit {
     this.browserTab.isAvailable()
     .then(isAvailable => {
       if (isAvailable) {
-        this.browserTab.openUrl(`https://rinkeby.etherscan.io/tx/${hash}`);
+        if('ETH' === this.cryptoType){
+          this.browserTab.openUrl(`https://rinkeby.etherscan.io/tx/${hash}`);
+        }
+        
       } else {
         console.log("openurl failed!!!")
       }

@@ -17,6 +17,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AuthPageModule } from '../pages/auth/auth.module';
 import { WalletDetailsPageModule } from '../pages/wallet-details/wallet-details.module';
+import { TransferCompletedPageModule } from '../pages/wallet-details/transfer-complete.module';
 import { WalletPage } from '../pages/wallet/wallet';
 import { TradePage, fiatPopoverPage } from '../pages/trade/trade';
 import { AddadvertisementPage } from '../pages/addadvertisement/addadvertisement';
@@ -192,7 +193,8 @@ class CoinOTCIonicErrorHandler extends ErrorHandler {
     AngularFireStorageModule,
     ModifyPasswordPageModule,
     IonicImageViewerModule,
-    WalletDetailsPageModule
+    WalletDetailsPageModule,
+    TransferCompletedPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
